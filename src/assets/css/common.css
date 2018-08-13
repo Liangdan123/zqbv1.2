@@ -1,0 +1,336 @@
+@charset "utf-8";
+/* CSS common */
+*{padding:0;margin:0;}
+body {font-size:12px;font-family:Verdana,Arial,sans-serif;margin: 0;}
+body,div,dl,dt,dd,ul,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td
+{margin:0;padding:0;}
+ul li {list-style:none;}
+img {vertical-align:middle;border:none;}
+input {vertical-align:middle;}
+a{color:#333333;text-decoration:none;font-size:12px;}
+a:focus {outline:none;-moz-outline:none;}
+em{font-style: normal;}
+.fl{float: left;}
+.f12{font-size:12px;}
+.f13{font-size:13px;}
+.f14{font-size:14px;}
+.f16{font-size:16px;}
+.f18{font-size:18px;}
+.f20{font-size:20px;}
+.f24{font-size:24px;}
+.f32{font-size: 32px;}
+.clearfix{zoom:1;}
+.clearfix:after,.clearfix:before{content:"";display:block;height:0;overflow:hidden;}
+.clearfix:after{clear:both;}
+.w-100{width: 100%;}
+.middle{
+	margin-left: auto;
+	margin-right: auto;
+}
+/*.......................共用颜色.......................*/
+.color-main{
+	color:#0299FF;
+}
+
+.bg-f{
+	background-color: #fff;
+}
+.bg-ee{
+	background-color: #EEF6FD;
+}
+.bg-b{
+	background-color: #0070C9;
+}
+.bg-fo{
+	background-color:#F0F4F7;
+}
+.color-b{
+	color: #0070C9;
+}
+.color-8{
+	color:#808080;
+}
+.color-b:hover{
+	text-decoration: underline;
+}
+.color-FF5B{
+	color:#FF5B00
+}
+.color-6{
+	color: #666;
+}
+.color-3{
+	color: #333;
+}
+.color-7F{
+	color:#7F7F7F;
+}
+.color-f{
+	color:#fff;
+}
+.color-red{
+	color: #B4282D!important;
+}
+.el-button--primary{
+	background-color: #0070C9;
+    border-color: #0070C9;
+}
+.el-button--primary:hover{
+	background-color: #007DE3;
+    border-color: #007DE3;
+}
+.el-button--primary:active{
+	background-color: #005396;
+    border-color: #005396;
+}
+/*.......................定位及浮动.......................*/
+.pos-r{
+	position: relative;
+}
+.pos-a{
+	position: absolute;
+}
+.float-r{
+	float: right;
+}
+.float-l{
+	float: left;
+}
+/*.......................内边距.......................*/
+.pl-10{
+	padding-left: 10px;
+}
+.pr-10{
+	padding-right: 10px;
+}
+.pt-20{
+	padding-top: 20px;
+}
+.pb-20{
+	padding-bottom: 20px;
+}
+.pl-20{
+	padding-left: 20px;
+}
+.pl-15{
+	padding-left: 15px;
+}
+.pr-20{
+	padding-right: 20px;
+}
+.pt-10{
+	padding-top: 10px;
+}
+.px-30{
+	padding-left: 30px;
+	padding-right: 30px;
+}
+.padding-10{
+	padding:10px;
+}
+.px-10{
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.px-15{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.padding-n{
+	padding:0
+}
+/*.......................外边距.......................*/
+
+.ml-0{
+	margin-left: 0!important;
+}
+.ml-10{
+	margin-left: 10px;
+}
+.ml-20{
+	margin-left: 20px;
+}
+.ml-30{
+	margin-left: 30px;
+}
+
+.mr-0{
+	margin-right: 0!important;
+}
+.mr-10{
+	margin-right: 10px;
+}
+.mr-20{
+	margin-right: 20px;
+}
+
+.mb-5{
+	margin-bottom: 5px;
+}
+.mb-10{
+	margin-bottom: 10px;
+}
+.mb-20{
+	margin-bottom: 20px;
+}
+.mb-30{
+	margin-bottom: 30px;
+}
+.mb-40{
+	margin-bottom: 40px;
+}
+
+.mt-10{
+	margin-top: 10px;
+}
+.mt-15{
+	margin-top: 15px;
+}
+.mt-20{
+	margin-top: 20px;
+}
+.mt-30{
+	margin-top: 30px;
+}
+.mt-40{
+	margin-top: 40px;
+}
+.mt-130{
+	margin-top: 130px;
+}
+.mx-15{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+.cursor{
+	cursor: pointer;
+}
+/*.......................display.......................*/
+.display-b{
+	display: block;
+}
+.display-in{
+	display: inline-block;
+}
+.display-n{
+	display: none;
+}
+/*.......................边框.......................*/
+.border-n{
+	border:0;
+}
+/*.......................动效.......................*/
+.transition{
+	transition: all .3s;
+}
+/*.......................文字对齐.......................*/
+.text-l{
+	text-align: left;
+}
+.text-c{
+	text-align: center;
+}
+/*.......................border.......................*/
+.border-f4{
+	border:1px solid #F4F4F4;
+}
+.border-t{
+	border-top: 1px solid #D6D6D6;
+}
+.border-e9-b{
+	border-bottom:1px solid #E9EEF2;
+}
+/*.......................字体加粗.......................*/
+.font-b{
+	font-weight: bold;
+}
+.font-n{
+	font-weight: normal;
+}
+/*.......................radius.......................*/
+.radius-2{
+	border-radius: 2px;
+}
+/*......................超出部分去除滚轮.................*/
+.scrollbar{
+	overflow-x: hidden;
+	overflow-y: auto;
+}
+.scrollbar::-webkit-scrollbar{
+	width:0px
+}
+
+.pos-all{
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+/*......................单选框......................*/
+.radio em {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border: 1px solid #D6D6D6;
+  border-radius: 50%;
+  vertical-align: text-bottom;
+  margin-right: 10px;
+}
+
+.radio input[type="radio"]:checked+em {
+  width: 10px;
+  height: 10px;
+  border: 4px solid #0070C9;
+  border-radius: 50%;
+}
+/*......................多选矿......................*/
+.checkbox em {
+  display: inline-block;
+  position: relative;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border: 1px solid #D6D6D6;
+  border-radius: 2px;
+  vertical-align: text-bottom;
+  margin-right: 4px;
+}
+.checkbox input[type="checkbox"]:checked+em {
+    position: relative;
+    background-color:#0070C9;
+    border-color: #0070C9;
+}
+.checkbox input[type="checkbox"]:checked+em:after{
+    content: "";
+    position: absolute;
+    border: 2px solid #fff; 
+    top: 2px;
+    height: 8px;
+    width: 4px;
+    border-left: 0;
+    border-top: 0;
+    left: 5px;
+    transform: rotate(45deg);
+}
+.v_center{
+	position: absolute;
+	top:50%;
+  transform: translateY(-50%);
+}
+.el-radio__input.is-checked .el-radio__inner{
+	border-color: #0070C9;
+    background: #0070C9;
+}
+.el-table__body-wrapper{
+	overflow:hidden;
+}
+
+.commonCon{
+	background: #fff;
+	width: 1200px;
+	padding-left: 20px;
+	padding-right: 20px;
+	margin-left: auto;
+	margin-right: auto;
+}

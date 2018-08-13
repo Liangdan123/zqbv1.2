@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
+  <g fill="none" fill-rule="evenodd">
+    <rect width="20" height="20"/>
+    <rect width="16" height="16" x="2" y="2"/>
+    <path stroke="#7F7F7F" d="M7.55000906 7.5C7.78164422 8.64112016 8.79052104 9.5 10 9.5 11.209479 9.5 12.2183558 8.64112016 12.4499909 7.5L7.55000906 7.5zM2.55000906 7.5C2.78164422 8.64112016 3.79052104 9.5 5 9.5 6.20947896 9.5 7.21835578 8.64112016 7.44999094 7.5L2.55000906 7.5zM12.5500091 7.5C12.7816442 8.64112016 13.790521 9.5 15 9.5 16.209479 9.5 17.2183558 8.64112016 17.4499909 7.5L12.5500091 7.5z"/>
+    <rect width="12" height="1" x="4" y="2" fill="#7F7F7F"/>
+    <polygon fill="#7F7F7F" points="4 2 5 2 3 7 3 8 2 7"/>
+    <polygon fill="#7F7F7F" points="15 2 16 2 18 7 17 8 17 7"/>
+    <polygon fill="#7F7F7F" points="8 3 9 3 8 7 8 8 7 8 7 7"/>
+    <polygon fill="#7F7F7F" points="11 3 12 3 13 7 13 8 12 8 12 7"/>
+    <rect width="1" height="9" x="3" y="9" fill="#7F7F7F"/>
+    <rect width="5" height="5" x="7.5" y="12.5" stroke="#7F7F7F"/>
+    <rect width="14" height="1" x="3" y="17" fill="#7F7F7F"/>
+    <rect width="1" height="9" x="16" y="9" fill="#7F7F7F"/>
+  </g>
+</svg>

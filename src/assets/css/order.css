@@ -1,0 +1,30 @@
+svg.closebox{
+	position: absolute;
+	top: 0;
+	right: -70px;
+}
+.order .el-dialog--small{
+	width: 1056px;
+}
+/*..................多选框按钮........*/
+.store_label{
+	cursor: pointer;
+    height: 24px;
+    line-height:24px;
+}
+.store_label em{
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background: #ffffff;
+    border: 1px solid #D6D6D6;
+    border-radius: 50%;
+    vertical-align: text-bottom;
+    margin-right: 10px;
+}
+.store_label input:checked+em {
+    width: 4px;
+    height: 4px;
+    border: 6px solid #0070C9;
+    border-radius: 50%;
+}

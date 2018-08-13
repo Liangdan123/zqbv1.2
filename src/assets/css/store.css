@@ -1,0 +1,94 @@
+/*.................按钮...............*/
+.store-button1.el-button{
+	background-color: #0070C9;
+	border-radius: 2px;
+	height: 32px;
+	cursor: pointer;
+	border: 0;
+	color: #fff;
+	transition: all .3s;
+}
+.store-button1.el-button span{
+	color: #fff;
+	font-size: 14px;
+}
+.store-button1.el-button:hover{
+	background-color: #007DE3 ;
+}
+.store-button1.el-button:active{
+	background-color: #005396 ;
+}
+
+.store-button2.el-button{
+	background-color: #fff;
+	border-radius: 2px;
+/*	padding:0;*/
+	height: 32px;
+/*	line-height: 32px;*/
+	cursor: pointer;
+	color: #fff;
+	border:1px solid #D6D6D6;
+	transition: all .2s;
+}
+.store-button2.el-button span{
+	color: #333333;
+	font-size: 14px;
+}
+.store-button2.el-button:hover{
+	border: 1px solid #7F7F7F;
+}
+.store-button2.el-button:active{
+	border: 1px solid #0070C9;
+}
+.store-button2.el-button:active span{
+	color: #0070C9;
+}
+/*行高变为24px*/
+.store-button3.el-button{
+	background-color: #0070C9;
+	border-radius: 2px;
+	height: 24px;
+	cursor: pointer;
+	border: 0;
+	color: #fff;
+	transition: all .3s;
+	padding-top: 0;
+	padding-bottom: 0;
+}
+.store-button3.el-button span{
+	display: block;
+	color: #fff;
+	font-size: 12px;
+}
+.store-button3.el-button:hover{
+	background-color: #007DE3 ;
+}
+.store-button3.el-button:active{
+	background-color: #005396 ;
+}
+
+
+/*.................多选按钮...............*/
+.checkbox .el-checkbox__inner{
+	border: 1px solid #D6D6D6;
+	transition: all .2s;
+}
+.checkbox .el-checkbox:hover .el-checkbox__inner{
+	border: 1px solid #7F7F7F;
+}
+.checkbox .el-checkbox__input.is-checked .el-checkbox__inner{
+	background-color: #0070C9;
+    border-color: #0070C9;
+}
+
+.none_mess{
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	margin-left: -91px;
+	margin-top: -45px;
+}
+
+.el-menu-item{
+	color:#7f7f7f;
+}

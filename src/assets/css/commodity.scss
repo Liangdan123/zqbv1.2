@@ -1,0 +1,392 @@
+$color-base:#7f7f7f;
+$color-light:#333;
+$color-waring:#B4282D;
+$font-small:12px;
+$font-normal:14px;
+$font-large:16px;
+$font-title:20px;
+$btn-bg-normal:#0070C9;
+$btn-bg-hover:#007DE3;
+$btn-bg-active:#005396;
+$border-radius:2px;
+
+// info页面通用样式
+.info_content {
+  margin-top: 130px;
+  position: relative;
+  width: 1240px;
+  margin-left: auto;
+  margin-right: auto;
+
+  .item-list {
+    height: 180px;
+    width: 360px;
+    -webkit-box-shadow: 0 0 4px 0 rgba(51,51,51,0.20);
+    box-shadow: 0 0 4px 0 rgba(51,51,51,0.20);
+    background-color: #fff;
+    border-radius: 6px;
+    position: absolute;
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+    overflow: hidden;
+    &:hover {
+      height: 200px;
+      background: -webkit-linear-gradient(left, #009CFF 0%,#0065FF 100%);
+
+      div {
+        i,
+        span {
+          color: #FFFFFF;
+        }
+      }
+
+      p {
+        i {
+          opacity: 0.1;
+        }
+      }
+    }
+
+    div {
+      position: absolute;
+      top: 50%;
+      margin-top: -33px;
+      left: 40px;
+
+      i {
+        color: #0070C9;
+        font-size: 60px;
+        vertical-align: middle;
+      }
+
+      span {
+        font-family: SourceHanSansCN-Medium;
+        color: #0070C9;
+        font-size: 16px;
+        margin-left: 10px;
+        font-weight: bold;
+      }
+    }
+
+    p {
+      i {
+        position: absolute;
+        top: 50%;
+        margin-top: -60px;
+        color: #F4F4F4;
+        font-size: 124px;
+        right: -20px;
+      }
+    }
+  }
+
+  .item-1 {
+    left: 0;
+    top: 0;
+
+    &:hover {
+      top: -10px;
+    }
+  }
+
+  .item-2 {
+    left: 380px;
+    top: 0;
+
+    &:hover {
+      top: -10px;
+    }
+  }
+
+  .item-3 {
+    left: 760px;
+    top: 0;
+
+    &:hover {
+      top: -10px;
+    }
+  }
+
+  .item-4 {
+    left: 0;
+    top: 200px;
+
+    &:hover {
+      top: 190px;
+    }
+  }
+
+  .item-5 {
+    left: 380px;
+    top: 200px;
+
+    &:hover {
+      top: 190px;
+    }
+  }
+
+  .item-6 {
+    left: 760px;
+    top: 200px;
+
+    &:hover {
+      top: 190px;
+    }
+  }
+}
+
+.el-message-box .el-message-box__message {
+  color: #333;
+}
+
+// 商品管理页面通用样式
+.commodity {
+  margin-top: 120px;
+
+  .el-dialog__title {
+    font-size: 14px;
+    color: #333;
+  }
+
+  .checkBox {
+    width: 1056px;
+    height: 1400px;
+    border-radius: 4px;
+
+    .closebox {
+      position: absolute;
+      top: -38px;
+      right: -64px;
+      cursor: pointer;
+    }
+  }
+
+  .next {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 2100;
+    cursor: pointer;
+    -webkit-transform: translateX(556px);
+    transform: translateX(556px);
+  }
+
+  .prev {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 2100;
+    cursor: pointer;
+    -webkit-transform: translateX(-602px);
+    transform: translateX(-602px);
+  }
+
+  svg {
+    vertical-align: middle;
+  }
+
+  .el-pagination {
+    text-align: right;
+
+    .el-pager li.active {
+      background: #0070C9;
+    }
+  }
+
+  .el-date-editor--date {
+    width: 82px;
+
+    .el-input__icon+.el-input__inner {
+      padding-right: 0;
+    }
+
+    .el-input__icon {
+      width: 0;
+
+      &:before {
+        content: "";
+      }
+    }
+  }
+
+  .filter-switch {
+    .condition {
+      white-space: nowrap;
+      .el-date-editor--daterange{
+        width:184px;
+        input{
+          width:100%;
+        }
+      }
+      input {
+        -webkit-box-sizing: border-box;
+        box-sizing: border-box;
+        border: 1px solid #D6D6D6;
+        border-radius: 2px;
+        width: 82px;
+        padding-left: 10px;
+        height: 24px;
+        -webkit-transition: all 4s;
+        transition: all 4s;
+        font-size: 12px;
+        &:focus {
+          outline: none;
+          border: 1px solid #0070C9;
+        }
+      }
+    }
+
+    .classify span,
+    .condition span {
+      display: inline-block;
+      margin-right: 10px;
+      width: 64px;
+    }
+
+    .classify .el-select {
+      width: 184px;
+    }
+
+//  input[type="radio"]:checked+em {
+//    width: 10px;
+//    height: 10px;
+//    border: 4px solid #0070C9;
+//    border-radius: 50%;
+//  }
+
+    .pagination {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-top: 1px solid #D6D6D6;
+
+      .total {
+        margin-right: 10px;
+        color: #475669;
+        font-family: MicrosoftYaHei;
+        line-height: 28px;
+      }
+    }
+  }
+
+  > .g-content {
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 1240px;
+    min-height: 204px;
+    border: 1px solid #F4F4F4;
+    border-radius: 4px;
+    background: #fff;
+    margin: 0 auto;
+    padding: 19px;
+    .cell:first-child {
+      text-overflow: clip;
+    }
+
+    .buttons {
+      .storeLink_nav {
+        float: right;
+      }
+
+      > .el-button {
+        width: 92px;
+        height: 32px;
+        border-radius: 2px;
+
+        &.sale_out span {
+          color: #B4282D;
+        }
+      }
+    }
+
+    .el-table {
+      border: 0;
+      font-size: 12px;
+
+      .el-checkbox__inner {
+        width: 16px;
+        height: 16px;
+        background: rgba(255,255,255,1);
+        border-radius: 2px;
+      }
+
+      .el-checkbox__input.is-checked .el-checkbox__inner {
+        border-color: #0070C9;
+        background: #0070C9;
+      }
+
+      &:after {
+        width: 0;
+      }
+
+      &:before {
+        height: 0;
+      }
+
+      .view_img {
+        margin: 10px 0;
+        width: 50px;
+        height: 50px;
+      }
+
+      th > .cell {
+        color: #62778C;
+        font-weight: normal;
+      }
+     
+      td > div {
+        color: #333;
+        p.selloutStatus{
+            color: #B4282D;
+        }
+        span.selloutTime{
+            color: #7F7F7F;
+        }
+        .product_name {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+
+          &:hover {
+            color: #0070C9;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+        }
+
+        .product_price {
+          color: #FF5B00;
+        }
+      }
+    }
+  }
+}
+// 下拉框
+.el-select-dropdown__item {
+  color: #333;
+  font-size: 12px;
+
+  &.color {
+    color: #7F7F7F;
+  }
+
+  &.selected {
+    color: #fff;
+
+    &.hover {
+      color: #fff;
+    }
+  }
+}
+
+.txtbtn{
+    border: none;
+    color: #0070C9;
+    outline: none;
+    &:hover{
+         color: #0070C9;
+    }
+}
+

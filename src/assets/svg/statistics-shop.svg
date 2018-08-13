@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="392" height="160" viewBox="0 0 392 160">
+  <defs>
+    <rect id="2-a" width="392" height="160" rx="4"/>
+  </defs>
+  <g fill="none" fill-rule="evenodd">
+    <mask id="2-b" fill="#fff">
+      <use xlink:href="#2-a"/>
+    </mask>
+    <use fill="#008FF2" xlink:href="#2-a"/>
+    <g mask="url(#2-b)">
+      <g transform="translate(20)">
+        <g transform="translate(0 40)">
+          <rect width="80" height="80"/>
+          <rect width="60" height="60" x="10" y="10"/>
+          <path stroke="#FFF" stroke-linecap="round" stroke-width="4" d="M8 34C8 38.418278 11.581722 42 16 42 20.418278 42 24 38.418278 24 34M24 34C24 38.418278 27.581722 42 32 42 36.418278 42 40 38.418278 40 34M40 34C40 38.418278 43.581722 42 48 42 52.418278 42 56 38.418278 56 34M56 34C56 38.418278 59.581722 42 64 42 68.418278 42 72 38.418278 72 34"/>
+          <path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M16 42L16 64C16 66.209139 17.790861 68 20 68L60 68C62.209139 68 64 66.209139 64 64L64 42M8 34L16 12 64 12C69.3333333 26.6666667 72 34 72 34"/>
+          <path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M40 12L40 34M24 34L29 12M56 34L51 12"/>
+          <path stroke="#FFF" stroke-width="2" d="M33,67 L47,67 L47,54 C47,52.3431458 45.6568542,51 44,51 L36,51 C34.3431458,51 33,52.3431458 33,54 L33,67 Z"/>
+        </g>
+        <g opacity=".1" transform="translate(252)">
+          <rect width="160" height="160"/>
+          <rect width="120" height="120" x="20" y="20"/>
+          <path stroke="#FFF" stroke-linecap="round" stroke-width="8" d="M16 68C16 76.836556 23.163444 84 32 84 40.836556 84 48 76.836556 48 68M48 68C48 76.836556 55.163444 84 64 84 72.836556 84 80 76.836556 80 68M80 68C80 76.836556 87.163444 84 96 84 104.836556 84 112 76.836556 112 68M112 68C112 76.836556 119.163444 84 128 84 136.836556 84 144 76.836556 144 68"/>
+          <path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="8" d="M32 84L32 128C32 132.418278 35.581722 136 40 136L120 136C124.418278 136 128 132.418278 128 128L128 84M16 68L32 24 128 24C138.666667 53.3333333 144 68 144 68"/>
+          <path stroke="#FFF" stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M80 24L80 68M48 68L58 24M112 68L102 24"/>
+          <path stroke="#FFF" stroke-width="4" d="M66,134 L94,134 L94,108 C94,104.686292 91.3137085,102 88,102 L72,102 C68.6862915,102 66,104.686292 66,108 L66,134 Z"/>
+        </g>
+      </g>
+    </g>
+  </g>
+</svg>
