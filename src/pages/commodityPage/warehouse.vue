@@ -285,9 +285,7 @@
 			handleSelectionChange(list) { //选中
 				let arr = [];
 				for(let val of list) {
-					arr.push({
-						product_id: val.id
-					})
+					arr.push({product_id: val.id})					
 				}
 				this.$set(this.changeList, "products", arr);
 			},
@@ -309,6 +307,7 @@
 			//删除商品
 			deleteProduct() {
 				if(this.changeList.products.length == 0) {
+					this.$message({showClose: true,message: '请选择要删除的商品',type: 'info'});					
 					return;
 				}
 				var list = {

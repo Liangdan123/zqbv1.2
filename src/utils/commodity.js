@@ -85,7 +85,7 @@ export default {
 			this.productList(this.shopMess);
 		},
 		//商品排序
-		sortChange( column,prop,order){
+		sortChange(column,prop,order){
 			//用于清空样式（点击搜索，清空时）
 			this.order=column;
 			switch(true){

@@ -5,7 +5,7 @@
 	  		<el-breadcrumb-item>活动管理</el-breadcrumb-item>
   		</el-breadcrumb>
   		<div class="mallStoreCon">
-  			<el-tabs  v-model="activeName" @tab-click="handleClick">
+  			<el-tabs  v-model="activeName">
   				<el-tab-pane label="店铺信息" name="storeInfo"> 
   					<mallStoreMess  :storeMess="storeMess" :statistics="statistics" v-loading="loading"></mallStoreMess>
   				</el-tab-pane>
@@ -57,11 +57,6 @@
 				});				
 			};
 		},
-		methods:{
-			handleClick(){//点击切换
-				
-			}
-		}
 	}
 </script>
 

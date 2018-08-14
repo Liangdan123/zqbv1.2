@@ -9,7 +9,8 @@
 		</svg>
 
 		<!--.................查看商品详情....................-->
-		<el-dialog :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" custom-class="checkBox" :show-close="false" class="checkpro">
+		<el-dialog :visible.sync="dialogVisible" size="small" :close-on-click-modal="false" custom-class="checkBox" 
+			:show-close="false" class="checkpro">
 			<svg width="26" height="26" class="closebox" @click="dialogVisible = false">
 				<use xlink:href="#close" />
 			</svg>
@@ -301,10 +302,7 @@
 			},
 			offCommodity() { //下架
 				if(this.changeList.products.length == 0) {
-					this.$message({
-			            type: 'info',
-			            message: '请选择你要下架的商品'
-			        }); 
+					this.$message({  type: 'info', message: '请选择你要下架的商品' }); 			          			           			       
 					return;
 				}
 				this.offBatch(this.changeList)

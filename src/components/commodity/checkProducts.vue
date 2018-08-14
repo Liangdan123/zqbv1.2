@@ -88,7 +88,7 @@
 			</div>
 			
 		</div>
-		<div class="plate mb-30 clearfix">
+		<div class="plate mb-40 clearfix">
 			<span class="float-l color-7F f14 title">商品主图：</span>	
 			<div class="float-l ml-10" v-if="checkProduct.images.length">
 				<span class="display-in" v-for="item in checkProduct.images">
@@ -96,7 +96,7 @@
 				</span>
 			</div>				
 		</div>
-		<div  class="plate  clearfix">
+		<div  class="plate  clearfix mb-40">
 			<span class="float-l color-7F f14 title">详情页：</span>	
 			<div class="float-l ml-10 details scrollbar ">	
 				<div class="detailsCon middle">
@@ -109,8 +109,21 @@
 						</div>
 					</div>
 				</div>
-
 			</div>
+		</div>
+		<div v-if="irrList!==undefined">
+			<div v-if="irrList.data.length!==0">
+				<div class="plate clearfix">
+					<span class="float-l color-7F f14 title">违规提醒：</span>	
+					<div class="float-l ml-10  scrollbar ">	
+						<div v-for="item in irrList.data" class="irrMess  mb-20 ">
+							<p class="color-3 f14">时间：{{item.created_at}}</p>
+							<span class="color-3 f14">{{item.illegal_content}}</span>
+						</div>
+					</div>
+				</div>
+			</div>
+
 		</div>
 	</div>
 </template>
@@ -124,7 +137,7 @@
 				index:0
 			}
 		},
-		props:["checkProduct"],
+		props:["checkProduct","irrList"],
 		computed:{
 			rowsCon(){
 				var rowsCon=[];

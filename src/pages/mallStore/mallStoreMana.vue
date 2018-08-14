@@ -1,7 +1,7 @@
 <template>
 	<div class="mallStore">
 		<search :componentList="choiceInput" hintMess="输入店铺相关信息进行搜索" @inputSearch="inputSearch" class="mb-20"></search>
-		<el-table v-loading="loading" :data="storeListMess.data" style="width: 100%">
+		<el-table v-loading="loading" :data="storeListMess.data" style="width: 100%" :empty-text="emptyText">
 			<el-table-column prop="shop_logo" width="70">
 				<template slot-scope="props">
 					<img :src="props.row.shop_logo" width="50" height="50">
@@ -44,18 +44,26 @@
 				choiceInput:["input"],
 				loading:true,//页面加载
 				selectMess:{
+					search:{},
 					page: 1,
     				per_page:20,
 				},
 				storeListMess:{},
+				emptyText:"尚未创建店铺",
 			}
 		},
 		created(){
 			this.searchMethods();
 		},
 		methods:{
-			inputSearch(data){//搜索信息
-
+			inputSearch(val){//搜索信息
+				this.emptyText = "未搜索到相关商品";
+				if(val!==""){	
+					this.$set(this.selectMess,"search",{shop_name:val})
+				}else if(val===""){
+					delete this.selectMess.search.shop_name
+				};
+				this.searchMethods()
 			},
 			searchMethods() { //搜索方法
 				if(this.selectMess.page == 1) {
