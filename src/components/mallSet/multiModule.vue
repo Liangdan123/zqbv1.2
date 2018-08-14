@@ -94,6 +94,7 @@
 	import storeList from "@/components/myStore/storeList"
 	import productClassify from "@/components/myStore/productClassify"
 	import storeClassify from "@/utils/storeClassify"
+	import {getMallClassifyList} from "@/api/commodity"
 	export default {
 		data() {
 			return {
@@ -120,6 +121,7 @@
 				
 				],
 				isShow:false,
+				mallClassifyList:[],
 			}
 		},
 		props:{
@@ -147,6 +149,11 @@
 		created(){
 			this.radio1=this.shopRank.title_switch;//开始模块标题有没有选中
 			this.radio2=this.shopRank.select_product_type.toString();//开始选择商品有没有选中
+			getMallClassifyList()//商城分类列表
+			.then(({data})=>{
+				this.mallClassifyList=data;					
+			}).catch((error)=>{
+			})	
 		},
 		updated(){
 			this.shopRank.title_switch=this.radio1;//模块标题开关

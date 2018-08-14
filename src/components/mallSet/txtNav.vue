@@ -71,6 +71,7 @@
 	import mallClassifiProduct from "@/utils/mallClassifiProduct"
 	import storeList from "@/components/myStore/storeList"
 	import productClassify from "@/components/myStore/productClassify"
+	import {getMallClassifyList} from "@/api/commodity"
 	export default{
 		components:{storeList,productClassify},	
 		data(){
@@ -83,7 +84,15 @@
 				bannerIndex:0,
 				classifyName:{},
 				txtNavEditor:"",
+				mallClassifyList:[]
 			}
+		},
+		created(){						
+			getMallClassifyList()//商城分类列表
+			.then(({data})=>{
+				this.mallClassifyList=data;					
+			}).catch((error)=>{
+			})
 		},
 		props:["banner"],
 		computed:{

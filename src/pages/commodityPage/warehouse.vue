@@ -145,7 +145,7 @@
 	import commodityMethod from '@/utils/commodity'
 	import productMess from "@/components/commodity/productMess"
 	import checkProducts from "@/components/commodity/checkProducts"
-	import { onoffBatch, checkProduct, deleteBatch,getShippingTem } from "@/api/commodity"
+	import { onoffBatch, checkProduct, deleteBatch,getShippingTem,getClassifyList} from "@/api/commodity"
 	import onOffProd from "@/utils/onOffPro"
 	export default {
 		name: "warehouse",
@@ -195,6 +195,7 @@
 				order:{},
 				title:"编辑商品",
 				loading:true,
+				classifyList:[],
 			}
 		},
 		mixins: [storeClassify, commodityMethod, onOffProd],
@@ -209,6 +210,11 @@
 				sellout_status:"all"
 			});
 			this.searchMethods();
+			getClassifyList(shop_id)//商家分类列表
+			.then(({data})=>{
+				this.classifyList=data;
+			}).catch((error)=>{
+			})
 		},
 		components: {
 			Navbar,

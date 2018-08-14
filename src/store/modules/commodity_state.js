@@ -18,7 +18,6 @@ const mutations={
 		state.classifyList=data;
 	},
 	[types.MALLCLASSIFYLIST](state,data){
-		console.log("data:768746746",data)
 		state.mallClassifyList=data;
 	}
 }

@@ -12,10 +12,19 @@
 
 <script>
 	import storeClassify from "@/utils/storeClassify"
+	import {getMallClassifyList} from "@/api/commodity"
 	export default{
 		data(){
 			return{
+				mallClassifyList:[]
 			}
+		},
+		created(){						
+			getMallClassifyList()//商城分类列表
+			.then(({data})=>{
+				this.mallClassifyList=data;					
+			}).catch((error)=>{
+			})
 		},
 		mixins:[storeClassify],
 		props:{

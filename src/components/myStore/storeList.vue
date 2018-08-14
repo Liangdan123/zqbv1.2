@@ -63,6 +63,7 @@
 	import search from "@/components/commodity/search"
 	import commodityMethod from '@/utils/commodity'
 	import storeClassify from '@/utils/storeClassify'
+	import {getMallClassifyList,getClassifyList} from "@/api/commodity"
 	export default {
 		data() {
 			return {
@@ -89,6 +90,8 @@
 				isSearchEmpty:false,
 				banner_url:"",
 				onlyProduct:{},//单个商品链接
+				mallClassifyList:[],
+				classifyList:[],
 			}
 		},
 		props:["productChecked"],
@@ -96,22 +99,32 @@
 			//我的店铺商品数据
 			let mall_id = this.$store.getters.getMall_id;
 			this.$set(this.shopMess, "mall_id", mall_id);
-			if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//店铺设置中才需要传shop_id,商城不需要
-				let shop_id = this.$store.getters.getShop_id;
+			let shop_id = this.$store.getters.getShop_id;
+			if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//店铺设置中才需要传shop_id,商城不需要				
 				this.$set(this.shopMess, "shop_id", shop_id);
 				this.deleteAttrApi= ["product_price_yuan","shop_category_id"]
 			};													
 			if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
 				this.deleteAttrApi= ["product_price_yuan","mall_category_id"]
 			};
-			this.productList(this.shopMess);		
+			this.productList(this.shopMess);
+			getMallClassifyList()//商城分类列表
+			.then(({data})=>{
+				this.mallClassifyList=data;					
+			}).catch((error)=>{
+			})
+			getClassifyList(shop_id)//商家分类列表
+			.then(({data})=>{
+				this.classifyList=data;
+			}).catch((error)=>{
+			})
 		},
 		mixins: [storeClassify, commodityMethod],
 		components: {
 			search
 		},
 		computed:{
-			isChecked(){				
+			isChecked(){	
 				return	this.list.map(item=>{
 					if(item.id===this.productChecked.id){
 						return true

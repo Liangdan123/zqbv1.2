@@ -32,6 +32,7 @@
 	import mallCategorySave from "@/components/mallSet/mallCategorySave"
 	import mallCategoryEdit from "@/components/mallSet/mallCategoryEdit"
 	import { existMallClassified } from "@/api/mallSet"
+	import {getMallClassifyList} from "@/api/commodity"
 	export default{
 		components: {mallCategorySave,mallCategoryEdit},								
 		data(){
@@ -42,21 +43,24 @@
 			}
 		},
 		created(){			
-			let data=JSON.parse(JSON.stringify(this.$store.getters.getMallClassifyList)); //还原
-			if(data.length == 0) {return};//没有商城分类则返回
-			for(let val of data) {
-				val.created = false;
-				val.isWarn = false;
-				val.isActive = false;
-				if(val.is_final == 0) {
-					for(let v of val.sub) {
-						v.created = false;
-						v.isWarn = false;
-						v.isActive = false;
+			//获取商城分类列表
+			getMallClassifyList()		
+			.then(({data})=>{
+				this.mallClassifyList = data;
+				if(data.length == 0) {return};//没有商城分类则返回
+				for(let val of data) {
+					val.created = false;
+					val.isWarn = false;
+					val.isActive = false;
+					if(val.is_final == 0) {
+						for(let v of val.sub) {
+							v.created = false;
+							v.isWarn = false;
+							v.isActive = false;
+						}
 					}
-				}
-			};
-			this.mallClassifyList = data;				
+				};
+			})								
 		},
 		methods:{
 			emptyDelt(data) {

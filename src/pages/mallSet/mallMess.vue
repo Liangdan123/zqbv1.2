@@ -28,6 +28,7 @@
 				<p class="color-3 float-l f14 color-3">{{mallMess.mall_name}}</p>
 			</div>
 		</div>
+
 	</div>
 </template>
 

@@ -80,7 +80,7 @@ const actions={
 			router.replace("/zxh/sellerPage/sellerCenter");			
 		}else if(user.type===1){
 			commit(types.LOGIN,user);//登录成功的一系列的信息			
-			router.replace("/mallZxh/mallSetInfo");						
+			router.replace("/mallZxh/data-center");						
 		}
 	},
 	//退出登录
@@ -95,6 +95,14 @@ const actions={
 		})
 		.catch(({response: {status, data}})=>{
 		})
+	},
+	//获取登陆页面logo和底图
+	doLoginURL({commit}){
+		getMallInfo()
+		.then(({data})=>{
+			commit(types.LOGINURL,data);
+		})
+
 	},
 	//重置密码成功（手机和邮箱）
 	doResetSuccess({commit},booleans){

@@ -135,7 +135,7 @@
 	import search from '@/components/commodity/search'
 	import storeClassify from '@/utils/storeClassify'
 	import commodityMethod from '@/utils/commodity'
-	import { checkProduct } from "@/api/commodity"
+	import { checkProduct,getClassifyList } from "@/api/commodity"
 	import checkProducts from "@/components/commodity/checkProducts"
 	import productMess from "@/components/commodity/productMess"
 	import onOffProd from "@/utils/onOffPro"
@@ -186,6 +186,7 @@
 				order:{},
 				title:"编辑商品",
 				loading:true,
+				classifyList:[],
 			}
 		},
 		mixins: [storeClassify, commodityMethod, onOffProd],
@@ -218,8 +219,14 @@
 				          showClose:true
 				        });
 				}
-			};		
+			};	
+			
 			this.searchMethods();
+			getClassifyList(shop_id)//商家分类列表
+			.then(({data})=>{
+				this.classifyList=data;
+			}).catch((error)=>{
+			})
 		},
 		components: {
 			Navbar,search,checkProducts,productMess			

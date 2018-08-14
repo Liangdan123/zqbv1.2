@@ -91,6 +91,7 @@
 	import productClassify from "@/components/myStore/productClassify"
 	import shareMth from '@/utils/shareMth'
 	import {existStoreMess} from "@/api/myStore"
+	import {getMallClassifyList,getClassifyList} from "@/api/commodity"
 	import storeClassify from "@/utils/storeClassify"
 	import {deletes} from "@/api/script"
 	export default{
@@ -107,6 +108,8 @@
 				productChecked:{id:""},
 				BannerRadio:"",//海报样式二的标题选项
 				bannerTitle:"",
+				mallClassifyList:[],
+				classifyList:[],
 			}
 		},
 		props:["banner","title","allBanner"],
@@ -114,7 +117,17 @@
 			if(this.allBanner!==undefined){//大部分都没有传"allBanner",为防止出错
 				this.BannerRadio=this.allBanner.title_switch;//判断商城装修时海报样式二的标题开关
 				this.bannerTitle=this.allBanner.title
-		};		
+			};		
+			getMallClassifyList()//商城分类列表
+			.then(({data})=>{
+				this.mallClassifyList=data;					
+			}).catch((error)=>{
+			})
+			getClassifyList(shop_id)//商家分类列表
+			.then(({data})=>{
+				this.classifyList=data;
+			}).catch((error)=>{
+			})
 		},
 		mixins:[shareMth,storeClassify],
 		components:{imageUpload,storeList,productClassify},		

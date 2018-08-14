@@ -70,6 +70,7 @@
 	import shareMth from '@/utils/shareMth'
 	import storeClassify from "@/utils/storeClassify"
 	import mallClassifiProduct from "@/utils/mallClassifiProduct"
+	import {getMallClassifyList} from "@/api/commodity"
 	export default{
 		data(){
 			return{
@@ -81,9 +82,17 @@
 				classifyType:"单选",
 				bannerIndex:"",
 				classifyName:{},
+				mallClassifyList:[],
 			}
 		},
 		props:["banner","length"],
+		created(){						
+			getMallClassifyList()//商城分类列表
+			.then(({data})=>{
+				this.mallClassifyList=data;					
+			}).catch((error)=>{
+			})
+		},
 		mixins:[shareMth,storeClassify,mallClassifiProduct],
 		computed:{
 			btnVis(){//导航数量改变 按钮显示不显示就改变

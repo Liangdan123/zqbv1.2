@@ -12,10 +12,21 @@
 
 <script>
 	import storeClassify from "@/utils/storeClassify"
+	import {getClassifyList} from "@/api/commodity"
 	export default{
 		data(){
 			return{
+				classifyList:[],
 			}
+		},
+		created(){
+			//获取店铺分类列表
+			let shop_id=this.$store.getters.getShop_id;
+			getClassifyList(shop_id)
+			.then(({data})=>{
+				this.classifyList=data;
+			}).catch((error)=>{
+			})
 		},
 		mixins:[storeClassify],
 		props:{

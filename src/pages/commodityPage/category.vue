@@ -183,7 +183,7 @@
 	import checkProducts from "@/components/commodity/checkProducts"
 	import onOffProd from "@/utils/onOffPro"
 	import {checkProduct,SaveShopClassifyList,setProductsCategory,setOnlyProductsCategory,setMallClassify,setMallClassifyBatch} from "@/api/commodity"
-
+	import {getMallClassifyList,getClassifyList} from "@/api/commodity"
 	export default {
 		name: "category",
 		data() {
@@ -263,7 +263,9 @@
 				isRturn:{},
 				order:{},
 				activeName:"mall",
-				loading:true
+				loading:true,
+				mallClassifyList:[],
+				classifyList:[],
 			}
 		},
 		mixins: [storeClassify, commodityMethod,onOffProd],
@@ -273,7 +275,17 @@
 			let mall_id = this.$store.getters.getMall_id;
 			let shop_id = this.$store.getters.getShop_id;
 			this.$set(this.shopMess, "mall_id", mall_id);
-			this.$set(this.shopMess, "shop_id", shop_id);		
+			this.$set(this.shopMess, "shop_id", shop_id);
+			getMallClassifyList()//商城分类列表
+			.then(({data})=>{
+				this.mallClassifyList=data;					
+			}).catch((error)=>{
+			})
+			getClassifyList(shop_id)//商家分类列表
+			.then(({data})=>{
+				this.classifyList=data;
+			}).catch((error)=>{
+			})
 		},
 		components: {
 			Navbar,search,productClassify,checkProducts	,mallClassifyVue		
@@ -521,11 +533,14 @@
 						this.$message("请选择分类")
 						return;
 					};
-					if(this.dialogTitle == "编辑分类"){		
-						this.MallClassify(this.mallProduct);//商城分类API接口		
-						return;
+					if(this.dialogTitle == "编辑分类"){	
+						this.MallClassify(this.mallProduct);//商城分类API接口							
+
 					};
-					this.batchMallClassify(this.mallBatchClassify)//批量商城分类API接口			
+					if(this.dialogTitle == "批量分类"){
+						this.batchMallClassify(this.mallBatchClassify)//批量商城分类API接口	
+					}
+		
 				}else if(this.activeName==="store"){//店铺分类
 					if(this.storeClassify.length===0){
 						this.categoryDialog = false;
@@ -554,13 +569,13 @@
 			//设置商城分类
 			MallClassify(data){
 				setMallClassify(data)
-				then(({data}) => {	
+				.then(({data}) => {	
 					this.categoryDialog = false;
 					this.hints("商城分类设置成功","success")
 					this.searchMethods();
 				}).catch(({response: {data}})=>{
 					 this.$message.error(data.errorcmt);
-				})	
+				})					
 			},
 			//店铺批量分类
 			productsCategory(data){

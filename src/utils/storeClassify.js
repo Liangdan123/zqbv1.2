@@ -1,17 +1,16 @@
+import {getClassifyList,getMallClassifyList} from "@/api/commodity"
 export default{
 	computed:{
 		//店铺分类信息
 		storeClassify(){
-			var classifyList=this.$store.getters.getClassifyList;
 			var classify=[];		
-			this.ClassifyMethods(classifyList,classify,"shop_category_name")
+			this.ClassifyMethods(this.classifyList,classify,"shop_category_name")
 			return  classify
 		},
 		//商城分类信息
-		mallClassify(){
-			let mallClassifyList=this.$store.getters.getMallClassifyList;
-			let mallClassify=[];		
-			this.ClassifyMethods(mallClassifyList,mallClassify,"mall_category_name")
+		mallClassify(){		
+			let mallClassify=[];	
+			this.ClassifyMethods(this.mallClassifyList,mallClassify,"mall_category_name");	
 			return  mallClassify
 		}
 	},

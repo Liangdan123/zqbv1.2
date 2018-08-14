@@ -136,7 +136,7 @@ export default {
 		},
 		productList(data) {
 			getProductList(data)
-				.then(({data}) => {				
+				.then(({data}) => {
 					this.total = Number(data.total);
 					this.perPage = Number(data.per_page);
 					this.list = data.data; //数据中的列表
