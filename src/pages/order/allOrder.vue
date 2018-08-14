@@ -23,7 +23,6 @@
 			<!--........................表格...............-->
 			<bought :orderData="orderData" :orderMess="orderMess"  @handleCurrent="handleCurrent" :orderLists="orderLists"
 				 @showOrder="showOrder"  @showlogist="showlogist" @showSetOrder="showSetOrder"  v-loading="loading">
-								
 			</bought>
 		</div>
 		

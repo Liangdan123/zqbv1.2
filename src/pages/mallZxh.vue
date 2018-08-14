@@ -2,7 +2,7 @@
 	<div class="mall_zxh">
 		<div class="navbar">
 			<div class="navbar-left display">
-				<svg width="30" height="30"><use xlink:href="#zhixu" /></svg>
+				<svg width="30" height="30"><use xlink:href="#logo" /></svg>
 				<img src="../assets/image/weishangcheng.png" />
 			</div>
 			<el-menu :default-active='$route.path' :router="true" mode="horizontal">
@@ -23,6 +23,9 @@
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/mall-money-management" :class="{isActive:active=='mall-money-management'}">
 					<i></i>资金管理
+				</el-menu-item>
+				<el-menu-item index="/mallZxh/mall-money-management" :class="{isActive:active=='mall-money-management'}">
+					<i></i>平台管理
 				</el-menu-item>
 			</el-menu>
 			<div class="cont-navbar-right clearfix">
@@ -109,7 +112,6 @@
 					vertical-align: middle;
 				}
 				img {
-					width: 96px;
 					margin-left: 20px;
 				}
 			}
