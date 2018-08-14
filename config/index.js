@@ -16,17 +16,16 @@ module.exports = {
             changeOrigin: true,
         },
 		 '/admin': {
-            target: 'http://zhixu_multiple.71baomu.com',
+            target: 'http://zqb.71baomu.com',
              changeOrigin: true
         },
 
 	    '/uploads':{
-            target: 'http://zhixu_multiple.71baomu.com',
+            target: 'http://zqb.71baomu.com',
             changeOrigin: true
 	       },
        '/images':{     		        		
-//				target: 'https://zhixu.71baomu.com',
-					target: 'http://zhixu_multiple.71baomu.com',
+					target: 'http://zqb.71baomu.com',
 					changeOrigin: true
 			}
     },

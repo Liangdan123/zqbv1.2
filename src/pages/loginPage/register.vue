@@ -6,7 +6,7 @@
       <input type="password" placeholder="请输入密码" v-model.trim="password" />
       <router-link to="reset" class="float-r cursor forget">忘记密码</router-link>
     </div>
-    <div class="float-l display-n" :class="{error:warn}">{{msg}}</div>
+    <div class="display-n" :class="{error:warn}">{{msg}}</div>
     <div>
       <el-button class=" btn mr-20 f14" @click="login"> 登 录 </el-button>
       还没有账号？<router-link to="sfz" class="color-main f14">立即注册</router-link>
@@ -86,7 +86,7 @@
             this.msg = "密码至少6位数字母或者数字组合";
             break;
           case this.unregistered == false:
-            accountInfo(this.login_name, this.password)
+            accountInfo({login_name:this.login_name,password:this.password})
               //与后台交成功时的操作
               .then(({
                 data
@@ -190,6 +190,6 @@
     display: inline-block;
     color: #ff0000;
     font-size: 14px;
-    line-height: 50px;
+    margin-bottom: 20px;
   }
 </style>

@@ -10,7 +10,7 @@
         <el-button @click="sentCode" :disabled="disabled || time>0 " round plain class="sentCode disabled1 float-r">{{sentPhoneCode}}</el-button>
       </div>
       <input type="password" placeholder="设置密码" v-model.trim="newPassword" class="border-b  w-100" />
-      <div class="float-l display-n" :class="{error:warn}">
+      <div class="display-n" :class="{error:warn}">
         {{msg}}
       </div>
       <el-button class="btn done mr-20 f14" @click="done"> 完成 </el-button>
@@ -193,7 +193,7 @@
     display: inline-block;
     color: #FF0000;
     font-size: 14px;
-    line-height: 50px;
+    margin-bottom: 20px;
   }
   .sentCode {
     width: 80px;
