@@ -24,7 +24,7 @@
 				<el-menu-item index="/mallZxh/mall-money-management" :class="{isActive:active=='mall-money-management'}">
 					<i></i>资金管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mall-money-management" :class="{isActive:active=='mall-money-management'}">
+				<el-menu-item index="/mallZxh/platform/join" :class="{isActive:active=='join'}">
 					<i></i>平台管理
 				</el-menu-item>
 			</el-menu>

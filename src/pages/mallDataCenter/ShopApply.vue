@@ -6,23 +6,16 @@
             <span class="link-active">商家开店申请</span>
         </div>
         <div class="container">
-            <el-tabs
-                v-model="tabForShow"
-                @tab-click="tabSwitch">
+            <el-tabs v-model="tabForShow" @tab-click="tabSwitch">
                 <el-tab-pane label="待处理申请" name="pending"></el-tab-pane>
                 <el-tab-pane label="历史申请记录" name="history"></el-tab-pane>
             </el-tabs>
-            <el-table
-                class="table"
-                v-loading="tableDataLoading"
-                :data="filterResults"
-                style="width: 100%">
-                <el-table-column
-                    label="店铺名称">
+            <el-table class="table" v-loading="tableDataLoading" :data="filterResults" style="width: 100%">
+                <el-table-column label="店铺名称">
                     <template slot-scope="scope">
-                        <img :src="scope.row.shop_logo||shopLogoDefault" class="shop-logo fl"/>
-                        <p class="shop-title">{{scope.row.shop_name}}</p>
-                    </template>
+                            <img :src="scope.row.shop_logo||shopLogoDefault" class="shop-logo fl"/>
+                            <p class="shop-title">{{scope.row.shop_name}}</p>
+</template>
                 </el-table-column>
                 <el-table-column
                     prop="shopkeeper_name"
@@ -37,19 +30,19 @@
                     label="申请时间">
                 </el-table-column>
                 <el-table-column label="申请状态">
-                    <template slot-scope="scope">
-                        <span :class="{'error':scope.row.auth_status==2}">{{scope.row.auth_status | applyStatus}}</span>
-                    </template>
+<template slot-scope="scope">
+    <span :class="{'error':scope.row.auth_status==2}">{{scope.row.auth_status | applyStatus}}</span>
+</template>
                 </el-table-column>
                 <el-table-column
                     width="120"
                     label="操作">
-                    <template slot-scope="scope">
-                        <div @click="showApplyDetail(scope.row.apply_id)">
-                            <span class="btn" v-if="scope.row.auth_status">查看记录</span>
-                            <span class="btn" v-else>审核申请</span>
-                        </div>
-                    </template>
+<template slot-scope="scope">
+    <div @click="showApplyDetail(scope.row.apply_id)">
+        <span class="btn" v-if="scope.row.auth_status">查看记录</span>
+        <span class="btn" v-else>审核申请</span>
+    </div>
+</template>
                 </el-table-column>
             </el-table>
             <el-pagination
@@ -188,12 +181,18 @@
 </template>
 
 <script>
-    import {getShopApplyLists, getShopApplyDetail, setShopApplyStatus} from '@/api/data-center'
-    import {Tmap} from "@/api/script"
+    import {
+        getShopApplyLists,
+        getShopApplyDetail,
+        setShopApplyStatus
+    } from '@/api/data-center'
+    import {
+        Tmap
+    } from "@/api/script"
     export default {
         name: "ShopApply",
         filters: {
-            applyStatus: function (value) {
+            applyStatus: function(value) {
                 let status_text;
                 switch (value) {
                     case 0:
@@ -202,30 +201,29 @@
                     case 1:
                         status_text = '已通过';
                         break;
-                    default :
+                    default:
                         status_text = '已拒绝'
                 }
                 return status_text
-
             }
         },
         data() {
             return {
-                filterResults: [],//筛选出的结果
+                filterResults: [], //筛选出的结果
                 resultTotalForFilter: '',
-                applyInfo: {},//申请入驻的信息
-                pageSize: 20,//每页显示几条
+                applyInfo: {}, //申请入驻的信息
+                pageSize: 20, //每页显示几条
                 currentPage: 1,
                 tabForShow: 'pending',
-                shopLogoDefault:require('@/assets/image/logo.jpg'),
+                shopLogoDefault: require('@/assets/image/logo.jpg'),
                 dialogVisible: false,
-                imgPreviewDialogShow:false,//图片预览dialog
-                tableDataLoading: false,//表格数据加载中
-                dialogDataLoading: false,//弹窗数据加载中
-                btnDisabled: false,//操作按钮是否禁止点击
-                btnLoadingIndex: 0,//按钮显示loading状态的顺序
-                applyIDForCheck: '',//查看的入驻商家id
-                imgForPreview:'',// 预览的图片
+                imgPreviewDialogShow: false, //图片预览dialog
+                tableDataLoading: false, //表格数据加载中
+                dialogDataLoading: false, //弹窗数据加载中
+                btnDisabled: false, //操作按钮是否禁止点击
+                btnLoadingIndex: 0, //按钮显示loading状态的顺序
+                applyIDForCheck: '', //查看的入驻商家id
+                imgForPreview: '', // 预览的图片
                 searchCondition: {
                     "search": {
                         "type": 1
@@ -242,7 +240,9 @@
                 // 回到上一页
                 this.$router.back()
             },
-            tabSwitch({name}) {
+            tabSwitch({
+                name
+            }) {
                 // tab面板切换
                 this.currentPage = 1;
                 this.resultTotalForFilter = 0;
@@ -255,9 +255,13 @@
                 };
                 // 根据显示部分扩展对应的搜索条件
                 if (name === 'pending') {
-                    Object.assign(search_condition_base.search, {type: 1});
+                    Object.assign(search_condition_base.search, {
+                        type: 1
+                    });
                 } else {
-                    Object.assign(search_condition_base.search, {type: 2});
+                    Object.assign(search_condition_base.search, {
+                        type: 2
+                    });
                 }
                 // 搜索条件赋值 执行搜索
                 this.searchCondition = search_condition_base;
@@ -276,7 +280,7 @@
                 this.applyInfo = {};
                 this.applyIDForCheck = ''
             },
-            imgPreviewDialogClose(){
+            imgPreviewDialogClose() {
                 this.imgPreviewDialogShow = false;
             },
             showApplyDetail(id) {
@@ -284,16 +288,26 @@
                 this.dialogVisible = true;
                 this.dialogDataLoading = true;
                 this.applyIDForCheck = id;
-                getShopApplyDetail({apply_id: id})
-                    .then(({data}) => {
+                getShopApplyDetail({
+                        apply_id: id
+                    })
+                    .then(({
+                        data
+                    }) => {
                         this.applyInfo = data;
                         this.dialogDataLoading = false;
                         return Tmap()
                     })
-                    .then(({maps})=>{
+                    .then(({
+                        maps
+                    }) => {
                         this._initMap(maps)
                     })
-                    .catch(({response: {data}}) => {
+                    .catch(({
+                        response: {
+                            data
+                        }
+                    }) => {
                         this.$message.error(data.errorcmt);
                     })
             },
@@ -306,30 +320,38 @@
                     auth_status: status
                 };
                 setShopApplyStatus(data_post)
-                    .then(({data}) => {
+                    .then(({
+                        data
+                    }) => {
                         let tip_text = `已${status == 1 ? '同意' : '拒绝'}该商家的入驻申请`;
                         this.$message({
                             message: tip_text,
                             type: 'success'
                         });
                         // 将表格中该条待审核数据删去
-                        let data_index = this.filterResults.findIndex(({apply_id}) => apply_id == this.applyIDForCheck);
-                        this.filterResults.splice(data_index,1);
+                        let data_index = this.filterResults.findIndex(({
+                            apply_id
+                        }) => apply_id == this.applyIDForCheck);
+                        this.filterResults.splice(data_index, 1);
                         this.handleClose();
                     })
-                    .catch(({response: {data}}) => {
+                    .catch(({
+                        response: {
+                            data
+                        }
+                    }) => {
                         console.log(1111)
                         this.$message.error(data.errorcmt);
                         this.btnDisabled = false;
                         this.btnLoadingIndex = 0;
                     })
             },
-            largerToView(imgName){
+            largerToView(imgName) {
                 // 显示身份证大图
                 this.imgPreviewDialogShow = true;
                 this.imgForPreview = imgName;
             },
-            imgPreviewSwitch(imgName){
+            imgPreviewSwitch(imgName) {
                 // 身份证图片切换
                 this.imgForPreview = imgName;
             },
@@ -338,19 +360,24 @@
                 this.tableDataLoading = true;
                 this.searchCondition.per_page = this.pageSize;
                 getShopApplyLists(this.searchCondition)
-                    .then(({data}) => {
+                    .then(({
+                        data
+                    }) => {
                         this.tableDataLoading = false;
                         this.filterResults = data.data;
                         this.resultTotalForFilter = data.total;
                     })
             },
-            _initMap(map){
-                let {lat,lng} = this.applyInfo;
-                let map_center = new map.LatLng(lat,lng);
+            _initMap(map) {
+                let {
+                    lat,
+                    lng
+                } = this.applyInfo;
+                let map_center = new map.LatLng(lat, lng);
                 // 初始化地图
                 let map_init = new map.Map(document.getElementById("map"), {
-                    center:map_center,
-                    zoom:16
+                    center: map_center,
+                    zoom: 16
                 });
                 // 地图中心加标记点
                 new map.Marker({
@@ -369,7 +396,6 @@
         width: 1280px;
         box-sizing: border-box;
     }
-
     .nav-bar {
         font-size: 16px;
         color: #7F7F7F;
@@ -384,7 +410,6 @@
             font-weight: 700;
         }
     }
-
     .container {
         margin-top: 20px;
         padding: 0 20px 20px 20px;
@@ -403,12 +428,12 @@
             cursor: pointer;
             color: #0070C9;
         }
-        .shop-logo{
+        .shop-logo {
             padding: 10px 0;
             width: 50px;
             height: 50px;
         }
-        .shop-title{
+        .shop-title {
             margin-left: 70px;
             line-height: 70px;
         }
@@ -423,22 +448,22 @@
                     text-align: right;
                     color: #7F7F7F;
                 }
-                .img-wraps{
+                .img-wraps {
                     margin-left: 90px;
                     font-size: 0;
-                    .img-IDcard{
+                    .img-IDcard {
                         margin-right: 10px;
                         width: 280px;
                         height: 200px;
                         border-radius: 2px;
                     }
-                    .shop-logo{
+                    .shop-logo {
                         width: 104px;
                         height: 104px;
                     }
                 }
             }
-            h5{
+            h5 {
                 margin-bottom: 20px;
                 font-size: $font-large;
                 color: $color-light;
@@ -448,26 +473,26 @@
             margin-left: 70px;
             width: 560px;
         }
-        .btn-agree, .btn-reject {
+        .btn-agree,
+        .btn-reject {
             padding: 10px 20px;
         }
-        .dialog-define{
-            .preview-img{
+        .dialog-define {
+            .preview-img {
                 margin: 0 20px;
                 width: 420px;
                 height: 300px;
             }
-            .preview-wrap{
+            .preview-wrap {
                 padding: 20px 25px 40px 25px;
             }
         }
-        #map{
+        #map {
             margin-left: 90px;
             width: 434px;
             height: 200px;
         }
     }
-
 </style>
 <style lang="scss">
     .container {
@@ -493,13 +518,12 @@
         .el-dialog__body {
             padding: 0 20px;
         }
-        .dialog-define{
-            .el-dialog--small{
+        .dialog-define {
+            .el-dialog--small {
                 width: 600px;
             }
         }
     }
-
     .el-loading-mask {
         z-index: 60;
     }

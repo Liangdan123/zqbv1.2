@@ -1,10 +1,10 @@
 <template>
 	<div class="NavbarOrder clearfix">
 		<el-menu :router="true" mode="horizontal" class="clearfix color-7F" @select="handleSelect">
-			<el-menu-item index="allOrder" :class="{active:selected=='allOrder'}">
+			<el-menu-item index="join" :class="{active:selected=='join'}">
 				加盟申请
 			</el-menu-item>
-			<el-menu-item index="" :class="{active:selected==''}">
+			<!-- <el-menu-item index="" :class="{active:selected==''}">
 				角色管理
 			</el-menu-item>
 			<el-menu-item index="" :class="{active:selected==''}">
@@ -15,7 +15,7 @@
 			</el-menu-item>
 			<el-menu-item index="" :class="{active:selected==''}">
 				消息设置
-			</el-menu-item>
+			</el-menu-item> -->
 		</el-menu>
 	</div>
 </template>

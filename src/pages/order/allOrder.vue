@@ -25,7 +25,6 @@
 				 @showOrder="showOrder"  @showlogist="showlogist" @showSetOrder="showSetOrder"  v-loading="loading">
 			</bought>
 		</div>
-		
 	</div>
 </template>
 
