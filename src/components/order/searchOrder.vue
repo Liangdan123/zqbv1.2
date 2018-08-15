@@ -16,12 +16,10 @@
 			<transition name="el-zoom-in-top">
 				<div :class="['filter-switch pos-a',switchPosition=='right'?'switch-right':'switch-left']" v-if="switchShow" @click.stop="">
 					<p class="color-3">筛选条件</p>
-
 					<slot></slot>
 					<div class="condition">
 						<span class="f12 color-3">创建时间:</span>
 						<el-date-picker v-model="time" type="daterange" placeholder="选择日期范围" :editable="false" @change="change">
-							
 						</el-date-picker>
 					</div>
 					<div class="search-select">

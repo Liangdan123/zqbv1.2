@@ -334,3 +334,69 @@ em{font-style: normal;}
 	margin-left: auto;
 	margin-right: auto;
 }
+
+
+/* 表格 */
+ .el-table {
+	border: 0;
+	font-size: 12px;
+
+	.el-checkbox__inner {
+		width: 16px;
+		height: 16px;
+		background: rgba(255,255,255,1);
+		border-radius: 2px;
+	}
+
+	.el-checkbox__input.is-checked .el-checkbox__inner {
+		border-color: #0070C9;
+		background: #0070C9;
+	}
+
+	&:after {
+		width: 0;
+	}
+
+	&:before {
+		height: 0;
+	}
+
+	.view_img {
+		margin: 10px 0;
+		width: 50px;
+		height: 50px;
+	}
+
+	th > .cell {
+		color: #62778C;
+		font-weight: normal;
+	}
+ 
+	td > div {
+		color: #333;
+		p.selloutStatus{
+				color: #B4282D;
+		}
+		span.selloutTime{
+				color: #7F7F7F;
+		}
+		.product_name {
+			display: -webkit-box;
+			-webkit-box-orient: vertical;
+			-webkit-line-clamp: 2;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			-o-text-overflow: ellipsis;
+
+			&:hover {
+				color: #0070C9;
+				text-decoration: underline;
+				cursor: pointer;
+			}
+		}
+
+		.product_price {
+			color: #FF5B00;
+		}
+	}
+} 

@@ -1,6 +1,4 @@
 import Vue from 'vue'
-import parse from 'url-parse'
-import store from '@/store'
 import Router from 'vue-router'
 import login from '@/pages/login'
 import register from '@/pages/loginPage/register'
@@ -57,6 +55,9 @@ import ShopEntry from '@/pages/mallDataCenter/ShopEntry';
 import ShopApply from '@/pages/mallDataCenter/ShopApply';
 import ShopWithdrawal from '@/pages/mallDataCenter/ShopWithdrawal';
 import join from '@/pages/platform/join';
+import role from '@/pages/platform/role';
+import commission from '@/pages/platform/commission';
+import permission from '@/pages/platform/permission';
 Vue.use(Router);
 const router = new Router({
   routes: [{
@@ -218,6 +219,18 @@ const router = new Router({
         path: 'join',
         name: 'join',
         component: join,
+      }, {
+        path: 'role',
+        name: 'role',
+        component: role, 
+      }, {
+        path: 'commission',
+        name: 'commission',
+        component: commission,
+      }, {
+        path: 'permission',
+        name: 'permission',
+        component: permission,
       }]
     }, {
       path: 'mallSetInfo',

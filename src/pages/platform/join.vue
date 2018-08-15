@@ -4,8 +4,8 @@
         <!--..............订单详情弹框..................-->
         <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" :show-close="false" class="order" :title="type">
             <svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
-                <use xlink:href="#close" />
-              </svg>
+              <use xlink:href="#close" />
+            </svg>
             <!--.................主体内容....................-->
         </el-dialog>
         <div class="g-button">
@@ -35,7 +35,7 @@
                     <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
                     </el-option>
                 </el-select>
-                <search @searchmthod="_doSearch" @inputsearch="inputSearch" @emptymthod="emptyMthod" ref="isShow">
+                <search @searchmthod="_doSearch" @inputsearch="inputSearch" @emptymthod="emptyMthod" ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
                 </search>
             </div>
             <!--........................表格...............-->
@@ -44,13 +44,14 @@
                 <el-table-column prop="type" label="角色"></el-table-column>
                 <el-table-column prop="type" label="姓名"></el-table-column>
                 <el-table-column prop="phone" label="手机号"></el-table-column>
-                <el-table-column prop="company_name" label="公司"></el-table-column>
+                <el-table-column prop="company_name" label="公司名称" v-if="value1=='1'"></el-table-column>
+                <el-table-column prop="contact_email" label="常用邮箱" v-else></el-table-column>
                 <el-table-column prop="created_at" label="创建时间"></el-table-column>
                 <el-table-column width="120" label="操作">
                     <span class="btn" v-if="scope.row.auth_status" slot-scope="scope">查看记录</span>
                 </el-table-column>
             </el-table>
-            <el-pagination class="pagination" v-if="resultTotalForFilter&gt;pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="resultTotalForFilter">
+            <el-pagination class="pagination" v-if="resultTotalForFilter>pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage" :page-size="pageSize" layout="total, prev, pager, next" :total="resultTotalForFilter">
             </el-pagination>
         </div>
     </div>
@@ -58,7 +59,7 @@
 
 <script>
     import Navbar from "@/components/platform/Navbar";
-    import search from "@/components/platform/search";
+    import search from "@/components/order/searchOrder";
     export default {
         name: "join",
         data() {
@@ -137,6 +138,7 @@
                         label: "投融资"
                     }
                 ],
+                tableDataLoading: false,
                 tabForShow: "1",
                 pageSize: 20, //每页显示几条
                 currentPage: 1,
@@ -148,6 +150,8 @@
                     },
                     per_page: 20
                 },
+                filterResults: [],
+                resultTotalForFilter: 100,
                 dialogVisible: false //弹框显示
             };
         },
@@ -159,6 +163,7 @@
             // this.searchMethods(this.orderMess)
         },
         methods: {
+            handleCurrentChange() {},
             emptyMthod() {
                 // if (this.orderMess.search.create_time != undefined) {
                 //   delete this.orderMess.search.create_time

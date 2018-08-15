@@ -6,8 +6,7 @@
 				<el-radio label="on">开</el-radio>
 				<el-radio label="off">关</el-radio>
 			</el-radio-group>
-			<el-input type="text" v-model="bannerTitle" v-if="BannerRadio==='on'" placeholder="请输入模块标题(必填)" class="login-input2 mt-10">
-				
+			<el-input type="text" v-model="bannerTitle" v-if="BannerRadio==='on'" placeholder="请输入模块标题(必填)" class="login-input2 mt-10">		
 			</el-input>
 		</div>
 		<div class="banner-editor" v-for="(item,index) in banner" :key="index">

@@ -11,7 +11,7 @@ import store from './store'
 import router from './router'
 import axios from './api/http'
 
-import  "./assets/css/common.css"
+import  "./assets/css/common.scss"
 import "./assets/css/store.css"
 import "./assets/css/commodity.scss"
 import "./assets/css/order.css"
