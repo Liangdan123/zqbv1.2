@@ -58,6 +58,8 @@ import join from '@/pages/platform/join';
 import role from '@/pages/platform/role';
 import commission from '@/pages/platform/commission';
 import permission from '@/pages/platform/permission';
+import message from '@/pages/platform/message';
+import addrole from '@/pages/platform/addrole';
 Vue.use(Router);
 const router = new Router({
   routes: [{
@@ -231,6 +233,14 @@ const router = new Router({
         path: 'permission',
         name: 'permission',
         component: permission,
+      }, {
+        path: 'message',
+        name: 'message',
+        component: message,
+      }, {
+        path: 'addrole',
+        name: 'addrole',
+        component: addrole,
       }]
     }, {
       path: 'mallSetInfo',

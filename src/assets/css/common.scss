@@ -411,9 +411,15 @@ em{font-style: normal;}
 	background: #FFFFFF;
 	z-index: 100;
 	min-width: 1140px;
+	font-size: 0;
 	.el-menu {
-		width:640px;
-		margin: 0 auto;
+		// width:640px;
+		// margin: 0 auto;
+		height: 100%;
+		display: inline-block;
+		position: relative;
+		left:50%;
+		transform: translateX(-50%);
 		background: #FFFFFF;
 		.el-menu-item {
 			height: 40px;

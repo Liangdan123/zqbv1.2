@@ -1,11 +1,11 @@
 <template>
   <div class="platform commodity" @click="closeSearch">
-    <navbar></navbar>
+    <Navbar></Navbar>
     <!--..............订单详情弹框..................-->
     <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" :show-close="false" class="order" :title="'xxx'">
       <svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
-          <use xlink:href="#close" />
-        </svg>
+        <use xlink:href="#close" />
+      </svg>
       <!--.................主体内容....................-->
       <el-table class="table" style="width: 100%">
         <el-table-column prop="type" label="属性" width="173"></el-table-column>
@@ -47,11 +47,11 @@
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
-      <p class="btn">
-        查看记录</p>
-      <span class="btn">CPS链接</span>
-      <span class="btn">加入黑名单</span>
-</template>
+            <p class="btn">
+              查看记录</p>
+            <span class="btn">CPS链接</span>
+            <span class="btn">加入黑名单</span>
+          </template>
         </el-table-column>
       </el-table>
       <el-pagination class="pagination mt-20" v-if="resultTotalForFilter>pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -167,8 +167,7 @@
       // this.searchMethods(this.orderMess)
     },
     methods: {
-      handleCurrentChange() {
-      },
+      handleCurrentChange() {},
       emptyMthod() {
         // if (this.orderMess.search.create_time != undefined) {
         //   delete this.orderMess.search.create_time
@@ -231,41 +230,34 @@
       }
     }
   };
+
 </script>
 <style scoped="scoped" lang="scss">
   .g-button {
     width: 1240px;
     margin: 10px auto;
   }
+
   .btn {
     font-size: 12px;
     color: #0070c9;
   }
+
 </style>
 <style lang="scss">
   .platform {
-    .el-tabs__item {
-      font-size: $font-normal;
-      color: $color-base;
-      &.is-active {
-        font-weight: 600;
-        color: $color-light;
+    .el-dialog__wrapper.order .el-dialog__title {
+      font-size: 20px;
+      color: #333;
+    }
+    .el-select {
+      input.el-input__inner {
+        border-radius: 2px;
+        height: 32px;
       }
-    }
-    .el-tabs__active-bar {
-      background-color: $color-light;
+      margin-right: 16px;
+      width: 200px;
     }
   }
-  .el-dialog__wrapper.order .el-dialog__title {
-    font-size: 20px;
-    color: #333;
-  }
-  .el-select {
-    input.el-input__inner {
-      border-radius: 2px;
-      height: 32px;
-    }
-    margin-right: 16px;
-    width: 200px;
-  }
+
 </style>

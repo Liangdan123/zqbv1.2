@@ -62,7 +62,6 @@
   import Navbar from "@/components/platform/Navbar";
   import search from "@/components/order/searchOrder";
   export default {
-    name: "join",
     data() {
       return {
         value1: "1",
@@ -243,20 +242,7 @@
 </style>
 <style lang="scss">
   .platform {
-    .el-tabs__item {
-      font-size: $font-normal;
-      color: $color-base;
-      &.is-active {
-        font-weight: 600;
-        color: $color-light;
-      }
-    }
-    .el-tabs__active-bar {
-      background-color: $color-light;
-    }
-  }
-
-  .el-dialog__wrapper.order .el-dialog__title {
+      .el-dialog__wrapper.order .el-dialog__title {
     font-size: 20px;
     color: #333;
   }
@@ -269,5 +255,5 @@
     margin-right: 16px;
     width: 200px;
   }
-
+  }
 </style>
