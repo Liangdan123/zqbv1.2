@@ -66,7 +66,7 @@
 				padding: 0 10px;
 				transition: all 0.3s;
 				&.active {
-					color: #0070C9;
+					color: #333333;
 				}
 			}
 		}

@@ -41,22 +41,22 @@
         <el-table-column prop="phone" label="手机号"></el-table-column>
         <el-table-column prop="permission" label="拥有权限" width="500">
           <template slot-scope="scope">
-              <span v-if="scope.row.permission.length==7||scope.row.is_admin==1">全部权限</span>
-                <span v-for="(item,index) in scope.row.permission" v-else>
-                  {{index!=scope.row.permission.length-1?permission[item]+",":permission[item]}}
-                </span>
+            <span v-if="scope.row.permission.length==7||scope.row.is_admin==1">全部权限</span>
+            <span v-for="(item,index) in scope.row.permission" v-else>
+              {{index!=scope.row.permission.length-1?permission[item]+",":permission[item]}}
+            </span>
           </template>
         </el-table-column>
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
-        <el-table-column   label="操作">
-            <el-button type="text" size="small " @click="edit(scope.row,scope.$index)"  slot-scope="scope">
-              设置权限
-            </el-button>
+        <el-table-column label="操作">
+          <el-button type="text" size="small " @click="edit(scope.row,scope.$index)" slot-scope="scope">
+            设置权限
+          </el-button>
         </el-table-column>
       </el-table>
       <!-- <el-pagination  v-if='total>0' @current-change="handleCurrentChange" :current-page.sync="page" :page-size="perPage" layout="total, prev, pager, next" :total="total"> </el-pagination> -->
+    </div>
   </div>
-</div>
 </template>
 
 <script>
@@ -268,13 +268,14 @@
       },
     }
   }
+
 </script>
 
 
 <style media="screen" lang="scss">
   .platform {
-    .el-dialog{
-      width:526px;
+    .el-dialog {
+      width: 526px;
     }
     .el-dialog__body {
       padding: 0 50px;
@@ -288,9 +289,9 @@
       }
       .el-checkbox {
         margin-right: 20px;
-        .el-checkbox__inner{
-          width:16px;
-          height:16px;
+        .el-checkbox__inner {
+          width: 16px;
+          height: 16px;
           border-radius: 2px;
         }
       }
@@ -301,7 +302,7 @@
       }
       &:hover {
         background: #B4282D;
-        border-color: #B4282D; 
+        border-color: #B4282D;
         span {
           color: #FFFFFF;
         }
@@ -315,4 +316,5 @@
       }
     }
   }
+
 </style>
