@@ -4,6 +4,14 @@ import 'babel-polyfill'
 import Vue from 'vue'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-default/index.css'
+import upperFirst from 'lodash/upperFirst'
+import camelCase from 'lodash/camelCase'
+
+import 'vue-area-linkage/dist/index.css'; // v2 or higher
+import VueAreaLinkage from 'vue-area-linkage';
+
+
+Vue.use(VueAreaLinkage)
 
 import App from './App'
 
@@ -24,6 +32,27 @@ const requireAll = requireContext => requireContext.keys().map(requireContext)
 const req = require.context('./assets/svg', true, /\.svg$/);
 requireAll(req)
 
+
+const requireComponent = require.context(
+  './components',
+  false,
+  /[A-Za-z]\w+\.(vue|js)$/
+)
+
+
+requireComponent.keys().forEach(fileName => {
+  const componentConfig = requireComponent(fileName)
+  const componentName = upperFirst(
+    camelCase(
+      fileName.replace(/^\.\/(.*)\.\w+$/, '$1')
+    )
+  )
+
+  Vue.component(
+    componentName,
+    componentConfig.default || componentConfig
+  )
+})
 
 /* eslint-disable no-new */
 new Vue({
