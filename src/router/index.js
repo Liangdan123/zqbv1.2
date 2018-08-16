@@ -224,7 +224,7 @@ const router = new Router({
       }, {
         path: 'role',
         name: 'role',
-        component: role, 
+        component: role,
       }, {
         path: 'commission',
         name: 'commission',
@@ -336,5 +336,5 @@ const router = new Router({
       component: ShopWithdrawal
     }]
   }, ],
-}) 
+})
 export default router;
