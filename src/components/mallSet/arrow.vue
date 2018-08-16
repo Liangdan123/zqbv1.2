@@ -25,6 +25,7 @@
 				this.itemIndexDown(this.index,this.mallDecor)
 			},
 			delte(){
+                console.log('this.mallDecor:', this.mallDecor)
 				this.itemDelte(this.index,this.mallDecor);
 			}
 		}

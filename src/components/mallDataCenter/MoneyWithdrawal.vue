@@ -168,7 +168,7 @@
                 v-if="detailForWithdrawal.status==1&&role=='mall'"
                 class="dialog-footer">
                 <el-button
-                    @click="mallRemittance(4)"
+                    @click="mallRemittance(2)"
                     :disabled="submitDisable"
                     :loading="btnLoadingIndex==2"
                     class="btn-agree"
@@ -299,8 +299,8 @@
                     .then(()=>{
                         // 设置成功 将表格中的数据设置为对应的状态
                         let item_index = this.withdrawalList.findIndex(({tixian_id})=>tixian_id==this.withdrawalClickId);
-                        let data_extend = Object.assign({},this.withdrawalList[item_index],{status});
-                        this.$set(this.withdrawalList,item_index,data_extend);
+                        this.withdrawalList.splice(item_index,1);
+                        this.$message.success('提现申请处理成功,可在历史记录中查看相关信息 ');
                         this.handleClose()
                     })
                     .catch(({response:{data}})=>{

@@ -36,7 +36,6 @@
 	import categorySave from "@/components/commodity/category_save"
 	import categoryEdit from "@/components/commodity/category_edit"
 	import { getClassifyList, SaveShopClassifyList } from "@/api/commodity"
-
 	export default {
 		name: "category_mgmt",
 		data() {
@@ -49,24 +48,26 @@
 			}
 		},
 		created() {
-			this.shop_id = this.$store.getters.getShop_id;
-			let data = JSON.parse(JSON.stringify(this.$store.getters.getClassifyList)); //还原
-			if(data.length == 0) {
-				return
-			}
-			for(let val of data) {
-				val.created = false;
-				val.isWarn = false;
-				val.isActive = false;
-				if(val.is_final == 0) {
-					for(let v of val.sub) {
-						v.created = false;
-						v.isWarn = false;
-						v.isActive = false;
+			this.shop_id=this.$store.getters.getShop_id;		
+			getClassifyList(this.shop_id)
+			.then(({data})=>{
+				this.ClassifyList = data;
+				if(data.length == 0) {return};
+				for(let val of data) {
+					val.created = false;
+					val.isWarn = false;
+					val.isActive = false;
+					if(val.is_final == 0) {
+						for(let v of val.sub) {
+							v.created = false;
+							v.isWarn = false;
+							v.isActive = false;
+						}
 					}
-				}
-			};
-			this.ClassifyList = data;
+				};
+			
+			}).catch((error)=>{
+			})
 		},
 		components: {
 			Navbar,
@@ -206,8 +207,7 @@
 						}
 						this.isEdited = false;
 						this.$store.dispatch("doClassifyList", this.shop_id);
-					}).catch(({response: {data}																			
-					}) => {
+					}).catch(({response: {data}	}) => {																						
 						this.$message.error(data.errorcmt);
 					})
 			}

@@ -59,7 +59,7 @@
 	</div>
 </template>
 
-<script>
+<script>	
 	import Navbar from "@/components/order/Navbar"
 	import search from "@/components/order/searchOrder"
 	import bought from "@/components/order/bought"

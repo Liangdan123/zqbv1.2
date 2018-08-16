@@ -337,14 +337,15 @@
 				}
 			},
 			//点击编辑、添加分类
-			editCategorys(product) {				
+			editCategorys(product) {	
 				this.categoryDialog = true;//弹框出现
 				this.$set(this.mallProduct,"product_id",product.id);//商城分类设置				
 				this.$set(this.changeProduct, "product_id", product.id);			
 				this.initStoreClassify("storeClassify");//初始化都没有被选中
 				this.initStoreClassify("mallClassify");//初始化都没有被选中
-				this.dialogTitle = "添加分类";					
-				if(product.shop_categorys.length!=0){//店铺分类
+				this.dialogTitle = "添加分类";	
+				
+				if(product.shop_categorys.length!=0){//店铺分类(编辑分类)
 					this.dialogTitle = "编辑分类"
 					this.classifyName = [];
 				    if (this.storeClassify != 0) {
@@ -369,7 +370,9 @@
 					var filters=this.classifyName.map(item=>item.id);
 					//事先选中的状态
 					this.isChecked(filters,"storeClassify")//判断商城分类是否事先选中
-				};
+				}else{//添加分类
+					this.classifyName = [];
+				}
 				if(product.mall_categorys.length!=0){//商城分类
 					this.dialogTitle = "编辑分类";
 					if(this.mallClassify.length != 0){

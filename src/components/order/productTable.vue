@@ -7,13 +7,15 @@
 	       				<img :src="scope.row.spec_url" width="50" height="50"/>
 	       			</div>
 	       			<div class="float-l" style="width: 84px;">
-	       				<span class="color-3" style="height: 24px;display:inline-block;overflow: hidden;width: 84px;
-	       					text-overflow: ellipsis;white-space: nowrap;" >
+	       				<div class="product_name" >
 	       					{{scope.row.product_name}}
-	       				</span><br>
-	       				<span v-for="item in scope.row.spec_name.split(';')" class="mr-10 display-in color-7F">
-	       					{{item}}
-	       				</span>
+	       				</div>
+	       				<div class="spec_name">
+		       				<span v-for="item in scope.row.spec_name.split(';')" class="color-7F">
+		       					{{item}}
+		       				</span>
+	       				</div>
+
 	       			</div>
 	       		</template>
 			</el-table-column>
@@ -51,5 +53,22 @@
 <style scoped="scoped">
 	.el-table__row{
 		height: 86px;
+	}
+	.product_name{
+		height: 24px;
+		overflow: hidden;
+		width: 84px;
+	    text-overflow: ellipsis;
+	    white-space: nowrap;
+	    color:#333;
+	}
+	.spec_name{
+		width: 84px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.spec_name span{
+		margin-left: 4px;
 	}
 </style>

@@ -6,7 +6,8 @@
 				<el-radio label="on">开</el-radio>
 				<el-radio label="off">关</el-radio>
 			</el-radio-group>
-			<el-input type="text" v-model="bannerTitle" v-if="BannerRadio==='on'" placeholder="请输入模块标题(必填)" class="login-input2 mt-10">		
+			<el-input type="text" v-model="bannerTitle" v-if="BannerRadio==='on'" placeholder="请输入模块标题(必填)" class="login-input2 mt-10">
+				
 			</el-input>
 		</div>
 		<div class="banner-editor" v-for="(item,index) in banner" :key="index">
@@ -113,6 +114,7 @@
 		},
 		props:["banner","title","allBanner"],
 		created(){
+			let shop_id = this.$store.getters.getShop_id;
 			if(this.allBanner!==undefined){//大部分都没有传"allBanner",为防止出错
 				this.BannerRadio=this.allBanner.title_switch;//判断商城装修时海报样式二的标题开关
 				this.bannerTitle=this.allBanner.title
@@ -410,4 +412,9 @@
 		color: #0070C9;
 	}
 </style>
-
+<style>
+	.bannerEditore .imageUpload_con{
+		margin-top: -32px;
+		margin-left: -17.5px;
+	}
+</style>

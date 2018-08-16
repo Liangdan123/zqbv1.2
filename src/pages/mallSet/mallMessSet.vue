@@ -1,5 +1,5 @@
 <template>
-	<div class="mallMessSet commonCon mt-130 pt-20 pb-20">
+	<div class="mallMessSet commonCon mt-130 pt-20 pb-20" v-loading="loading">
 		<h2 class="f20 color-3">商城信息</h2>
 		<h3  class="f16 color-3 mt-40 mb-20">基本信息</h3>
 		<el-form :model="mallMess" :rules="mallMessRules" ref="mallMess">
@@ -52,6 +52,7 @@
 				},													
 				imageType:"mall",
 				cancelMess:{},//取消时候需要用到
+				loading:true,
 			}
 		},
 		created(){
@@ -59,6 +60,7 @@
 			.then(({data})=>{
 				this.mallMess=data;
 				this.cancelMess=JSON.parse(JSON.stringify(data));
+				this.loading=false;
 			})
 			.catch(({response:{data}})=>{
 				this.$message.error(data.errorcmt);
@@ -90,8 +92,8 @@
 		        	cancelButtonText: '取消',
 		       	}).then(()=>{
 		        	//确认放弃，还原为未改之前	   
-		        	this.mallMess=this.cancelMess;		        	
-					this.$message({ type: 'info', message: '已放弃本次编辑'});
+		        	this.mallMess=this.cancelMess;		 
+		        	router.replace("/mallZxh/mallSetInfo/mallMess")								
 			    }).catch(()=>{
 		        	if(event.srcElement.innerText=="取消"){
 		        		this.$message({ type: 'info', message: '未放弃本次编辑' });				           

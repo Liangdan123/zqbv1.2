@@ -84,7 +84,7 @@
                     class="module"
                     :span="8">
                     <router-link to='shop-withdrawal' tag="div" append>
-                        <svg width="392" height="160" class="module-bg">
+                        <svg width="392" height="160"  class="module-bg">
                             <use xlink:href="#statistics-money"  />
                         </svg>
                         <div class="module-content">
@@ -182,7 +182,7 @@
             money(value,label=''){
                 // 金额转换成数字和整数部分
                 value = Number(value).toFixed(2).split('.');
-                let value_int = value[0].toLocaleString();// 转换成金额形式
+                let value_int = Number(value[0]).toLocaleString();// 转换成金额形式
                 return `${label} ${value_int}.${value[1]}`;
             },
         },

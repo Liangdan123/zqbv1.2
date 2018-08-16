@@ -19,7 +19,7 @@
 					<span>保存编辑</span>
 				</el-button>
 			</div>
-			<div class="edit-content">
+			<div class="edit-content" v-loading="loading">
 				<mallCategorySave v-if="!isEdited" :ClassifyList="mallClassifyList"></mallCategorySave>
 				<mallCategoryEdit v-else="isEdited" :ClassifyList="mallClassifyList"  @emptyDelt="emptyDelt">					
 				</mallCategoryEdit>
@@ -40,6 +40,7 @@
 				isEdited:false,
 				mallClassifyList:[],//商城分类数据
 				isEmptyDelt: true,
+				loading:true,
 			}
 		},
 		created(){			
@@ -60,6 +61,7 @@
 						}
 					}
 				};
+				this.loading=false;
 			})								
 		},
 		methods:{
@@ -169,7 +171,6 @@
 							this.$message({showClose: true,message: '保存成功!',type: 'success'});	
 						};																																
 						this.isEdited = false;
-						this.$store.dispatch("doMallClassifyList");
 					}).catch(({response: {data}}) => {					
 						this.$message.error(data.errorcmt);
 					})

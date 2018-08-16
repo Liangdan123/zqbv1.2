@@ -49,7 +49,7 @@
                 withdrawalClickId:'',
                 filterWithdrawalCondition:{
                     "search": {
-                        "status": '2',
+                        "status": '1',
                     },
                     "page": 1
                 },
@@ -76,7 +76,7 @@
                 };
                 // 根据显示部分扩展对应的搜索条件
                 if (name === 'pending') {
-                    Object.assign(search_condition_base.search, {status: '2'});
+                    Object.assign(search_condition_base.search, {status: '1'});
                 } else {
                     Object.assign(search_condition_base.search, {status: '2,3,4'});
                 }

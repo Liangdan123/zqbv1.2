@@ -19,7 +19,7 @@
                     <p class="itemTitle">可提现金额</p>
                     <p class="money-total">{{shopMoneyStatistics.withdraw_yuan | money}}</p>
                     <div class="item-bottom">
-                        <p class="money-history">历史资金库总额 <span>{{shopMoneyStatistics.withdraw_history_yuan | money}}</span></p>
+                        <p class="money-history">历史提现金额 <span>{{shopMoneyStatistics.withdraw_history_yuan | money}}</span></p>
                         <router-link :to="{name:'WithdrawalApply'}" class="btn-apply" append>申请提现</router-link>
                     </div>
                     <svg
@@ -279,7 +279,7 @@
             money(value){
                 // 金额转换成数字和整数部分
                 value = Number(value).toFixed(2).split('.');
-                let value_int = value[0].toLocaleString();// 转换成金额形式
+                let value_int = Number(value[0]).toLocaleString();// 转换成金额形式
                 return `￥ ${value_int}.${value[1]}`;
             },
             express(type){

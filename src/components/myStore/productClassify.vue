@@ -27,8 +27,9 @@
 				</div>
 				
 				<div class="text-l" :class="{checkClassify:checkStyle}" v-show="type=='多选'">
+					
 					<label class="display-b store_label" v-for="(item,index) in Classify" :key="index">			        	
-			          <input type="checkbox" name="two" @change="CheckIndex(item,index)" :checked="item.checked"
+			          <input type="checkbox" name="two" @change="CheckIndex(item,index)" v-model="item.checked"
 			           :disabled="(item.level==1&&item.is_final==0)?true:false"  class="display-n">			            
 			          <em v-if="item.level==2||(item.level==1&&item.is_final==1)?true:false"
 			            :class="item.level===2? 'ml-20' : ''"></em>

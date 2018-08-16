@@ -182,7 +182,7 @@
 			},
 			productList(data,existAddProduct) {//商城列表搜索API
 				getProductList(data)
-				.then(({data}) => {	
+				.then(({data}) => {
 					if(data.data.length<this.needNum){//上架商品数量小于要展示的商品数量
 						this.$message({message:`商城商品数量仅有${data.data.length}个`,showClose: true,});
 						this.mallPlate.data.product_num=data.data.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）

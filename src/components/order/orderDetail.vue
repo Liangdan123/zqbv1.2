@@ -9,7 +9,7 @@
 				<span class="color-7F f14 display-in">订单状态：</span>				
 				<em class="color-3 f14 display em" v-if="checkOrder.distribute_type==='self'&&checkOrder.status===2?false:true">
 					{{checkOrder.status===1?"未付款":checkOrder.status===2?"未发货":checkOrder.status===3?"已发货":checkOrder.status===4?					
-					"交易完成":checkOrder.status===5?"交易已取消":checkOrder.status===6?"交易已关闭":"交易已删除"}}	
+					"交易完成":checkOrder.status===5?"交易已取消":checkOrder.status===6?"交易已关闭":"交易已删除"}}
 				</em>
 				<em v-if="checkOrder.distribute_type==='self'&&checkOrder.status===2">
 					未备货
@@ -170,13 +170,15 @@
  			       				<img :src="scope.row.spec_url" width="50" height="50"/>
  			       			</div>
  			       			<div class="float-l" style="width: 84px;">
- 			       				<span class="color-3" style="display: inline-block; overflow: hidden; width: 84px;
-    							text-overflow: ellipsis;white-space: nowrap;">             
- 			       					{{scope.row.product_name}} 
- 			       				</span><br>
- 			       				<span v-for="item in scope.row.spec_name.split(';')" class="mr-10 display-in color-7F">
- 			       					{{item}}
- 			       				</span>
+ 			       				<div class="product_name" >             
+ 			       					{{scope.row.product_name}}
+ 			       				</div>
+ 			       				<div class="spec_name">
+	 			       				<span v-for="item in scope.row.spec_name.split(';')" class="color-7F">
+	 			       					{{item}}
+	 			       				</span>
+ 			       				</div>
+
  			       			</div>
  			       		</template>
      				</el-table-column>
@@ -394,6 +396,23 @@
 	}
 	.orderDetai .el-table__row{
 		height: 86px;
+	}
+	.product_name{
+		color: #333;
+		display: inline-block;
+		overflow: hidden;
+		width: 84px;
+    	text-overflow: ellipsis;
+    	white-space: nowrap;
+	}
+	.spec_name{
+		width: 84px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.spec_name span{
+		margin-left: 4px;
 	}
 </style>
 <style>

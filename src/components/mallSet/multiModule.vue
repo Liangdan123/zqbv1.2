@@ -57,7 +57,7 @@
 			<el-option  v-for="item in options" :key="item.value" :label="item.label" :value="item.value">                     
 			</el-option>
 		</el-select>
-		<div v-show="false">{{checked}}</div>
+<!--		<div v-show="false">{{checked}}</div>-->
 		<!--.........................选择商品.....................-->
 		<h3 class="color-3 f14 mt-20 font-n">选择商品</h3>
 		<el-radio-group v-model="radio2" class="mt-10  mb-20" @change="isAuto">
@@ -105,7 +105,6 @@
 				activeName:"first",
 				classifyName:{},	
 				onMess:{},//保存开关信息
-				value:"",//商品展示数量
 				radio2:"",
 				disabled:true,
 				productVisible:false,
@@ -169,8 +168,13 @@
 					return [{value:3,label:3}, { value:6,label:6}, {value:9,label:9},{value:12,label:12},{value:15,label:15}]
 				}
 			},
-			checked(){//商品展示数量跟跟原先编辑的数量一致
-				return this.value=this.shopRank.product_num
+			value:{
+				get:function(){
+					return this.shopRank?this.shopRank.product_num:0
+				},
+				set:function(num){
+					this.shopRank.product_num=num;
+				}
 			}
 		},
 		methods:{
