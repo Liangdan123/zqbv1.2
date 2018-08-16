@@ -65,7 +65,6 @@
 
 <style>
 	.imageUpload{
-		background: #F0F4F7;
 		border-radius: 2px;
 		text-align: center;
 		border:1px dashed  #D6D6D6;
@@ -97,11 +96,7 @@
 	.imageUpload .icon-jiahao{
 		display: inline-block;
 		font-size: 48px;
-		color: #7F7F7F;
-	}
-	.imageUpload_con.changePosition{
-		margin-top: -28.5px;
-		margin-left: -24px;
+		color: #D6D6D6;
 	}
 	.imageUpload_con p{
 		margin-top: 6px;

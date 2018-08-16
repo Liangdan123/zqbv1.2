@@ -11,7 +11,7 @@
         <el-radio v-model="is_company" :label="1" class="mr-20">企业</el-radio>
         <el-radio v-model="is_company" :label="2">个人</el-radio>
       </div>
-      <el-form :model="form" label-width="120px" class="mt-20 clearfix join" :rules="rules">
+      <el-form :model="form" label-width="120px" class="mt-20 clearfix join" :rules="rules" ref="ruleForm">
         <el-form-item label="姓名：" prop="contact_name">
           <el-input v-model="form.contact_name" size="small" placeholder="请输入姓名"></el-input>
         </el-form-item>
@@ -49,15 +49,17 @@
           </el-select>
         </el-form-item>
         <div class="clearfix"></div>
-        <el-form-item label="营业执照副本扫描件（三证合一时）：" prop="identity_front_url" class="identity">
+        <el-form-item label="营业执照副本扫描件（三证合一时）：" prop="license_url" class="identity">
+          <imageUpload :imageUrl="form.license_url" :imageType="imageType" @getImageUrl="licenseView">
+          </imageUpload>
+        </el-form-item>
+        <el-form-item label="法人身份证（正面）：" prop="identity_front_url" class="identity ml-10">
           <imageUpload :imageUrl="form.identity_front_url" :imageType="imageType" @getImageUrl="frontalView">
           </imageUpload>
-          <!-- <p class="f12 color-7F ">身份证正面</p> -->
         </el-form-item>
-        <el-form-item label="法人身份证（正面）：" prop="identity_back_url" class="identity ml-10">
+        <el-form-item label="法人身份证（反面）：" prop="identity_back_url" class="identity ml-10">
           <imageUpload :imageUrl="form.identity_back_url" :imageType="imageType" @getImageUrl="reverseView">
           </imageUpload>
-          <!-- <p class="f12 color-7F ">身份证背面</p> -->
         </el-form-item>
           <div class="clearfix"></div>
       </el-form>
@@ -124,7 +126,10 @@
           contact_email: '',
           address: '',
           company_name: '',
-          business_range: ""
+          business_range: "",
+          license_url:"",
+          identity_front_url:"",
+          identity_back_url:"",
         },
         rules: {
           contact_name: [{
@@ -200,7 +205,19 @@
       imageUpload
     },
     methods: {
-      tabSwitch() {},
+      tabSwitch(tab) {
+        // 清除表单数据
+          this.$refs['ruleForm'].resetFields();
+        if(tab.name==3){
+          this.form.business_range=[]
+        }else if(tab.name==4){
+          this.form.business_range=""
+        }
+      },
+      licenseView(data){
+        console.log(data)
+         this.form.license_url = data.new_url
+      },
       frontalView(data) {
         this.form.identity_front_url = data.new_url
       },
