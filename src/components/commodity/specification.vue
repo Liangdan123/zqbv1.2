@@ -520,10 +520,7 @@
 .productProp .el-table td,.productProp .el-table th.is-leaf{
 	border-bottom: 1px solid #E9EEF2;
 }
-.tableList td .imageUpload_con{
-	margin-top:-18px;
-	margin-left: -11px;
-}
+
 .tableList td .imageUpload  .iconfont{
 	font-size:24px;
 }

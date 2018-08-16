@@ -410,9 +410,4 @@
 		color: #0070C9;
 	}
 </style>
-<style>
-	.bannerEditore .imageUpload_con{
-		margin-top: -32px;
-		margin-left: -17.5px;
-	}
-</style>
+

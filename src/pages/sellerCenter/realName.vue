@@ -224,8 +224,5 @@
 .realCon .imageUpload .icon-jiahao{
 	font-size: 32px;
 }
-.realCon .imageUpload_con{
-	margin-top: -20px;
-	margin-left: -14px;
-}
+
 </style>

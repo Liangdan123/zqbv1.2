@@ -48,23 +48,25 @@
             </el-option>
           </el-select>
         </el-form-item>
-        	<el-form-item label="身份证照片" prop="identity_front_url" class="display-in identity">
-				  		<imageUpload :imageUrl="form.identity_front_url" :imageType="imageType" @getImageUrl="frontalView">
-				  		</imageUpload>
-				  		<p class="f12 color-7F ">身份证正面</p>
-				  	</el-form-item>
-				  	<el-form-item label="" prop="identity_back_url" class="display-in identity ml-10">
-				  		<imageUpload :imageUrl="form.identity_back_url" :imageType="imageType" @getImageUrl="reverseView">
-				  		</imageUpload>
-				  		<p class="f12 color-7F ">身份证背面</p>
-				  	</el-form-item>
+        <div class="clearfix"></div>
+        <el-form-item label="营业执照副本扫描件（三证合一时）：" prop="identity_front_url" class="identity">
+          <imageUpload :imageUrl="form.identity_front_url" :imageType="imageType" @getImageUrl="frontalView">
+          </imageUpload>
+          <!-- <p class="f12 color-7F ">身份证正面</p> -->
+        </el-form-item>
+        <el-form-item label="法人身份证（正面）：" prop="identity_back_url" class="identity ml-10">
+          <imageUpload :imageUrl="form.identity_back_url" :imageType="imageType" @getImageUrl="reverseView">
+          </imageUpload>
+          <!-- <p class="f12 color-7F ">身份证背面</p> -->
+        </el-form-item>
+          <div class="clearfix"></div>
       </el-form>
     </div>
   </div>
 </template>
 
 <script>
-	import imageUpload from "@/components/func/imageUpload"
+  import imageUpload from "@/components/func/imageUpload"
 
   export default {
     data() {
@@ -191,18 +193,20 @@
             trigger: 'change'
           }, ]
         },
-        imageType:"identity",//图片类型
+        imageType: "identity", //图片类型
       }
     },
-    components:{imageUpload},
+    components: {
+      imageUpload
+    },
     methods: {
       tabSwitch() {},
-      	frontalView(data){
-				this.form.identity_front_url=data.new_url
-			},
-			reverseView(data){
-				this.form.identity_back_url=data.new_url
-			},
+      frontalView(data) {
+        this.form.identity_front_url = data.new_url
+      },
+      reverseView(data) {
+        this.form.identity_back_url = data.new_url
+      },
     }
   }
 
@@ -236,6 +240,21 @@
       .cascader-menu-option {
         width: 290px;
       }
+      &.identity{
+        height: inherit;
+        label{
+          display: block;
+          text-align: left;
+          width:100% !important;
+        }
+       .el-form-item__content{
+         margin: 0 !important;
+       }
+      }
+    }
+    .imageUpload{
+      width: 400px;
+      height: 219px;
     }
   }
 

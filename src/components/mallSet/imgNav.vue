@@ -191,10 +191,6 @@ button.btn-link{
 }
 </style>
 <style>
-	.imgNav .imageUpload_con{
-		margin-top: -16px;
-		margin-left: -15px;
-	}
 	.imgNav .imageUpload_con .iconfont{
 		font-size: 32px;
 	}
