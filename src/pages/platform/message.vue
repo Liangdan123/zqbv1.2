@@ -77,6 +77,9 @@
   .remove {
     span {
       color: #B4282D;
+      .icon-shanchu{
+        color: #B4282D;
+      }
     }
     &:hover {
       background: #B4282D;

@@ -38,7 +38,7 @@
         </search>
       </div>
       <!--........................表格...............-->
-      <el-table class="table" v-loading="tableDataLoading" :data="[1]" style="width: 100%">
+      <el-table class="table" v-loading="tableDataLoading" :data="list" style="width: 100%">
         <el-table-column prop="type" label="角色"></el-table-column>
         <el-table-column prop="type" label="姓名"></el-table-column>
         <el-table-column prop="phone" label="手机号"></el-table-column>
@@ -68,6 +68,21 @@
     name: "join",
     data() {
       return {
+        list:[{
+            "user_id": 1,
+            "is_company": 1,
+            "type": 2,
+            "contact_name": "小王",
+            "cps_id": 0,
+            "phone": "18457922111",
+            "province": "浙江省",
+            "city": "金华市",
+            "company_name": "快服科技",
+            "business_range": "1,2,3",
+            "business_range_name":"app开发,管理软件,人力资源",
+            "created_at": "2018-08-07 08:45:11",
+            "is_blacklist": 0
+        }],
         value1: "1",
         options1: [{
             value: "1",
@@ -241,6 +256,7 @@
   .btn {
     font-size: 12px;
     color: #0070c9;
+    cursor: pointer;
   }
 
 </style>

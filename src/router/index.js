@@ -60,6 +60,7 @@ import commission from '@/pages/platform/commission';
 import permission from '@/pages/platform/permission';
 import message from '@/pages/platform/message';
 import addrole from '@/pages/platform/addrole';
+import joinRecord from '@/pages/platform/joinRecord';
 Vue.use(Router);
 const router = new Router({
   routes: [{
@@ -241,6 +242,10 @@ const router = new Router({
         path: 'addrole',
         name: 'addrole',
         component: addrole,
+      }, {
+        path: 'joinRecord',
+        name: 'joinRecord',
+        component: joinRecord,
       }]
     }, {
       path: 'mallSetInfo',

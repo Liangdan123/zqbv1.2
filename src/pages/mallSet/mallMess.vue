@@ -74,10 +74,7 @@
 		margin:0 auto;
 		text-align:left;
 	}
-	.edit_button .edit{
-		width: 92px;
-		height: 32px;
-	}
+
 	.mallMessCon .logo{
 		height: 104px;
 		width: 104px;

@@ -9,10 +9,12 @@
       <!--.................主体内容....................-->
     </el-dialog>
     <div class="g-button">
-      <el-button class="store-button1 add-child">
-        <i class="iconfont icon-tianjia f12"></i>
-        <span>添加角色</span>
-      </el-button>
+      <router-link to="addrole">
+        <el-button class="store-button1 add-child">
+          <i class="iconfont icon-tianjia f12"></i>
+          <span>添加角色</span>
+        </el-button>
+      </router-link>
     </div>
     <div class="g-content">
       <!--.....................搜索框........................-->
@@ -41,17 +43,19 @@
       <!--........................表格...............-->
       <el-table class="table" v-loading="tableDataLoading" :data="filterResults" style="width: 100%">
         <el-table-column label="所属区域" prop="city"></el-table-column>
-        <el-table-column prop="type" label="角色"></el-table-column>
-        <el-table-column prop="type" label="姓名"></el-table-column>
+        <el-table-column prop="type" label="角色">
+          <div slot-scope="scope">{{scope.row.type==2?"代理商":scope.row.type==3?"合伙人":"服务商"}}</div>
+        </el-table-column>
+        <el-table-column prop="contact_name" label="姓名"></el-table-column>
         <el-table-column prop="phone" label="手机号"></el-table-column>
         <el-table-column prop="company_name" label="公司名称" v-if="value1=='1'"></el-table-column>
         <el-table-column prop="contact_email" label="常用邮箱" v-else></el-table-column>
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="120" label="操作">
-          <span class="btn" v-if="scope.row.auth_status" slot-scope="scope">查看记录</span>
+           <router-link :to="{path:'joinRecord',query: {id: scope.row.join_id}}" slot-scope="scope" class="btn" >查看记录</router-link>
         </el-table-column>
       </el-table>
-      <el-pagination class="pagination" v-if="resultTotalForFilter>pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage"
+      <el-pagination class="pagination mt-20" v-if="resultTotalForFilter>pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage"
         :page-size="pageSize" layout="total, prev, pager, next" :total="resultTotalForFilter">
       </el-pagination>
     </div>
@@ -150,7 +154,25 @@
           },
           per_page: 20
         },
-        filterResults: [],
+        filterResults: [ {
+            "join_id": 1,
+            "join_no":"J18013110204412011155",
+            "is_company": 1,
+            "type": 2,
+            "contact_name": "小王",
+            "cps_id": 0,
+            "phone": "18457922111",
+            "province": "浙江省",
+            "city": "金华市",
+            "contact_email":"cs@163.com",
+            "company_name": "快服科技",
+            "business_range": "1,2,3",
+            "business_range_name":"app开发,管理软件,人力资源",
+            "pay_fee_yuan": 1000,
+            "audit_status": 1,
+            "pay_status": 0,
+            "created_at": "2018-08-07 08:45:11"
+        }],
         resultTotalForFilter: 100,
         dialogVisible: false //弹框显示
       };
@@ -213,7 +235,7 @@
       },
       _doSearch() {
         // 搜索入驻申请列表
-        this.tableDataLoading = true;
+        // this.tableDataLoading = true;
         this.searchCondition.per_page = this.pageSize;
         // getShopApplyLists(this.searchCondition)
         //     .then(({
@@ -242,18 +264,18 @@
 </style>
 <style lang="scss">
   .platform {
-      .el-dialog__wrapper.order .el-dialog__title {
-    font-size: 20px;
-    color: #333;
+    .el-dialog__wrapper.order .el-dialog__title {
+      font-size: 20px;
+      color: #333;
+    }
+    .el-select {
+      input.el-input__inner {
+        border-radius: 2px;
+        height: 32px;
+      }
+      margin-right: 16px;
+      width: 200px;
+    }
   }
 
-  .el-select {
-    input.el-input__inner {
-      border-radius: 2px;
-      height: 32px;
-    }
-    margin-right: 16px;
-    width: 200px;
-  }
-  }
 </style>
