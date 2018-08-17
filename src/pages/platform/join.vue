@@ -52,7 +52,8 @@
         <el-table-column prop="contact_email" label="常用邮箱" v-else></el-table-column>
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="120" label="操作">
-           <router-link :to="{path:'joinRecord',query: {id: scope.row.join_id}}" slot-scope="scope" class="btn" >查看记录</router-link>
+          <router-link :to="{path:'joinRecord',query:{'id':scope.row.join_id,'tab':tabForShow,'path':'join'}}" slot-scope="scope"
+            class="btn">查看记录</router-link>
         </el-table-column>
       </el-table>
       <el-pagination class="pagination mt-20" v-if="resultTotalForFilter>pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage"
@@ -65,6 +66,8 @@
 <script>
   import Navbar from "@/components/platform/Navbar";
   import search from "@/components/order/searchOrder";
+    import router from '@/router'
+
   export default {
     data() {
       return {
@@ -154,24 +157,24 @@
           },
           per_page: 20
         },
-        filterResults: [ {
-            "join_id": 1,
-            "join_no":"J18013110204412011155",
-            "is_company": 1,
-            "type": 2,
-            "contact_name": "小王",
-            "cps_id": 0,
-            "phone": "18457922111",
-            "province": "浙江省",
-            "city": "金华市",
-            "contact_email":"cs@163.com",
-            "company_name": "快服科技",
-            "business_range": "1,2,3",
-            "business_range_name":"app开发,管理软件,人力资源",
-            "pay_fee_yuan": 1000,
-            "audit_status": 1,
-            "pay_status": 0,
-            "created_at": "2018-08-07 08:45:11"
+        filterResults: [{
+          "join_id": 1,
+          "join_no": "J18013110204412011155",
+          "is_company": 1,
+          "type": 2,
+          "contact_name": "小王",
+          "cps_id": 0,
+          "phone": "18457922111",
+          "province": "浙江省",
+          "city": "金华市",
+          "contact_email": "cs@163.com",
+          "company_name": "快服科技",
+          "business_range": "1,2,3",
+          "business_range_name": "app开发,管理软件,人力资源",
+          "pay_fee_yuan": 1000,
+          "audit_status": 1,
+          "pay_status": 0,
+          "created_at": "2018-08-07 08:45:11"
         }],
         resultTotalForFilter: 100,
         dialogVisible: false //弹框显示
@@ -183,6 +186,7 @@
     },
     created() {
       // this.searchMethods(this.orderMess)
+       this.tabForShow=this.$route.query.tab||'1';
     },
     methods: {
       handleCurrentChange() {},

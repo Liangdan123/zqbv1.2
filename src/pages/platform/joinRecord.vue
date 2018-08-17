@@ -2,7 +2,7 @@
   <div class="platform commodity">
     <div class="g-content">
       <div class="header">详情信息
-        	<el-button class="store-button2 edit mb-10 float-r" @click="edit" v-if="tab==1||tab==2">
+        	<el-button class="store-button2 edit mb-10 float-r" @click="edit" v-if="(tab==1||tab==2)&&path=='join'">
             <i class="iconfont icon-Rectangle f12"></i>
             <span class="font-b" >编辑信息</span>
           </el-button>
@@ -93,13 +93,17 @@
         </el-form-item>
         <div class="clearfix"></div>
       </el-form>
+      <div v-if="tab==1&&path=='join'" class="mt-10 mb-10">
+         <el-radio class="radio ml=20" v-model="status" label="1">通过申请</el-radio>
+         <el-radio class="radio ml=20" v-model="status" label="2">拒绝申请</el-radio>
+      </div>
       <div class="clearfixs floot">
-        <router-link to="join">
+        <router-link  :to="{path:path,query:{'tab':tab}}" >
           <!-- 返回join的哪个tab -->
-          <el-button class='float-r ml-20' :class="[tab==1||tab==2? 'store-button2 ':'store-button1']">{{(tab==1&&tab==2)?"取消":"返回"}}</el-button>
+          <el-button class='float-r ml-20' :class="[(tab==1||tab==2)&&path=='join'? 'store-button2 ':'store-button1']">{{(tab==1||tab==2)?"取消":"返回"}}</el-button>
         </router-link>
         <!-- 通过申请的按钮 -->
-        <el-button class='store-button1 float-r ml-20' v-if="tab==1">确定</el-button>
+        <el-button class='store-button1 float-r ml-20' v-if="tab==1&&path=='join'">确定</el-button>
         <el-button class='store-button1 float-r ml-20' v-if="isEdit" @click="save">保存</el-button>
       </div>
     </div>
@@ -113,6 +117,7 @@
   export default {
     data() {
       return {
+        status:"1",
         tab:"",
         id:"",
         isEdit:false,
@@ -259,8 +264,8 @@
     },
     created(){
       this.id=this.$route.query.id;
-      this.tab=this.$route.query.tab;
-      this.tab=2;
+      this.path=this.$route.query.path;
+      this.tab=this.$route.query.tab||null;
     },
     components: {
       imageUpload
