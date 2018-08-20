@@ -14,6 +14,8 @@ export const ADDSUCESS="ADDSUCESS" //添加成功提示
 export const SHOWBOMB="SHOWBOMB" //店铺装修弹框显示
 export const CLASSIFYLIST="CLASSIFYLIST"//店铺分类列表
 
+
+
 export const KEEPDESC="KEEPDESC"//店铺装修保存弹框显示
 export const PUBLISHMESS="PUBLISHMESS" //发布信息集合
 

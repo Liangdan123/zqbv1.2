@@ -1,0 +1,106 @@
+<template>
+  <div class="selectType">
+    <el-select v-model="is_company" placeholder="请选择" size="small" @change="select">
+      <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+      </el-option>
+    </el-select>
+    <el-select v-model="type" placeholder="请选择" size="small" @change="select">
+      <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+      </el-option>
+    </el-select>
+    <el-select v-model="business_range" placeholder="请选择" size="small" @change="select">
+      <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+      </el-option>
+    </el-select>
+  </div>
+</template>
+
+<script>
+  import {
+    getMallClassifyList
+  } from "@/api/commodity"
+  export default {
+    props: {
+      search:{
+        default:()=>{
+          return  {
+          }
+        }
+      }
+    },
+    data() {
+      return {
+        is_company: "0",
+        options1: [{
+            value: "0",
+            label: "企业"
+          },
+          {
+            value: "1",
+            label: "个人"
+          }
+        ],
+        type: "",
+        options2: [{
+            value: "",
+            label: "全部"
+          },
+          {
+            value: "2",
+            label: "服务商"
+          },
+          {
+            value: "3",
+            label: "代理商"
+          },
+          {
+            value: "4",
+            label: "合伙人"
+          }
+        ],
+        business_range: "",
+        options3: [{
+          value: "",
+          label: "全部"
+        }]
+      }
+    },
+    async created() {
+      let arr=[];
+      if (this.$store.getters.getMallClassifyList.length > 0) {
+         arr = this.$store.getters.getMallClassifyList;
+      } else {
+        //获取商城分类列表
+        let {data}= await  getMallClassifyList()
+        this.$store.commit("MALLCLASSIFYLIST", data)
+        arr = data;
+      }
+      this.options3 = [{
+        value: "",
+        label: "全部"
+      }];
+      for (let val of arr) {
+        this.options3.push({
+          value: val.id,
+          label: val.mall_category_name,
+        })
+      }
+    },
+    methods: {
+      select(){
+        this.is_company&&(this.search.is_company=this.is_company);
+        this.type&&(this.search.type=this.type);
+        this.business_range&&(this.search.business_range=this.business_range);
+        this.$emit("searchmthod")
+      }
+    }
+  }
+
+</script>
+
+<style scoped>
+  .selectType {
+    display: inline-block;
+  }
+
+</style>

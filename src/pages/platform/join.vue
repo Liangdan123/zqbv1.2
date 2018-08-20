@@ -25,18 +25,7 @@
         <el-tab-pane label="已拒绝" name="4"></el-tab-pane>
       </el-tabs>
       <div class="buttons clearfix mb-20">
-        <el-select v-model="value1" placeholder="请选择" size="small">
-          <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-        <el-select v-model="value2" placeholder="请选择" size="small">
-          <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
-        <el-select v-model="value3" placeholder="请选择" size="small">
-          <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
-          </el-option>
-        </el-select>
+        <searchRole :search.sync="orderMess.search" @searchmthod="_doSearch"></searchRole>
         <search @searchmthod="_doSearch" @inputsearch="inputSearch" @emptymthod="emptyMthod" ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
         </search>
       </div>
@@ -66,85 +55,12 @@
 <script>
   import Navbar from "@/components/platform/Navbar";
   import search from "@/components/order/searchOrder";
-    import router from '@/router'
+  import router from '@/router'
 
   export default {
     data() {
       return {
-        value1: "1",
-        options1: [{
-            value: "1",
-            label: "企业"
-          },
-          {
-            value: "2",
-            label: "个人"
-          }
-        ],
-        value2: "1",
-        options2: [{
-            value: "1",
-            label: "全部"
-          },
-          {
-            value: "2",
-            label: "服务商"
-          },
-          {
-            value: "3",
-            label: "代理商"
-          },
-          {
-            value: "4",
-            label: "合伙人"
-          }
-        ],
-        value3: "1",
-        options3: [{
-            value: "1",
-            label: "全部"
-          },
-          {
-            value: "2",
-            label: "工商注册、财务记账"
-          },
-          {
-            value: "3",
-            label: "管理软件"
-          },
-          {
-            value: "4",
-            label: "网站app开发"
-          },
-          {
-            value: "5",
-            label: "人力资源"
-          },
-          {
-            value: "6",
-            label: "资质许可证"
-          },
-          {
-            value: "7",
-            label: "认证服务"
-          },
-          {
-            value: "8",
-            label: "知识产权"
-          },
-          {
-            value: "9",
-            label: "企业信用评级"
-          },
-          {
-            value: "10",
-            label: "法律顾问"
-          },
-          {
-            value: "11",
-            label: "投融资"
-          }
-        ],
+        value1:1,
         tableDataLoading: false,
         tabForShow: "1",
         pageSize: 20, //每页显示几条
@@ -153,7 +69,7 @@
         orderMess: {
           page: 1,
           search: {
-            type: 0
+            status:"1",
           },
           per_page: 20
         },
@@ -238,9 +154,10 @@
         this._doSearch();
       },
       _doSearch() {
+        console.log(this.orderMess)
         // 搜索入驻申请列表
         // this.tableDataLoading = true;
-        this.searchCondition.per_page = this.pageSize;
+        // this.searchCondition.per_page = this.pageSize;
         // getShopApplyLists(this.searchCondition)
         //     .then(({
         //         data

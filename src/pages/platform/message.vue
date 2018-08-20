@@ -5,7 +5,7 @@
       <el-dialog :title="dialogType[dialogIndex].title" :visible.sync="Visible" size="tiny" :close-on-click-modal="false">
         <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 5}" placeholder="请输入内容" v-model="content"></el-input>
         <div slot="footer" class="dialog-footer">
-          <el-button type="primary" @click="submitForm('ruleForm')">{{dialogType[dialogIndex].btn}}</el-button>
+          <el-button type="primary" @click="submitForm">{{dialogType[dialogIndex].btn}}</el-button>
           <el-button @click="cancel" class="btn-silver">取 消</el-button>
         </div>
       </el-dialog>
@@ -21,10 +21,11 @@
           </el-button>
         </el-tab-pane>
         <el-table :data="list" style="width: 100%" @selection-change="SelectionChange">
+          <el-table-column type="selection" width="36"></el-table-column>
           <el-table-column prop="created_at" label="创建时间"></el-table-column>
           <el-table-column prop="content" label="消息内容" width="650"></el-table-column>
           <el-table-column label="操作">
-            <el-button type="text" size="small " @click="edit(scope.row,scope.$index)" slot-scope="scope">
+            <el-button type="text" size="small " @click="edit(scope.row.content,scope.$index)" slot-scope="scope">
               修改消息
             </el-button>
           </el-table-column>
@@ -51,22 +52,54 @@
           'title': '修改消息',
           'btn': "完成"
         }],
-        dialogIndex: 1,
+        dialogIndex: 0,
         content: "",
         list: [{
           "message_id": 1,
           "content": "上对方答复",
           "created_at": "2018-08-07 08:45:11"
-        }]
+        }],
+        actionIndex:null
       }
     },
     components: {
       Navbar
     },
     methods: {
-      SelectionChange() {},
-      cancel() {},
-      add() {},
+      submitForm() {
+        //调接口添加一条记录
+        // 判断dialogindex是否是新增
+        if(this.dialogIndex==0){
+          this.list.push({
+          "message_id": 1,
+          "content": this.content,
+          "created_at": "2018-08-07 08:45:11"
+        });
+        }else{
+          this.list[this.actionIndex].content=this.content;
+        }
+        this.actionIndex=null;
+        this.Visible=false;
+      },
+      cancel(){
+        this.content="";
+        this.actionIndex=null;
+        this.Visible=false;
+      },
+      edit(data,index) {
+        this.content=data;
+        this.dialogIndex = 1;
+        this.actionIndex=index;
+        this.Visible = true;
+      },
+      SelectionChange() {
+         this.selectArr = arr;
+      },
+      add() {
+        this.content="";
+        this.dialogIndex = 0;
+        this.Visible = true;
+      },
       moreRemove() {}
     }
   }
@@ -77,7 +110,7 @@
   .remove {
     span {
       color: #B4282D;
-      .icon-shanchu{
+      .icon-shanchu {
         color: #B4282D;
       }
     }
@@ -86,6 +119,9 @@
       border-color: #B4282D;
       span {
         color: #FFFFFF;
+        .icon-shanchu {
+          color: #FFFFFF;
+        }
       }
     }
     &:active {

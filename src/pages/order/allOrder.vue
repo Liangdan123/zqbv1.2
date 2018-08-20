@@ -22,8 +22,7 @@
 			</div>
 			<!--........................表格...............-->
 			<bought :orderData="orderData" :orderMess="orderMess"  @handleCurrent="handleCurrent" :orderLists="orderLists"
-				 @showOrder="showOrder"  @showlogist="showlogist" @showSetOrder="showSetOrder"  v-loading="loading">
-								
+				 @showOrder="showOrder"  @showlogist="showlogist" @showSetOrder="showSetOrder"  v-loading="loading">						
 			</bought>
 		</div>
 		
@@ -98,7 +97,6 @@
 				}else if(data===undefined){
 					delete this.orderMess.search.create_time;
 				}
-
 				//调用订单列表API的方法
 				this.searchMethods()
 			},

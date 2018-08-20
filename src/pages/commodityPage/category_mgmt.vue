@@ -23,7 +23,6 @@
 			<div class="edit-content">
 				<categorySave v-if="!isEdited" :ClassifyList="ClassifyList"></categorySave>
 				<categoryEdit v-else="isEdited" :ClassifyList="ClassifyList" @emptyDelt="emptyDelt">
-					
 				</categoryEdit>
 			</div>
 		</div>

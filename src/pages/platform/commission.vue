@@ -680,7 +680,7 @@
       // this.list2Coyp=JSON.parse(JSON.stringify(this.list2));
       // this.list3Coyp=JSON.parse(JSON.stringify(this.list3));
       // this.list4Coyp=JSON.parse(JSON.stringify(this.list4));
-      // this.list5Coyp=JSON.parse(JSON.stringify(this.list5));
+      // this.list5Coyp=JSON.parse(JSON.stringify(this. list5));
     },
     methods: {
       tabclick() {
