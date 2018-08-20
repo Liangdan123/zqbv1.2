@@ -25,12 +25,12 @@
         <el-tab-pane label="已拒绝" name="4"></el-tab-pane>
       </el-tabs>
       <div class="buttons clearfix mb-20">
-        <searchRole :search.sync="orderMess.search" @searchmthod="_doSearch"></searchRole>
-        <search @searchmthod="_doSearch" @inputsearch="inputSearch" @emptymthod="emptyMthod" ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
+        <searchRole :search.sync="searchCondition.search" @searchMethod="searchMethod"></searchRole>
+        <search :search.sync="searchCondition.search"  @searchMethod="searchMethod" ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
         </search>
       </div>
       <!--........................表格...............-->
-      <el-table class="table" v-loading="tableDataLoading" :data="filterResults" style="width: 100%">
+      <el-table class="table" v-loading="tableDataLoading" :data="list" style="width: 100%">
         <el-table-column label="所属区域" prop="city"></el-table-column>
         <el-table-column prop="type" label="角色">
           <div slot-scope="scope">{{scope.row.type==2?"代理商":scope.row.type==3?"合伙人":"服务商"}}</div>
@@ -45,8 +45,8 @@
             class="btn">查看记录</router-link>
         </el-table-column>
       </el-table>
-      <el-pagination class="pagination mt-20" v-if="resultTotalForFilter>pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage"
-        :page-size="pageSize" layout="total, prev, pager, next" :total="resultTotalForFilter">
+      <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
+        :page-size="searchCondition.per_page" layout="total, prev, pager, next" :total="total">
       </el-pagination>
     </div>
   </div>
@@ -54,8 +54,8 @@
 
 <script>
   import Navbar from "@/components/platform/Navbar";
-  import search from "@/components/order/searchOrder";
   import router from '@/router'
+  import page from '@/utils/page'
 
   export default {
     data() {
@@ -63,17 +63,15 @@
         value1:1,
         tableDataLoading: false,
         tabForShow: "1",
-        pageSize: 20, //每页显示几条
-        currentPage: 1,
         type: "", //传到子集的标题
-        orderMess: {
+        searchCondition: {
           page: 1,
           search: {
             status:"1",
           },
           per_page: 20
         },
-        filterResults: [{
+        list: [{
           "join_id": 1,
           "join_no": "J18013110204412011155",
           "is_company": 1,
@@ -92,79 +90,40 @@
           "pay_status": 0,
           "created_at": "2018-08-07 08:45:11"
         }],
-        resultTotalForFilter: 100,
+        total: 0,
         dialogVisible: false //弹框显示
       };
     },
+    mixins: [page],
     components: {
-      Navbar,
-      search
+      Navbar
     },
     created() {
-      // this.searchMethods(this.orderMess)
-       this.tabForShow=this.$route.query.tab||'1';
+      this.tabForShow=this.$route.query.tab||'1';
+      this.searchCondition.search.status=this.tabForShow;
     },
     methods: {
-      handleCurrentChange() {},
-      emptyMthod() {
-        // if (this.orderMess.search.create_time != undefined) {
-        //   delete this.orderMess.search.create_time
-        // }
-        this._doSearch();
-      },
       closeSearch() {
         this.$refs.isShow.closeSearch();
-      },
-      inputSearch(data) {
-        // if(data===""){
-        // 	//当值为空的时候全部显示出列表
-        // 	if(this.orderMess.search.order_search!==undefined){
-        // 		delete this.orderMess.search.order_search
-        // 	}
-        // }else{
-        // 	this.$set(this.orderMess.search,"order_search",data);
-        // }
-        // this._doSearch()
       },
       tabSwitch({
         name
       }) {
         // tab面板切换
-        this.currentPage = 1;
-        this.resultTotalForFilter = 0;
-        // 搜索条件固定部分
-        let search_condition_base = {
-          search: {
-            type: ""
-          },
-          page: 1
-        };
-        // 根据显示部分扩展对应的搜索条件
-        if (name === "pending") {
-          Object.assign(search_condition_base.search, {
-            type: 1
-          });
-        } else {
-          Object.assign(search_condition_base.search, {
-            type: 2
-          });
-        }
-        // 搜索条件赋值 执行搜索
-        this.searchCondition = search_condition_base;
+        this.searchCondition.page = 1;
+        this.searchCondition.search.status=this.tabForShow;
         this._doSearch();
       },
       _doSearch() {
-        console.log(this.orderMess)
         // 搜索入驻申请列表
         // this.tableDataLoading = true;
-        // this.searchCondition.per_page = this.pageSize;
         // getShopApplyLists(this.searchCondition)
         //     .then(({
         //         data
         //     }) => {
         //         this.tableDataLoading = false;
-        //         this.filterResults = data.data;
-        //         this.resultTotalForFilter = data.total;
+        //         this.list = data.data;
+        //         this.total = data.total;
         //     })
       }
     }

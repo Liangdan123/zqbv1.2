@@ -88,10 +88,18 @@
     },
     methods: {
       select(){
-        this.is_company&&(this.search.is_company=this.is_company);
-        this.type&&(this.search.type=this.type);
-        this.business_range&&(this.search.business_range=this.business_range);
-        this.$emit("searchmthod")
+        this.search.is_company=this.is_company;
+         if(this.type){
+          this.search.type=this.type
+        }else{
+          delete this.search.type
+        }
+         if(this.business_range){
+          this.search.business_range=this.business_range
+        }else{
+          delete this.search.business_range
+        }
+        this.$emit("searchMethod")
       }
     }
   }
