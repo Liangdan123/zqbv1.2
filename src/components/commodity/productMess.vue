@@ -284,7 +284,7 @@
 		          showClose:true
 		        });
 			},
-			categorys_index(data){
+			categorys_index(data){//共用方法
 				if(this.pulishForm[data]!==undefined){
 					if(this.pulishForm[data].length===0){
 						delete this.pulishForm[data]				
@@ -297,7 +297,7 @@
 							}
 							if(this.pulishForm[data][i].id!==undefined){
 								this.pulishForm[data][i] = {
-									id: this.pulishForm[data][i].id
+									id: this.pulishForm[data][i].mall_category_id
 								};
 							}
 						}

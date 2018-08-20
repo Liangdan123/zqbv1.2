@@ -75,15 +75,13 @@
 							<span class="f12 color-3">创建时间:</span>
 							<el-date-picker v-model="searchMess.minPubTime" type="date" placeholder="选择日期" :editable="false"> </el-date-picker> 到
 							<el-date-picker v-model="searchMess.maxPubTime" type="date" placeholder="选择日期" :editable="false"> </el-date-picker>
-						</div>
-						
+						</div>						
 						<div class="classify">
 							<span class="f12 color-3">商城分类:</span>
 							<el-select v-model="searchMess.mallClassifyId" filterable placeholder="请选择" >
 								<el-option v-for="(item,index) in mallClassify" :key="index" :value="item.id" :label="item.mall_category_name" :class="item.level===1?'color':''"> </el-option>
 							</el-select>
-						</div>
-						
+						</div>						
 						<div class="classify ">
 							<span class="f12 color-3">店铺分类:</span>
 							<el-select v-model="searchMess.classifyId" filterable placeholder="请选择" >

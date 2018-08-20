@@ -729,6 +729,10 @@
             border: 1px solid #E9EEF2;
             border-top: none;
         }
+        
+        .withdrawal-list-wrap{
+        	margin-top: 15px;
+        }
 
     }
     .pagination{

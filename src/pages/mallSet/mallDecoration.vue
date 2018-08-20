@@ -467,18 +467,6 @@
 									return
 								}								
 							};
-							let dataAttr=item.data.product_ids.split(",");//下架或者删除的商品也在商城首页时的情况	
-							let listAttr=item.list.map(item=>item.product_id);	
-							if(dataAttr.length!==listAttr.length){//只下架商品，未补充下架商品的数量
-								this.errorTips("splb1","该模块部分商品未上架,请手动更改",index);
-								return
-							};
-							if(listAttr.includes(undefined)){listAttr=[];}															
-							let splb1Union=new Set([...dataAttr,...listAttr]);
-							if(dataAttr.length!==splb1Union.size){//下架商品，并补充下架商品的数量
-								this.errorTips("splb1","该模块部分商品未上架,请手动更改",index);
-								return
-							}
 							break;
 						case item.component_key==='splb2':
 							if(item.data.title_switch==='on'){
@@ -487,18 +475,6 @@
 									return
 								}								
 							};
-							let splb2DataAttr=item.data.product_ids.split(",");			
-							let splb2ListAttr=item.list.map(item=>item.product_id);
-							if(splb2DataAttr.length!==splb2ListAttr.length){//只下架商品，未补充下架商品的数量
-								this.errorTips("splb2","该模块部分商品未上架,请手动更改",index);
-								return
-							};
-							if(splb2ListAttr.includes(undefined)){splb2ListAttr=[];}			
-							let splb2Union=new Set([...splb2DataAttr,...splb2ListAttr]);
-							if(splb2DataAttr.length!==splb2Union.size){
-								this.errorTips("splb2","该模块部分商品未上架,请手动更改",index);
-								return
-							}
 							break;
 						case item.component_key==='splb3':
 							if(item.data.title_switch==='on'){
@@ -507,18 +483,6 @@
 									return
 								};								
 							};
-							let splb3DataAttr=item.data.product_ids.split(",");			
-							let splb3ListAttr=item.list.map(item=>item.product_id);
-							if(splb3DataAttr.length!==splb3ListAttr.length){
-								this.errorTips("splb3","该模块部分商品未上架,请手动更改",index);
-								return
-							}
-							if(splb3ListAttr.includes(undefined)){splb3ListAttr=[];}	
-							let splb3Union=new Set([...splb3DataAttr,...splb3ListAttr]);
-							if(splb3DataAttr.length!==splb3Union.size){
-								this.errorTips("splb3","该模块部分商品未上架,请手动更改",index);
-								return
-							}
 							break;
 						case item.component_key==='hbys2':
 							if(item.data.title_switch==='on'){
@@ -543,18 +507,6 @@
 									return
 								};								
 							};
-							let splb4DataAttr=item.data.product_ids.split(",");			
-							let splb4ListAttr=item.list.map(item=>item.product_id);
-							if(splb4DataAttr.length!==splb4ListAttr.length){//只下架商品，未补充下架商品的数量
-								this.errorTips("splb4","该模块部分商品未上架,请手动更改",index);
-								return
-							};
-							if(splb4ListAttr.includes(undefined)){splb4ListAttr=[];}	
-							let splb4Union=new Set([...splb4DataAttr,...splb4ListAttr]);
-							if(splb4DataAttr.length!==splb4Union.size){
-								this.errorTips("splb4","该模块部分商品未上架,请手动更改",index);
-								return
-							}
 							break
 						case item.component_key==='wzdh':
 							if(item.data===null){
@@ -747,7 +699,7 @@
 	}
 	.splb2 .item{
 		width: 165px;
-		min-height: 258px;
+		min-height: 268px;
 	}
 	.line-21{
 		line-height: 21px;
@@ -759,6 +711,7 @@
 	}
 	.splb3 .item{
 		width: 105px;
+		min-height: 210px;
 	}
 	.hbys2{
 		padding-top: 15px;

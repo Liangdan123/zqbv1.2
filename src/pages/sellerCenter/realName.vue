@@ -8,7 +8,6 @@
 						<span class="circle bg-b"></span>
 						<b class="line bg-D6"></b>
 					</p>
-
 					<div class="progress_txt f14">
 						店主实名认证
 					</div>
@@ -108,7 +107,7 @@
 				this.$refs[addMessForm].validate((valid) => {
 		          if (valid) {
 					if(!rule1.test(this.addMessForm.identity_num)&&!rule2.test(this.addMessForm.identity_num)){//格式不正确不继续执行
-						this.$message.error("请输入正确的格式");
+						this.$message.error("请输入正确的身份证格式");
 						return
 					};
 					this.$store.dispatch("doAuditsMess",this.addMessForm);//保存在Vuex里
@@ -224,5 +223,8 @@
 .realCon .imageUpload .icon-jiahao{
 	font-size: 32px;
 }
-
+.realCon .imageUpload_con{
+	margin-top: -20px;
+	margin-left: -14px;
+}
 </style>

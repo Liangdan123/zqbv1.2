@@ -118,17 +118,24 @@
 			if(this.allBanner!==undefined){//大部分都没有传"allBanner",为防止出错
 				this.BannerRadio=this.allBanner.title_switch;//判断商城装修时海报样式二的标题开关
 				this.bannerTitle=this.allBanner.title
-			};		
-			getMallClassifyList()//商城分类列表
-			.then(({data})=>{
-				this.mallClassifyList=data;					
-			}).catch((error)=>{
-			})
-			getClassifyList(shop_id)//商家分类列表
-			.then(({data})=>{
-				this.classifyList=data;
-			}).catch((error)=>{
-			})
+			};	
+			let status=this.$store.getters.getType
+			if(status === 1){
+				getMallClassifyList()//商城分类列表
+				.then(({data})=>{
+					this.mallClassifyList=data;					
+				}).catch((error)=>{
+				})	
+			}
+
+			if(status === 2){
+				getClassifyList(shop_id)//商家分类列表
+				.then(({data})=>{
+					this.classifyList=data;
+				}).catch((error)=>{
+				})	
+			}
+
 		},
 		mixins:[shareMth,storeClassify],
 		components:{imageUpload,storeList,productClassify},		

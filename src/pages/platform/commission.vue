@@ -203,7 +203,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                    <span v-if="status!=3">{{list3[0].rate}}</span>
+                <span v-if="status!=3">{{list3[0].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[0].rate"></el-input>%
               </td>
             </tr>
@@ -220,14 +220,14 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                  <span v-if="status!=3">{{list3[2].rate}}</span>
+                <span v-if="status!=3">{{list3[2].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[2].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                 <span v-if="status!=3">{{list3[3].rate}}</span>
+                <span v-if="status!=3">{{list3[3].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[3].rate"></el-input>%
               </td>
             </tr>
@@ -237,14 +237,14 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                  <span v-if="status!=3">{{list3[4].rate}}</span>
+                <span v-if="status!=3">{{list3[4].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[4].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                 <span v-if="status!=3">{{list3[5].rate}}</span>
+                <span v-if="status!=3">{{list3[5].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[5].rate"></el-input>%
               </td>
             </tr>
@@ -280,15 +280,15 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=4">{{list4[0].rate}}</span>
+                <el-input v-else size="samll" v-model="list4Coyp[0].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=4">{{list4[1].rate}}</span>
+                <el-input v-else size="samll" v-model="list4Coyp[1].rate"></el-input>%
               </td>
             </tr>
             <tr>
@@ -297,15 +297,15 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=4">{{list4[2].rate}}</span>
+                <el-input v-else size="samll" v-model="list4Coyp[2].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=4">{{list4[3].rate}}</span>
+                <el-input v-else size="samll" v-model="list4Coyp[3].rate"></el-input>%
               </td>
             </tr>
             <tr>
@@ -314,22 +314,22 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=4">{{list4[4].rate}}</span>
+                <el-input v-else size="samll" v-model="list4Coyp[4].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=4">{{list4[5].rate}}</span>
+                <el-input v-else size="samll" v-model="list4Coyp[5].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=4">{{list4[6].rate}}</span>
+                <el-input v-else size="samll" v-model="list4Coyp[6].rate"></el-input>%
               </td>
             </tr>
           </table>
@@ -337,9 +337,9 @@
           <h3 class="mb-10 ">2.会员来源于代理商</h3>
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例分给代理商，
             <span class="warn">然后再按表1进行分配。</span>
-            <el-button class='store-button1 float-r' @click="edit(2)">
+            <el-button class='store-button1 float-r' @click="edit(5)">
               <i class="iconfont icon-baocun f12"></i>
-              <span v-if="status!=2">修改比例</span>
+              <span v-if="status!=5">修改比例</span>
               <span v-else>保存</span>
             </el-button>
           </p>
@@ -347,8 +347,8 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                 <span v-if="status!=5">{{list5[0].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[0].rate"></el-input>%
               </td>
             </tr>
           </table>
@@ -356,25 +356,20 @@
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
             <span class="warn">x%</span>的钱按比例分给（代理商、合伙人）。
             <span class="warn">然后再按表1进行分配。</span>
-            <el-button class='store-button1 float-r' @click="edit(2)">
-              <i class="iconfont icon-baocun f12"></i>
-              <span v-if="status!=2">修改比例</span>
-              <span v-else>保存</span>
-            </el-button>
           </p>
           <table class="u-table border" cellspacing="0">
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=5">{{list5[1].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[1].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td width="336">合伙人</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=5">{{list5[2].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[2].rate"></el-input>%
               </td>
             </tr>
           </table>
@@ -382,32 +377,27 @@
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
             <span class="warn">x%</span>的钱按比例分配给（代理商、合伙人、服务商），
             <span class="warn">然后再按表1进行分配。</span>
-            <el-button class='store-button1 float-r' @click="edit(2)">
-              <i class="iconfont icon-baocun f12"></i>
-              <span v-if="status!=2">修改比例</span>
-              <span v-else>保存</span>
-            </el-button>
           </p>
           <table class="u-table border" cellspacing="0">
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=5">{{list5[3].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[3].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td width="336">合伙人</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                 <span v-if="status!=5">{{list5[4].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[4].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td width="336">服务商</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                 <span v-if="status!=5">{{list5[5].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[5].rate"></el-input>%
               </td>
             </tr>
           </table>
@@ -415,35 +405,36 @@
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
             <span class="warn">x%</span>的钱按比例分配给（代理商、服务商），
             <span class="warn">然后再按表1进行分配。</span>
-            <el-button class='store-button1 float-r' @click="edit(2)">
-              <i class="iconfont icon-baocun f12"></i>
-              <span v-if="status!=2">修改比例</span>
-              <span v-else>保存</span>
-            </el-button>
           </p>
           <table class="u-table border" cellspacing="0">
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+               <span v-if="status!=5">{{list5[6].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[6].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td width="336">服务商</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                <span v-if="status!=5">{{list5[7].rate}}</span>
+                <el-input v-else size="samll" v-model="list5Coyp[7].rate"></el-input>%
               </td>
             </tr>
           </table>
-          <h3 class="mb-10 ">消费分成的计算公式：分成金额=原价*佣金比例-用券金额</h3>
+          <h3 class="mb-10 clearfix">消费分成的计算公式：分成金额=原价*佣金比例-用券金额
+            <el-button class='store-button1 float-r' @click="edit(6)">
+              <i class="iconfont icon-baocun f12"></i>
+              <span v-if="status!=2">修改比例</span>
+              <span v-else>保存</span>
+            </el-button>
+          </h3>
           <table class="u-table border" cellspacing="0">
             <tr>
               <td width="336">佣金比例</td>
               <td>
-                <span v-if="status!=2">100</span>
-                <el-input v-else size="samll"></el-input>%
+                 <span v-if="status!=6">{{list6.order_rate}}</span>
+                <el-input v-else size="samll" v-model="list6Coyp.order_rate"></el-input>%
               </td>
             </tr>
           </table>
@@ -458,7 +449,7 @@
   export default {
     data() {
       return {
-        tabForShow: "1",
+        tabForShow: "3",
         status: 0, //0保存 1修改角色 2修改会员 3修改订单
         list1: [{
             "join_role": 2,
@@ -491,11 +482,11 @@
             "rate": 10
           }
         ],
-        list1Coyp:[],
-        list2Coyp:[],
-        list3Coyp:[],
-        list4Coyp:[],
-        list5Coyp:[],
+        list1Coyp: [],
+        list2Coyp: [],
+        list3Coyp: [],
+        list4Coyp: [],
+        list5Coyp: [],
         list2: [{
             "yx_from": 1,
             "give_role": 1,
@@ -635,16 +626,56 @@
           }
         ],
         list5: [{
-          "yx_from": 2,
-          "give_role": 2,
-          "rate": 10
-        }]
+            "yx_from": 2,
+            "give_role": 2,
+            "rate": 20
+          },
+          {
+            "yx_from": 3,
+            "give_role": 2,
+            "rate": 10
+          },
+          {
+            "yx_from": 3,
+            "give_role": 3,
+            "rate": 15
+          },
+          {
+            "yx_from": 4,
+            "give_role": 2,
+            "rate": 5
+          },
+          {
+            "yx_from": 4,
+            "give_role": 3,
+            "rate": 10
+          },
+          {
+            "yx_from": 4,
+            "give_role": 4,
+            "rate": 15
+          },
+          {
+            "yx_from": 5,
+            "give_role": 2,
+            "rate": 5
+          },
+          {
+            "yx_from": 5,
+            "give_role": 4,
+            "rate": 20
+          }
+        ],
+        list6: {
+          "order_rate": 15
+        }
+
       }
     },
     components: {
       Navbar
     },
-    created(){
+    created() {
       //请求接口获取所有分佣
       // this.list2Coyp=JSON.parse(JSON.stringify(this.list2));
       // this.list3Coyp=JSON.parse(JSON.stringify(this.list3));
@@ -656,13 +687,13 @@
         this.status = 0;
       },
       edit(num) {
-        if(this.status==0){
-          this["list"+num+"Coyp"]=JSON.parse(JSON.stringify(this["list"+num]));
-          this.status=num;
-        }else{
+        if (this.status == 0) {
+          this["list" + num + "Coyp"] = JSON.parse(JSON.stringify(this["list" + num]));
+          this.status = num;
+        } else {
           //保存 判断 是否成
-          this["list"+num]=JSON.parse(JSON.stringify(this["list"+num+"Coyp"]));
-          this.status=0;
+          this["list" + num] = JSON.parse(JSON.stringify(this["list" + num + "Coyp"]));
+          this.status = 0;
         }
       }
     }

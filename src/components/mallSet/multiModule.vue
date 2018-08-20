@@ -57,7 +57,6 @@
 			<el-option  v-for="item in options" :key="item.value" :label="item.label" :value="item.value">                     
 			</el-option>
 		</el-select>
-<!--		<div v-show="false">{{checked}}</div>-->
 		<!--.........................选择商品.....................-->
 		<h3 class="color-3 f14 mt-20 font-n">选择商品</h3>
 		<el-radio-group v-model="radio2" class="mt-10  mb-20" @change="isAuto">
@@ -77,11 +76,14 @@
 			</button>
 		</div>
 		<h3 class="color-3 f14 mt-20 font-n mb-20" v-if="radio2==='2'">商品自动填充</h3>
+		
 		<h3 class="color-3 f14 font-n">{{radio2==='1'?"选择商品分类":"选择填充商品分类"}}</h3>
+		
 		<el-select  v-model="mall_category_id" placeholder="所有商品" @change="changemallClassify" class="changeNum mt-10">
 			<el-option  v-for="item in mallClassify" :key="item.id" :label="item.mall_category_name" :value="item.id" :class="item.level===1?'color':''">                     
 			</el-option>
 		</el-select>
+		
 		<h3 class="color-3 f14 mt-20 font-n">{{radio2==='1'?"商品排序规则":"填充商品排序规则"}}</h3>
 		<el-select  v-model="shopRank.product_orderby" placeholder="所有商品" @change="changemallorderby" class="changeNum mt-10">
 			<el-option  v-for="item in commodityOrdery" :key="item.orderby" :label="item.name" :value="item.orderby">                     
@@ -110,7 +112,6 @@
 				productVisible:false,
 				addProductLists:[],
 				existAddProduct:[],
-				mall_category_id:"",//商城分类ID
 				commodityOrdery:[//商品排序规则
 					{orderby:1,name:"上新"},
 					{orderby:2,name:"销量"},
@@ -148,6 +149,20 @@
 		created(){
 			this.radio1=this.shopRank.title_switch;//开始模块标题有没有选中
 			this.radio2=this.shopRank.select_product_type.toString();//开始选择商品有没有选中
+			if(this.shopRank.product_ids!==null){//手动添加的列表（显示之前被保存过的列表）
+				let manualList=this.shopRank.product_ids.split(',');
+				this.shopList.forEach((item)=>{
+					if(manualList.includes(item.product_id)){
+						this.addProductLists.push({
+							click_id:item.product_id,
+							click_image:item.images[0].image_url,
+							click_name:item.product_name,
+							click_type:"product"
+						});
+						this.existAddProduct.push(item)
+					}					
+				})
+			};
 			getMallClassifyList()//商城分类列表
 			.then(({data})=>{
 				this.mallClassifyList=data;					
@@ -168,18 +183,26 @@
 					return [{value:3,label:3}, { value:6,label:6}, {value:9,label:9},{value:12,label:12},{value:15,label:15}]
 				}
 			},
-			value:{
+			value:{//商品展示数量选择
 				get:function(){
 					return this.shopRank?this.shopRank.product_num:0
 				},
 				set:function(num){
 					this.shopRank.product_num=num;
 				}
+			},
+			mall_category_id:{//商品分类选择
+				get:function(){
+					return this.shopRank.mall_category_id!==0?this.shopRank.mall_category_id:undefined
+				},
+				set:function(num){
+					this.shopRank.mall_category_id=num
+				}
 			}
 		},
 		methods:{
 			changemallClassify(){//商品分类搜索
-				this.shopRank.mall_category_id=this.mall_category_id;//商城分类ID搜索列表
+				this.shopRank.mall_category_id=this.mall_category_id;//商城分类ID搜索列表	
 				this.$emit("classifyMethods",this.existAddProduct);//商品ID通过shopRank已经传过去了
 			},
 			changemallorderby(){//商品排序
@@ -235,7 +258,11 @@
 				this.shopRank.title_click_name=data.click_name;
 				this.shopRank.title_click_type=data.click_type;				
 				//模块标题凯时保存上次编辑信息
-				let classifyMess={title_click_id:data.click_id,title_click_name:data.click_name,title_click_type:data.click_type};
+				let classifyMess={
+					title_click_id:data.click_id,
+					title_click_name:data.click_name,
+					title_click_type:data.click_type
+				};
 				Object.assign(this.onMess,classifyMess)				
 			},
 			shop_hidden(data){//弹框关闭
@@ -254,8 +281,11 @@
 					this.shopRank.title_click_name=this.classifyName.click_name;
 					this.shopRank.title_click_type="mall_category";	
 					//模块标题凯时保存上次编辑信息
-					let classifyMess={title_click_id:this.classifyName.click_id,title_click_name:this.classifyName.click_name,
-						title_click_type:"mall_category"};
+					let classifyMess={
+						title_click_id:this.classifyName.click_id,
+						title_click_name:this.classifyName.click_name,
+						title_click_type:"mall_category"
+					};
 					Object.assign(this.onMess,classifyMess);					
 				};
 				this.dialogFormVisible=false;
@@ -263,9 +293,13 @@
 			isAuto(){//选择商品
 				this.shopRank.select_product_type=parseInt(this.radio2);
 				if(this.radio2==="1"){//自动添加
-					this.$emit("auto",this.value)
+					this.shopRank.product_ids=null;
 				}else if(this.radio2==="2"){//手动添加
-					if(this.existAddProduct.length!==0){this.$emit("manual",this.value,this.existAddProduct)}					
+					if(this.existAddProduct.length!==0){
+						let product_ids_arr=this.existAddProduct.map(item=>item.product_id);
+						this.shopRank.product_ids=product_ids_arr.join(",");
+						this.$emit("manual",this.value,this.existAddProduct)
+					}
 				}
 			},
 			addProduct(){//添加商品（弹框弹出）
@@ -291,13 +325,14 @@
 				if(this.isShow){
 					this.isShow=false;
 					return
-				}
-				this.shopList.splice(this.shopList.length-1,1);//删除后面的商品（中间显示）
-				this.shopList.splice(0,0,data);//在前面增加商品（中间显示）			
-				let change_ids_Arr=this.shopList.map(item=>item.id);//商品ID组合也会改变
-				let change_product_ids=change_ids_Arr.join(",");
-				this.shopRank.product_ids=change_product_ids;//商品ID组合(手动添加组合改变加进来)
-				this.existAddProduct.push(data);//保存添加商品信息，为商品数量改变而保存之前的操作
+				};
+				let changeData=JSON.parse(JSON.stringify(data).replace("id","product_id"));//把id变为product_id
+				this.shopList.splice(this.shopList.length-1,1);//删除后面的商品（中间显示）			
+				this.shopList.splice(0,0,changeData);//在前面增加商品（中间显示）	
+				this.existAddProduct.push(changeData);//保存添加商品信息，为商品数量改变而保存之前的操作
+				let product_ids_Arr=this.existAddProduct.map(item=>item.product_id);//手动添加的商品ID
+				let change_product_ids=product_ids_Arr.join(",");					
+				this.shopRank.product_ids=change_product_ids;//商品ID组合(手动添加组合改变加进来)						
 			}
 		}
 	}

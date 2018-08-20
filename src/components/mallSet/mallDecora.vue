@@ -23,19 +23,19 @@
 		<div v-if="mallPlate.component_key==='splb1'">
 			<h2 class="mt-20 pb-20 f20 color-3">商品单列</h2>	
 			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品单列'
-				@auto="auto" @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
+			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
 			</multiModule>
 		</div>
 		<div v-if="mallPlate.component_key==='splb2'">
 			<h2 class="mt-20 pb-20 f20 color-3">商品双列</h2>	
 			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品双列'
-				@auto="auto" @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
+			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
 			</multiModule>
 		</div>
 		<div v-if="mallPlate.component_key==='splb3'">
 			<h2 class="mt-20 pb-20 f20 color-3">商品三列</h2>	
 			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品三列'
-				@auto="auto" @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
+			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
 			</multiModule>
 		</div>
 		<!--..................轮播海报er....................-->
@@ -47,7 +47,7 @@
 		<div v-if="mallPlate.component_key==='splb4'">
 			<h2 class="mt-20 pb-20 f20 color-3">商品列表</h2>
 			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品列表'
-				@auto="auto" @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
+			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
 			</multiModule>
 		</div>
 		<div v-if="mallPlate.component_key==='wzdh'">
@@ -70,7 +70,7 @@
 				options:[{value: '选项1',label: 4},{value: '选项2',label: 8}],					         							
 				value:"",
 				length:4,
-				searchMess:{search:{},page: 1,per_page: 10},//商品列表搜索信息
+				searchMess:{search:{},orderby:{},page: 1,per_page: 20},//商品列表搜索信息
 				needNum:0,
 			}
 		},
@@ -115,7 +115,12 @@
 			if(this.mallPlate.data!==null){
 				if(this.mallPlate.data.banners!==undefined){//如果有轮播图时			
 					this.banner=this.mallPlate.data.banners
-				}				
+				};
+				this.$set(this.searchMess,"per_page",this.mallPlate.data.product_num);
+				if(this.mallPlate.data.mall_category_id!==0){
+					this.$set(this.searchMess,"search",{mall_category_id:this.mallPlate.data.mall_category_id});
+				}		
+				this.orderdy();
 			};			
 		},
 		components:{BannerEditor,imgNav,multiModule,txtNav},
@@ -142,25 +147,24 @@
 				}
 				this.$emit("changeNum",this.value,this.index)
 			},
-			auto(num){//自动选择(商品单列)
-				this.$set(this.searchMess,'per_page',num);		
-				this.productList(this.searchMess);//掉接口
-			},
 			manual(num,existAddProduct){//手动选择
 				this.$set(this.searchMess,'per_page',num);
 				this.productList(this.searchMess,existAddProduct);//掉接口
 			},
 			showProNum(data,existAddProduct){//商品展示数量
-				this.$set(this.searchMess,'per_page',data);
-				this.productList(this.searchMess,existAddProduct);//掉接口
-				this.mallPlate.data.product_num=data;//传给父集的商品展示数量
-				this.needNum=data;
+				this.$set(this.searchMess,'per_page',data);				
+				this.productList(this.searchMess,existAddProduct);//调接口								
+				this.needNum=data;//商品需要展示的数量
 			},
 			classifyMethods(existAddProduct){//商品分类排序			
-				this.$set(this.searchMess.search,'mall_category_id',this.mallPlate.data.mall_category_id);
-				this.productList(this.searchMess,existAddProduct);//掉接口
+				this.$set(this.searchMess.search,'mall_category_id',this.mallPlate.data.mall_category_id);				
+				this.productList(this.searchMess,existAddProduct);//调接口
 			},
 			mallorderby(existAddProduct){//商品排序规则
+				this.orderdy();
+				this.productList(this.searchMess,existAddProduct);//掉接口
+			},
+			orderdy(){
 				switch(true){
 					case this.mallPlate.data.product_orderby===1:
 						this.$set(this.searchMess,"orderby",{onoff_time:'desc'});
@@ -178,7 +182,6 @@
 						this.$set(this.searchMess,"orderby",{product_price:'desc'});
 						break
 				};
-				this.productList(this.searchMess,existAddProduct);//掉接口
 			},
 			productList(data,existAddProduct) {//商城列表搜索API
 				getProductList(data)
@@ -187,19 +190,13 @@
 						this.$message({message:`商城商品数量仅有${data.data.length}个`,showClose: true,});
 						this.mallPlate.data.product_num=data.data.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
 					};
-					let ids_Arr=data.data.map(item=>item.id);		
-					let product_ids=ids_Arr.join(",");
-					this.mallPlate.data.product_ids=product_ids;//商品ID组合					
 					this.mallPlate.list=data.data;//展示商品（中间区域）
-					if(existAddProduct!==undefined){
+					if(existAddProduct!==undefined){						
 						if(existAddProduct.length!==0){//添加商品时（并且商品展示数量改变）
 							let startDelte=this.mallPlate.list.length-existAddProduct.length;
-							this.mallPlate.list.splice(startDelte,existAddProduct.length);//splice是包含当前位置														
-							existAddProduct.forEach(item=>{this.mallPlate.list.unshift(item)});	
-							let change_ids_Arr=this.mallPlate.list.map(item=>item.id);
-							let change_product_ids=change_ids_Arr.join(",");
-							this.mallPlate.data.product_ids=change_product_ids;//商品ID组合(手动添加组合改变加进来)
-						}
+							this.mallPlate.list.splice(startDelte,existAddProduct.length);//splice是包含当前位置	(减去已经存在的商品)
+							existAddProduct.forEach(item=>{this.mallPlate.list.unshift(item)});//添加上已经存在的商品（商品列表中）					
+						}						
 					}
 				})
 				.catch(({response:{data}})=>{

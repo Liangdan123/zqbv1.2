@@ -335,12 +335,11 @@
 					.txt{
 						position: relative;
 						top: 10px;
-						width: 120px;
+						width: 124px;
 						display:inline-block;
 						line-height: 20px;	
 						margin-left:10px;
-						.txtCon{
-							
+						.txtCon{							
 							display: block;
 							color: #7F7F7F;
 							font-size: 12px;

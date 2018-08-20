@@ -17,6 +17,16 @@
                         <span class="font-waring">{{ scope.row.apply_money_yuan | money}}</span>
                     </template>
                 </el-table-column>
+                <el-table-column label="提现手续费">
+                    <template slot-scope="scope">
+                        <span class="font-waring">{{ scope.row.deduct_money_yuan | money}}</span>
+                    </template>
+                </el-table-column>
+                <el-table-column label="最终提现金额">
+                    <template slot-scope="scope">
+                        <span class="font-waring">{{ scope.row.money_yuan | money}}</span>
+                    </template>
+                </el-table-column>
                 <el-table-column
                     prop="apply_time"
                     label="创建时间">
@@ -132,6 +142,8 @@
                     <p class="panel-title">提现详情</p>
                     <ul class="panel-detail">
                         <li><label>提现金额：</label>{{detailForWithdrawal.apply_money_yuan | money}}</li>
+                        <li><label>提现手续费：</label>{{detailForWithdrawal.deduct_money_yuan | money}}</li>
+                        <li><label>最终提现金额：</label>{{detailForWithdrawal.money_yuan | money}}</li>
                         <li><label>开户姓名：</label>{{detailForWithdrawal.open_name}}</li>
                         <li><label>开户银行：</label>{{detailForWithdrawal.open_bank}}</li>
                         <li><label>银行卡号：</label>{{detailForWithdrawal.open_number}}</li>

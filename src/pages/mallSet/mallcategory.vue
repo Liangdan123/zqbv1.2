@@ -193,6 +193,8 @@
 				text-align: left;
 				overflow: auto;
 				>.el-button {
+					width: 92px;
+					height: 32px;
 					border-radius: 2px;
 				}
 				>.save {
