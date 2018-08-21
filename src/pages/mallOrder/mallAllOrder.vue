@@ -22,8 +22,7 @@
 			</div>
 			<!--........................表格...............-->
 			<bought :orderData="orderData" :orderMess="orderMess"  @handleCurrent="handleCurrent" :orderLists="orderLists" @showOrder="showOrder"
-			 @showlogist="showlogist" @showSetOrder="showSetOrder" :isShopName="true"  v-loading="loading">
-								
+			 @showlogist="showlogist" @showSetOrder="showSetOrder" :isShopName="true"  v-loading="loading">					
 			</bought>
 		</div>
 	</div>

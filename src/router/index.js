@@ -25,7 +25,6 @@ import history from '@/pages/commodityPage/history'
 import category from '@/pages/commodityPage/category'
 
 import allOrder from '@/pages/order/allOrder'
-
 import UnshippedOrder from '@/pages/order/UnshippedOrder'
 import PendingOrder from '@/pages/order/PendingOrder'
 import CompletedOrder from '@/pages/order/CompletedOrder'
@@ -85,6 +84,11 @@ import permission from '@/pages/platform/permission';
 import message from '@/pages/platform/message';
 import addrole from '@/pages/platform/addrole';
 import joinRecord from '@/pages/platform/joinRecord';
+
+//合伙人
+// import mallZxh from '@/pages/mallZxh'
+
+
 Vue.use(Router);
 const router = new Router({
   routes: [{
