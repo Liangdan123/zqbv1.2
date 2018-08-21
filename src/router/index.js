@@ -4,7 +4,7 @@ import login from '@/pages/login'
 import register from '@/pages/loginPage/register'
 import reset from '@/pages/loginPage/mobileReset'
 import sfz from '@/pages/loginPage/SFZ'
-import zxh from '@/pages/zxh'
+import zxh from '@/pages/facilitatorPage/zxh'
 
 import parse from 'url-parse'
 import store from '@/store'
@@ -107,7 +107,7 @@ const router = new Router({
     name: 'zxh',
     component: zxh,
     children: [{
-      path: 'blank',
+      path: 'store',
       component: blank,
       name: "blank",
       children: [{

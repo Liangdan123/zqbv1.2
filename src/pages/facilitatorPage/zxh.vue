@@ -5,7 +5,7 @@
         <svg width="30" height="30">
           <use xlink:href="#logo" />
         </svg>
-        <img src="../assets/image/weishangcheng.png" />
+        <img src="../../assets/image/weishangcheng.png" />
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
         <el-menu-item index="/zxh/sellerPage/sellerCenter" :class="{isActive:active=='sellerPage'}">
@@ -18,7 +18,7 @@
           <i></i>订单管理</el-menu-item>
         <el-menu-item index="/zxh/marketingPage/marketInfo" :class="{isActive:active=='marketingPage'}">
           <i></i>营销管理</el-menu-item>
-        <el-menu-item index="/zxh/blank/storeInfo" :class="{isActive:active=='blank'}">
+        <el-menu-item index="/zxh/store/storeInfo" :class="{isActive:active=='store'}">
           <i></i>店铺设置
         </el-menu-item>
         <!-- ................资金管理还没设计.............-->
