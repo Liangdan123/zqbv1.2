@@ -5,14 +5,14 @@
         <svg width="30" height="30">
           <use xlink:href="#logo" />
         </svg>
-        <img src="../assets/image/agent.png" />
+        <img src="../../assets/image/agent.png" />
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
-        <el-menu-item index="/zxh/orderPage/allOrder" :class="{isActive:active=='orderPage'}">
+        <el-menu-item index="/agent/orderPage/allOrder" :class="{isActive:active=='orderPage'}">
           <i></i>订单管理</el-menu-item>
-        <el-menu-item index="/zxh/marketingPage/marketInfo" :class="{isActive:active=='marketingPage'}">
+        <el-menu-item index="/agent/marketingPage/marketInfo" :class="{isActive:active=='marketingPage'}">
           <i></i>营销管理</el-menu-item>
-        <el-menu-item index="/zxh/shop-money-management/" :class="{isActive:active=='shop-money-management'}">
+        <el-menu-item index="/agent/shop-money-management/" :class="{isActive:active=='shop-money-management'}">
           <i></i>资金管理
         </el-menu-item>
       </el-menu>

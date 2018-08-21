@@ -9,41 +9,41 @@ import zxh from '@/pages/zxh'
 import parse from 'url-parse'
 import store from '@/store'
 
-import storeInfo from '@/pages/myStorePage/storeInfo'
-import addMess from '@/pages/myStorePage/addMess'
-import storeMessShow from '@/pages/myStorePage/storeMessShow'
-import freightSetting from '@/pages/myStorePage/freightSetting'
-import shop_decoration from '@/pages/myStorePage/shop_decoration'
-import my_store_blank from '@/pages/myStorePage/my_store_blank'
+import storeInfo from '@/pages/facilitatorPage/myStorePage/storeInfo'
+import addMess from '@/pages/facilitatorPage/myStorePage/addMess'
+import storeMessShow from '@/pages/facilitatorPage/myStorePage/storeMessShow'
+import freightSetting from '@/pages/facilitatorPage/myStorePage/freightSetting'
+import shop_decoration from '@/pages/facilitatorPage/myStorePage/shop_decoration'
+import my_store_blank from '@/pages/facilitatorPage/myStorePage/my_store_blank'
 
-import commodityInfo from '@/pages/commodityPage/commodityInfo'
-import category_mgmt from '@/pages/commodityPage/category_mgmt'
-import sale_commodity from '@/pages/commodityPage/sale_commodity'
-import pulishProduct from '@/pages/commodityPage/pulishProduct'
-import warehouse from '@/pages/commodityPage/warehouse'
-import history from '@/pages/commodityPage/history'
-import category from '@/pages/commodityPage/category'
+import commodityInfo from '@/pages/facilitatorPage/commodityPage/commodityInfo'
+import category_mgmt from '@/pages/facilitatorPage/commodityPage/category_mgmt'
+import sale_commodity from '@/pages/facilitatorPage/commodityPage/sale_commodity'
+import pulishProduct from '@/pages/facilitatorPage/commodityPage/pulishProduct'
+import warehouse from '@/pages/facilitatorPage/commodityPage/warehouse'
+import history from '@/pages/facilitatorPage/commodityPage/history'
+import category from '@/pages/facilitatorPage/commodityPage/category'
 
-import allOrder from '@/pages/order/allOrder'
-import UnshippedOrder from '@/pages/order/UnshippedOrder'
-import PendingOrder from '@/pages/order/PendingOrder'
-import CompletedOrder from '@/pages/order/CompletedOrder'
-import cancelledOrder from '@/pages/order/cancelledOrder'
-import refundOrder from '@/pages/order/refundOrder'
+import allOrder from '@/pages/facilitatorPage/order/allOrder'
+import UnshippedOrder from '@/pages/facilitatorPage/order/UnshippedOrder'
+import PendingOrder from '@/pages/facilitatorPage/order/PendingOrder'
+import CompletedOrder from '@/pages/facilitatorPage/order/CompletedOrder'
+import cancelledOrder from '@/pages/facilitatorPage/order/cancelledOrder'
+import refundOrder from '@/pages/facilitatorPage/order/refundOrder'
 
-import marketInfo from '@/pages/marketingPage/marketInfo'
-import Coupon from '@/pages/marketingPage/Coupon'
+import marketInfo from '@/pages/facilitatorPage/marketingPage/marketInfo'
+import Coupon from '@/pages/facilitatorPage/marketingPage/Coupon'
 
-import sellerCenter from '@/pages/sellerCenter/sellerCenter'
+import sellerCenter from '@/pages/facilitatorPage/sellerCenter/sellerCenter'
 
 
 //平台导航
-import mallZxh from '@/pages/mallZxh'
-import mallSetInfo from "@/pages/mallSet/mallSetInfo"
-import mallMess from "@/pages/mallSet/mallMess"
-import mallMessSet from "@/pages/mallSet/mallMessSet"
-import mallDecoration from "@/pages/mallSet/mallDecoration"
-import mallcategory from "@/pages/mallSet/mallcategory"
+import mallZxh from '@/pages/platformPage/mallZxh'
+import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo"
+import mallMess from "@/pages/platformPage/mallSet/mallMess"
+import mallMessSet from "@/pages/platformPage/mallSet/mallMessSet"
+import mallDecoration from "@/pages/platformPage/mallSet/mallDecoration"
+import mallcategory from "@/pages/platformPage/mallSet/mallcategory"
 
 //资金管理
 import ShopMoneyManagement from '@/pages/moneyManagement/ShopMoneyManagement'
@@ -51,28 +51,28 @@ import WithdrawalApply from '@/pages/moneyManagement/WithdrawalApply'
 import MallMoneyManagement from '@/pages/moneyManagement/MallMoneyManagement'
 
 //会员中心
-import mallMarketInfo from "@/pages/mallMarketing/mallMarketInfo"
-import memberCenter from '@/pages/mallMarketing/memberCenter'
+import mallMarketInfo from "@/pages/platformPage/mallMarketing/mallMarketInfo"
+import memberCenter from '@/pages/platformPage/mallMarketing/memberCenter'
 
 //商城订单管理
-import mallAllOrder from '@/pages/mallOrder/mallAllOrder'
-import mallNonPayment from '@/pages/mallOrder/mallNonPayment'
-import mallUnshipOrder from '@/pages/mallOrder/mallUnshipOrder'
-import mallPendingOrder from '@/pages/mallOrder/mallPendingOrder'
-import mallCompletedOrder from '@/pages/mallOrder/mallCompletedOrder'
-import mallCancelOrder from '@/pages/mallOrder/mallCancelOrder'
-import mallRefundOrder from '@/pages/mallOrder/mallRefundOrder'
+import mallAllOrder from '@/pages/platformPage/mallOrder/mallAllOrder'
+import mallNonPayment from '@/pages/platformPage/mallOrder/mallNonPayment'
+import mallUnshipOrder from '@/pages/platformPage/mallOrder/mallUnshipOrder'
+import mallPendingOrder from '@/pages/platformPage/mallOrder/mallPendingOrder'
+import mallCompletedOrder from '@/pages/platformPage/mallOrder/mallCompletedOrder'
+import mallCancelOrder from '@/pages/platformPage/mallOrder/mallCancelOrder'
+import mallRefundOrder from '@/pages/platformPage/mallOrder/mallRefundOrder'
 
 
 //商城店铺管理
-import mallStoreMana from "@/pages/mallStore/mallStoreMana"
-import mallStoreMess from "@/pages/mallStore/mallStoreMess"
+import mallStoreMana from "@/pages/platformPage/mallStore/mallStoreMana"
+import mallStoreMess from "@/pages/platformPage/mallStore/mallStoreMess"
 
 //监控中心
-import MallDataCenter from '@/pages/mallDataCenter/mallDataCenter';
-import ShopEntry from '@/pages/mallDataCenter/ShopEntry';
-import ShopApply from '@/pages/mallDataCenter/ShopApply';
-import ShopWithdrawal from '@/pages/mallDataCenter/ShopWithdrawal';
+import MallDataCenter from '@/pages/platformPage/mallDataCenter/mallDataCenter';
+import ShopEntry from '@/pages/platformPage/mallDataCenter/ShopEntry';
+import ShopApply from '@/pages/platformPage/mallDataCenter/ShopApply';
+import ShopWithdrawal from '@/pages/platformPage/mallDataCenter/ShopWithdrawal';
 
 //平台管理
 import join from '@/pages/platform/join';
@@ -84,7 +84,7 @@ import addrole from '@/pages/platform/addrole';
 import joinRecord from '@/pages/platform/joinRecord';
 
 //合伙人
-import agent from '@/pages/agent'
+import agent from '@/pages/agentPage/agent'
 
 
 Vue.use(Router);
@@ -192,7 +192,7 @@ const router = new Router({
         path: 'refundOrder',
         component: refundOrder,
         name: "refundOrder"
-      }, ]
+      }]
     }, {
       path: 'marketingPage',
       name: 'marketingPage',
@@ -224,10 +224,15 @@ const router = new Router({
       name: 'WithdrawalApply',
       component: WithdrawalApply,
     }, ]
-  },{
-    path:'/agent',
-    name:"agent",
-    component:agent
+  }, {
+    path: '/agent',
+    name: "agent",
+    component: agent,
+    children: [{
+      path: 'orderPage',
+      name: 'orderPage',
+      component: my_store_blank,
+    }]
   }, {
     path: '/mallZxh',
     name: 'mallZxh',
@@ -417,7 +422,7 @@ export default router;
 // 		}else{//其余不可以添
 // 			next(false)
 // 		}
-		
+
 // 	}
 // })
 

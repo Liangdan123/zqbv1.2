@@ -1,7 +1,7 @@
 <template>
 	<div class="mallDecoration">
 		<div  class="mallDecor_middle" v-loading="mallSetMiddle">
-			<img src="../../assets/image/top.jpg" class="w-100"/>
+			<img src="../../../assets/image/top.jpg" class="w-100"/>
 			<div class="mallPlate" v-for="(item,index) in correscomList" :key="index">
 				<!--..................轮播海报一....................-->
 				<div v-if="item.component_key==='hbys1'" class="cursor pos-r bg-f mt-10" @click="isShowPlate(index)"

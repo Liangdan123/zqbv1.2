@@ -134,7 +134,7 @@
 						<div v-if='scope.row.shop_categorys.length>0'>
 							<p>{{scope.row.shop_categorys[0].shop_category_name}}</p>
 							<div v-if='scope.row.shop_categorys.length>1'>
-								<p class="toggle" @click="toggleShow(scope.$index)">更多分类 <img src="../../assets/image/xiala.png" width="10" height="10"></p>
+								<p class="toggle" @click="toggleShow(scope.$index)">更多分类 <img src="../../../assets/image/xiala.png" width="10" height="10"></p>
 								<ul :class="{categoryBox:showIndex===scope.$index} ">
 									<li v-if="index>0" v-for="(value,index) in scope.row.shop_categorys">{{value.shop_category_name}}</li>
 								</ul>

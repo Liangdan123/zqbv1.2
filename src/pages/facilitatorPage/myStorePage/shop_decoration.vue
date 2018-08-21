@@ -6,15 +6,15 @@
 			<div class="decoration_middle">
 				<!--........导航......-->
 				<div class="decoration_nav">
-					<img src="../../assets/image/zhuangtailan.png" class="w-100">
+					<img src="../../../assets/image/zhuangtailan.png" class="w-100">
 					<p class="shop_name text-c">{{shopMess.shop_name}}</p>
 					<div class="nav-info">
-						<img src="../../assets/image/fanhui.png" class="back">
-						<img src="../../assets/image/guanbi.png" class="quit">
+						<img src="../../../assets/image/fanhui.png" class="back">
+						<img src="../../../assets/image/guanbi.png" class="quit">
 					</div>
 				</div>
 				<div class="search text-c">
-					<img src="../../assets/image/sousuo.png" />
+					<img src="../../../assets/image/sousuo.png" />
 					<span>搜索商品，总有一款你会喜欢</span>
 				</div>
 				<banner :banner="banner"></banner>
@@ -33,12 +33,12 @@
 						</div>
 					</div>
 					<div class="float-r statistics_share">
-						<img src="../../assets/image/fenxiang.png" class="w-100">
+						<img src="../../../assets/image/fenxiang.png" class="w-100">
 						<p>分享店铺</p>
 					</div>
 				</div>
 				<div class="search_column">
-					<img src="../../assets/image/searchlan.jpg" class="w-100" />
+					<img src="../../../assets/image/searchlan.jpg" class="w-100" />
 				</div>
 				<!--..............新品推荐........-->
 				<div class="newArrival" v-if="intro.length">
@@ -69,11 +69,11 @@
 				</div>
 
 				<div v-if="intro.length<0?true:false" class="no_arrival text-c">
-					<img src="../../assets/image/Rectangle .png" />
+					<img src="../../../assets/image/Rectangle .png" />
 					<p>商品空空如也，敬请期待</p>
 				</div>
 				<div class="footer-min ">
-					<img src="../../assets/image/caidanlan.png" class="w-100" />
+					<img src="../../../assets/image/caidanlan.png" class="w-100" />
 				</div>
 			</div>
 			<!--.............右边栏.........-->
