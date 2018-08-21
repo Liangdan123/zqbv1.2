@@ -21,21 +21,9 @@
 </template>
 
 <script>
+ import navbar from "@/utils/navbar"
 	export default {
-		name: "navbar",
-		data() {
-			return {
-				selected: ""
-			}
-		},
-		created(){
-			this.selected = this.$route.name;			
-		},
-		methods: {
-			handleSelect(index) {
-				this.selected = index;
-			}
-		}
+		 mixins: [navbar]
 	}
 </script>
 

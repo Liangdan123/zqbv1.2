@@ -23,6 +23,8 @@ import joinRecord from '@/pages/platformPage/platform/joinRecord';
 //合伙人
 import agent from '@/pages/agentPage/agent'
 import agentOrder from '@/pages/agentPage/order/agentOrder'
+import marketInfo from '@/pages/agentPage/Marketing/MarketInfo'
+import memberCenter from '@/pages/agentPage/Marketing/memberCenter'
 
 
 
@@ -49,6 +51,15 @@ const router = new Router({
       path: 'agentOrder',
       name: 'agentOrder',
       component: agentOrder,
+    },{
+      path: 'marketInfo',
+      name: 'marketInfo',
+      component: marketInfo,
+      children:[{
+        path: 'memberCenter',
+       name: 'memberCenter',
+        component: memberCenter,
+      }]
     }]
   }, {
     path: '/mallZxh',
