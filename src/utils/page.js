@@ -13,14 +13,14 @@ export default {
 		this.searchMethod();
 	},
 	methods: {
-		SelectionChange(arr, row) {
+		SelectionChange(arr, row) {//表格勾选
 			this.selectArr=arr;
 		},
-		cancel() {
+		cancel() {//取消弹窗
 			this.$refs['ruleForm'].resetFields();
 			this.Visible = false;
 		},
-		handleCurrentChange(val) {
+		handleCurrentChange(val) {//分页跳转
 			this.searchCondition.page=val;
 			this._doSearch();
 		},
