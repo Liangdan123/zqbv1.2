@@ -5,6 +5,7 @@ export default {
 		return {
 			lastPage:null,
 			selectArr:[],
+			total: 0,
 		}
 	},
 	created() {

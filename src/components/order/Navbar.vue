@@ -4,9 +4,6 @@
 			<el-menu-item index="allOrder" :class="{active:selected=='allOrder'}">
 				全部订单
 			</el-menu-item>
-			<!--<el-menu-item index="nonPayment" :class="{active:selected=='nonPayment'}">
-				未付款订单
-			</el-menu-item>-->
 			<el-menu-item index="UnshippedOrder" :class="{active:selected=='UnshippedOrder'}">
 				未发货订单
 			</el-menu-item>
@@ -16,9 +13,6 @@
 			<el-menu-item index="CompletedOrder" :class="{active:selected=='CompletedOrder'}">
 				已完成订单
 			</el-menu-item>
-			<!--<el-menu-item index="cancelledOrder" :class="{active:selected=='cancelledOrder'}">
-				取消的订单
-			</el-menu-item>-->
 			<el-menu-item index="refundOrder" :class="{active:selected=='refundOrder'}">
 				退款售后订单
 			</el-menu-item>

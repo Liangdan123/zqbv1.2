@@ -75,16 +75,18 @@ import ShopApply from '@/pages/platformPage/mallDataCenter/ShopApply';
 import ShopWithdrawal from '@/pages/platformPage/mallDataCenter/ShopWithdrawal';
 
 //平台管理
-import join from '@/pages/platform/join';
-import role from '@/pages/platform/role';
-import commission from '@/pages/platform/commission';
-import permission from '@/pages/platform/permission';
-import message from '@/pages/platform/message';
-import addrole from '@/pages/platform/addrole';
-import joinRecord from '@/pages/platform/joinRecord';
+import join from '@/pages/platformPage/platform/join';
+import role from '@/pages/platformPage/platform/role';
+import commission from '@/pages/platformPage/platform/commission';
+import permission from '@/pages/platformPage/platform/permission';
+import message from '@/pages/platformPage/platform/message';
+import addrole from '@/pages/platformPage/platform/addrole';
+import joinRecord from '@/pages/platformPage/platform/joinRecord';
 
 //合伙人
 import agent from '@/pages/agentPage/agent'
+import agentOrder from '@/pages/agentPage/order/agentOrder'
+
 
 
 Vue.use(Router);
@@ -229,9 +231,9 @@ const router = new Router({
     name: "agent",
     component: agent,
     children: [{
-      path: 'orderPage',
-      name: 'orderPage',
-      component: blank,
+      path: 'agentOrder',
+      name: 'agentOrder',
+      component: agentOrder,
     }]
   }, {
     path: '/mallZxh',

@@ -8,7 +8,7 @@
         <img src="../../assets/image/agent.png" />
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
-        <el-menu-item index="/agent/orderPage/allOrder" :class="{isActive:active=='orderPage'}">
+        <el-menu-item index="/agent/agentOrder":class="{isActive:active=='agentOrder'}">
           <i></i>订单管理</el-menu-item>
         <el-menu-item index="/agent/marketingPage/marketInfo" :class="{isActive:active=='marketingPage'}">
           <i></i>营销管理</el-menu-item>

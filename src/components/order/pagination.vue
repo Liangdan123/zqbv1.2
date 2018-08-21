@@ -2,7 +2,6 @@
 	<div>
 		<el-pagination :total="pageData.total" :current-page.sync="pageMess.page" :page-size="pageMess.per_page"  
 			@current-change="handleCurrentChange" layout="total, prev, pager, next">
-			
 		</el-pagination> 
 	</div>
 </template>

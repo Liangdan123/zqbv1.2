@@ -2,12 +2,6 @@
   <div class="platform commodity" @click="closeSearch">
     <navbar></navbar>
     <!--..............订单详情弹框..................-->
-    <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" :show-close="false" class="order" :title="type">
-      <svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
-        <use xlink:href="#close" />
-      </svg>
-      <!--.................主体内容....................-->
-    </el-dialog>
     <div class="g-button">
       <router-link to="addrole">
         <el-button class="store-button1 add-child">
@@ -17,13 +11,14 @@
       </router-link>
     </div>
     <div class="g-content">
-      <!--.....................搜索框........................-->
+      <!--.....................tab........................-->
       <el-tabs v-model="tabForShow" @tab-click="tabSwitch">
         <el-tab-pane label="申请列表" name="1"></el-tab-pane>
         <el-tab-pane label="未付款" name="2"></el-tab-pane>
         <el-tab-pane label="已完成" name="3"></el-tab-pane>
         <el-tab-pane label="已拒绝" name="4"></el-tab-pane>
       </el-tabs>
+      <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
         <searchRole :search.sync="searchCondition.search" @searchMethod="searchMethod"></searchRole>
         <search :search.sync="searchCondition.search"  @searchMethod="searchMethod" ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
@@ -37,7 +32,7 @@
         </el-table-column>
         <el-table-column prop="contact_name" label="姓名"></el-table-column>
         <el-table-column prop="phone" label="手机号"></el-table-column>
-        <el-table-column prop="company_name" label="公司名称" v-if="value1=='1'"></el-table-column>
+        <el-table-column prop="company_name" label="公司名称" v-if="searchCondition.search.is_company=='1'"></el-table-column>
         <el-table-column prop="contact_email" label="常用邮箱" v-else></el-table-column>
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="120" label="操作">
@@ -60,14 +55,13 @@
   export default {
     data() {
       return {
-        value1:1,
         tableDataLoading: false,
         tabForShow: "1",
-        type: "", //传到子集的标题
         searchCondition: {
           page: 1,
           search: {
             status:"1",
+            is_company:"1"
           },
           per_page: 20
         },
@@ -90,7 +84,6 @@
           "pay_status": 0,
           "created_at": "2018-08-07 08:45:11"
         }],
-        total: 0,
         dialogVisible: false //弹框显示
       };
     },
