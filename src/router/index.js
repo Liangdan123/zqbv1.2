@@ -5,12 +5,17 @@ import register from '@/pages/loginPage/register'
 import reset from '@/pages/loginPage/mobileReset'
 import sfz from '@/pages/loginPage/SFZ'
 import zxh from '@/pages/zxh'
+
+import parse from 'url-parse'
+import store from '@/store'
+
 import storeInfo from '@/pages/myStorePage/storeInfo'
 import addMess from '@/pages/myStorePage/addMess'
 import storeMessShow from '@/pages/myStorePage/storeMessShow'
 import freightSetting from '@/pages/myStorePage/freightSetting'
 import shop_decoration from '@/pages/myStorePage/shop_decoration'
 import my_store_blank from '@/pages/myStorePage/my_store_blank'
+
 import commodityInfo from '@/pages/commodityPage/commodityInfo'
 import category_mgmt from '@/pages/commodityPage/category_mgmt'
 import sale_commodity from '@/pages/commodityPage/sale_commodity'
@@ -18,29 +23,41 @@ import pulishProduct from '@/pages/commodityPage/pulishProduct'
 import warehouse from '@/pages/commodityPage/warehouse'
 import history from '@/pages/commodityPage/history'
 import category from '@/pages/commodityPage/category'
+
 import allOrder from '@/pages/order/allOrder'
+
 import UnshippedOrder from '@/pages/order/UnshippedOrder'
 import PendingOrder from '@/pages/order/PendingOrder'
 import CompletedOrder from '@/pages/order/CompletedOrder'
 import cancelledOrder from '@/pages/order/cancelledOrder'
 import refundOrder from '@/pages/order/refundOrder'
+
 import marketInfo from '@/pages/marketingPage/marketInfo'
 import Coupon from '@/pages/marketingPage/Coupon'
+
 import sellerCenter from '@/pages/sellerCenter/sellerCenter'
 import realName from '@/pages/sellerCenter/realName'
 import audit from '@/pages/sellerCenter/auditPage'
 import feedbackMess from '@/pages/sellerCenter/feedbackMess'
+
+//平台导航
 import mallZxh from '@/pages/mallZxh'
 import mallSetInfo from "@/pages/mallSet/mallSetInfo"
 import mallMess from "@/pages/mallSet/mallMess"
 import mallMessSet from "@/pages/mallSet/mallMessSet"
 import mallDecoration from "@/pages/mallSet/mallDecoration"
 import mallcategory from "@/pages/mallSet/mallcategory"
+
+//资金管理
 import ShopMoneyManagement from '@/pages/moneyManagement/ShopMoneyManagement'
 import WithdrawalApply from '@/pages/moneyManagement/WithdrawalApply'
 import MallMoneyManagement from '@/pages/moneyManagement/MallMoneyManagement'
+
+//会员中心
 import mallMarketInfo from "@/pages/mallMarketing/mallMarketInfo"
 import memberCenter from '@/pages/mallMarketing/memberCenter'
+
+//商城订单管理
 import mallAllOrder from '@/pages/mallOrder/mallAllOrder'
 import mallNonPayment from '@/pages/mallOrder/mallNonPayment'
 import mallUnshipOrder from '@/pages/mallOrder/mallUnshipOrder'
@@ -48,12 +65,19 @@ import mallPendingOrder from '@/pages/mallOrder/mallPendingOrder'
 import mallCompletedOrder from '@/pages/mallOrder/mallCompletedOrder'
 import mallCancelOrder from '@/pages/mallOrder/mallCancelOrder'
 import mallRefundOrder from '@/pages/mallOrder/mallRefundOrder'
+
+
+//商城店铺管理
 import mallStoreMana from "@/pages/mallStore/mallStoreMana"
 import mallStoreMess from "@/pages/mallStore/mallStoreMess"
+
+//监控中心
 import MallDataCenter from '@/pages/mallDataCenter/mallDataCenter';
 import ShopEntry from '@/pages/mallDataCenter/ShopEntry';
 import ShopApply from '@/pages/mallDataCenter/ShopApply';
 import ShopWithdrawal from '@/pages/mallDataCenter/ShopWithdrawal';
+
+//平台管理
 import join from '@/pages/platform/join';
 import role from '@/pages/platform/role';
 import commission from '@/pages/platform/commission';
@@ -343,3 +367,64 @@ const router = new Router({
   }, ],
 })
 export default router;
+
+
+// router.beforeEach((to, from, next)=>{	
+// 	if(store.state.user.login){//已经登录
+// 		if(to.path==="/"){//不让通过修改链接直接跳转至登录页面
+// 			next(false)
+// 		}else{//如果有查询参数那就需要带上查询参数，并且调至从退出登录页面
+// 			let toPath=to.path.split("/")[1];
+// 			let fromPath=from.path.split("/")[1];
+// 			if(store.state.user.user.type === 1){//平台
+// 				if(toPath==="mallZxh"){//只能跳至有mallZxh的页面	
+// 					if(from.query.redirect){//从401未登录页面出来，或者是手动修改链接
+// 						let parsed = parse(decodeURIComponent(from.query.redirect), true);
+// 						if(parsed.pathname===to.path){//路径相等时直接跳
+// 							next(true);
+// 						}else{//发生401页面的路径与登录成功页面跳的不一致时
+// 							next({
+// 								path:parsed.pathname,
+// 								query:parsed.query
+// 							})
+// 						}
+// 					}else{
+// 						next(true);	
+// 					}									
+// 				}else{//不能有不含mallZxh的页面
+// 					next(false)
+// 				}
+// 			}else if(store.state.user.user.type === 2){//商家
+// 				let toArr=["zxh","realName","audit","feedbackMess"];				
+// 				if(toArr.includes(toPath)){
+// 					if(from.query.redirect){//从401未登录页面出来，或者是手动修改链接
+// 						let parsed = parse(decodeURIComponent(from.query.redirect), true);
+// 						if(parsed.pathname!==to.path){//路径相等时直接跳
+// 							next(true);
+// 						}else{//发生401页面的路径与登录成功页面跳的不一致时
+// 							next({
+// 								path:parsed.pathname,
+// 								query:parsed.query
+// 							})
+// 						}
+// 					}else{
+// 						next(true);	
+// 					}	
+// 				}else{
+// 					next(false)
+// 				}
+// 			}		
+// 		}				
+// 	}else if(store.state.user.login===false){//未登录
+// 		let arrLoginFalse=["","login_errorPage"]
+// 		let loginFalse=to.path.split("/")[1];
+// 		if(arrLoginFalse.includes(loginFalse)){//注册、修改密码页面可以跳过去
+// 			next(true)
+// 		}else{//其余不可以添
+// 			next(false)
+// 		}
+		
+// 	}
+// })
+
+// export default router
