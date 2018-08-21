@@ -185,7 +185,6 @@
 				};
 			},
 			getMess(data){
-				console.log("data:",data)
 				if(data!=="ERROR"){					
 					//地址解析成功
 					this.addMessForm.lat=data.location.lat;

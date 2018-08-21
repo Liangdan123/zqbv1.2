@@ -13,7 +13,13 @@ export function Tmap(key){
 		document.head.appendChild(script)
 	})
 }
-
+/*...............微信api..............*/
+export function weixi(){
+		var script=document.createElement("script");
+		script.type="text/javascript";
+		script.src="https://res.wx.qq.com/connect/zh_CN/htmledition/js/wxLogin.js"
+		document.head.appendChild(script);
+}
 export function imUpload(event,imageType){
 	return new Promise(function(resolve,reject){
 		let file=event.target.files[0];

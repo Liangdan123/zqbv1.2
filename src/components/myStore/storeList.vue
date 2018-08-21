@@ -108,6 +108,7 @@
 				this.deleteAttrApi= ["product_price_yuan","mall_category_id"]
 			};
 			this.productList(this.shopMess);
+			let status=this.$store.getters.getType
 			if(status === 1){
 				getMallClassifyList()//商城分类列表
 				.then(({data})=>{

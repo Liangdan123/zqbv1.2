@@ -32,13 +32,13 @@ axios.interceptors.response.use(
         case 401:
           err.message = '未授权，请登录'
 //           401 清除token信息并跳转到登录页面
-					if(store.state.user.login){
-						store.commit(types.LOGOUT)
-						router.replace({
-							path:"/",
-							query: {redirect: encodeURIComponent(router.currentRoute.fullPath)}
-						})
-					};
+			if(store.state.user.login){
+				store.commit(types.LOGOUT);//超过一定时间没操作就退出登录
+				router.replace({//跳到登录页面，如果有查询参数也一并带过去
+					path:"/",
+					query: {redirect: encodeURIComponent(router.currentRoute.fullPath)}
+				})
+			};
           break
 
         case 403:

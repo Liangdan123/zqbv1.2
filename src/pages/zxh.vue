@@ -107,6 +107,8 @@
 		width:100%;
 		.navbar{
 			position:fixed;
+			top: 0;
+			left: 0;
 			z-index: 800;
 			width:100%;
 			background:#191919;

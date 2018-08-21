@@ -48,8 +48,6 @@
 				next();//一致时跳转页面 
 			}
 		},
-		created(){			
-		},
 		methods:{
 			createMess(data){
 				this.exitsMess=data
