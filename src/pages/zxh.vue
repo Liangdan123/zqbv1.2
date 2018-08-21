@@ -18,7 +18,7 @@
           <i></i>订单管理</el-menu-item>
         <el-menu-item index="/zxh/marketingPage/marketInfo" :class="{isActive:active=='marketingPage'}">
           <i></i>营销管理</el-menu-item>
-        <el-menu-item index="/zxh/my_store_blank/storeInfo" :class="{isActive:active=='my_store_blank'}">
+        <el-menu-item index="/zxh/blank/storeInfo" :class="{isActive:active=='blank'}">
           <i></i>店铺设置
         </el-menu-item>
         <!-- ................资金管理还没设计.............-->

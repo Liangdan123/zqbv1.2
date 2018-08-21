@@ -65,10 +65,10 @@
 		       });
 			},
 			addMess(){
-				router.replace("/zxh/my_store_blank/addMess")
+				router.replace("/zxh/blank/addMess")
 			},
 			edit(){
-				router.replace("/zxh/my_store_blank/addMess")
+				router.replace("/zxh/blank/addMess")
 			},
 			getstoreMess(shop_id){
 				//获取店铺信息的方法

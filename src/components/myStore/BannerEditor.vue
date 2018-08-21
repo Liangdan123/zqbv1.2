@@ -37,7 +37,7 @@
 			<p class="f12 color-6 sug">图片尺寸建议{{$route.path==='/mallZxh/mallSetInfo/mallDecoration'?'750×420px':'750×640px'}}，格式支持png、jpg</p>				
 			<p class="jump">跳转链接</p>
 			<div class="link">
-				<span v-if="$route.path==='/zxh/my_store_blank/shop_decoration'">
+				<span v-if="$route.path==='/zxh/blank/shop_decoration'">
 					{{item.banner_click_type=="product"?"商品链接"+" -":
 					(item.banner_click_type=="shop_category"?"商品分类"+" -":"")}}
 					{{item.banner_click_name}}
@@ -159,7 +159,7 @@
 			},			
 			sureclassify() {//保存按钮
 				this.dialogFormVisible=false;
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺
 					var classifyCnt = {
 						banner_click_type: "shop_category",
 						banner_click_name: this.classifyName.banner_click_name,
@@ -186,7 +186,7 @@
 			updataBanner(data){				
 				let index=data.index
 				let item_new=this.banner[index];
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺
 					item_new.banner_url=data.new_url;
 				};
 				if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城时
@@ -198,7 +198,7 @@
 					this.disabled=false;
 				};	
 				let bannerIndex=this.banner.length;//添加海报顺序
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺时
+				if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺时
 					this.banner.push({id: "", shop_id:"", banner_url:"",banner_click_type: "",banner_click_id: "", banner_click_name:"",sort:bannerIndex});
 				};
 				if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
@@ -239,7 +239,7 @@
 			showBomb(item,index){//打开弹窗以及获取顺序			
 				this.dialogFormVisible = true;
 				this.bannerIndex=index;
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺
 					this.initStoreClassify("storeClassify");//初始化数据，数据不选中
 					if(this.storeClassify != 0&&this.banner.length != 0){//我的店铺					
 						if(this.banner[index].banner_click_type==="shop_category"){//商品分类中是否选中
@@ -258,7 +258,7 @@
 				}							
 				this.$set(this.productChecked,"id",{});//开始点击弹框时让他都不选择
 				if(this.banner.length != 0){
-					if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+					if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺
 						if(this.banner[index].banner_click_type==="product"){//商品链接中是否选中
 							this.$set(this.productChecked,"id",this.banner[index].banner_click_id);
 						}
@@ -276,7 +276,7 @@
 				var id=this.$store.getters.getShop_id;
 				var len=this.upBanner.length
 				for(let i=0,max=len;i<max;i++){		
-					if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺时
+					if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺时
 						var banner=["shop_id","sort","banner_click_name",]
 						//调用批量删除对象属性的方法
 						deletes(banner,this.upBanner[i])

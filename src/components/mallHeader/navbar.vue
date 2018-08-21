@@ -18,7 +18,7 @@
             	<i></i>商城设置
             </el-menu-item>
             
-            <el-menu-item index="/zxh/my_store_blank/storeInfo" :class="{isActive:active=='my_store_blank'}">
+            <el-menu-item index="/zxh/blank/storeInfo" :class="{isActive:active=='blank'}">
             	<i></i>资金管理
             </el-menu-item>
        	</el-menu>

@@ -23,7 +23,7 @@
 		beforeRouteLeave (to,from,next){			
 			let addFormDele=["shop_name","shop_start","shop_end","kefu_name","kefu_phone","address","shop_logo"];	
 			let	booleanTwo=addFormDele.map(val=>this.addMessForm[val]===this.exitsMess[val]);	
-			if(booleanTwo.includes(false)&&(to.path!=="/zxh/my_store_blank/storeMessShow"&&to.path!=="/")){
+			if(booleanTwo.includes(false)&&(to.path!=="/zxh/blank/storeMessShow"&&to.path!=="/")){
 				next(false);					
 				this.$confirm('你有未保存的更改，是否确定保存更改并离开此页面？', '温馨提示', {
 		        	confirmButtonText: '保存更改',

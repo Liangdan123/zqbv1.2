@@ -10,7 +10,7 @@
 					<span class="f12 color-3">{{$route.path==='/mallZxh/mallSetInfo/mallDecoration'?'商城中分类':'店铺中分类:'}}</span>
 					<el-select v-model="searchMess.classifyId" filterable placeholder="请选择">
 						<!--...................我的店铺.......................-->
-						<div v-if="$route.path==='/zxh/my_store_blank/shop_decoration'">
+						<div v-if="$route.path==='/zxh/blank/shop_decoration'">
 							<el-option v-for="(item,index) in storeClassify" :key="index" :value="item.id" :label="item.shop_category_name" :class="item.level===1?'color':''"></el-option>
 						</div>
 						<!--.....................商城..............-->
@@ -100,7 +100,7 @@
 			let mall_id = this.$store.getters.getMall_id;
 			this.$set(this.shopMess, "mall_id", mall_id);
 			let shop_id = this.$store.getters.getShop_id;
-			if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//店铺设置中才需要传shop_id,商城不需要				
+			if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//店铺设置中才需要传shop_id,商城不需要				
 				this.$set(this.shopMess, "shop_id", shop_id);
 				this.deleteAttrApi= ["product_price_yuan","shop_category_id"]
 			};													
@@ -144,7 +144,7 @@
 				this.switchShow = false;
 				this.ProductMenthods("maxPrice", "minPrice", "product_price_yuan", "最高价格小于最低价格");					
 				if(this.searchMess.classifyId !== "") {
-					if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+					if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺
 						this.searchCon.shop_category_id = this.searchMess.classifyId;
 					}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
 						this.searchCon.mall_category_id = this.searchMess.classifyId;
@@ -192,7 +192,7 @@
 						};
 					});
 				};
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺
 					delete this.searchCon.shop_category_id;
 				}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
 					delete this.searchCon.mall_category_id;
@@ -218,7 +218,7 @@
 			sureShop() {
 				this.isSearchEmpty=false;
 				this.$emit("shop_hidden", false);
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.$route.fullPath==='/zxh/blank/shop_decoration'){//我的店铺
 					var productCnt = {banner_click_type: "product",banner_click_name: this.produce_name,banner_click_id: this.banner_click_id};																							
 				}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
 					var productCnt = {click_type:"product",click_name:this.produce_name,click_id:this.banner_click_id,click_image:this.banner_url};			

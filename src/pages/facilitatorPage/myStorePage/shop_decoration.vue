@@ -210,7 +210,7 @@
 					})
 			},
 			addMess() {
-				router.replace("/zxh/my_store_blank/addMess")
+				router.replace("/zxh/blank/addMess")
 			},
 			passBanner(data) {
 				this.bannerMess = data;

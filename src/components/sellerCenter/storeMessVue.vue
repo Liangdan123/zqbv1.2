@@ -329,7 +329,7 @@
 			},	
 			hopPage(){
 				//跳转页面
-				router.replace("/zxh/my_store_blank/storeMessShow");
+				router.replace("/zxh/blank/storeMessShow");
 			},
 			logo(){
 				//没有LOGO显示默认Logo,有就显示				

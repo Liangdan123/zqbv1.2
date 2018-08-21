@@ -14,7 +14,7 @@ import addMess from '@/pages/facilitatorPage/myStorePage/addMess'
 import storeMessShow from '@/pages/facilitatorPage/myStorePage/storeMessShow'
 import freightSetting from '@/pages/facilitatorPage/myStorePage/freightSetting'
 import shop_decoration from '@/pages/facilitatorPage/myStorePage/shop_decoration'
-import my_store_blank from '@/pages/facilitatorPage/myStorePage/my_store_blank'
+import blank from '@/components/blank'
 
 import commodityInfo from '@/pages/facilitatorPage/commodityPage/commodityInfo'
 import category_mgmt from '@/pages/facilitatorPage/commodityPage/category_mgmt'
@@ -107,9 +107,9 @@ const router = new Router({
     name: 'zxh',
     component: zxh,
     children: [{
-      path: 'my_store_blank',
-      component: my_store_blank,
-      name: "my_store_blank",
+      path: 'blank',
+      component: blank,
+      name: "blank",
       children: [{
         path: 'storeInfo',
         component: storeInfo,
@@ -134,7 +134,7 @@ const router = new Router({
     }, {
       path: 'commodityPage',
       name: 'commodity',
-      component: my_store_blank,
+      component: blank,
       children: [{
         path: 'commodityInfo',
         component: commodityInfo,
@@ -167,7 +167,7 @@ const router = new Router({
     }, {
       path: 'orderPage',
       name: 'orderPage',
-      component: my_store_blank,
+      component: blank,
       children: [{
         path: 'allOrder',
         component: allOrder,
@@ -196,7 +196,7 @@ const router = new Router({
     }, {
       path: 'marketingPage',
       name: 'marketingPage',
-      component: my_store_blank,
+      component: blank,
       children: [{
         path: 'marketInfo',
         component: marketInfo,
@@ -209,7 +209,7 @@ const router = new Router({
     }, {
       path: 'sellerPage',
       name: 'sellerPage',
-      component: my_store_blank,
+      component: blank,
       children: [{
         path: 'sellerCenter',
         component: sellerCenter,
@@ -231,7 +231,7 @@ const router = new Router({
     children: [{
       path: 'orderPage',
       name: 'orderPage',
-      component: my_store_blank,
+      component: blank,
     }]
   }, {
     path: '/mallZxh',
@@ -240,7 +240,7 @@ const router = new Router({
     children: [{
       path: 'platform',
       name: 'platform',
-      component: my_store_blank,
+      component: blank,
       children: [{
         path: 'join',
         name: 'join',
@@ -303,7 +303,7 @@ const router = new Router({
     }, {
       path: 'mallOrder',
       name: 'mallOrder',
-      component: my_store_blank,
+      component: blank,
       children: [{
         path: 'mallAllOrder',
         name: 'mallAllOrder',
