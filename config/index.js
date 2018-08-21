@@ -11,10 +11,6 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-        '/admin/mock':{
-            target: 'https://dsn.apizza.net/mock/d1fbe1d031fb18ef28a334c1d833f28d/',
-            changeOrigin: true,
-        },
 		 '/admin': {
             target: 'http://zqb.71baomu.com',
              changeOrigin: true
