@@ -419,8 +419,9 @@ em{font-style: normal;}
 			float: left;
 			margin-left: 20px;
 			margin-top: 15px;
-			img {
-				float: left;
+			svg {
+				vertical-align:middle;
+				margin-right: 8px;
 			}
 			span {
 				float: left;
@@ -433,7 +434,7 @@ em{font-style: normal;}
 			background-color: transparent;
 			position: absolute;
 			left: 50%;
-			margin-left: -252px;
+			transform:translateX(-50%);
 			.el-menu-item {
 				height: 60px;
 				line-height: 60px;

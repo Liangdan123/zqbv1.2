@@ -5,23 +5,13 @@
         <svg width="30" height="30">
           <use xlink:href="#logo" />
         </svg>
-        <img src="../assets/image/weishangcheng.png" />
+        <img src="../assets/image/agent.png" />
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
-        <el-menu-item index="/zxh/sellerPage/sellerCenter" :class="{isActive:active=='sellerPage'}">
-          <i></i>卖家中心
-        </el-menu-item>
-        <el-menu-item index="/zxh/commodityPage/commodityInfo" :class="{isActive:active=='commodityPage'}">
-          <i></i>商品管理
-        </el-menu-item>
         <el-menu-item index="/zxh/orderPage/allOrder" :class="{isActive:active=='orderPage'}">
           <i></i>订单管理</el-menu-item>
         <el-menu-item index="/zxh/marketingPage/marketInfo" :class="{isActive:active=='marketingPage'}">
           <i></i>营销管理</el-menu-item>
-        <el-menu-item index="/zxh/my_store_blank/storeInfo" :class="{isActive:active=='my_store_blank'}">
-          <i></i>店铺设置
-        </el-menu-item>
-        <!-- ................资金管理还没设计.............-->
         <el-menu-item index="/zxh/shop-money-management/" :class="{isActive:active=='shop-money-management'}">
           <i></i>资金管理
         </el-menu-item>
@@ -57,18 +47,18 @@
 </template>
 
 <script>
- import navbar from "@/utils/navbar"
+  import navbar from "@/utils/navbar"
   export default {
     mixins: [navbar],
     computed: {
       change_my_store() {
         var path = this.$route.fullPath;
         var arr = path.trim().split("/");
-        if (arr.length != 0 && arr[1] != "zxh") {
+        if (arr.length != 0 && arr[1] != "agent") {
           return
         }
         return this.active = arr[2]
-      },
+      }
     }
   }
 

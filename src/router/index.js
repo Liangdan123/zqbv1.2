@@ -35,9 +35,7 @@ import marketInfo from '@/pages/marketingPage/marketInfo'
 import Coupon from '@/pages/marketingPage/Coupon'
 
 import sellerCenter from '@/pages/sellerCenter/sellerCenter'
-import realName from '@/pages/sellerCenter/realName'
-import audit from '@/pages/sellerCenter/auditPage'
-import feedbackMess from '@/pages/sellerCenter/feedbackMess'
+
 
 //平台导航
 import mallZxh from '@/pages/mallZxh'
@@ -86,7 +84,7 @@ import addrole from '@/pages/platform/addrole';
 import joinRecord from '@/pages/platform/joinRecord';
 
 //合伙人
-// import mallZxh from '@/pages/mallZxh'
+import agent from '@/pages/agent'
 
 
 Vue.use(Router);
@@ -226,18 +224,10 @@ const router = new Router({
       name: 'WithdrawalApply',
       component: WithdrawalApply,
     }, ]
-  }, {
-    path: '/realName',
-    name: 'realName',
-    component: realName,
-  }, {
-    path: '/audit',
-    name: 'audit',
-    component: audit,
-  }, {
-    path: '/feedbackMess',
-    name: 'feedbackMess',
-    component: feedbackMess,
+  },{
+    path:'/agent',
+    name:"agent",
+    component:agent
   }, {
     path: '/mallZxh',
     name: 'mallZxh',

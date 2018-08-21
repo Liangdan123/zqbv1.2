@@ -24,7 +24,7 @@
 				<el-menu-item index="/mallZxh/mall-money-management" :class="{isActive:active=='mall-money-management'}">
 					<i></i>资金管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/platform/join" :class="{isActive:active=='join'}">
+				<el-menu-item index="/mallZxh/platform/join" :class="{isActive:active=='platform'}">
 					<i></i>平台管理
 				</el-menu-item>
 			</el-menu>
@@ -57,17 +57,11 @@
 </template>
 
 <script>
-	import router from '@/router'
-	export default {
-		name: "navbar",
-		data() {
-			return {
-				hide: false,
-				active: ""
-			}
-		},
-		computed: {
-			change_my_store() {
+ import navbar from "@/utils/navbar"
+  export default {
+    mixins: [navbar],
+    computed: {
+     	change_my_store() {
 				var path = this.$route.fullPath;
 				var arr = path.trim().split("/");
 				if (arr.length != 0 && arr[1] != "mallZxh") {
@@ -77,20 +71,9 @@
 					arr[2] = arr[2].split("?")[0];
 				}
 				return this.active = arr[2]
-			},
-			userName() {
-				return this.$store.getters.getUserName
-			},
-			email() {
-				return this.$store.getters.getEmail
 			}
-		},
-		methods: {
-			//退出登录
-			loginOut() {
-				this.$store.dispatch('doLogout');
-			}
-		}
-	}
+    }
+  }
 </script>
+
 
