@@ -783,6 +783,9 @@ em {
 }
 
 //tab切换
+.el-tabs__header{
+  border-color:#F9F9F9;
+}
 .el-tabs__item {
   font-size: $font-normal;
   color: $color-base;
