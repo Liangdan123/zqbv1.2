@@ -62,8 +62,7 @@
 </template>
 
 <script>
-  import Navbar from "@/components/platform/Navbar";
-  import search from "@/components/order/searchOrder";
+  import Navbar from "@/components/platform/manage/Navbar";
   export default {
     name: "join",
     data() {
@@ -177,8 +176,7 @@
       };
     },
     components: {
-      Navbar,
-      search
+      Navbar
     },
     created() {
       // this.searchMethods(this.orderMess)

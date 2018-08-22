@@ -111,7 +111,6 @@
 </template>
 
 <script>
-  import imageUpload from "@/components/func/imageUpload"
   import router from '@/router'
 
   export default {
@@ -266,9 +265,6 @@
       this.id=this.$route.query.id;
       this.path=this.$route.query.path;
       this.tab=this.$route.query.tab||null;
-    },
-    components: {
-      imageUpload
     },
     methods: {
       // tabSwitch(tab) {

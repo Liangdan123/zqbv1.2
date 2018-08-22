@@ -21,10 +21,10 @@
 				<el-menu-item index="/mallZxh/mallSetInfo" :class="{isActive:active=='mallSetInfo'}">
 					<i></i>商城设置
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mall-money-management" :class="{isActive:active=='mall-money-management'}">
+				<el-menu-item index="/mallZxh/fund/extractCash" :class="{isActive:active=='fund'}">
 					<i></i>资金管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/manage/join" :class="{isActive:active=='platform'}">
+				<el-menu-item index="/mallZxh/manage/join" :class="{isActive:active=='manage'}">
 					<i></i>平台管理
 				</el-menu-item>
 			</el-menu>

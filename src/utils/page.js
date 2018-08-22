@@ -1,4 +1,3 @@
-
 export default {
 	//删除空对象
 	data(){
@@ -34,4 +33,5 @@ export default {
 			}
 		}
 	}
+
 }

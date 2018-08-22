@@ -14,7 +14,7 @@
 </template>
 
 <script>
-	import {imageUpload} from "@/api/myStore"
+	import {imageUpload} from "@/api/login"
 
 
 	export default{

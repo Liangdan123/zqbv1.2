@@ -12,30 +12,7 @@ body {
   margin: 0;
 }
 
-body,
-div,
-dl,
-dt,
-dd,
-ul,
-li,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-pre,
-code,
-form,
-fieldset,
-legend,
-input,
-textarea,
-p,
-blockquote,
-th,
-td {
+body,div,dl,dt,dd,ul,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,textarea,p,blockquote,th,td {
   margin: 0;
   padding: 0;
 }
@@ -359,26 +336,6 @@ em {
 .cursor {
   cursor: pointer;
 }
-
-// ::-webkit-input-placeholder {
-//   /* WebKit browsers */
-//   color: #999;
-// }
-
-// :-moz-placeholder {
-//   /* Mozilla Firefox 4 to 18 */
-//   color: #999;
-// }
-
-// ::-moz-placeholder {
-//   /* Mozilla Firefox 19+ */
-//   color: #999;
-// }
-
-// :-ms-input-placeholder {
-//   /* Internet Explorer 10+ */
-//   color: #999;
-// }
 
 /*.......................display.......................*/
 
@@ -776,6 +733,7 @@ em {
       padding: 0 10px;
       transition: all 0.3s;
       &.active {
+        font-weight: bold;
         color: #333333;
       }
     }
