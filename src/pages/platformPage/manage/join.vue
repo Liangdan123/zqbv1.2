@@ -84,7 +84,6 @@
           "pay_status": 0,
           "created_at": "2018-08-07 08:45:11"
         }],
-        dialogVisible: false //弹框显示
       };
     },
     mixins: [page],

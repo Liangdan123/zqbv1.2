@@ -10,7 +10,7 @@
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
         <el-menu-item index="/agent/agentOrder":class="{isActive:active=='agentOrder'}">
           <i></i>订单管理</el-menu-item>
-        <el-menu-item index="/agent/marketingPage/marketInfo" :class="{isActive:active=='marketingPage'}">
+        <el-menu-item index="/agent/marketInfo" :class="{isActive:active=='marketInfo'}">
           <i></i>营销管理</el-menu-item>
         <el-menu-item index="/agent/shop-money-management/" :class="{isActive:active=='shop-money-management'}">
           <i></i>资金管理
