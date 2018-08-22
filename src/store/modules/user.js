@@ -75,13 +75,14 @@ const actions={
 	//登陆成功
 	doLogin({ commit,dispatch},user){	
 		//type=1是平台管理后台，type=2是商家管理后台
-		if(user.type===2){			
-			commit(types.LOGIN,user);//登录成功的一系列的信息
-			router.replace("/zxh/sellerPage/sellerCenter");			
-		}else if(user.type===1){
-			commit(types.LOGIN,user);//登录成功的一系列的信息			
-			router.replace("/mallZxh/data-center");						
-		}
+		// if(user.type===2){			
+		// 	commit(types.LOGIN,user);//登录成功的一系列的信息
+		// 	router.replace("/zxh/sellerPage/sellerCenter");			
+		// }else if(user.type===1){
+		// 	commit(types.LOGIN,user);//登录成功的一系列的信息			
+		// 	router.replace("/mallZxh/data-center");						
+		// }
+		router.replace("/agent")
 	},
 	//退出登录
 	doLogout({commit}){
