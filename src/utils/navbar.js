@@ -1,4 +1,4 @@
-
+import router from '@/router'
 export default {
   data() {
     return {
@@ -8,7 +8,10 @@ export default {
     }
   },
   created(){
-    this.selected = this.$route.name;			
+    this.selected = this.$route.name;		
+  },
+  watch: {
+    '$route': 'fetchData'
   },
   computed: {
     userName() {
@@ -25,6 +28,9 @@ export default {
     },
     handleSelect(index) {
       this.selected = index;
+    },
+    fetchData() {
+      this.selected = this.$route.name
     }
   }
 }

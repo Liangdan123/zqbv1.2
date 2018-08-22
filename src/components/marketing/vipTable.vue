@@ -10,11 +10,6 @@
       </el-table-column>
       <el-table-column prop="created_at" sortable="custom" label="创建时间">
       </el-table-column>
-      <el-table-column label="操作">
-        <template slot-scope="props">
-          <span style="color: #0070C9!important;" class="cursor" @click="recharge(props.$index)">充值记录</span>
-        </template>
-      </el-table-column>
     </el-table>
     <!--...................会员管理分页..................-->
     <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"

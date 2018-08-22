@@ -777,6 +777,7 @@ em {
       transition: all 0.3s;
       &.active {
         color: #333333;
+        font-weight: bold;
       }
     }
   }

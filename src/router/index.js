@@ -20,12 +20,13 @@ import message from '@/pages/platformPage/manage/message';
 import addrole from '@/pages/platformPage/manage/addrole';
 import joinRecord from '@/pages/platformPage/manage/joinRecord';
 
-//合伙人
+//代理商
 import agent from '@/pages/agentPage/agent'
 import agentOrder from '@/pages/agentPage/order/agentOrder'
 import marketInfo from '@/pages/agentPage/Marketing/MarketInfo'
 import memberCenter from '@/pages/agentPage/Marketing/memberCenter'
 import roleDep from '@/pages/agentPage/Marketing/roleDep'
+import url from '@/pages/agentPage/Marketing/url'
 
 
 
@@ -65,6 +66,11 @@ const router = new Router({
           path: 'roleDep',
           name: 'roleDep',
           component: roleDep,
+        },
+        {
+          path: 'url',
+          name: 'url',
+          component: url,
         }
       ]
     }]
