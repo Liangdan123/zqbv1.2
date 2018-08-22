@@ -7,7 +7,7 @@
 			<div class="content-con mt-20">
 				<el-tabs v-model="activeName" >
 				    <el-tab-pane label="会员管理" name="first">
-				    	<tableArrow></tableArrow>
+				    	<vipTable></vipTable>
 				    </el-tab-pane>
 				</el-tabs>
 			</div>
@@ -17,10 +17,10 @@
 
 <script>
 		import {getMemMoney} from "@/api/marketing"
-		import tableArrow from "@/components/marketing/tableArrow"
+		import vipTable from "@/components/marketing/vipTable"
 		import member from "@/components/marketing/member"
 		export default{
-			components: {tableArrow,member},
+			components: {vipTable,member},
 			data(){
 				return{
 					money:{},
@@ -52,13 +52,7 @@
 	    border-radius: 4px;
 	    margin: 0 auto;
 	}
-	.plate{
-		float: left;
-		padding: 20px;
-		width: 360px;
-		height: 102px;
-		border-radius: 2px;
-	}
+
 	.border-b{
 		border-bottom: 1px solid #F0F4F7;
 	}
