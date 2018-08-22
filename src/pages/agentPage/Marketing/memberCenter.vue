@@ -78,7 +78,7 @@
     methods: {
       emptyMthod(){
         delete this.searchCondition.search.level//删除等级条件
-				this.searchMethods()
+				this.searchMethod()
 			},
       _doSearch() {
         getMemLists(this.searchCondition)
