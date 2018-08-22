@@ -27,6 +27,7 @@ import marketInfo from '@/pages/agentPage/Marketing/MarketInfo'
 import memberCenter from '@/pages/agentPage/Marketing/memberCenter'
 import roleDep from '@/pages/agentPage/Marketing/roleDep'
 import url from '@/pages/agentPage/Marketing/url'
+import agentMoney from '@/pages/agentPage/moneyManage/agentMoney'
 
 
 
@@ -53,6 +54,10 @@ const router = new Router({
       path: 'agentOrder',
       name: 'agentOrder',
       component: agentOrder,
+    }, {
+      path: 'agentMoney',
+      name: 'agentMoney',
+      component: agentMoney,
     }, {
       path: 'marketInfo',
       name: 'marketInfo',

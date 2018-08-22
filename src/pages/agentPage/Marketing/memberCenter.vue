@@ -38,7 +38,7 @@
     getMemLists
   } from "@/api/marketing"
   import vipTable from "@/components/marketing/vipTable"
-  import member from "@/components/marketing/member"
+  import member from "@/components/marketing/memberHeader"
   import page from '@/utils/page'
   export default {
     components: {
