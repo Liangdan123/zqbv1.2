@@ -12,13 +12,13 @@ import blank from '@/components/blank'//空白页面
 import mallZxh from '@/pages/platformPage/mallZxh'
 
 //平台管理
-import join from '@/pages/platformPage/platform/join';
-import role from '@/pages/platformPage/platform/role';
-import commission from '@/pages/platformPage/platform/commission';
-import permission from '@/pages/platformPage/platform/permission';
-import message from '@/pages/platformPage/platform/message';
-import addrole from '@/pages/platformPage/platform/addrole';
-import joinRecord from '@/pages/platformPage/platform/joinRecord';
+import join from '@/pages/platformPage/manage/join';
+import role from '@/pages/platformPage/manage/role';
+import commission from '@/pages/platformPage/manage/commission';
+import permission from '@/pages/platformPage/manage/permission';
+import message from '@/pages/platformPage/manage/message';
+import addrole from '@/pages/platformPage/manage/addrole';
+import joinRecord from '@/pages/platformPage/manage/joinRecord';
 
 //合伙人
 import agent from '@/pages/agentPage/agent'

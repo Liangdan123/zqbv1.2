@@ -102,7 +102,6 @@ const actions={
 		.then(({data})=>{
 			commit(types.LOGINURL,data);
 		})
-
 	},
 	//重置密码成功（手机和邮箱）
 	doResetSuccess({commit},booleans){
