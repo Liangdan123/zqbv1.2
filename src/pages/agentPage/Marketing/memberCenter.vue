@@ -12,7 +12,7 @@
 					</div>
 					<el-tab-pane label="会员管理" name="first">
 						<!-- 会员管理表格 数据父组件提供 -->
-						<vipTable></vipTable>
+						<vipTable :searchCondition='searchCondition' :list="list" :total="total"></vipTable>
 					</el-tab-pane>
 				</el-tabs>
 			</div>
@@ -22,6 +22,9 @@
 
 <script>
 	import {getMemMoney} from "@/api/marketing"
+	 import {
+    getMemLists
+  } from "@/api/marketing"
 	import vipTable from "@/components/marketing/vipTable"
 	import member from "@/components/marketing/member"
 	import page from '@/utils/page'
@@ -45,6 +48,7 @@
 		},
 		created() {
 			//调用获取会员统计数据API
+			 var mall_id = this.$store.getters.getMall_id;
 			getMemMoney(mall_id)
 				.then(({
 					data
@@ -58,6 +62,23 @@
 				}) => {
 					this.$message.error(data.errorcmt);
 				})
+		},
+		methods: {
+			_doSearch() {
+        getMemLists(this.searchCondition)
+          .then(({
+            data
+          }) => {
+            this.list = data.data;
+          })
+          .catch(({
+            response: {
+              data
+            }
+          }) => {
+            this.$message.error(data.errorcmt);
+          });
+      },
 		}
 	}
 </script>

@@ -6,7 +6,7 @@ import reset from '@/pages/loginPage/mobileReset'
 import sfz from '@/pages/loginPage/SFZ'
 
 
-import blank from '@/components/blank'//空白页面
+import blank from '@/components/func/blank'//空白页面
 
 //平台导航
 import mallZxh from '@/pages/platformPage/mallZxh'

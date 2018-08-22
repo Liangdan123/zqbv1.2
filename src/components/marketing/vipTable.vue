@@ -24,26 +24,30 @@
 </template>
 
 <script>
-  import pagination from "@/components/order/pagination"
   import {
     getMemLists,
     getRechargeLists
   } from "@/api/marketing"
   export default {
-    data() {
-      return {
-      
-      }
-    },
-    created() {
-      var mall_id = this.$store.getters.getMall_id;
-      this.$set(this.orderMess, "mall_id", mall_id);
-      this.$set(this.rechargeMess, "mall_id", mall_id);
-      this.searchMethods();
-    },
-    components: {
-      pagination,
-    },
+		props: {
+			searchCondition: {
+				defalut: () => {
+					return {
+						page: 1,
+						search: {},
+						per_page: 20
+					}
+				}
+			},
+			list: {
+				defalut: () => {
+					return []
+				}
+			},
+			total:{
+				defalut:0
+			}
+		},
     methods: {
       //排序
       sortChange(column, prop, order) {
@@ -85,34 +89,6 @@
       sortCommon(data) {
         this.$set(this.orderMess, "orderby", data);
         this.searchMethods()
-      },
-      inputName() {
-        if (this.order_search === "") {
-          //当值为空的时候全部显示出列表
-          if (this.orderMess.search.nick_name !== undefined) {
-            delete this.orderMess.search
-          }
-        } else {
-          this.$set(this.orderMess, "search", {
-            nick_name: this.order_search
-          });
-        };
-        //清空排序样式
-        if (JSON.stringify(this.order) !== "{}") {
-          this.order.column.prop = "";
-          this.order.column.order = "";
-        };
-        this.searchMethods();
-      },
-      //搜索方法
-      searchMethods() {
-        if (this.orderMess.page == 1) {
-          //页面在第一页搜索手动调接口获取数据列表
-          this.orderList(this.orderMess);
-        } else {
-          //页面在第一页搜索列表就让他回到第一页然后触发handleCurrentChange（）方法（页面更改设置触发）
-          this.orderMess.page = 1;
-        }
       },
       handleCurrentChange(val) {
         this.$emit("handleCurrent", val)

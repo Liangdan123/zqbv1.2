@@ -23,3 +23,5 @@ export const getRegisterCode=(type,data)=>axios.post("notify/regiser_verify_code
 
 export const loginOut=()=>axios.post("user/logout") //用户退出登录接口
 
+export const imageUpload =(file)=>axios.post("upload_image",file)/*上传图片接口*/
+

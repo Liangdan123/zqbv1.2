@@ -75,7 +75,6 @@
 </template>
 
 <script>
-  import imageUpload from "@/components/func/imageUpload"
   import router from '@/router'
 
   export default {
@@ -223,9 +222,6 @@
         },
         imageType: "identity", //图片类型
       }
-    },
-    components: {
-      imageUpload
     },
     methods: {
       add() {

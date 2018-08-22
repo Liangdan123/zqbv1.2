@@ -11,7 +11,7 @@
     <div class="float-r filter pos-r mr-10" v-if="componentList.includes('select')">
       <div class="filter-vis" @click.stop="switchShow=!switchShow">
         <span class="color-3">{{selectTitle}}</span>
-        <img src="../assets/image/arrow-down.png" class="icon-arrow">
+        <img src="../../assets/image/arrow-down.png" class="icon-arrow">
       </div>
       <transition name="el-zoom-in-top">
         <div :class="['filter-switch pos-a',switchPosition=='right'?'switch-right':'switch-left']" v-if="switchShow" @click.stop="">

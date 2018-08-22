@@ -34,7 +34,7 @@ requireAll(req)
 
 
 const requireComponent = require.context(
-  './components',
+  './components/func',
   false,
   /[A-Za-z]\w+\.(vue|js)$/
 )

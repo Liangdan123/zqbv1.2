@@ -66,7 +66,6 @@
         list: [1]
       }
     },
-    components: {},
     mixins: [page],
     created() {
       let status = this.$store.getters.getType //获取用户身份

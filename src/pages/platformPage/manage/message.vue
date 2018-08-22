@@ -40,7 +40,7 @@
 </template>
 
 <script>
-  import Navbar from "@/components/platform/Navbar";
+  import Navbar from "@/components/platform/manage/Navbar";
   export default {
     data() {
       return {

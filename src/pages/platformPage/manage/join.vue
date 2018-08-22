@@ -48,7 +48,7 @@
 </template>
 
 <script>
-  import Navbar from "@/components/platform/Navbar";
+  import Navbar from "@/components/platform/manage/Navbar";
   import router from '@/router'
   import page from '@/utils/page'
 
