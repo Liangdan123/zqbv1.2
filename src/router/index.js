@@ -6,7 +6,7 @@ import reset from '@/pages/loginPage/mobileReset'
 import sfz from '@/pages/loginPage/SFZ'
 
 
-import blank from '@/components/func/blank'//空白页面
+import blank from '@/components/func/blank' //空白页面
 
 //平台导航
 import mallZxh from '@/pages/platformPage/mallZxh'
@@ -25,6 +25,7 @@ import agent from '@/pages/agentPage/agent'
 import agentOrder from '@/pages/agentPage/order/agentOrder'
 import marketInfo from '@/pages/agentPage/Marketing/MarketInfo'
 import memberCenter from '@/pages/agentPage/Marketing/memberCenter'
+import roleDep from '@/pages/agentPage/Marketing/roleDep'
 
 
 
@@ -51,15 +52,21 @@ const router = new Router({
       path: 'agentOrder',
       name: 'agentOrder',
       component: agentOrder,
-    },{
+    }, {
       path: 'marketInfo',
       name: 'marketInfo',
       component: marketInfo,
-      children:[{
-        path: 'memberCenter',
-       name: 'memberCenter',
-        component: memberCenter,
-      }]
+      children: [{
+          path: 'memberCenter',
+          name: 'memberCenter',
+          component: memberCenter,
+        },
+        {
+          path: 'roleDep',
+          name: 'roleDep',
+          component: roleDep,
+        }
+      ]
     }]
   }, {
     path: '/mallZxh',
@@ -102,4 +109,3 @@ const router = new Router({
   }]
 })
 export default router;
-

@@ -5,10 +5,10 @@
         <el-menu-item index="memberCenter" :class="{active:selected=='memberCenter'}">
           会员中心
         </el-menu-item>
-				 <el-menu-item index="memberCenter" :class="{active:selected==''}">
+				 <el-menu-item index="roleDep" :class="{active:selected=='roleDep'}">
           角色发展
         </el-menu-item>
-				 <el-menu-item index="memberCenter" :class="{active:selected==''}">
+				 <el-menu-item index="" :class="{active:selected==''}">
           注册链接
         </el-menu-item>
       </el-menu>
@@ -23,7 +23,7 @@
           <i class="iconfont icon-huiyuanzhongxin" style="font-size: 110px;"></i>
         </p>
       </router-link>
-      <router-link :to="{name:'memberCenter'}" class="item-2 item-list fl">
+      <router-link :to="{name:'roleDep'}" class="item-2 item-list fl">
         <div>
           <i class="iconfont icon-huiyuanzhongxin"></i>
           <span>角色发展</span>
@@ -32,13 +32,13 @@
           <i class="iconfont icon-huiyuanzhongxin" style="font-size: 110px;"></i>
         </p>
       </router-link>
-      <router-link :to="{name:'memberCenter'}" class="item-3 item-list fl">
+      <router-link :to="{name:''}" class="item-3 item-list fl">
         <div>
-          <i class="iconfont icon-huiyuanzhongxin"></i>
+          <i class="iconfont icon-zhucelianjie"></i>
           <span>注册链接</span>
         </div>
         <p>
-          <i class="iconfont icon-huiyuanzhongxin" style="font-size: 110px;"></i>
+          <i class="iconfont icon-zhucelianjie" style="font-size: 110px;"></i>
         </p>
       </router-link>
     </div>
@@ -65,7 +65,4 @@
 
 </script>
 
-<style>
 
-
-</style>
