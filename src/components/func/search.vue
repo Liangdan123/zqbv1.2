@@ -19,7 +19,7 @@
           <slot></slot>
           <div class="condition">
             <span class="f12 color-3">创建时间:</span>
-            <el-date-picker v-model="time" type="daterange" placeholder="选择日期范围" :editable="false" @change="change">
+            <el-date-picker v-model="time" type="daterange" placeholder="选择日期范围" :editable="false" @change="change" size="small">
             </el-date-picker>
           </div>
           <div class="search-select">
@@ -115,8 +115,8 @@
         this.order_search = '';
         delete this.search.created_time;
         delete this.search.order_search;
-        this.$emit("searchMethod");
-          this.closeSearch();
+        this.$emit("emptyMthod");
+        this.closeSearch();
       },
       //格式化时间
       format(data) {
