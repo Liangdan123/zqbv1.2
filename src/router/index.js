@@ -66,8 +66,8 @@ const router = new Router({
     name: 'mallZxh',
     component: mallZxh,
     children: [{
-      path: 'platform',
-      name: 'platform',
+      path: 'manage',
+      name: 'manage',
       component: blank,
       children: [{
         path: 'join',
