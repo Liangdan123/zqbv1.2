@@ -337,6 +337,13 @@ em {
   cursor: pointer;
 }
 
+
+//蓝色文字按钮
+.u-btn {
+  font-size: 12px;
+  color: #0070c9;
+  cursor: pointer;
+}
 /*.......................display.......................*/
 
 .display-b {
@@ -735,6 +742,7 @@ em {
       &.active {
         font-weight: bold;
         color: #333333;
+        font-weight: bold;
       }
     }
   }

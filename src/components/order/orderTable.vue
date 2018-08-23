@@ -34,7 +34,7 @@
           <el-table-column prop="price" label="订单金额" sortable></el-table-column>
           <el-table-column prop="status" label="订单状态"></el-table-column>
           <el-table-column width="120" label="操作">
-            <span slot-scope="scope" class="btn" @click="check(scope.row)">查看记录</span>
+            <span slot-scope="scope" class="u-btn" @click="check(scope.row)">查看记录</span>
           </el-table-column>
         </el-table>
         <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
@@ -94,14 +94,8 @@
 
 </script>
 <style scoped="scoped" lang="scss">
-  .btn {
-    font-size: 12px;
-    color: #0070c9;
-    cursor: pointer;
-  }
 
 
-  
   .Rmb{
     padding:50px;
     >div{

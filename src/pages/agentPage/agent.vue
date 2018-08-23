@@ -12,7 +12,7 @@
           <i></i>订单管理</el-menu-item>
         <el-menu-item index="/agent/marketInfo" :class="{isActive:active=='marketInfo'}">
           <i></i>营销管理</el-menu-item>
-        <el-menu-item index="/agent/shop-money-management/" :class="{isActive:active=='shop-money-management'}">
+        <el-menu-item index="/agent/agentMoney" :class="{isActive:active=='agentMoney'}">
           <i></i>资金管理
         </el-menu-item>
       </el-menu>

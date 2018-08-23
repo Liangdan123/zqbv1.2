@@ -5,6 +5,7 @@ import register from '@/pages/loginPage/register'
 import reset from '@/pages/loginPage/mobileReset'
 import sfz from '@/pages/loginPage/SFZ'
 
+
 import blank from '@/components/func/blank' //空白页面
 
 //平台导航
@@ -19,6 +20,7 @@ import message from '@/pages/platformPage/manage/message';
 import addrole from '@/pages/platformPage/manage/addrole';
 import joinRecord from '@/pages/platformPage/manage/joinRecord';
 
+
 //平台管理中的资金管理
 import extractCash from '@/pages/platformPage/fund/extractCash'
 
@@ -26,10 +28,16 @@ import extractCash from '@/pages/platformPage/fund/extractCash'
 import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo" 
 
 //合伙人
+
+//代理商
+
 import agent from '@/pages/agentPage/agent'
 import agentOrder from '@/pages/agentPage/order/agentOrder'
 import marketInfo from '@/pages/agentPage/Marketing/MarketInfo'
 import memberCenter from '@/pages/agentPage/Marketing/memberCenter'
+import roleDep from '@/pages/agentPage/Marketing/roleDep'
+import url from '@/pages/agentPage/Marketing/url'
+import agentMoney from '@/pages/agentPage/moneyManage/agentMoney'
 
 Vue.use(Router);
 const router = new Router({
@@ -54,7 +62,13 @@ const router = new Router({
 			path: 'agentOrder',
 			name: 'agentOrder',
 			component: agentOrder,
-		}, {
+		}, 
+		{
+	      path: 'agentMoney',
+	      name: 'agentMoney',
+	      component: agentMoney,
+	    }, 
+		{
 			path: 'marketInfo',
 			name: 'marketInfo',
 			component: marketInfo,
@@ -62,7 +76,17 @@ const router = new Router({
 				path: 'memberCenter',
 				name: 'memberCenter',
 				component: memberCenter,
-			}]
+			}, {
+		          path: 'roleDep',
+		          name: 'roleDep',
+		          component: roleDep,
+		        },
+		        {
+		          path: 'url',
+		          name: 'url',
+		          component: url,
+		        }
+			]
 		}]
 	}, { //平台管理
 		path: '/mallZxh',
