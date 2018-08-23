@@ -25,12 +25,9 @@ import joinRecord from '@/pages/platformPage/manage/joinRecord';
 import extractCash from '@/pages/platformPage/fund/extractCash'
 
 //平台中的商城设置
-import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo" 
-
-//合伙人
+import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo"
 
 //代理商
-
 import agent from '@/pages/agentPage/agent'
 import agentOrder from '@/pages/agentPage/order/agentOrder'
 import marketInfo from '@/pages/agentPage/Marketing/MarketInfo'
@@ -41,111 +38,110 @@ import agentMoney from '@/pages/agentPage/moneyManage/agentMoney'
 
 Vue.use(Router);
 const router = new Router({
-	routes: [{
-		path: '/',
-		component: login,
-		children: [{
-			path: '',
-			component: register
-		}, {
-			path: 'reset',
-			component: reset
-		}, {
-			path: 'sfz',
-			component: sfz
-		}]
-	}, {
-		path: '/agent',
-		name: "agent",
-		component: agent,
-		children: [{
-			path: 'agentOrder',
-			name: 'agentOrder',
-			component: agentOrder,
-		}, 
-		{
-	      path: 'agentMoney',
-	      name: 'agentMoney',
-	      component: agentMoney,
-	    }, 
-		{
-			path: 'marketInfo',
-			name: 'marketInfo',
-			component: marketInfo,
-			children: [{
-				path: 'memberCenter',
-				name: 'memberCenter',
-				component: memberCenter,
-			}, {
-		          path: 'roleDep',
-		          name: 'roleDep',
-		          component: roleDep,
-		        },
-		        {
-		          path: 'url',
-		          name: 'url',
-		          component: url,
-		        }
-			]
-		}]
-	}, { //平台管理
-		path: '/mallZxh',
-		name: 'mallZxh',
-		component: mallZxh,
-		children: [{ //平台管理
-			path: 'manage',
-			name: 'manage',
-			component: blank,
-			children: [{
-				path: 'join',
-				name: 'join',
-				component: join,
-			}, {
-				path: 'role',
-				name: 'role',
-				component: role,
-			}, {
-				path: 'commission',
-				name: 'commission',
-				component: commission,
-			}, {
-				path: 'permission',
-				name: 'permission',
-				component: permission,
-			}, {
-				path: 'message',
-				name: 'message',
-				component: message,
-			}, {
-				path: 'addrole',
-				name: 'addrole',
-				component: addrole,
-			}, {
-				path: 'joinRecord',
-				name: 'joinRecord',
-				component: joinRecord,
-			}]
-		},
-		{//资金管理
-			path: 'fund',
-			name: 'fund',
-			component: blank,
-			children:[
-				{
-					path: 'extractCash',
-					name: 'extractCash',
-					component: extractCash,
-				}
-			]
-		},
-		{//商城设置
-			path: 'mallSetInfo',
-			name: 'mallSetInfo',
-			component: mallSetInfo,
-			children:[]			
-		}
-		]
-		
-	}]
+  routes: [{
+    path: '/',
+    component: login,
+    children: [{
+      path: '',
+      component: register
+    }, {
+      path: 'reset',
+      component: reset
+    }, {
+      path: 'sfz',
+      component: sfz
+    }]
+  }, {
+    path: '/agent',
+    name: "agent",
+    component: agent,
+    children: [{
+        path: 'agentOrder',
+        name: 'agentOrder',
+        component: agentOrder,
+      },
+      {
+        path: 'agentMoney',
+        name: 'agentMoney',
+        component: agentMoney,
+      },
+      {
+        path: 'marketInfo',
+        name: 'marketInfo',
+        component: marketInfo,
+        children: [{
+            path: 'memberCenter',
+            name: 'memberCenter',
+            component: memberCenter,
+          }, {
+            path: 'roleDep',
+            name: 'roleDep',
+            component: roleDep,
+          },
+          {
+            path: 'url',
+            name: 'url',
+            component: url,
+          }
+        ]
+      }
+    ]
+  }, { //平台管理
+    path: '/mallZxh',
+    name: 'mallZxh',
+    component: mallZxh,
+    children: [{ //平台管理
+        path: 'manage',
+        name: 'manage',
+        component: blank,
+        children: [{
+          path: 'join',
+          name: 'join',
+          component: join,
+        }, {
+          path: 'role',
+          name: 'role',
+          component: role,
+        }, {
+          path: 'commission',
+          name: 'commission',
+          component: commission,
+        }, {
+          path: 'permission',
+          name: 'permission',
+          component: permission,
+        }, {
+          path: 'message',
+          name: 'message',
+          component: message,
+        }, {
+          path: 'addrole',
+          name: 'addrole',
+          component: addrole,
+        }, {
+          path: 'joinRecord',
+          name: 'joinRecord',
+          component: joinRecord,
+        }]
+      },
+      { //资金管理
+        path: 'fund',
+        name: 'fund',
+        component: blank,
+        children: [{
+          path: 'extractCash',
+          name: 'extractCash',
+          component: extractCash,
+        }]
+      },
+      { //商城设置
+        path: 'mallSetInfo',
+        name: 'mallSetInfo',
+        component: mallSetInfo,
+        children: []
+      }
+    ]
+
+  }]
 })
 export default router;
