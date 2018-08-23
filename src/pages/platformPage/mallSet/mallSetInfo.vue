@@ -1,6 +1,6 @@
 <template>
 	<div class="mallSetInfo">
-		<mallSetHeader v-if="!isShow"></mallSetHeader>
+		<Navbar v-if="!isShow"></Navbar>
 		<div class="info_content clearfix" v-if="isShow">
 			<router-link :to="{name:'mallMess'}" class="item-1 item-list fl">
 				<div>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-//	import mallSetHeader from "@/components/mallSet/mallSetHeader"
+	import Navbar from "@/components/platform/mallSet/Navbar"
 	export default {
 		name: "mallSetInfo",
 		data() {
@@ -43,7 +43,7 @@
 				return arr.length===3?true:false
 			}
 		},
-//		components: {mallSetHeader}					
+		components: {Navbar}					
 	}
 </script>
 

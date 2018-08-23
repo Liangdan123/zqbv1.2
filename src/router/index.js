@@ -26,6 +26,8 @@ import extractCash from '@/pages/platformPage/fund/extractCash'
 
 //平台中的商城设置
 import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo" 
+import mallMess from "@/pages/platformPage/mallSet/mallMess" 
+import mallMessSet from "@/pages/platformPage/mallSet/mallMessSet" 
 
 //合伙人
 
@@ -142,9 +144,21 @@ const router = new Router({
 			path: 'mallSetInfo',
 			name: 'mallSetInfo',
 			component: mallSetInfo,
-			children:[]			
-		}
-		]
+			children:[
+				{					
+					path: 'mallMess',
+					name: 'mallMess',
+					component: mallMess,
+				},
+				{
+					
+					path: 'mallMessSet',
+					name: 'mallMessSet',
+					component: mallMessSet,
+				}
+			]
+		}]
+		
 		
 	}]
 })
