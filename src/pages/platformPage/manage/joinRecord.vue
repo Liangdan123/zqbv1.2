@@ -310,7 +310,7 @@
         width: 290px;
       }
       .el-form-item__label {
-        color: #333;
+        color: $color-light;
       }
       &.identity {
         height: inherit;

@@ -105,7 +105,7 @@
   }
 
   .tableArrow .el-table td>.cell {
-    color: #333;
+    color: $color-light;
   }
 
   .tableArrow .el-table.recharge td>.cell,

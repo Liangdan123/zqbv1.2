@@ -71,7 +71,7 @@
     margin-top:10px;
     >p>span{
       display: inline-block;
-      color:#7F7F7F;
+      color:$color-base;
       width:75px;
       text-align: right;
       padding:5px;
