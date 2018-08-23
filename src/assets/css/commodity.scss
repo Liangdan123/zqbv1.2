@@ -136,7 +136,7 @@ $border-radius:2px;
 }
 
 .el-message-box .el-message-box__message {
-  color: #333;
+  color: $color-light;
 }
 
 // 商品管理页面通用样式
@@ -145,7 +145,7 @@ $border-radius:2px;
 
   .el-dialog__title {
     font-size: 20px;
-    color: #333;
+    color: $color-light;
   }
 
   .checkBox {
@@ -334,12 +334,12 @@ $border-radius:2px;
       }
      
       td > div {
-        color: #333;
+        color: $color-light;
         p.selloutStatus{
             color: #B4282D;
         }
         span.selloutTime{
-            color: #7F7F7F;
+            color: $color-base;
         }
         .product_name {
           display: -webkit-box;
@@ -369,7 +369,7 @@ $border-radius:2px;
   font-size: 12px;
 
   &.color {
-    color: #7F7F7F;
+    color: $color-base;
   }
 
   &.selected {

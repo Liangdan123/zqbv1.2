@@ -37,7 +37,7 @@
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="120" label="操作">
           <router-link :to="{path:'joinRecord',query:{'id':scope.row.join_id,'tab':tabForShow,'path':'join'}}" slot-scope="scope"
-            class="btn">查看记录</router-link>
+            class="u-btn">查看记录</router-link>
         </el-table-column>
       </el-table>
       <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
@@ -127,8 +127,4 @@
     margin: 10px auto;
   }
 
-  .btn {
-    font-size: 12px;
-    color: #0070c9;
-  }
 </style>

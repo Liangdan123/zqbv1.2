@@ -67,7 +67,7 @@
 
 <style scoped  lang="scss">
  .msg{
-    color:#333;
+    color:$color-light;
     margin-top:10px;
     >p>span{
       display: inline-block;
@@ -81,7 +81,7 @@
     margin-top: 40px;
     width:1240px;
     div{
-      color:#333;
+      color:$color-light;
       margin-bottom: 10px;
       float: left;
       width:450px;

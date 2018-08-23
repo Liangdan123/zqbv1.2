@@ -32,7 +32,7 @@
         <el-table-column prop="contact_email" label="常用邮箱" v-else></el-table-column>
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="120" label="操作">
-          <span slot-scope="scope" class="btn" @click="check(scope.row.join_id)">查看详情</span>
+          <span slot-scope="scope" class="u-btn" @click="check(scope.row.join_id)">查看详情</span>
         </el-table-column>
       </el-table>
       <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
@@ -148,14 +148,7 @@
   };
 
 </script>
-<style scoped="scoped" lang="scss">
-  .btn {
-    font-size: 12px;
-    color: #0070c9;
-    cursor: pointer;
-  }
 
-</style>
 
 <style lang="scss">
 .commodity{

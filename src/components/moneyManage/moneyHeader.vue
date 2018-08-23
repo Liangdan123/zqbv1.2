@@ -8,7 +8,7 @@
             <p class="money-total">{{2000 | money}}</p>
             <p class="money-history">今日收入
               <span>{{4| money}}</span>
-              <span class="float-r">提现记录</span>
+              <span class="float-r u-btn">提现记录</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#money" />
@@ -21,7 +21,7 @@
             <p class="money-total">{{100 | money}}</p>
             <p class="money-history">今日收入
               <span>{{3| money}}</span>
-               <span class="float-r">提现记录</span>
+               <span class="float-r u-btn">提现记录</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#member" />
@@ -34,7 +34,7 @@
             <p class="money-total">{{33.33 | money}}</p>
             <p class="money-history">今日收入
               <span>{{6| money}}</span>
-               <span class="float-r">提现记录</span>
+               <span class="float-r u-btn">提现记录</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#money" />
@@ -57,12 +57,7 @@
     },
     data() {
       return {
-        tableLoading: false,
-        //资金统计金额
       }
-    },
-    created() {
-   
     },
   }
 
@@ -85,7 +80,7 @@
     .itemTitle {
       margin-bottom: 10px;
       font-size: 14px;
-      color: #7f7f7f;
+      color: $color-base;
       line-height: 1;
     }
     .money-total {
@@ -101,7 +96,7 @@
       margin: 20px 0;
       font-size: $font-normal;
       color: $color-base;
-      span {
+      span:first-child {
         color: $color-light;
       }
     }

@@ -30,9 +30,9 @@
             <p>
               <router-link :to="{path:'joinRecord',query:{'id':scope.row.join_id,'path':'role','tab':tabForShow}}" class="btn">查看详情</router-link>
             </p>
-            <span class="btn" v-if="tabForShow==1" @click="open(scope.row.contact_name)">CPS链接</span>
-            <span class="btn" v-if="tabForShow==1">加入黑名单</span>
-            <span class="btn" v-else>移除黑名单</span>
+            <span class="u-btn" v-if="tabForShow==1" @click="open(scope.row.contact_name)">CPS链接</span>
+            <span class="u-btn" v-if="tabForShow==1">加入黑名单</span>
+            <span class="u-btn" v-else>移除黑名单</span>
           </template>
         </el-table-column>
       </el-table>
@@ -137,12 +137,6 @@
   .g-button {
     width: 1240px;
     margin: 10px auto;
-  }
-
-  .btn {
-    font-size: 12px;
-    color: #0070c9;
-    cursor: pointer;
   }
 
 </style>

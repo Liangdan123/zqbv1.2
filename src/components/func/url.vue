@@ -4,7 +4,7 @@
       <el-table-column prop="type" label="属性" width="173"></el-table-column>
       <el-table-column prop="url" label="注册链接"></el-table-column>
       <el-table-column width="130" label="操作">
-        <span class="btn" slot-scope="scope" v-clipboard:success="onCopy" v-clipboard:error="onError" v-clipboard:copy="scope.row
+        <span class="u-btn" slot-scope="scope" v-clipboard:success="onCopy" v-clipboard:error="onError" v-clipboard:copy="scope.row
         .url">复制链接</span>
       </el-table-column>
     </el-table>
@@ -24,12 +24,3 @@
     }
   }
 </script>
-
-<style scoped>
-  .btn {
-    font-size: 12px;
-    color: #0070c9;
-    cursor: pointer;
-  }
-
-</style>
