@@ -1,57 +1,78 @@
 <template>
   <div class="wrap">
     <div class="apply-content">
-      <ul class="progess clearfix">
-        <li class="detail-item item-active">
-          <div>
-            <i class="icon-dot active"></i>
-          </div>
-          <div class="detail-content">申请提现</div>
-        </li>
-        <li class="detail-item">
-          <div>
-            <i class="icon-line"></i>
-            <i class="icon-dot"></i>
-          </div>
-          <div class="detail-content">等待平台汇款</div>
-        </li>
-        <li class="detail-item">
-          <div>
-            <i class="icon-line"></i>
-            <i class="icon-dot"></i>
-          </div>
-          <div class="detail-content">商家确认收款</div>
-        </li>
-        <li class="detail-item">
-          <div>
-            <i class="icon-line"></i>
-            <i class="icon-dot"></i>
-          </div>
-          <div class="detail-content">完成提现</div>
-        </li>
-      </ul>
-      <el-form class="form-content" label-width="80px" :model="withdrawalApplyData" :rules="validatorRule" ref="ruleForm">
-        <el-form-item label="提现金额" prop="apply_money">
-          <el-input  v-model.number="withdrawalApplyData.apply_money" placeholder="提现金额不小于100元">
+      <div class="text-c">
+        <ul class="progess clearfix">
+          <li class="detail-item item-active">
+            <div>
+              <i class="icon-dot active"></i>
+            </div>
+            <div class="detail-content">申请提现</div>
+          </li>
+          <li class="detail-item">
+            <div>
+              <i class="icon-line"></i>
+              <i class="icon-dot"></i>
+            </div>
+            <div class="detail-content">等待平台汇款</div>
+          </li>
+          <li class="detail-item">
+            <div>
+              <i class="icon-line"></i>
+              <i class="icon-dot"></i>
+            </div>
+            <div class="detail-content">商家确认收款</div>
+          </li>
+          <li class="detail-item">
+            <div>
+              <i class="icon-line"></i>
+              <i class="icon-dot"></i>
+            </div>
+            <div class="detail-content">完成提现</div>
+          </li>
+        </ul>
+      </div>
+      <h3 class="color-3 ml-20 mb-20">提现申请</h3>
+      <el-form class="form-content" label-width="100px" :model="applyData" :rules="validatorRule" ref="ruleForm">
+        <el-form-item label="提现金额：" prop="apply_money">
+          <el-input v-model.number="applyData.apply_money" placeholder="提现金额不小于100元">
           </el-input>
         </el-form-item>
-        <el-form-item label="开户姓名" prop="open_name">
-          <el-input  placeholder="请输入开户的真实姓名" v-model="withdrawalApplyData.open_name">
-          </el-input>
+        <el-form-item label="提现方式：" prop="type">
+          <el-radio-group v-model="applyData.type" class="float-l" @change="clear">
+            <el-radio :label="1" class="display-b">支付宝账户</el-radio>
+            <el-radio :label="2" class="display-b">微信账户</el-radio>
+            <el-radio :label="3" class="display-b">银行卡账户</el-radio>
+          </el-radio-group>
         </el-form-item>
-        <el-form-item label="开户银行" prop="open_bank">
-          <el-input  placeholder="例如“中国银行”" v-model="withdrawalApplyData.open_bank">
-          </el-input>
-        </el-form-item>
-        <el-form-item label="银行卡号" prop="open_number">
-          <el-input  placeholder="请输入完整正确的银行卡号" v-model="withdrawalApplyData.open_number">
-          </el-input>
-        </el-form-item>
-        <el-form-item>
-          <el-button :loading="submitDisable" :disabled="submitDisable" class="radius submit" type="primary" @click="submitForm('ruleForm')">
-            提交申请
-          </el-button>
-        </el-form-item>
+        <template v-if="applyData.type!=3">
+          <el-form-item label="姓名：" prop="open_name">
+            <el-input placeholder="请输入真实姓名" v-model="applyData.open_name">
+            </el-input>
+          </el-form-item>
+          <el-form-item label="账户：" prop="zfb_pwd" v-if="applyData.type==1">
+            <el-input placeholder="请填写支付宝账户" v-model="applyData.zfb_pwd">
+            </el-input>
+          </el-form-item>
+          <el-form-item label="微信号：" prop="wx_pwd" v-else>
+            <el-input placeholder="请填写转账微信号" v-model="applyData.wx_pwd">
+            </el-input>
+          </el-form-item>
+        </template>
+        <template v-else>
+          <el-form-item label="开户姓名：" prop="open_name">
+            <el-input placeholder="请输入开户的真实姓名" v-model="applyData.open_name">
+            </el-input>
+          </el-form-item>
+          <el-form-item label="开户银行：" prop="open_bank">
+            <el-input placeholder="例如“中国银行”" v-model="applyData.open_bank">
+            </el-input>
+          </el-form-item>
+          <el-form-item label="银行卡号：" prop="open_number">
+            <el-input placeholder="请输入完整正确的银行卡号" v-model="applyData.open_number">
+            </el-input>
+          </el-form-item>
+        </template>
       </el-form>
     </div>
   </div>
@@ -88,24 +109,18 @@
         }
       };
       return {
-        submitDisable: false,
-        verifyCodeSending: false,
-        verifyTip: '获取验证码',
         //账户金额信息
         accountMoneyInfo: {
           "balance": 0,
           "balance_yuan": 0,
-          "tixian_rate": 0
         },
         // 申请提交字段
-        withdrawalApplyData: {
+        applyData: {
           "apply_money": '',
-          "tixian_rate": '',
-          "deduct_money": '',
-          "money": '',
-          "open_name": '',
-          "open_bank": '',
-          "open_number": '',
+          'type': 3,
+          //   "open_name": '',
+          //   "open_bank": '',
+          //   "open_number": '',
         },
         validatorRule: {
           apply_money: [{
@@ -118,22 +133,26 @@
             },
             {
               type: 'string',
-              max: 100,
-              message: '最多100个字符',
+              max: 10,
+              message: '最多10个字符',
               trigger: 'blur'
             },
           ],
+          zfb_pwd: [{
+            required: true,
+            message: '请填写支付宝账户',
+            trigger: 'blur'
+          }],
+          wx_pwd: [{
+            required: true,
+            message: '请填写转账微信号',
+            trigger: 'blur'
+          }],
           open_bank: [{
-              required: true,
-              message: '请输入开户银行',
-            },
-            {
-              type: 'string',
-              max: 100,
-              message: '最多100个字符',
-              trigger: 'blur'
-            },
-          ],
+            required: true,
+            message: '请输入开户银行',
+            trigger: 'blur'
+          }],
           open_number: [{
               required: true,
               message: '请输入完整正确的银行卡号',
@@ -150,58 +169,41 @@
       }
     },
     created() {
-        console.log(222)
+      console.log(222)
       // 获取账户资金信息
-      // getAccountMoney()
+      //   getAccountMoney()
       //     .then(({data})=>{
       //         this.accountMoneyInfo = data;
       //     })
     },
     methods: {
-      verifyCodeGet() {
-        //获取验证码
-        this.verifyCodeSending = true;
-        getVerifyCode()
-          .then(() => {
-            this._countDown()
-          })
-          .catch(({
-            response: {
-              data
-            }
-          }) => {
-            this.$message.error(data.errorcmt);
-            this.verifyCodeSending = false;
-          })
+      cancel() {
+        this.$refs['ruleForm'].resetFields(); //清除报错
+      },
+      clear(){
+        let money=this.applyData.apply_money;
+        let type=this.applyData.type;
+         this.$refs['ruleForm'].resetFields();
+        this.applyData={
+            apply_money:money,
+            type:type,
+        }
       },
       submitForm(formName = 'ruleForm') {
-        // 提交申请
-        this.submitDisable = true;
-        // 校验表单
+        // 提交申请校验表单
         this.$refs[formName].validate((valid) => {
           if (!valid) {
-            this.submitDisable = false;
+            this.$emit("repeat")
             return false;
           }
           let {
-            tixian_rate
-          } = this.accountMoneyInfo;
-          let {
             apply_money
-          } = this.withdrawalApplyData;
-          // 提现金额转为分
-          apply_money = apply_money * 100;
-          // 计算手续费
-          let deduct_money = apply_money * tixian_rate / 100;
-          // 扣去手续费后剩余的钱
-          let money = apply_money - deduct_money;
+          } = this.applyData;
+          apply_money = apply_money * tixian_rate / 100;
           let data_extend = {
-            apply_money,
-            tixian_rate,
-            deduct_money,
-            money
+            apply_money
           };
-          let data_post = Object.assign({}, this.withdrawalApplyData, data_extend);
+          let data_post = Object.assign({}, this.applyData, data_extend);
           withdrawalApplyCommit(data_post)
             .then(({
               data
@@ -210,14 +212,14 @@
                 message: '已提交提现申请，申请进度可在提现记录中查看',
                 type: 'success'
               });
-              this.pageBack()
+              //处理完成 关闭弹窗
+              this.$emit('close')
             })
             .catch(({
               response: {
                 data
               }
             }) => {
-              this.submitDisable = false;
               this.$message.error(data.errorcmt);
             })
         });
@@ -229,29 +231,17 @@
 
 <style lang="scss" scoped>
   .wrap {
-    box-sizing: border-box;
-    text-align: center;
+    box-sizing: border-box; // text-align: center;
   }
 
-
-  .nav-bar {
-    font-size: 16px;
-    color: #7F7F7F;
-    span:first-child {
-      cursor: pointer;
-    }
-    i {
-      padding: 0 5px;
-    }
-    .link-active {
-      color: $color-light;
-      font-weight: 700;
-    }
+  .el-radio {
+    line-height: 36px;
+    margin: 0;
   }
 
   .form-content {
-    margin: 0 auto;
     width: 400px;
+    margin-left: 20px;
     p {
       margin-top: 10px;
       font-size: $font-small;
