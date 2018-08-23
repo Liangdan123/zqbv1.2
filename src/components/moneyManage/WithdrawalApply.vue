@@ -2,35 +2,12 @@
   <div class="wrap">
     <div class="apply-content">
       <div class="text-c">
-        <ul class="progess clearfix">
-          <li class="detail-item item-active">
-            <div>
-              <i class="icon-dot active"></i>
-            </div>
-            <div class="detail-content">申请提现</div>
-          </li>
-          <li class="detail-item">
-            <div>
-              <i class="icon-line"></i>
-              <i class="icon-dot"></i>
-            </div>
-            <div class="detail-content">等待平台汇款</div>
-          </li>
-          <li class="detail-item">
-            <div>
-              <i class="icon-line"></i>
-              <i class="icon-dot"></i>
-            </div>
-            <div class="detail-content">商家确认收款</div>
-          </li>
-          <li class="detail-item">
-            <div>
-              <i class="icon-line"></i>
-              <i class="icon-dot"></i>
-            </div>
-            <div class="detail-content">完成提现</div>
-          </li>
-        </ul>
+          <el-steps :space="150" align-center process-status="wait"  :active="1" class="step">
+              <el-step title="申请提现"></el-step>
+              <el-step title="等待平台汇款"></el-step>
+              <el-step title="商家确认收款"></el-step>
+              <el-step title="完成提现"></el-step>
+          </el-steps>
       </div>
       <h3 class="color-3 ml-20 mb-20">提现申请</h3>
       <el-form class="form-content" label-width="100px" :model="applyData" :rules="validatorRule" ref="ruleForm">
@@ -259,48 +236,32 @@
     opacity: 0;
   }
 
-  .progess {
-    display: inline-block;
-    margin-bottom: 30px;
-    .icon-dot {
-      display: inline-block;
-      margin: 0 6px;
-      width: 12px;
-      height: 12px;
-      background: #D6D6D6;
-      border-radius: 100%;
-      vertical-align: middle;
-    }
-    .icon-line {
-      display: inline-block;
-      width: 160px;
-      height: 4px;
-      background: #D6D6D6;
-      vertical-align: middle;
-      border-radius: 10px;
-    }
-    .detail-item {
-      float: left;
-      text-align: right;
-      font-size: 14px;
-      color: #D6D6D6;
-      &.item-active {
-        color: #0070C9;
-        .icon-dot,
-        .icon-line {
-          background: #0070C9;
-        }
-      }
-      .detail-content {
-        display: inline-block;
-        transform: translateX(36%);
-        .time {
-          margin: 4px 0;
-          font-size: $font-small;
-          line-height: 1;
-        }
-      }
+</style>
+
+<style lang="scss" >
+.el-step__head{
+  width:8px;
+  height: 8px;
+  margin-top:12px;
+  margin-left:8px;
+  &.is-wait{
+   border:0;
+    background:#D6D6D6 !important;
+  }
+  &.is-finish{
+   border:0;
+   .el-step__line-inner{
+      border:0;
     }
   }
+}
 
+
+.el-step__icon {
+    display: none;
+}
+.el-step__title {
+    color: #333 !important;
+    font-size: 12px;
+}
 </style>

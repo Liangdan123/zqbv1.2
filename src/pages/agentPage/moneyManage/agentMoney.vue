@@ -59,8 +59,8 @@
           search: {},
           per_page: 20
         },
-        visible:false,
-        visible2:true,
+        visible2:false,
+        visible:true,
         loading:false
       }
     },
