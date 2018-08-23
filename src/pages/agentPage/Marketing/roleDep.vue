@@ -129,6 +129,7 @@
       }) {
         // tab面板切换
         this.searchCondition.page = 1;
+        this.searchCondition.search={};
         this.searchCondition.search.status = this.tabForShow;
         this._doSearch();
       },

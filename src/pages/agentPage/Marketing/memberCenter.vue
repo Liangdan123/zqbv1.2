@@ -3,7 +3,6 @@
     <div class="content">
       <!--................累计金额.............-->
       <member :money="money"></member>
-      <!--................会员管理与充值优惠管理切换.............-->
       <div class="content-con mt-20">
         <el-tabs v-model="activeName">
           <div class="buttons clearfix mb-20">
