@@ -239,7 +239,8 @@
 </style>
 
 <style lang="scss" >
-.el-step__head{
+.apply-content{
+  .el-step__head{
   width:8px;
   height: 8px;
   margin-top:12px;
@@ -263,5 +264,6 @@
 .el-step__title {
     color: #333 !important;
     font-size: 12px;
+}
 }
 </style>
