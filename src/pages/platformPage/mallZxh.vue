@@ -67,8 +67,6 @@
 				if (arr.length != 0 && arr[1] != "mallZxh") {
 					return
 				};
-				console.log(arr);
-				
 				if (arr[2].indexOf("?") !== -1) { //店铺管理店铺具体信息页面
 					arr[2] = arr[2].split("?")[0];
 				}

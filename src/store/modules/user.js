@@ -82,6 +82,7 @@ const actions={
 		// 	commit(types.LOGIN,user);//登录成功的一系列的信息			
 		// 	router.replace("/mallZxh/data-center");						
 		// }
+		commit(types.LOGIN,user);//登录成功的一系列的信息
 		router.replace("/agent")
 	},
 	//退出登录

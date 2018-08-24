@@ -1,4 +1,4 @@
-import { getProductList } from "@/api/myStore"
+import { getProductList } from "@/api/platform"
 
 export default {
 	//删除空对象

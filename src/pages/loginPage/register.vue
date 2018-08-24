@@ -141,7 +141,7 @@
       },
       doLogin(data) {
         //登陆成功时执行的函数
-        console.log(data);
+        console.log(1111111111)
         this.$store.dispatch("doLogin", data);
       }
     },

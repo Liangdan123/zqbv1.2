@@ -1,7 +1,7 @@
 <template>
 	<div class="mallDecoration">
 		<div  class="mallDecor_middle" v-loading="mallSetMiddle">
-			<img src="../../assets/image/top.jpg" class="w-100"/>
+			<img src="../../../assets/image/top.jpg" class="w-100"/>
 			<div class="mallPlate" v-for="(item,index) in correscomList" :key="index">
 				<!--..................轮播海报一....................-->
 				<div v-if="item.component_key==='hbys1'" class="cursor pos-r bg-f mt-10" @click="isShowPlate(index)"
@@ -26,7 +26,7 @@
 					<!--......................上移下移删除箭头......................-->
 					<arrow v-if="index_plate===index||(errorPlate.hbys1&&index===errorIndex)" :index="index" :mallDecor="correscomList" 
 						:isError="errorPlate.hbys1&&index===errorIndex">						
-					</arrow>						
+					</arrow>					
 				</div>
 				<!--..................图片导航....................-->
 				<div v-if="item.component_key==='tpdh'" class="cursor pos-r mt-10 tpdh"  @click="isShowPlate(index)"
@@ -56,7 +56,7 @@
 					<arrow v-if="index_plate===index||(errorPlate.tpdh&&index===errorIndex)" :index="index" :mallDecor="correscomList"
 						:isError="errorPlate.tpdh && index===errorIndex">
 						
-					</arrow>	
+					</arrow>
 				</div>
 				<!--..................商品单列....................-->
 				<div  v-if="item.component_key==='splb1'&&shopNum!==0" class="cursor pos-r mt-10 splb1"  @click="isShowPlate(index)"
@@ -100,7 +100,7 @@
 					<arrow v-if="index_plate===index||(errorPlate.splb1&&index===errorIndex)" :index="index" :mallDecor="correscomList"
 						:isError="errorPlate.splb1&&index===errorIndex">
 						
-					</arrow>	
+					</arrow>
 				</div>
 				<!--..................商品双列....................-->
 				<div  v-if="item.component_key==='splb2'&&shopNum!==0" class="cursor pos-r mt-10 splb2" @click="isShowPlate(index)"
@@ -144,7 +144,7 @@
 					<!--....................上下删除箭头.................-->
 					<arrow v-if="index_plate===index||(errorPlate.splb2&&index===errorIndex)" :index="index" :mallDecor="correscomList"
 					:isError="errorPlate.splb2&&index===errorIndex">
-					</arrow>	
+					</arrow>
 				</div>
 				<!--..................商品三列....................-->
 				<div  v-if="item.component_key==='splb3'&&shopNum!==0" class="cursor pos-r mt-10 splb3" @click="isShowPlate(index)"
@@ -184,7 +184,7 @@
 					<arrow v-if="index_plate===index||(errorPlate.splb3&&index===errorIndex)" :index="index" :mallDecor="correscomList"
 					:isError="errorPlate.splb3&&index===errorIndex" >
 						
-					</arrow>	
+					</arrow>
 				</div>
 				<!--..................轮播海报二....................-->
 				<div v-if="item.component_key==='hbys2'" class="cursor pos-r bg-f mt-10 hbys2"  @click="isShowPlate(index)"
@@ -212,7 +212,7 @@
 					<!--......................上移下移删除箭头......................-->
 					<arrow v-if="index_plate===index||(errorPlate.hbys2&&index===errorIndex)"  :index="index" :mallDecor="correscomList"
 					:isError="errorPlate.hbys2&&index===errorIndex">		
-					</arrow>	
+					</arrow>
 				</div>
 				<!--..................商品列表....................-->
 				<div v-if="item.component_key==='splb4'" class="cursor pos-r bg-f mt-10 splb4" @click="isShowPlate(index)"
@@ -256,7 +256,7 @@
 					<!--....................上下删除箭头.................-->
 					<arrow v-if="index_plate===index||(errorPlate.splb4&&index===errorIndex)" :index="index" :mallDecor="correscomList"
 						:isError="errorPlate.splb4&&index===errorIndex">
-					</arrow>	
+					</arrow>						
 				</div>
 				<!--..................文字导航....................-->
 				<div v-if="item.component_key==='wzdh'" class="cursor pos-r bg-f mt-10 wzdh"  @click="isShowPlate(index)"
@@ -284,7 +284,7 @@
 					<!--....................上下删除箭头.................-->
 					<arrow v-if="index_plate===index||(errorPlate.wzdh&&index===errorIndex)" :index="index" :mallDecor="correscomList"
 						:isError="errorPlate.wzdh && index===errorIndex">
-					</arrow>	
+					</arrow>
 				</div>
 			</div>
 		</div>
@@ -355,14 +355,6 @@
 			});
 			//获取组件列表
 			let comListData={component_type:0}
-			getcomponentList(comListData)
-			.then(({data})=>{
-				this.componentList=data;
-				this.autoPlateLoad=false;
-			})
-			.catch(({response:{data}})=>{
-				this.$message.error(data.errorcmt)
-			})
 		},	
 		methods:{
 			addPlate(data){//自定义添加模块

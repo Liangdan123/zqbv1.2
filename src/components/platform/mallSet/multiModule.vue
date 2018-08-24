@@ -93,10 +93,10 @@
 </template>
 
 <script>
-	import storeList from "@/components/myStore/storeList"
-	import productClassify from "@/components/myStore/productClassify"
+	import storeList from "@/components/platform/mallSet/storeList"
+	import productClassify from "@/components/platform/mallSet/productClassify"
 	import storeClassify from "@/utils/storeClassify"
-	import {getMallClassifyList} from "@/api/commodity"
+	import {getMallClassifyList} from "@/api/platform"
 	export default {
 		data() {
 			return {

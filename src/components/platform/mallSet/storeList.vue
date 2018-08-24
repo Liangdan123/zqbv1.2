@@ -215,7 +215,7 @@
 			closeSearch() {
 				this.$refs.isShow.closeSearch();
 			},
-			sureShop() {
+			sureShop() {//确定
 				this.isSearchEmpty=false;
 				this.$emit("shop_hidden", false);
 				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
@@ -223,7 +223,7 @@
 				}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
 					var productCnt = {click_type:"product",click_name:this.produce_name,click_id:this.banner_click_id,click_image:this.banner_url};			
 				}
-				if(this.produce_name !== "") {
+				if(this.produce_name) {
 					this.$emit("productName", productCnt);
 					this.$emit("onlyProduct",this.onlyProduct)
 				}

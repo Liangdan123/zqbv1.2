@@ -1,4 +1,4 @@
-import {getClassifyList,getMallClassifyList} from "@/api/commodity"
+import {getClassifyList,getMallClassifyList} from "@/api/platform"
 export default{
 	computed:{
 		//店铺分类信息

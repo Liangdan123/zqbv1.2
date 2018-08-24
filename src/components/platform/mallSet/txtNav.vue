@@ -69,9 +69,9 @@
 	import shareMth from '@/utils/shareMth'
 	import storeClassify from "@/utils/storeClassify"
 	import mallClassifiProduct from "@/utils/mallClassifiProduct"
-	import storeList from "@/components/myStore/storeList"
-	import productClassify from "@/components/myStore/productClassify"
-	import {getMallClassifyList} from "@/api/commodity"
+	import storeList from "@/components/platform/mallSet/storeList"
+	import productClassify from "@/components/platform/mallSet/productClassify"
+	import {getMallClassifyList} from "@/api/platform"
 	export default{
 		components:{storeList,productClassify},	
 		data(){

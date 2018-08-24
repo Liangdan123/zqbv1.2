@@ -28,6 +28,8 @@ import extractCash from '@/pages/platformPage/fund/extractCash'
 import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo" 
 import mallMess from "@/pages/platformPage/mallSet/mallMess" 
 import mallMessSet from "@/pages/platformPage/mallSet/mallMessSet" 
+import mallDecoration from "@/pages/platformPage/mallSet/mallDecoration"
+import mallcategory from "@/pages/platformPage/mallSet/mallcategory"
 
 //合伙人
 
@@ -150,11 +152,20 @@ const router = new Router({
 					name: 'mallMess',
 					component: mallMess,
 				},
-				{
-					
+				{					
 					path: 'mallMessSet',
 					name: 'mallMessSet',
 					component: mallMessSet,
+				},
+				{					
+					path: 'mallDecoration',
+					name: 'mallDecoration',
+					component: mallDecoration,
+				},
+				{					
+					path: 'mallcategory',
+					name: 'mallcategory',
+					component: mallcategory,
 				}
 			]
 		}]

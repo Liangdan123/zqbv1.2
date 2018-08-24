@@ -74,6 +74,11 @@
 								</div>
 						</productClassify>
     				</el-tab-pane>
+    				<el-tab-pane label="表单信息" name="three">
+    					<adForm>
+    						
+    					</adForm>
+    				</el-tab-pane>
 				</el-tabs>
 			</el-dialog>
 		</div>
@@ -89,12 +94,14 @@
 	import imageUpload from "@/components/func/imageUpload"
 	import storeList from "@/components/platform/mallSet/storeList"
 	import productClassify from "@/components/platform/mallSet/productClassify"
+	import adForm from "@/components/platform/mallSet/adForm"
 	import shareMth from '@/utils/shareMth'
 	import {existStoreMess} from "@/api/servicer"
 	import {getMallClassifyList,getClassifyList} from "@/api/platform"
 	import storeClassify from "@/utils/storeClassify"
 	import {deletes} from "@/api/script"
 	export default{
+		components:{imageUpload,storeList,productClassify,adForm},	
 		data(){
 			return {
 				imageType:"shop",
@@ -115,7 +122,7 @@
 		props:["banner","title","allBanner"],
 		created(){
 			let shop_id = this.$store.getters.getShop_id;
-			if(this.allBanner!==undefined){//大部分都没有传"allBanner",为防止出错
+			if(this.allBanner){//大部分都没有传"allBanner",为防止出错
 				this.BannerRadio=this.allBanner.title_switch;//判断商城装修时海报样式二的标题开关
 				this.bannerTitle=this.allBanner.title
 			};	
@@ -138,7 +145,7 @@
 
 		},
 		mixins:[shareMth,storeClassify],
-		components:{imageUpload,storeList,productClassify},		
+			
 		computed:{
 			upBanner(){
 				return JSON.parse(JSON.stringify(this.banner))
@@ -206,7 +213,7 @@
 				};
 			},
 			classifyCnt(data){//点击弹框的确定按钮（商品链接）	
-				if(data.click_image!==undefined){delete data.click_image};//删掉不需要的click_image
+				if(data.click_image){delete data.click_image};//删掉不需要的click_image
 				let plateMess= Object.assign({},this.banner[this.bannerIndex],data);
 				this.$set(this.banner,this.bannerIndex,plateMess)
 			},
@@ -419,9 +426,4 @@
 		color: #0070C9;
 	}
 </style>
-<style>
-	.bannerEditore .imageUpload_con{
-		margin-top: -32px;
-		margin-left: -17.5px;
-	}
-</style>
+

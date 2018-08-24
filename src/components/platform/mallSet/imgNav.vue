@@ -65,12 +65,12 @@
 
 <script>
 	import imageUpload from "@/components/func/imageUpload"
-	import storeList from "@/components/myStore/storeList"
-	import productClassify from "@/components/myStore/productClassify"
+	import storeList from "@/components/platform/mallSet/storeList"
+	import productClassify from "@/components/platform/mallSet/productClassify"
 	import shareMth from '@/utils/shareMth'
 	import storeClassify from "@/utils/storeClassify"
 	import mallClassifiProduct from "@/utils/mallClassifiProduct"
-	import {getMallClassifyList} from "@/api/commodity"
+	import {getMallClassifyList} from "@/api/platform"
 	export default{
 		data(){
 			return{
