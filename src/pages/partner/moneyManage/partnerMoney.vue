@@ -19,7 +19,6 @@
       <el-tabs v-model="activeName" @tab-click="tabSwitch">
         <el-tab-pane label="订单收入" name="1"></el-tab-pane>
         <el-tab-pane label="会员收入" name="2"></el-tab-pane>
-        <el-tab-pane label="角色收入" name="3"></el-tab-pane>
       </el-tabs>
       <!-- 会员管理表格 数据父组件提供 -->
       <div class="buttons clearfix mb-20">
@@ -33,7 +32,6 @@
         <template v-loading="loading">
           <OrderIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==1"></OrderIncome>
           <memberIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==2"></memberIncome>
-          <roleIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==3"></roleIncome>
         </template>
       </div>
     </div>
@@ -44,7 +42,6 @@
   import moneyHeader from "@/components/moneyManage/moneyHeader"
   import OrderIncome from "@/components/moneyManage/OrderIncome"
   import memberIncome from "@/components/moneyManage/memberIncome"
-  import roleIncome from "@/components/moneyManage/roleIncome"
   import WithdrawalApply from "@/components/moneyManage/WithdrawalApply"
   import widthDrawTable from "@/components/moneyManage/widthDrawTable"
   import page from '@/utils/page'
@@ -69,7 +66,6 @@
       moneyHeader,
       OrderIncome,
       memberIncome,
-      roleIncome,
       WithdrawalApply,
       widthDrawTable
     },

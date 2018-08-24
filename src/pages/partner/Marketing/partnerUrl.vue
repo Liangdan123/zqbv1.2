@@ -1,6 +1,7 @@
 <template>
   <div class="commodity">
     <div class="g-content">
+      <h2 class="mb-20">注册链接</h2>
       <url :urlArr='urlArr' v-loading="show"></url>
     </div>
   </div>

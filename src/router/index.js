@@ -4,8 +4,6 @@ import login from '@/pages/login'
 import register from '@/pages/loginPage/register'
 import reset from '@/pages/loginPage/mobileReset'
 import sfz from '@/pages/loginPage/SFZ'
-
-
 import blank from '@/components/func/blank' //空白页面
 
 //平台导航
@@ -27,14 +25,24 @@ import extractCash from '@/pages/platformPage/fund/extractCash'
 //平台中的商城设置
 import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo"
 
+
+//代理商订单和合伙人订单通用
+import orderTable from '@/components/order/orderTable'
 //代理商
 import agent from '@/pages/agentPage/agent'
-import agentOrder from '@/pages/agentPage/order/agentOrder'
-import marketInfo from '@/pages/agentPage/Marketing/MarketInfo'
-import memberCenter from '@/pages/agentPage/Marketing/memberCenter'
-import roleDep from '@/pages/agentPage/Marketing/roleDep'
-import url from '@/pages/agentPage/Marketing/url'
+import agentMarketInfo from '@/pages/agentPage/Marketing/agentMarketInfo'
+import agentMemberCenter from '@/pages/agentPage/Marketing/agentMemberCenter'
+import agentRoleDep from '@/pages/agentPage/Marketing/agentRoleDep'
+import agentUrl from '@/pages/agentPage/Marketing/agentUrl'
 import agentMoney from '@/pages/agentPage/moneyManage/agentMoney'
+
+//合伙人
+import partner from '@/pages/partner/partner'
+import partnerMarketInfo from '@/pages/partner/Marketing/partnerMarketInfo'
+import partnerMemberCenter from '@/pages/partner/Marketing/partnerMemberCenter'
+import partnerRoleDep from '@/pages/partner/Marketing/partnerRoleDep'
+import partnerUrl from '@/pages/partner/Marketing/partnerUrl'
+import partnerMoney from '@/pages/partner/moneyManage/partnerMoney'
 
 Vue.use(Router);
 const router = new Router({
@@ -52,13 +60,48 @@ const router = new Router({
       component: sfz
     }]
   }, {
+    path: '/partner',
+    name: "partner",
+    component: partner,
+    children: [{
+        path: 'partnerOrder',
+        name: 'partnerOrder',
+        component: orderTable,
+      },
+      {
+        path: 'partnerMoney',
+        name: 'partnerMoney',
+        component: partnerMoney,
+      },
+      {
+        path: 'partnerMarketInfo',
+        name: 'partnerMarketInfo',
+        component: partnerMarketInfo,
+        children: [{
+            path: 'partnerMemberCenter',
+            name: 'partnerMemberCenter',
+            component: partnerMemberCenter,
+          }, {
+            path: 'partnerRoleDep',
+            name: 'partnerRoleDep',
+            component: partnerRoleDep,
+          },
+          {
+            path: 'partnerUrl',
+            name: 'partnerUrl',
+            component: partnerUrl,
+          }
+        ]
+      }
+    ]
+  }, {
     path: '/agent',
     name: "agent",
     component: agent,
     children: [{
         path: 'agentOrder',
         name: 'agentOrder',
-        component: agentOrder,
+        component: orderTable,
       },
       {
         path: 'agentMoney',
@@ -66,22 +109,22 @@ const router = new Router({
         component: agentMoney,
       },
       {
-        path: 'marketInfo',
-        name: 'marketInfo',
-        component: marketInfo,
+        path: 'agentMarketInfo',
+        name: 'agentMarketInfo',
+        component: agentMarketInfo,
         children: [{
-            path: 'memberCenter',
-            name: 'memberCenter',
-            component: memberCenter,
+            path: 'agentMemberCenter',
+            name: 'agentMemberCenter',
+            component: agentMemberCenter,
           }, {
-            path: 'roleDep',
-            name: 'roleDep',
-            component: roleDep,
+            path: 'agentRoleDep',
+            name: 'agentRoleDep',
+            component: agentRoleDep,
           },
           {
-            path: 'url',
-            name: 'url',
-            component: url,
+            path: 'agentUrl',
+            name: 'agentUrl',
+            component: agentUrl,
           }
         ]
       }
