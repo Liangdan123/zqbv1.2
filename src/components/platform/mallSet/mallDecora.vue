@@ -3,7 +3,7 @@
 		<!--..................轮播海报一....................-->
 		<div v-if="mallPlate.component_key==='hbys1'">
 			<h2 class="mt-20 pb-20 f20 color-3 border-e9-b">轮播海报</h2>
-			<BannerEditor :banner="banner" @passBanner="passBanner"></BannerEditor>
+			<BannerEditor :banner="banner" choicePlate="mall" @passBanner="passBanner"></BannerEditor>
 			
 		</div>
 		<!--..................图片导航....................-->
@@ -41,7 +41,7 @@
 		<!--..................轮播海报er....................-->
 		<div v-if="mallPlate.component_key==='hbys2'">
 			<h2 class="mt-20 pb-20 f20 color-3">轮播海报</h2>
-			<BannerEditor :banner="banner" :allBanner="mallPlate.data" @passBanner="passBanner" title="hbys2">					
+			<BannerEditor :banner="banner" :allBanner="mallPlate.data" choicePlate="mall" @passBanner="passBanner" title="hbys2">					
 			</BannerEditor>
 		</div>
 		<div v-if="mallPlate.component_key==='splb4'">

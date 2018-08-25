@@ -31,10 +31,10 @@
 					</div>
 				</div>
 			</div>
-			<imageUpload :imageUrl="$route.path==='/mallZxh/mallSetInfo/mallDecoration'?item.image_url:item.banner_url"  
-			:imageType="$route.path==='/mallZxh/mallSetInfo/mallDecoration'?'mall':'shop'" :index="index" @getImageUrl="updataBanner">
+			<imageUpload :imageUrl="choicePlate==='mall'?item.image_url:item.banner_url"  
+			:imageType="choicePlate==='mall'?'mall':'shop'" :index="index" @getImageUrl="updataBanner">
 			</imageUpload>
-			<p class="f12 color-6 sug">图片尺寸建议{{$route.path==='/mallZxh/mallSetInfo/mallDecoration'?'750×420px':'750×640px'}}，格式支持png、jpg</p>				
+			<p class="f12 color-6 sug">图片尺寸建议{{choicePlate==='mall'?'750×420px':'750×640px'}}，格式支持png、jpg</p>				
 			<p class="jump">跳转链接</p>
 			<div class="link">
 				<span v-if="$route.path==='/zxh/my_store_blank/shop_decoration'">
@@ -42,7 +42,7 @@
 					(item.banner_click_type=="shop_category"?"商品分类"+" -":"")}}
 					{{item.banner_click_name}}
 				 </span>
-				 <span v-if="$route.path==='/mallZxh/mallSetInfo/mallDecoration'">
+				 <span v-if="choicePlate==='mall'">
 				 	{{item.click_type=="product"?"商品链接"+" -":
 					(item.click_type=="mall_category"?"商品分类"+" -":"")}}
 					{{item.click_name}}
@@ -63,7 +63,7 @@
 					</el-tab-pane>
     				<el-tab-pane label="商品分类" name="second" >
     					<productClassify   @categorys="categorys" :type="classifyType" 
-    						:Classify="$route.path==='/mallZxh/mallSetInfo/mallDecoration'?mallClassify:storeClassify">
+    						:Classify="choicePlate==='mall'?mallClassify:storeClassify">
 								<div class="btn clearfix pt-20 pb-20 border-t">
 									<el-button class="store-button2 float-r" @click="cancel">
 										取消
@@ -119,7 +119,7 @@
 				classifyList:[],
 			}
 		},
-		props:["banner","title","allBanner"],
+		props:["banner","title","allBanner","choicePlate"],
 		created(){
 			let shop_id = this.$store.getters.getShop_id;
 			if(this.allBanner){//大部分都没有传"allBanner",为防止出错
@@ -173,7 +173,7 @@
 						banner_click_id:this.classifyName.banner_click_id
 					};
 				};
-				if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城时
+				if(this.choicePlate==="mall"){//商城时
 					var classifyCnt = {
 						click_type: "mall_category",
 						click_name: this.classifyName.click_name,
@@ -196,7 +196,7 @@
 				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
 					item_new.banner_url=data.new_url;
 				};
-				if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城时
+				if(this.choicePlate==="mall"){//商城时
 					item_new.image_url=data.new_url;
 				};				
 			},
@@ -208,7 +208,7 @@
 				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺时
 					this.banner.push({id: "", shop_id:"", banner_url:"",banner_click_type: "",banner_click_id: "", banner_click_name:"",sort:bannerIndex});
 				};
-				if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
+				if(this.choicePlate==="mall"){//商城
 					this.banner.push({image_url:"",name:"",click_type:'',click_id:'',click_name:'',sort:bannerIndex})
 				};
 			},
@@ -254,7 +254,7 @@
 							this.isChecked(this.classifyName,'storeClassify')//传到子集时判断是否事先被选中
 						};					
 					};	
-				}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
+				}else if(this.choicePlate==="mall"){//商城
 					this.initStoreClassify("mallClassify");
 					if(this.mallClassify!= 0&&this.banner.length != 0){
 						if(this.banner[index].click_type==="mall_category"){//商品分类中是否选中
@@ -269,7 +269,7 @@
 						if(this.banner[index].banner_click_type==="product"){//商品链接中是否选中
 							this.$set(this.productChecked,"id",this.banner[index].banner_click_id);
 						}
-					}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
+					}else if(this.choicePlate==="mall"){//商城
 						if(this.banner[index].click_type==="product"){//商品链接中是否选中
 							this.$set(this.productChecked,"id",this.banner[index].click_id);
 						}
@@ -298,9 +298,9 @@
 				//去除数组里的空对象
 				this.deleteArrayObject(this.upBanner);
 				//上传给后台的数据
-				if(this.title===undefined){
+				if(!this.title){
 					this.bannerEditor={banners:this.upBanner};	
-				}else if(this.title!==undefined){
+				}else if(this.title){
 					if(this.BannerRadio==="on"){//标题开关显示
 						var title=this.bannerTitle
 					}else if(this.BannerRadio==="off"){
