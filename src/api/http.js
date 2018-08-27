@@ -11,7 +11,6 @@ axios.defaults.baseURL = '/admin/'
 // http request 拦截器
 axios.interceptors.request.use(function (config) {
 	//全部接口加上mall_id
-	console.log("store.getters.getMall_id:",store.getters.getMall_id)
 	config.headers['mall-id']=store.getters.getMall_id;
 return config
 }, function (err) {

@@ -1,14 +1,14 @@
 <template>
 	<div class="adForm">
-		<div class="adForm-con clearfix">
+		<div class="adForm-con clearfix mb-20">
 			<div class="adForm-left">
-				<el-radio-group v-model="formStyle">
+				<el-radio-group v-model="formData.click_style">
 					<el-radio :label="1">样式一</el-radio>
 					<el-radio :label="2">样式二</el-radio>
 				</el-radio-group>
 			</div>
 			<div class="adForm-right">
-				<div v-if="formStyle===1"
+				<div v-if="formData.click_style===1"
 					 class="adForm-right_one">
 					<imageUpload :imageUrl="styleOneImg"
 								imageType="mall"
@@ -34,7 +34,7 @@
 						</el-form-item>
 					</el-form>
 				</div>
-				<div v-if="formStyle===2"
+				<div v-if="formData.click_style===2"
 					class="adForm-right_two">
 					<imageUpload :imageUrl="styleTwoImg"
 								 imageType="mall"
@@ -63,8 +63,8 @@
 			</div>
 		</div>
 		<div class="pagination-r clearfix float-r">
-			<el-button class="store-button2 float-r">取消</el-button>
-			<el-button class="store-button1 float-r mr-10" >确定</el-button>
+			<el-button class="store-button2 float-r" @click="cancel">取消</el-button>
+			<el-button class="store-button1 float-r mr-10" @click="sureForm">确定</el-button>
 		</div>
 	</div>
 </template>
@@ -74,7 +74,6 @@
 	export default {
 		data() {
 			return {
-				formStyle: 1,
 				styleOne:{
 					name:"",
 					phone:"",
@@ -85,17 +84,100 @@
 					phone:"",
 					qq:""
 				},
-				styleOneImg:"",
-				styleTwoImg:"",
+				imgOne:"",//图片1
+				imgTwo:"",//图片2
+				oneStyle:1,
 			}
+		},
+		created(){
+
+		},
+		props:{
+			formData:{
+				type:Object,
+				default:function(){
+					return {
+						click_type: "form",
+	                    click_style: 1,
+	                    click_image_url: "", 
+					}
+				}
+			},
+			click_style:{//用于那个弹框里有信息
+				type:Number,
+				default:function(){
+					return 0
+				}
+			},
+			index:{//用于固定banner
+				type:Number,
+				default:function(){
+					return 0
+				}
+			}
+		},
+		computed:{
+			styleOneImg(){//样式一的图片	
+				if(this.formData.click_image_url){
+					console.log("this.index111111111:",this.index)
+					console.log("this.formData.sort111111111:",this.formData.sort)
+					if(this.index===this.formData.sort){//固定banner顺序
+						if(this.click_style===this.formData.click_style){//固定样式
+							this.imgOne=this.formData.click_image_url
+						}
+					}
+				}
+				return this.imgOne
+			},
+			styleTwoImg(){//样式二的图片	
+				if(this.formData.click_image_url){
+					console.log("this.index222222222:",this.index)
+					console.log("this.formData.sort2222222222:",this.formData.sort)
+					if(this.index===this.formData.sort){
+						if(this.click_style===this.formData.click_style){
+							this.imgTwo=this.formData.click_image_url //TODO（编辑的时候）(当图片顺序为0时不加载)
+						}
+					}
+
+				};
+				return this.imgTwo
+			},
 		},
 		methods:{
 			oneUploadImg(data){
-				this.styleOneImg=data.new_url
+				this.imgOne=JSON.parse(JSON.stringify(data.new_url)) ;
 			},
 			twoUploadImg(data){
-				this.styleTwoImg=data.new_url
+				console.log(2222)
+				this.imgTwo=JSON.parse(JSON.stringify(data.new_url)) ;
 			},
+			cancel(){
+				this.$emit("shop_hidden", false);
+				this.imgOne="";
+				this.imgTwo="";
+			},
+			sureForm(){//表单确定按钮
+				if(Number(this.formData.click_style)===1){
+					if(!this.styleOneImg){//没上传图片提示
+						this.$message.error("请上传图片");
+						return
+					};
+					var form_url=this.styleOneImg;
+				}else if(Number(this.formData.click_style)===2){
+					if(!this.styleTwoImg){//没上传图片提示下
+						this.$message.error("请上传图片");
+						return
+					};
+					var form_url=this.styleTwoImg;
+				}
+//				let formMess={click_type:"form",click_style:this.formStyle,click_image_url:form_url};
+				if(this.formData.click_image_url){
+					this.$message.error("请上传图片");
+					return
+				}
+				this.$emit("shop_hidden", false);
+//				this.$emit("setFormMess",formMess);
+			}
 		}
 	}
 </script>

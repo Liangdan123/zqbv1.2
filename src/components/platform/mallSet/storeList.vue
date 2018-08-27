@@ -1,20 +1,20 @@
 <template>
 	<div class="storeLink commodity" @click="closeSearch">
-		<search v-on:searchMthod="search" v-on:emptyMthod="empty" v-on:searchCondition="searchCondition" ref="isShow">
+		<search @searchMethod="search" v-on:emptyMthod="empty" v-on:searchCondition="searchCondition" ref="isShow" :isDate="false">
 			<template>
 				<div class="condition">
 					<span class="f12 color-3">商品价格:</span>
 					<input type="number" v-model.number="searchMess.minPrice" /> 到 <input type="number" v-model.number="searchMess.maxPrice" />
 				</div>
-				<div class="classify ">
-					<span class="f12 color-3">{{$route.path==='/mallZxh/mallSetInfo/mallDecoration'?'商城中分类':'店铺中分类:'}}</span>
+				<div class="classify">
+					<span class="f12 color-3">{{choiceRole==='mall'?'商城中分类':'店铺中分类:'}}</span>
 					<el-select v-model="searchMess.classifyId" filterable placeholder="请选择">
 						<!--...................我的店铺.......................-->
 						<div v-if="$route.path==='/zxh/my_store_blank/shop_decoration'">
 							<el-option v-for="(item,index) in storeClassify" :key="index" :value="item.id" :label="item.shop_category_name" :class="item.level===1?'color':''"></el-option>
 						</div>
 						<!--.....................商城..............-->
-						<div v-if="$route.path==='/mallZxh/mallSetInfo/mallDecoration'">
+						<div v-if="choiceRole==='mall'">
 							<el-option v-for="(item,index) in mallClassify" :key="index" :value="item.id" :label="item.mall_category_name" :class="item.level===1?'color':''"></el-option>
 						</div>-
 					</el-select>
@@ -94,8 +94,21 @@
 				classifyList:[],
 			}
 		},
-		props:["productChecked"],
-		created() {
+		props:{
+			productChecked:{
+				type:Object,
+				default:function(){
+					return {}
+				}
+			},
+			choiceRole:{
+				type:String,
+				default:function(){
+					return "mall"
+				}
+			}
+		},
+		created(){
 			//我的店铺商品数据
 			let mall_id = this.$store.getters.getMall_id;
 			this.$set(this.shopMess, "mall_id", mall_id);
@@ -104,7 +117,7 @@
 				this.$set(this.shopMess, "shop_id", shop_id);
 				this.deleteAttrApi= ["product_price_yuan","shop_category_id"]
 			};													
-			if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
+			if(this.choiceRole==="mall"){//商城
 				this.deleteAttrApi= ["product_price_yuan","mall_category_id"]
 			};
 			this.productList(this.shopMess);
@@ -140,22 +153,21 @@
 			},
 		},
 		methods: {
-			search() {//搜索										
+			search(){//搜索		
 				this.switchShow = false;
 				this.ProductMenthods("maxPrice", "minPrice", "product_price_yuan", "最高价格小于最低价格");					
 				if(this.searchMess.classifyId !== "") {
 					if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
 						this.searchCon.shop_category_id = this.searchMess.classifyId;
-					}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
+					}else if(this.choiceRole==="mall"){//商城
 						this.searchCon.mall_category_id = this.searchMess.classifyId;
-					}
-					
-				};							
+					}					
+				};			
 				this.isSearchEmpty=true;	
 				this.shopMess.search=Object.assign({},this.shopMess.search,this.searchCon);//不要用this.$set因为不会把原来的数据合并	
 				this.searchMethods();
 			},
-			ProductMenthods(maxNum, minNum, val, data) {
+			ProductMenthods(maxNum, minNum, val, data){
 				var max =this.searchMess[maxNum];
 				var min =this.searchMess[minNum];
 				if(max !=="" && min !=="") {					
@@ -180,12 +192,12 @@
 					}
 				};
 			},
-			empty() {
+			empty(){
 				//调用批量删除清空的方法
 				var attr=["classifyId","minPrice","maxPrice"];	
 				this.clear(attr, this.searchMess);
 				//清除传给Api的条件		
-				if(this.shopMess.search!==undefined){
+				if(this.shopMess.search){
 					this.deleteAttrApi.map(item => {
 						if(this.shopMess.search[item] !== undefined) {					
 							return delete this.shopMess.search[item]
@@ -194,15 +206,15 @@
 				};
 				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
 					delete this.searchCon.shop_category_id;
-				}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
+				}else if(this.choiceRole==="mall"){//商城
 					delete this.searchCon.mall_category_id;
 				};				
 				delete this.searchCon.product_price_yuan;
 				this.isSearchEmpty=false;
 				this.searchMethods(); //清空属性重新掉接口
 			},
-			searchCondition(val) {//input框搜索
-				if(val!==undefined){
+			searchCondition(val){//input框搜索
+				if(val){
 					this.shopMess.search=Object.assign({},this.shopMess.search,val);	
 				}else{
 					delete this.shopMess.search.product_name;
@@ -212,15 +224,15 @@
 				this.searchMethods();
 			},
 			//关闭弹窗
-			closeSearch() {
+			closeSearch(){
 				this.$refs.isShow.closeSearch();
 			},
-			sureShop() {//确定
+			sureShop(){//确定
 				this.isSearchEmpty=false;
 				this.$emit("shop_hidden", false);
 				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
 					var productCnt = {banner_click_type: "product",banner_click_name: this.produce_name,banner_click_id: this.banner_click_id};																							
-				}else if(this.$route.fullPath==='/mallZxh/mallSetInfo/mallDecoration'){//商城
+				}else if(this.choiceRole==="mall"){//商城
 					var productCnt = {click_type:"product",click_name:this.produce_name,click_id:this.banner_click_id,click_image:this.banner_url};			
 				}
 				if(this.produce_name) {
@@ -228,11 +240,11 @@
 					this.$emit("onlyProduct",this.onlyProduct)
 				}
 			},
-			cancleShop() {
+			cancleShop(){
 				this.isSearchEmpty=false;
 				this.$emit("shop_hidden", false);
 			},
-			checkedIndex(index) {
+			checkedIndex(index){
 				this.banner_click_id = this.list[index].id;
 				this.produce_name = this.list[index].product_name;
 				this.banner_url=this.list[index].images[0].image_url;//商品图片链接

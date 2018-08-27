@@ -41,12 +41,15 @@
 					{{item.banner_click_type=="product"?"商品链接"+" -":
 					(item.banner_click_type=="shop_category"?"商品分类"+" -":"")}}
 					{{item.banner_click_name}}
-				 </span>
-				 <span v-if="choicePlate==='mall'">
-				 	{{item.click_type=="product"?"商品链接"+" -":
-					(item.click_type=="mall_category"?"商品分类"+" -":"")}}
-					{{item.click_name}}
-				 </span>
+				</span>
+				<span v-if="choicePlate==='mall'">
+				 	{{
+					 	item.click_type=="product"?"商品链接"+" -":
+						(item.click_type=="mall_category"?"商品分类"+" -":
+						item.click_type=="form"?"表单信息":"")
+					}}						
+					{{item.click_type=="form"?"":item.click_name}}
+				</span>
 				<button class="btn-link" @click="showBomb(item,index)">
 					<svg height="18px" width="18px">
 						<use xlink:href="#xianjie"/>
@@ -57,13 +60,18 @@
 				:modal-append-to-body="false" :lock-scroll="false"  style="text-align: left;">
 				<el-tabs v-model="activeName">
 					<el-tab-pane label="商品链接" name="first">
-						<storeList  @productName="classifyCnt" @shop_hidden="shop_hidden" :productChecked="productChecked">	
+						<storeList  @productName="classifyCnt"
+							@shop_hidden="shop_hidden"
+							:productChecked="productChecked" 
+							choiceRole="mall">	
 							 
 						</storeList>
 					</el-tab-pane>
     				<el-tab-pane label="商品分类" name="second" >
-    					<productClassify   @categorys="categorys" :type="classifyType" 
-    						:Classify="choicePlate==='mall'?mallClassify:storeClassify">
+    					<productClassify   @categorys="categorys" 
+    						:type="classifyType" 
+    						:Classify="choicePlate==='mall'?mallClassify:storeClassify"
+    						choiceRole="mall">
 								<div class="btn clearfix pt-20 pb-20 border-t">
 									<el-button class="store-button2 float-r" @click="cancel">
 										取消
@@ -75,7 +83,11 @@
 						</productClassify>
     				</el-tab-pane>
     				<el-tab-pane label="表单信息" name="three">
-    					<adForm>
+    					<adForm @shop_hidden="shop_hidden" 
+    						@setFormMess="setFormMess" 
+    						:formData="formData" 
+    						:click_style="click_style"
+    						:index="bannerIndex">
     						
     					</adForm>
     				</el-tab-pane>
@@ -117,6 +129,12 @@
 				bannerTitle:"",
 				mallClassifyList:[],
 				classifyList:[],
+				formData:{//表单信息数据				                   
+                    click_type: "form",
+                    click_style: 1,
+                    click_image_url: "",                   
+				},
+				click_style:0,//表单样式				
 			}
 		},
 		props:["banner","title","allBanner","choicePlate"],
@@ -142,7 +160,6 @@
 				}).catch((error)=>{
 				})	
 			}
-
 		},
 		mixins:[shareMth,storeClassify],
 			
@@ -187,8 +204,11 @@
 			cancel(){
 				this.dialogFormVisible=false;
 			},
-			productName(data){
+			productName(data){//storeList框的确定按钮
 				this.classifyCnt(data)
+			},
+			setFormMess(data){//adForm确定按钮
+				this.classifyCnt(data);
 			},
 			updataBanner(data){				
 				let index=data.index
@@ -212,7 +232,7 @@
 					this.banner.push({image_url:"",name:"",click_type:'',click_id:'',click_name:'',sort:bannerIndex})
 				};
 			},
-			classifyCnt(data){//点击弹框的确定按钮（商品链接）	
+			classifyCnt(data){//点击弹框的确定按钮（商品链接）
 				if(data.click_image){delete data.click_image};//删掉不需要的click_image
 				let plateMess= Object.assign({},this.banner[this.bannerIndex],data);
 				this.$set(this.banner,this.bannerIndex,plateMess)
@@ -243,25 +263,25 @@
 					}
 				}
 			},
-			showBomb(item,index){//打开弹窗以及获取顺序			
+			showBomb(item,index){//打开弹窗		
 				this.dialogFormVisible = true;
 				this.bannerIndex=index;
 				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
 					this.initStoreClassify("storeClassify");//初始化数据，数据不选中
-					if(this.storeClassify != 0&&this.banner.length != 0){//我的店铺					
+					if(this.storeClassify.length!= 0&&this.banner.length != 0){//我的店铺					
 						if(this.banner[index].banner_click_type==="shop_category"){//商品分类中是否选中
 							this.classifyName={ banner_click_name:item.banner_click_name,banner_click_id:item.banner_click_id};								   		    												
 							this.isChecked(this.classifyName,'storeClassify')//传到子集时判断是否事先被选中
 						};					
 					};	
 				}else if(this.choicePlate==="mall"){//商城
-					this.initStoreClassify("mallClassify");
-					if(this.mallClassify!= 0&&this.banner.length != 0){
+					this.initStoreClassify("mallClassify");//初始化数据
+					if(this.mallClassify.length!= 0&&this.banner.length != 0){
 						if(this.banner[index].click_type==="mall_category"){//商品分类中是否选中
 							this.classifyName={ click_name:item.click_name,click_id:item.click_id};								   		    												
 							this.isChecked(this.classifyName,'mallClassify')//传到子集时判断是否事先被选中
 						};	
-					}
+					};
 				}							
 				this.$set(this.productChecked,"id",{});//开始点击弹框时让他都不选择
 				if(this.banner.length != 0){
@@ -272,6 +292,16 @@
 					}else if(this.choicePlate==="mall"){//商城
 						if(this.banner[index].click_type==="product"){//商品链接中是否选中
 							this.$set(this.productChecked,"id",this.banner[index].click_id);
+						};
+						if(this.banner[index].click_type==="form"){//有表单信息时
+							this.formData=Object.assign({},this.formData,item);	
+							this.click_style=item.click_style;//弹框时固定住样式值，以好知道是哪个图片有值							
+						}else{//没有表单信息时
+							this.formData=Object.assign({},this.formData,{
+								click_type: "form",
+			                    click_style: 1,
+			                    click_image_url: "",   
+							})
 						}
 					}
 				}

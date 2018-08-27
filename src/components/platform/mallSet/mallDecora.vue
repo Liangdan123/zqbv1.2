@@ -113,7 +113,7 @@
 		},
 		created(){
 			if(this.mallPlate.data!==null){
-				if(this.mallPlate.data.banners!==undefined){//如果有轮播图时			
+				if(this.mallPlate.data.banners){//如果有轮播图时			
 					this.banner=this.mallPlate.data.banners
 				};
 				this.$set(this.searchMess,"per_page",this.mallPlate.data.product_num);
