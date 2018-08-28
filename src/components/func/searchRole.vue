@@ -32,6 +32,14 @@
         }
       }
     },
+     watch: {
+      search(val){
+        let keys=Object.keys(val)//监听搜索条件变化
+        keys.includes('type')||(this.type="");
+        keys.includes('business_range')||(this.business_range="");
+        keys.includes('is_company')||(this.is_company="0");
+      }
+    },
     data() {
       return {
         is_company: "0",
@@ -103,17 +111,17 @@
     },
     methods: {
       select() {
-        if (companyShow) {
+        if (this.companyShow) {
           this.search.is_company = this.is_company;
         }
-        if (typeShow) {
+        if (this.typeShow) {
           if (this.type) {
             this.search.type = this.type
           } else {
             delete this.search.type
           }
         }
-        if (companyShow) {
+        if (this.companyShow) {
           if (this.business_range) {
             this.search.business_range = this.business_range
           } else {

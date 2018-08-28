@@ -5,14 +5,14 @@
         <svg width="30" height="30">
           <use xlink:href="#logo" />
         </svg>
-        <img src="../../assets/image/agent.png" />
+        <img src="../../assets/image/partner.png" />
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
-        <el-menu-item index="/agent/agentOrder":class="{isActive:active=='agentOrder'}">
+        <el-menu-item index="/partner/partnerOrder":class="{isActive:active=='partnerOrder'}">
           <i></i>订单管理</el-menu-item>
-        <el-menu-item index="/agent/agentMarketInfo" :class="{isActive:active=='agentMarketInfo'}">
+        <el-menu-item index="/partner/partnerMarketInfo" :class="{isActive:active=='partnerMarketInfo'}">
           <i></i>营销管理</el-menu-item>
-        <el-menu-item index="/agent/agentMoney" :class="{isActive:active=='agentMoney'}">
+        <el-menu-item index="/partner/partnerMoney" :class="{isActive:active=='partnerMoney'}">
           <i></i>资金管理
         </el-menu-item>
       </el-menu>
@@ -54,7 +54,7 @@
       change_my_store() {
         var path = this.$route.fullPath;
         var arr = path.trim().split("/");
-        if (arr.length != 0 && arr[1] != "agent") {
+        if (arr.length != 0 && arr[1] != "partner") {
           return
         }
         return this.active = arr[2]

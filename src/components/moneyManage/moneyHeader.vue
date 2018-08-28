@@ -2,42 +2,54 @@
   <div>
     <div class="wrap">
       <el-row :gutter="20">
-        <el-col :span="8">
+        <el-col :span="span">
           <div class="statisticsItem">
             <p class="itemTitle">订单累计收入</p>
             <p class="money-total">{{2000 | money}}</p>
             <p class="money-history">今日收入
               <span>{{4| money}}</span>
-              <span class="float-r u-btn">提现记录</span>
+              <span class="float-r u-btn" v-if="type!=1" @click="Viewlog">提现记录</span>
             </p>
             <svg class="item-label" width="48" height="48">
-              <use xlink:href="#money" />
+              <use xlink:href="#payOrder" />
             </svg>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="span">
           <div class="statisticsItem">
             <p class="itemTitle">会员发展累计收入</p>
             <p class="money-total">{{100 | money}}</p>
             <p class="money-history">今日收入
               <span>{{3| money}}</span>
-               <span class="float-r u-btn">提现记录</span>
+               <span class="float-r u-btn" v-if="type!=1" @click="Viewlog">提现记录</span>
             </p>
             <svg class="item-label" width="48" height="48">
-              <use xlink:href="#member" />
+              <use xlink:href="#money" />
             </svg>
           </div>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="span"  v-if="type==1||type==2">
           <div class="statisticsItem">
             <p class="itemTitle">角色发展累计收入</p>
             <p class="money-total">{{33.33 | money}}</p>
             <p class="money-history">今日收入
               <span>{{6| money}}</span>
-               <span class="float-r u-btn">提现记录</span>
+              <span class="float-r u-btn" v-if="type!=1" @click="Viewlog">提现记录</span>
             </p>
             <svg class="item-label" width="48" height="48">
-              <use xlink:href="#money" />
+              <use xlink:href="#visitNum" />
+            </svg>
+          </div>
+        </el-col>
+        <el-col :span="span" v-if="type==1">
+          <div class="statisticsItem">
+            <p class="itemTitle">平台累计收入</p>
+            <p class="money-total">{{33.33 | money}}</p>
+            <p class="money-history">今日收入
+              <span>{{6| money}}</span>
+            </p>
+            <svg class="item-label" width="48" height="48">
+              <use xlink:href="#member" />
             </svg>
           </div>
         </el-col>
@@ -47,6 +59,19 @@
 </template>
 <script>
   export default {
+    data () {
+      return {
+        span:8,
+        type:null
+      }
+    },
+    props:[],
+    created(){
+      //判断传进来头部有几个模块 合伙人2个 代理商3个  服务商2个  平台4个
+      this.type=this.$store.getters.getType; //1平台,2代理商,3合伙人,4服务商\
+      this.type=2;
+      this.span=this.type==1?6:8//是平台就6 不是就8
+    },
     filters: {
       money(value) {
         // 金额转换成数字和整数部分
@@ -55,10 +80,11 @@
         return `￥ ${value_int}.${value[1]}`;
       }
     },
-    data() {
-      return {
+    methods: {
+      Viewlog(){
+        this.$emit('Viewlog')
       }
-    },
+    }
   }
 
 </script>
