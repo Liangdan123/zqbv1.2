@@ -28,6 +28,10 @@ import mallMessSet from "@/pages/platformPage/mallSet/mallMessSet"
 import mallDecoration from "@/pages/platformPage/mallSet/mallDecoration"
 import mallcategory from "@/pages/platformPage/mallSet/mallcategory"
 
+//平台中的营销管理
+import marketingInfo from "@/pages/platformPage/marketing/marketingInfo"
+import discountSet from "@/pages/platformPage/marketing/discountSet"
+
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
 //代理商
@@ -207,6 +211,16 @@ const router = new Router({
 								component: mallcategory,
 							}
 						]
+					},
+					{
+						path: 'marketingInfo',
+						name: 'marketingInfo',
+						component: marketingInfo,
+						children:[{
+							path: 'discountSet',
+							name: 'discountSet',
+							component: discountSet,
+						}]
 					}
 				]
 

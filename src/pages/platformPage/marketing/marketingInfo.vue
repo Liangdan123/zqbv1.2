@@ -2,26 +2,26 @@
 	<div class="mallSetInfo">
 		<Navbar v-if="!isShow"></Navbar>
 		<div class="info_content clearfix" v-if="isShow">
-			<router-link :to="{name:'mallMess'}" class="item-1 item-list fl">
+			<router-link :to="{name:'discountSet'}" class="item-1 item-list fl">
 				<div>
-					<i class="iconfont icon-dianpuxinxi"></i>
-					<span>商城信息</span>
+					<i class="iconfont icon-dianpuyouhuiquan"></i>
+					<span>优惠设置</span>
 				</div>
-				<p><i class="iconfont icon-dianpuxinxi"></i></p>
+				<p><i class="iconfont icon-dianpuyouhuiquan"></i></p>
 			</router-link>
 			<router-link :to="{name:'mallDecoration'}" class="item-list item-2 fl">
 				<div>
-					<i class="iconfont icon-dianpuzhuangxiu"></i>
-					<span>商城装修</span>
+					<i class="iconfont icon-huiyuanzhongxin"></i>
+					<span>会员中心</span>
 				</div>
-				<p><i class="iconfont icon-dianpuzhuangxiu"></i></p>
+				<p><i class="iconfont icon-huiyuanzhongxin"></i></p>
 			</router-link>
 			<router-link :to="{name:'mallcategory'}" class="item-list item-3 fl">
 				<div>
-					<i class="iconfont icon-shangpinfenlei"></i>
-					<span>商城分类设置</span>
+					<i class="iconfont icon-guanggaozhongxin"></i>
+					<span>广告中心</span>
 				</div>
-				<p><i class="iconfont icon-shangpinfenlei"></i></p>
+				<p><i class="iconfont icon-guanggaozhongxin"></i></p>
 			</router-link>
 		</div>
 		<router-view></router-view>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-	import Navbar from "@/components/platform/marketing/Navbar"
+	import Navbar from "@/components/platform/mallSet/Navbar"
 	export default {
 		name: "mallSetInfo",
 		data() {

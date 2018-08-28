@@ -15,7 +15,7 @@
 				<el-menu-item index="/mallZxh/mallOrder/mallAllOrder" :class="{isActive:active=='mallOrder'}">
 					<i></i>订单管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallMarketInfo" :class="{isActive:active=='mallMarketInfo'}">
+				<el-menu-item index="/mallZxh/marketingInfo" :class="{isActive:active=='marketingInfo'}">
 					<i></i>营销管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/mallSetInfo" :class="{isActive:active=='mallSetInfo'}">
