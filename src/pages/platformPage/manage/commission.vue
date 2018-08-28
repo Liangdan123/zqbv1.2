@@ -347,7 +347,7 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                 <span v-if="status!=5">{{list5[0].rate}}</span>
+                <span v-if="status!=5">{{list5[0].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[0].rate"></el-input>%
               </td>
             </tr>
@@ -389,14 +389,14 @@
             <tr>
               <td width="336">合伙人</td>
               <td>
-                 <span v-if="status!=5">{{list5[4].rate}}</span>
+                <span v-if="status!=5">{{list5[4].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[4].rate"></el-input>%
               </td>
             </tr>
             <tr>
               <td width="336">服务商</td>
               <td>
-                 <span v-if="status!=5">{{list5[5].rate}}</span>
+                <span v-if="status!=5">{{list5[5].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[5].rate"></el-input>%
               </td>
             </tr>
@@ -410,7 +410,7 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-               <span v-if="status!=5">{{list5[6].rate}}</span>
+                <span v-if="status!=5">{{list5[6].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[6].rate"></el-input>%
               </td>
             </tr>
@@ -433,7 +433,7 @@
             <tr>
               <td width="336">佣金比例</td>
               <td>
-                 <span v-if="status!=6">{{list6.order_rate}}</span>
+                <span v-if="status!=6">{{list6.order_rate}}</span>
                 <el-input v-else size="samll" v-model="list6Coyp.order_rate"></el-input>%
               </td>
             </tr>
@@ -669,7 +669,6 @@
         list6: {
           "order_rate": 15
         }
-
       }
     },
     components: {
@@ -687,11 +686,18 @@
         this.status = 0;
       },
       edit(num) {
-        if (this.status == 0) {
+        console.log(num, this["list" + num], this["list" + num + "Coyp"])
+        if (this.status == 0) { //判断是否都没编辑
           this["list" + num + "Coyp"] = JSON.parse(JSON.stringify(this["list" + num]));
           this.status = num;
-        } else {
-          //保存 判断 是否成
+        } else { //判断是否是同一个编辑区域
+          if (num != this.status) {
+            this.$message({
+              message: '还有未保存的设置,请再次保存后重试',
+              type: 'warning'
+            });
+            return;
+          }
           this["list" + num] = JSON.parse(JSON.stringify(this["list" + num + "Coyp"]));
           this.status = 0;
         }
@@ -704,7 +710,6 @@
   .warn {
     color: #B4282D;
   }
-
 
   .u-table {
     border: 0;

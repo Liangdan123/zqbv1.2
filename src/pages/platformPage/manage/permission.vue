@@ -278,7 +278,6 @@
       width: 526px;
     }
     .el-dialog__body {
-      padding: 0 50px;
       .hr {
         padding-top: 30px;
         border-top: 2px solid #d8d8d8;

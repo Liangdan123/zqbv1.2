@@ -15,7 +15,7 @@
   export default {
     props: ["urlArr"],
     methods: {
-         onError() {
+      onError() {
         this.$message.error("复制失败")
       },
       onCopy: function (e) {

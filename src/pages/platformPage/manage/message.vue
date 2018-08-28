@@ -3,7 +3,7 @@
     <Navbar></Navbar>
     <div class="g-content">
       <el-dialog :title="dialogType[dialogIndex].title" :visible.sync="Visible" size="tiny" :close-on-click-modal="false">
-        <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 5}" placeholder="请输入内容" v-model="content"></el-input>
+        <el-input type="textarea" :autosize="{ minRows: 4, maxRows: 5}" placeholder="请输入内容" v-model="content" class="textarea"></el-input>
         <div slot="footer" class="dialog-footer">
           <el-button type="primary" @click="submitForm">{{dialogType[dialogIndex].btn}}</el-button>
           <el-button @click="cancel" class="btn-silver">取 消</el-button>
@@ -30,9 +30,6 @@
             </el-button>
           </el-table-column>
         </el-table>
-        <!-- <el-pagination class="pagination mt-20" v-if="resultTotalForFilter>pageSize" @current-change="handleCurrentChange" :current-page.sync="currentPage"
-        :page-size="pageSize" layout="total, prev, pager, next" :total="resultTotalForFilter">
-      </el-pagination> -->
       </el-tabs>
     </div>
 
@@ -107,6 +104,7 @@
 </script>
 
 <style scoped lang="scss">
+
   .remove {
     span {
       color: #B4282D;
