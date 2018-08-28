@@ -42,14 +42,12 @@
 				loading:true,
 			}
 		},
-		created(){		
-			
+		created(){					
 			//获取商城分类列表
 			getMallClassifyList()		
 			.then(({data})=>{
 				this.mallClassifyList = data;
 				this.loading=false;
-				console.log("data:",data)
 				if(data.length == 0) {return};//没有商城分类则返回
 				for(let val of data) {
 					val.created = false;
@@ -184,12 +182,6 @@
 	.mallcategory{
 		margin-top: 120px;
 		.g-content{			
-			width: 1200px;
-			min-height: 204px;
-			border-radius: 4px;
-			background: #fff;
-			margin: 0 auto;
-			padding: 20px;
 			>.buttons {
 				text-align: left;
 				overflow: auto;

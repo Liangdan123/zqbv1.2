@@ -20,4 +20,6 @@ export const getClassifyList=(shop_id)=>axios.get("product/shop_category_lists",
 
 export const getProductList=(shopMess)=>axios.post("product/lists",shopMess)//商品列表信息
 
+export const getCouponConfig=()=>axios.get("coupon/get_config")//营销管理中获取优惠券配置
+
 

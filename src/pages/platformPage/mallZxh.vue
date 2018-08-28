@@ -3,7 +3,7 @@
 		<div class="navbar">
 			<div class="navbar-left display">
 				<svg width="30" height="30"><use xlink:href="#logo" /></svg>
-				<img src="../../assets/image/partner.png" />
+				<img src="../../assets/image/weishangcheng.png" />
 			</div>
 			<el-menu :default-active='$route.path' :router="true" mode="horizontal">
 				<el-menu-item index="/mallZxh/data-center" :class="{isActive:active=='data-center'}">

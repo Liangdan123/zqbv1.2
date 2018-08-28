@@ -29,7 +29,7 @@
 </template>
 
 <script>
-	import Navbar from "@/components/platform/mallSet/Navbar"
+	import Navbar from "@/components/platform/marketing/Navbar"
 	export default {
 		name: "mallSetInfo",
 		data() {
