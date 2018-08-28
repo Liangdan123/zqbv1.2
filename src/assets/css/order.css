@@ -3,7 +3,7 @@ svg.closebox{
 	top: 0;
 	right: -70px;
 }
-.order .el-dialog--small{
+.order .el-dialog--small.el-dialog{
 	width: 1056px;
 }
 /*..................多选框按钮........*/

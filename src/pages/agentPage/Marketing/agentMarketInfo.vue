@@ -2,19 +2,19 @@
   <div class="mallSetInfo">
     <div class="NavbarOrder" :hidden="!isShow">
       <el-menu :router="true" mode="horizontal" class="clearfix" @select="handleSelect">
-        <el-menu-item index="memberCenter" :class="{active:selected=='memberCenter'}">
+        <el-menu-item index="agentMemberCenter" :class="{active:selected=='agentMemberCenter'}">
           会员中心
         </el-menu-item>
-        <el-menu-item index="roleDep" :class="{active:selected=='roleDep'}">
+        <el-menu-item index="agentRoleDep" :class="{active:selected=='agentRoleDep'}">
           角色发展
         </el-menu-item>
-        <el-menu-item index="url" :class="{active:selected=='url'}">
+        <el-menu-item index="agentUrl" :class="{active:selected=='agentUrl'}">
           注册链接
         </el-menu-item>
       </el-menu>
     </div>
     <div class="info_content clearfix" v-if="!isShow">
-      <router-link :to="{name:'memberCenter'}" class="item-1 item-list fl">
+      <router-link :to="{name:'agentMemberCenter'}" class="item-1 item-list fl">
         <div>
           <i class="iconfont icon-huiyuanzhongxin"></i>
           <span>会员中心</span>
@@ -23,7 +23,7 @@
           <i class="iconfont icon-huiyuanzhongxin" style="font-size: 110px;"></i>
         </p>
       </router-link>
-      <router-link :to="{name:'roleDep'}" class="item-2 item-list fl">
+      <router-link :to="{name:'agentRoleDep'}" class="item-2 item-list fl">
         <div>
           <i class="iconfont icon-huiyuanzhongxin"></i>
           <span>角色发展</span>
@@ -32,7 +32,7 @@
           <i class="iconfont icon-huiyuanzhongxin" style="font-size: 110px;"></i>
         </p>
       </router-link>
-      <router-link :to="{name:'url'}" class="item-3 item-list fl">
+      <router-link :to="{name:'agentUrl'}" class="item-3 item-list fl">
         <div>
           <i class="iconfont icon-zhucelianjie"></i>
           <span>注册链接</span>
