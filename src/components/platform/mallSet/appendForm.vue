@@ -8,9 +8,9 @@
 				</el-radio-group>
 			</div>
 			<div class="adForm-right">
-				<div v-if="formData.click_style===1"
+				<div v-if="formData.click_style==1"
 					 class="adForm-right_one">
-					<imageUpload :imageUrl="styleOneImg"
+					<imageUpload :imageUrl="formImage[1]"
 								imageType="mall"
 								@getImageUrl="oneUploadImg">
 					</imageUpload>
@@ -34,9 +34,9 @@
 						</el-form-item>
 					</el-form>
 				</div>
-				<div v-if="formData.click_style===2"
+				<div v-if="formData.click_style==2"
 					class="adForm-right_two">
-					<imageUpload :imageUrl="styleTwoImg"
+					<imageUpload :imageUrl="formImage[2]"
 								 imageType="mall"
 								 @getImageUrl="twoUploadImg">
 					</imageUpload>
@@ -72,26 +72,6 @@
 <script>
 	import imageUpload from "@/components/func/imageUpload"
 	export default {
-		data() {
-			return {
-				styleOne:{
-					name:"",
-					phone:"",
-					qq:""
-				},
-				styleTwo:{
-					name:"",
-					phone:"",
-					qq:""
-				},
-				imgOne:"",//图片1
-				imgTwo:"",//图片2
-				oneStyle:1,
-			}
-		},
-		created(){
-
-		},
 		props:{
 			formData:{
 				type:Object,
@@ -116,68 +96,72 @@
 				}
 			}
 		},
+		data() {
+			return {
+				styleOne:{
+					name:"",
+					phone:"",
+					qq:""
+				},
+				styleTwo:{
+					name:"",
+					phone:"",
+					qq:""
+				},
+				images:{
+					1:'',
+					2:''
+				},
+				flag:true,
+			}
+		},
 		computed:{
-			styleOneImg(){//样式一的图片	
-				if(this.formData.click_image_url){
-					console.log("this.index111111111:",this.index)
-					console.log("this.formData.sort111111111:",this.formData.sort)
-					if(this.index===this.formData.sort){//固定banner顺序
-						if(this.click_style===this.formData.click_style){//固定样式
-							this.imgOne=this.formData.click_image_url
-						}
-					}
+			formImage:{
+				get(){
+					if(this.flag&&this.formData.click_image_url){//当没有链接时这里不会执行
+						this.$set(this.images,this.formData.click_style,this.formData.click_image_url);
+						this.flag = false;
+					};
+					console.log("this.images:",this.images)
+					return this.images
+				},
+				set(value){
+					this.images = Object.assign({},this.images,value);					
 				}
-				return this.imgOne
-			},
-			styleTwoImg(){//样式二的图片	
-				if(this.formData.click_image_url){
-					console.log("this.index222222222:",this.index)
-					console.log("this.formData.sort2222222222:",this.formData.sort)
-					if(this.index===this.formData.sort){
-						if(this.click_style===this.formData.click_style){
-							this.imgTwo=this.formData.click_image_url //TODO（编辑的时候）(当图片顺序为0时不加载)
-						}
-					}
-
-				};
-				return this.imgTwo
 			},
 		},
 		methods:{
-			oneUploadImg(data){
-				this.imgOne=JSON.parse(JSON.stringify(data.new_url)) ;
+			oneUploadImg({new_url}){			
+				this.formImage={1:new_url}
 			},
-			twoUploadImg(data){
-				console.log(2222)
-				this.imgTwo=JSON.parse(JSON.stringify(data.new_url)) ;
-			},
-			cancel(){
-				this.$emit("shop_hidden", false);
-				this.imgOne="";
-				this.imgTwo="";
+			twoUploadImg({new_url}){
+				this.formImage={2:new_url}
+			},		
+			cancel(){				
+				this.$emit("shop_hidden", false);			
+				this.images = {1:'',2:''};			
+				this.flag = true;
+				this.$emit('resetData');//为了banner初始化				
 			},
 			sureForm(){//表单确定按钮
 				if(Number(this.formData.click_style)===1){
-					if(!this.styleOneImg){//没上传图片提示
+					if(!this.images[1]){//没上传图片提示
 						this.$message.error("请上传图片");
 						return
 					};
-					var form_url=this.styleOneImg;
-				}else if(Number(this.formData.click_style)===2){
-					if(!this.styleTwoImg){//没上传图片提示下
-						this.$message.error("请上传图片");
-						return
-					};
-					var form_url=this.styleTwoImg;
-				}
-//				let formMess={click_type:"form",click_style:this.formStyle,click_image_url:form_url};
-				if(this.formData.click_image_url){
+					var form_url=this.images[1];
+			}else if(Number(this.formData.click_style)===2){
+				if(!this.images[2]){//没上传图片提示下
 					this.$message.error("请上传图片");
 					return
-				}
-				this.$emit("shop_hidden", false);
-//				this.$emit("setFormMess",formMess);
+				};
+				var form_url=this.images[2];
 			}
+			let formMess={click_type:"form",click_style:this.formData.click_style,click_image_url:form_url};
+			this.$emit("shop_hidden", false);
+			this.$emit("setFormMess",formMess);//选数据
+			},
+			
 		}
 	}
 </script>

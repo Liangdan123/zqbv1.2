@@ -83,13 +83,14 @@
 						</productClassify>
     				</el-tab-pane>
     				<el-tab-pane label="表单信息" name="three">
-    					<adForm @shop_hidden="shop_hidden" 
+    					<appendForm @shop_hidden="shop_hidden" 
     						@setFormMess="setFormMess" 
+    						@resetData ="resetData"
     						:formData="formData" 
     						:click_style="click_style"
     						:index="bannerIndex">
     						
-    					</adForm>
+    					</appendForm>
     				</el-tab-pane>
 				</el-tabs>
 			</el-dialog>
@@ -106,14 +107,14 @@
 	import imageUpload from "@/components/func/imageUpload"
 	import storeList from "@/components/platform/mallSet/storeList"
 	import productClassify from "@/components/platform/mallSet/productClassify"
-	import adForm from "@/components/platform/mallSet/adForm"
+	import appendForm from "@/components/platform/mallSet/appendForm"
 	import shareMth from '@/utils/shareMth'
 	import {existStoreMess} from "@/api/servicer"
 	import {getMallClassifyList,getClassifyList} from "@/api/platform"
 	import storeClassify from "@/utils/storeClassify"
 	import {deletes} from "@/api/script"
 	export default{
-		components:{imageUpload,storeList,productClassify,adForm},	
+		components:{imageUpload,storeList,productClassify,appendForm},	
 		data(){
 			return {
 				imageType:"shop",
@@ -174,6 +175,13 @@
 			this.$emit("passBanner",this.bannerEditor);
 		},
 		methods:{
+			resetData(){
+				this.formData={//表单信息数据				                   
+                    click_type: "form",
+                    click_style: 1,
+                    click_image_url: "",                   
+				};
+			},
 			isOnOff(){//海报标题
 				this.allBanner=Object.assign(this.allBanner,{title_switch:this.BannerRadio})//判断商城装修时海报样式二的标题开关
 			},
