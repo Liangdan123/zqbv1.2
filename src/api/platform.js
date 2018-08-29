@@ -22,4 +22,6 @@ export const getProductList=(shopMess)=>axios.post("product/lists",shopMess)//�
 
 export const getCouponConfig=()=>axios.get("coupon/get_config")//营销管理中获取优惠券配置
 
+export const existCouponConfig=(data)=>axios.post("coupon/save_config",data)//营销管理中保存优惠券配置
+
 
