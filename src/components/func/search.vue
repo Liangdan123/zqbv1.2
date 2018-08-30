@@ -42,6 +42,7 @@
 				}
 			},
 			search: {
+				type: Object,
 				default: () => {
 					return {}
 				}

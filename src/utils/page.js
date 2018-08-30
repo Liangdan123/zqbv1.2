@@ -5,6 +5,10 @@ export default {
 			lastPage:null,
 			selectArr:[],
 			total: 0,
+			searchCondition:{//搜索条件
+				page: 1,
+				per_page: 20,
+			}
 		}
 	},
 	created() {
@@ -20,7 +24,7 @@ export default {
 			this.Visible = false;
 		},
 		handleCurrentChange(val) {//分页跳转
-			this.searchCondition.page=val;
+			this.$set(this.searchCondition, "page", val);
 			this._doSearch();
 		},
 		searchMethod() { //搜索方法

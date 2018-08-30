@@ -4,7 +4,7 @@
 			<el-menu-item index="discountSet" :class="{active:selected=='discountSet'}">
 				优惠设置
 			</el-menu-item>
-			<el-menu-item index="mallDecoration" :class="{active:selected=='mallDecoration'}">
+			<el-menu-item index="memberCenter" :class="{active:selected=='memberCenter'}">
 				会员中心
 			</el-menu-item>
 			<el-menu-item index="mallcategory" :class="{active:selected=='mallcategory'}">

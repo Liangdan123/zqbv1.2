@@ -24,4 +24,10 @@ export const getCouponConfig=()=>axios.get("coupon/get_config")//营销管理中
 
 export const existCouponConfig=(data)=>axios.post("coupon/save_config",data)//营销管理中保存优惠券配置
 
+export const getMemberNum=()=>axios.get("member/get_statistics")//获取会员统计数据
+
+export const getMemberList=(data)=>axios.post("mock/member/lists",data)//获取会员列表
+
+export const memberRechargeList=(data)=>axios.post("mock/member/recharge_lists",data)//获取会员充值列表
+
 
