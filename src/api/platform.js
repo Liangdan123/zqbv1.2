@@ -30,4 +30,8 @@ export const getMemberList=(data)=>axios.post("mock/member/lists",data)//获取�
 
 export const memberRechargeList=(data)=>axios.post("mock/member/recharge_lists",data)//获取会员充值列表
 
+export const getAdList=(data)=>axios.post("mock/ad_data/lists",data)//获取广告数据列表
+
+export const deleteAdList=(data)=>axios.delete("mock/ad_data/delete_batch",data)//批量删除广告数据
+
 

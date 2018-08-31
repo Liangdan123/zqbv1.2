@@ -16,7 +16,7 @@
 				</div>
 				<p><i class="iconfont icon-huiyuanzhongxin"></i></p>
 			</router-link>
-			<router-link :to="{name:'mallcategory'}" class="item-list item-3 fl">
+			<router-link :to="{name:'specialAd'}" class="item-list item-3 fl">
 				<div>
 					<i class="iconfont icon-guanggaozhongxin"></i>
 					<span>广告中心</span>

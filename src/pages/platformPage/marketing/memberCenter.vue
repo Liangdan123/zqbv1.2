@@ -57,7 +57,7 @@
 			</div>
 			
 			<div class="tableMess mt-20">
-				<el-tabs v-model="activeName" @tab-click="handleClick">
+				<el-tabs v-model="activeName">
 				    <el-tab-pane label="会员管理" name="first">
 				    </el-tab-pane>
 				    <el-tab-pane label="充值列表" name="second">		    	
@@ -91,11 +91,7 @@
 			
 		},
 		components:{memberManage},
-		methods:{
-			handleClick(){
-				
-			}
-		}
+
 	}
 </script>
 

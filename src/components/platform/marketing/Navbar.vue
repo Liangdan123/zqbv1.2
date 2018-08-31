@@ -7,7 +7,7 @@
 			<el-menu-item index="memberCenter" :class="{active:selected=='memberCenter'}">
 				会员中心
 			</el-menu-item>
-			<el-menu-item index="mallcategory" :class="{active:selected=='mallcategory'}">
+			<el-menu-item index="specialAd" :class="{active:selected=='specialAd'}">
 				广告中心
 			</el-menu-item>
 		</el-menu>

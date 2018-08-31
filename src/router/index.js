@@ -32,6 +32,7 @@ import mallcategory from "@/pages/platformPage/mallSet/mallcategory"
 import marketingInfo from "@/pages/platformPage/marketing/marketingInfo"
 import discountSet from "@/pages/platformPage/marketing/discountSet"
 import memberCenter from "@/pages/platformPage/marketing/memberCenter"
+import specialAd from "@/pages/platformPage/marketing/specialAd"
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
@@ -225,6 +226,10 @@ const router = new Router({
 							path: 'memberCenter',
 							name: 'memberCenter',
 							component: memberCenter,
+						},{							
+							path: 'specialAd',
+							name: 'specialAd',
+							component: specialAd,
 						}
 						]
 					}
