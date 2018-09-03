@@ -67,6 +67,11 @@
 		mixins:[page],
 		data(){
 			return{
+				searchCondition:{//搜索条件
+					search:{},
+					page: 1,
+					per_page: 20,
+				},
 				list:{data:[]},
 				memberLoading:true,
 				pay:{},

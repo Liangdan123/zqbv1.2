@@ -1,8 +1,17 @@
 <template>
 	<div class="tableAd">
+		<el-dialog title="服务商" 
+			:visible.sync="dialogVisible" 
+			:close-on-click-modal="false"			
+			class="content">
+			<serviceList 
+				:ad_ids="distributeList"
+				:closeMood="closeMood"
+				></serviceList>
+		</el-dialog>
 		<div class="clearfix mb-10">
 			<div class="button float-l">
-				<el-button class="store-button2" v-if="isDistribution">
+				<el-button class="store-button2" v-if="isDistribution" @click="distribute">
 					<span class="iconfont icon-Rectangle"></span>
 					<span>分配广告</span>
 				</el-button>
@@ -17,7 +26,8 @@
 			</search>
 		</div>
 
-		<el-table :data="list.data" style="width: 100%"  
+		<el-table :data="list.data" 
+			style="width: 100%"  
 			@selection-change="handleSelection"
 			v-loading="loading"
 			empty-text="emptyText">
@@ -50,23 +60,34 @@
 				
 			</el-pagination>
 		</div>
+
 	</div>
 </template>
 
 <script>
 	import page from "@/utils/page"
 	import {getAdList,deleteAdList} from "@/api/platform"
+	import serviceList from "@/components/platform/marketing/serviceList"
 	export default{
-		mixins:[page],
+		components:{serviceList},		
 		data(){
 			return {
+				searchCondition:{//搜索条件
+					search:{},				
+					page: 1,
+					per_page: 20,
+				},
 				loading:true,
 				list:{data:[]},
 				emptyText:"暂无数据",
 				time:"",//用于清空样式
-				deleteList:{data:[]},
+				deleteList:{data:[]},//批量删除
+				onlyDelete:{data:[]},//每行中的删除
+				dialogVisible:false,//服务商弹框
+				distributeList:[],//分配数据列表
 			}
 		},
+		mixins:[page],
 		props:{
 			activeName:{
 				default:function(){
@@ -110,23 +131,24 @@
 			handleSelection(val){//选中列表
 				let arr=[];
 				for(let item of val) {
-					arr.push({ad_id: item.ad_id})					
+					arr.push({ad_id: item.ad_id});
 				};
-				this.$set(this.deleteList,"data",arr)
+				this.$set(this.deleteList,"data",arr);
+				this.distributeList=JSON.parse(JSON.stringify(arr));
 			},
 			batchDel(){
 				if(this.deleteList.data.length == 0) {
 					this.$message({showClose: true,message: '请选择要删除的广告',type: 'info'});					
 					return;
 				}
-				this.deleteMethods(this.deleteList);				
+				this._deleteMethods(this.deleteList);				
 			},
-			deleteMethods(data){//批量删除广告				
+			_deleteMethods(data){//批量(每行删除)删除广告			
 				this.$confirm('你是否确定删除此信息', '温馨提示', {
 					confirmButtonText: '确认',
 					cancelButtonText: '取消',
 					lockScroll: false
-				}).then(() => {
+				}).then(() => {					
 					deleteAdList(data)
 					.then(({data}) => {	
 						switch(data.status) {
@@ -156,9 +178,21 @@
 					}
 				})
 			},
-			delt(){//每行中的删除
-				
+			delt(index){//每行中的删除
+				let only_ad=this.list.data[index].ad_id
+				this.$set(this.onlyDelete.data,0,{ad_id:only_ad});
+				this._deleteMethods(this.onlyDelete)
 			},
+			distribute(){//分配广告按钮
+				if(this.deleteList.data.length == 0) {
+					this.$message({showClose: true,message: '请选择要分配的广告',type: 'info'});					
+					return;
+				}
+				this.dialogVisible=true;
+			},
+			closeMood(){//确认分配管坯弹窗
+				this.dialogVisible=false;
+			}
 		}
 	}
 </script>

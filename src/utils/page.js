@@ -5,11 +5,6 @@ export default {
 			lastPage:null,
 			selectArr:[],
 			total: 0,
-			searchCondition:{//搜索条件
-				search:{},
-				page: 1,
-				per_page: 20,
-			}
 		}
 	},
 	created() {

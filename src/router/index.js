@@ -34,6 +34,12 @@ import discountSet from "@/pages/platformPage/marketing/discountSet"
 import memberCenter from "@/pages/platformPage/marketing/memberCenter"
 import specialAd from "@/pages/platformPage/marketing/specialAd"
 
+//服务商导航
+import server from "@/pages/serverPage/servers"
+
+//服务商的营销管理
+import serverMarketInfo from "@/pages/serverPage/marketing/serverMarketInfo"
+
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
 //代理商
@@ -178,7 +184,7 @@ const router = new Router({
 							component: joinRecord,
 						}]
 					},
-					{ //资金管理
+					{ //资金管理(平台管理)
 						path: 'fund',
 						name: 'fund',
 						component: blank,
@@ -188,7 +194,7 @@ const router = new Router({
 							component: extractCash,
 						}]
 					},
-					{ //商城设置
+					{ //商城设置(平台管理)
 						path: 'mallSetInfo',
 						name: 'mallSetInfo',
 						component: mallSetInfo,
@@ -214,7 +220,7 @@ const router = new Router({
 							}
 						]
 					},
-					{//营销管理
+					{//营销管理(平台管理)
 						path: 'marketingInfo',
 						name: 'marketingInfo',
 						component: marketingInfo,
@@ -230,11 +236,20 @@ const router = new Router({
 							path: 'specialAd',
 							name: 'specialAd',
 							component: specialAd,
-						}
-						]
+						}]
+						
 					}
 				]
 
+			},{//服务商
+				path: '/server',
+				name: 'server',
+				component: server,
+				children:[{
+					path: 'serverMarketInfo',
+					name: 'serverMarketInfo',
+					component: serverMarketInfo,
+				}]
 			}
 		] 
 })

@@ -32,6 +32,10 @@ export const memberRechargeList=(data)=>axios.post("mock/member/recharge_lists",
 
 export const getAdList=(data)=>axios.post("mock/ad_data/lists",data)//获取广告数据列表
 
-export const deleteAdList=(data)=>axios.delete("mock/ad_data/delete_batch",data)//批量删除广告数据
+export const deleteAdList=(data)=>axios.delete("mock/ad_data/delete_batch",{data})//批量删除广告数据
+
+export const getRoleList=(data)=>axios.post("mock/platform/role_lists",data)//获取角色列表（例如：服务商）
+
+export const distributeAd=(data)=>axios.post("mock/ad_data/distribute_batch",data)//批量分配广告数据
 
 
