@@ -1,5 +1,5 @@
 <template>
-	<div class="specialAd">
+	<div class="serverNiche">
 		<div class="g-content">
 			<el-tabs v-model="activeName">
 			    <el-tab-pane label="广告一" name="1">
@@ -13,9 +13,9 @@
 			    <el-tab-pane label="广告五" name="5">		    	
 			    </el-tab-pane>
 			</el-tabs>
-			<tableAd :activeName="activeName"></tableAd>
-		</div>
+			<tableAd :activeName="activeName" :isDistribution="false"></tableAd>
 		
+		</div>
 	</div>
 </template>
 
@@ -32,7 +32,7 @@
 </script>
 
 <style lang="scss">
-	.specialAd{
+	.serverNiche{
 		margin-top: 120px;
 	}
 </style>

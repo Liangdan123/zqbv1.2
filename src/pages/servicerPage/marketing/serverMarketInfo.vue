@@ -2,24 +2,24 @@
 	<div class="mallSetInfo">
 		<Navbar v-if="!isShow"></Navbar>
 		<div class="info_content clearfix" v-if="isShow">
-			<router-link :to="{name:'discountSet'}" class="item-1 item-list fl">
-				<div>
-					<i class="iconfont icon-dianpuyouhuiquan"></i>
-					<span>优惠设置</span>
-				</div>
-				<p><i class="iconfont icon-dianpuyouhuiquan"></i></p>
-			</router-link>
-			<router-link :to="{name:'memberCenter'}" class="item-list item-2 fl">
+			<router-link :to="{name:'serverMemberCenter'}" class="item-1 item-list fl">
 				<div>
 					<i class="iconfont icon-huiyuanzhongxin"></i>
 					<span>会员中心</span>
 				</div>
 				<p><i class="iconfont icon-huiyuanzhongxin"></i></p>
 			</router-link>
-			<router-link :to="{name:'specialAd'}" class="item-list item-3 fl">
+			<router-link :to="{name:'serverMemberDev'}" class="item-list item-2 fl">
+				<div>
+					<i class="iconfont icon-huiyuanzhongxin"></i>
+					<span>会员发展</span>
+				</div>
+				<p><i class="iconfont icon-huiyuanzhongxin"></i></p>
+			</router-link>
+			<router-link :to="{name:'serverNiche'}" class="item-list item-3 fl">
 				<div>
 					<i class="iconfont icon-guanggaozhongxin"></i>
-					<span>广告中心</span>
+					<span>商机</span>
 				</div>
 				<p><i class="iconfont icon-guanggaozhongxin"></i></p>
 			</router-link>
@@ -29,7 +29,7 @@
 </template>
 
 <script>
-	import Navbar from "@/components/platform/marketing/Navbar"
+	import Navbar from "@/components/servicer/marketing/Navbar"
 	export default {
 		name: "mallSetInfo",
 		data() {

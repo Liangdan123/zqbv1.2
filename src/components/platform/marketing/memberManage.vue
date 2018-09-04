@@ -14,7 +14,7 @@
                     	<el-radio :label="4" class="display-b">钻石会员</el-radio>
                     	<el-radio :label="3" class="display-b">黄金会员</el-radio>
                     	<el-radio :label="2" class="display-b">普通会员</el-radio>
-                    	<el-radio :label="1" class="display-b">普通用户</el-radio>                      
+                    	<el-radio :label="1" class="display-b" v-if="isRole">普通用户</el-radio>                      
                     </el-radio-group>
                 </div>
 			</template>
@@ -117,6 +117,10 @@
 					this.memberList();
 				}else if(this.activeName==="second"){
 					this.rechargeList()
+				}else if(this.activeName==="first" && !this.isRole){//服务商(营销管理中的会员中心列表)
+					let cps_id=this.$store.state.user.user.zhixu_id
+					this.$set(this.searchCondition.search,"cps_id",cps_id);
+					this.memberList();
 				}
 			},
 			memberList(){//会员列表接口

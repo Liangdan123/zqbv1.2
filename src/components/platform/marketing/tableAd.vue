@@ -30,7 +30,7 @@
 			style="width: 100%"  
 			@selection-change="handleSelection"
 			v-loading="loading"
-			empty-text="emptyText">
+			:empty-text="emptyText">
 			<el-table-column type="selection" width="55">      			
     		</el-table-column>
     		<el-table-column prop="contact_name" label="姓名">
@@ -67,6 +67,7 @@
 <script>
 	import page from "@/utils/page"
 	import {getAdList,deleteAdList} from "@/api/platform"
+	import {getServerAdList,deleteServerAdList} from "@/api/servicer"
 	import serviceList from "@/components/platform/marketing/serviceList"
 	export default{
 		components:{serviceList},		
@@ -115,14 +116,27 @@
 		methods:{
 			_doSearch(){//获取广告列表
 				this.$set(this.searchCondition.search,"type",Number(this.activeName));
-				getAdList(this.searchCondition)
-				.then(({data})=>{
-					this.list=data;
-					this.loading=false;
-				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
+				if(this.isDistribution){
+					getAdList(this.searchCondition)
+					.then(({data})=>{
+						this.list=data;
+						this.loading=false;
+					})
+					.catch(({response: {data}})=>{
+						this.$message.error(data.errorcmt);
+					})	
+				}else if(!this.isDistribution){
+					this.$set(this.searchCondition,"user_id",this.$store.state.user.user.zhixu_id);
+					getServerAdList(this.searchCondition)
+					.then(({data})=>{
+						this.list=data;
+						this.loading=false;
+					})
+					.catch(({response: {data}})=>{
+						this.$message.error(data.errorcmt);
+					})
+				}
+
 			},
 			searchAd(){//输入相关信息搜索
 				this.emptyText="未搜索到相关匹配信息";
@@ -136,10 +150,13 @@
 				this.$set(this.deleteList,"data",arr);
 				this.distributeList=JSON.parse(JSON.stringify(arr));
 			},
-			batchDel(){
+			batchDel(){//批量删除触发
 				if(this.deleteList.data.length == 0) {
 					this.$message({showClose: true,message: '请选择要删除的广告',type: 'info'});					
 					return;
+				}
+				if(!this.isDistribution){//服务商
+					this.$set(this.deleteList,"user_id",this.$store.state.user.user.zhixu_id);
 				}
 				this._deleteMethods(this.deleteList);				
 			},
@@ -148,39 +165,56 @@
 					confirmButtonText: '确认',
 					cancelButtonText: '取消',
 					lockScroll: false
-				}).then(() => {					
-					deleteAdList(data)
-					.then(({data}) => {	
-						switch(data.status) {
-							case "part_success":
-								this.$message({
-									showClose: true,
-									message: '部分商品删除失败',
-								});
-								break;
-							case "all_fail":
-								this.$message.error('删除失败');
-								break;
-							default:
-								this.$message({
-									showClose: true,
-									message: '删除成功',
-									type: 'success'
-								});							
-						};
-						this._doSearch();
-					}).catch(({response: {data}})=>{
-						this.$message.error(data.errorcmt);
-					})	
+				}).then(() => {	
+					if(this.isDistribution){//批量删除广告数据(平台)
+						deleteAdList(data)
+						.then(({data}) => {	
+							this._status(data)
+						}).catch(({response: {data}})=>{
+							this.$message.error(data.errorcmt);
+						})	
+					}else if(!this.isDistribution){
+						console.log("data:",data)						
+						deleteServerAdList(data)//批量删除服务商分配广告数据
+						.then(({data}) => {	
+							this._status(data)
+						}).catch(({response: {data}})=>{
+							this.$message.error(data.errorcmt);
+						})	
+					}
+
 				}).catch(() => {
 					if(event.srcElement.innerText == "取消") {
 						return;
 					}
 				})
 			},
+			_status(data){
+				switch(data.status) {
+					case "part_success":
+						this.$message({
+							showClose: true,
+							message: '部分商品删除失败',
+						});
+						break;
+					case "all_fail":
+						this.$message.error('删除失败');
+						break;
+					default:
+						this.$message({
+							showClose: true,
+							message: '删除成功',
+							type: 'success'
+						});							
+				};
+				this._doSearch();
+			},
 			delt(index){//每行中的删除
 				let only_ad=this.list.data[index].ad_id
 				this.$set(this.onlyDelete.data,0,{ad_id:only_ad});
+				if(!this.isDistribution){//服务商
+					this.$set(this.onlyDelete,"user_id",this.$store.state.user.user.zhixu_id);
+				}
 				this._deleteMethods(this.onlyDelete)
 			},
 			distribute(){//分配广告按钮

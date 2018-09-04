@@ -34,11 +34,17 @@ import discountSet from "@/pages/platformPage/marketing/discountSet"
 import memberCenter from "@/pages/platformPage/marketing/memberCenter"
 import specialAd from "@/pages/platformPage/marketing/specialAd"
 
-//服务商导航
-import server from "@/pages/serverPage/servers"
+//平台中的店铺管理
+import storeManage from "@/pages/platformPage/storeManage/storeManage"
 
+//服务商导航
+import server from "@/pages/servicerPage/servers"
 //服务商的营销管理
-import serverMarketInfo from "@/pages/serverPage/marketing/serverMarketInfo"
+import serverMarketInfo from "@/pages/servicerPage/marketing/serverMarketInfo"
+import serverMemberCenter from "@/pages/servicerPage/marketing/serverMemberCenter"
+import serverMemberDev from "@/pages/servicerPage/marketing/serverMemberDev"
+import serverNiche from "@/pages/servicerPage/marketing/serverNiche"
+
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
@@ -238,6 +244,10 @@ const router = new Router({
 							component: specialAd,
 						}]
 						
+					},{						
+						path: 'storeManage',
+						name: 'storeManage',
+						component: storeManage,
 					}
 				]
 
@@ -249,6 +259,21 @@ const router = new Router({
 					path: 'serverMarketInfo',
 					name: 'serverMarketInfo',
 					component: serverMarketInfo,
+					children:[{
+						path: 'serverMemberCenter',
+						name: 'serverMemberCenter',
+						component: serverMemberCenter,
+					},
+					{						
+						path: 'serverMemberDev',
+						name: 'serverMemberDev',
+						component: serverMemberDev,
+					},{						
+						path: 'serverNiche',
+						name: 'serverNiche',
+						component: serverNiche,
+					}
+					]
 				}]
 			}
 		] 

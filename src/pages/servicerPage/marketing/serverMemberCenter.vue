@@ -1,12 +1,12 @@
 <template>
-	<div class="PlatformMember">
+	<div class="serverMemberCenter">
 		<div class="content">
 			<!--................累计金额.............-->
 			<div class="count clearfix">
 				<div class="plate bg-f mr-20 ">
 					<div class="border-b clearfix">
 						<div class="float-l mb-10">
-							<span class="color-7F f14">累计充值金额（不含增额）</span>
+							<span class="color-7F f14">累计充值金额</span>
 							<p class="color-3 font-b f24 mt-10">
 								{{money.total_recharge_yuan|fund}}
 							</p>
@@ -25,7 +25,7 @@
 				<div class="plate bg-f mr-20">
 					<div class="border-b clearfix">
 						<div class="float-l mb-10">
-							<span class="color-7F f14">累计会员消费（含增额）</span>
+							<span class="color-7F f14">累计会员消费</span>
 							<p class="color-3 font-b f24 mt-10">
 								{{money.total_consume_yuan|fund}}
 							</p>
@@ -60,36 +60,33 @@
 				<el-tabs v-model="activeName">
 				    <el-tab-pane label="会员管理" name="first">
 				    </el-tab-pane>
-				    <el-tab-pane label="充值列表" name="second">		    	
-				    </el-tab-pane>
 				</el-tabs>
-				<memberManage :activeName="activeName"></memberManage>
+				<memberManage :isRole="false"></memberManage>
 			</div>
 		</div>
 	</div>
 </template>
 
 <script>
-	import {getMemberNum} from "@/api/platform"
+	import {getRoleData} from "@/api/servicer"
 	import memberManage from "@/components/platform/marketing/memberManage"
 	export default{
 		components:{memberManage},
 		data(){
 			return{
-				money:{},
 				activeName:"first",
+				money:{},
 			}
 		},
 		created(){
-			//调用获取会员统计数据API
-			getMemberNum()
+			let user_id={user_id:this.$store.state.user.user.zhixu_id};
+			getRoleData(user_id)
 			.then(({data})=>{
-				this.money=data;					
+				this.money=data
 			})
 			.catch(({response: {data}})=>{
 				 this.$message.error(data.errorcmt);
 			})	
-			
 		},
 		filters:{
 			fund(value){
@@ -99,12 +96,11 @@
                 return `￥ ${value_int}.${value[1]}`;
 			}
 		}
-
 	}
 </script>
 
 <style lang="scss">
-	.PlatformMember{
+	.serverMemberCenter{
 		margin-top: 120px;
 		.content{
 			box-sizing: border-box;
@@ -112,7 +108,7 @@
 		    min-height: 204px;
 		    border-radius: 4px;
 		    margin: 0 auto;
-			.count{
+		    .count{
 				.plate{
 					float: left;
 					padding: 20px;
@@ -121,15 +117,11 @@
 					border-radius: 2px;
 				}
 			}
-			.tableMess{
+		    .tableMess{
 				padding: 20px;
 				background-color: #fff;
 			}
+		    
 		}
-	}
-</style>
-<style scoped="scoped">
-	.border-b{
-		border-bottom: 1px solid #F0F4F7;
 	}
 </style>

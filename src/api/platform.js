@@ -38,4 +38,6 @@ export const getRoleList=(data)=>axios.post("mock/platform/role_lists",data)//�
 
 export const distributeAd=(data)=>axios.post("mock/ad_data/distribute_batch",data)//批量分配广告数据
 
+export const getStoreList=(data)=>axios.post("mock/shop/lists",data)//获取店铺列表
+
 

@@ -2,10 +2,13 @@
   <div>
    <el-table class="table" style="width: 100%" :data="urlArr">
       <el-table-column prop="type" label="属性" width="173"></el-table-column>
-      <el-table-column prop="url" label="注册链接"></el-table-column>
+      <el-table-column prop="url" :label="name"></el-table-column>
       <el-table-column width="130" label="操作">
-        <span class="u-btn" slot-scope="scope" v-clipboard:success="onCopy" v-clipboard:error="onError" v-clipboard:copy="scope.row
-        .url">复制链接</span>
+        <span class="u-btn" slot-scope="scope" 
+        	v-clipboard:success="onCopy"
+        	v-clipboard:error="onError" 
+        	v-clipboard:copy="scope.row.url">
+        	复制链接</span>
       </el-table-column>
     </el-table>
   </div>
@@ -13,7 +16,17 @@
 
 <script>
   export default {
-    props: ["urlArr"],
+    props: {
+    	urlArr:{
+    		type:Array
+    	},
+    	name:{
+    		type:String,
+    		default:function(){
+    			return "注册链接"
+    		}
+    	}
+    },
     methods: {
       onError() {
         this.$message.error("复制失败")
