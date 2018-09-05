@@ -42,6 +42,17 @@
 					</template>
 				</el-table-column>
 			</el-table>
+			
+			<div class="clearfix mt-20">
+				<el-pagination :total="list.total"
+					:current-page.sync="list.current_page" 
+					:page-size="list.per_page"
+					layout="total, prev, pager, next"
+					@current-change="handleCurrentChange"
+					class="pagination float-r">
+					
+				</el-pagination>
+			</div>
 		</div>
 	</div>
 </template>
@@ -49,6 +60,7 @@
 <script>
 	import {getStoreList} from "@/api/platform"
 	import page from "@/utils/page"
+	import router from "@/router"
 	export default{		
 		data(){
 			return{
@@ -92,7 +104,8 @@
 				})
 			},
 			storeDetail(index){//点击店铺详情
-				
+				let id=this.list.data[index].shop_id;
+				router.push({path:"/mallZxh/storeMessage",query:{shop_id:id}})
 			},
 			searchRole(){//搜索角色
 				this.emptyText="未搜索到相关匹配信息";
@@ -108,7 +121,7 @@
 
 <style lang="scss">
 	.storeManage{
-		margin-top: 120px;
+		margin-top: 80px;
 		.el-table{
 			td{
 				height: 70px;

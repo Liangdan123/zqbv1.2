@@ -9,7 +9,7 @@
 				<el-menu-item index="/mallZxh/data-center" :class="{isActive:active=='data-center'}">
 					<i></i>监控中心
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/storeManage" :class="{isActive:active=='storeManage'||active=='mallStoreMess'}">
+				<el-menu-item index="/mallZxh/storeManage" :class="{isActive:active=='storeManage'||active=='storeMessage'}">
 					<i></i>店铺管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/mallOrder/mallAllOrder" :class="{isActive:active=='mallOrder'}">

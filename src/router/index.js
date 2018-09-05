@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store'
 import login from '@/pages/login'
 import register from '@/pages/loginPage/register'
 import reset from '@/pages/loginPage/mobileReset'
@@ -36,6 +37,7 @@ import specialAd from "@/pages/platformPage/marketing/specialAd"
 
 //平台中的店铺管理
 import storeManage from "@/pages/platformPage/storeManage/storeManage"
+import storeMessage from "@/pages/platformPage/storeManage/storeMessage"
 
 //服务商导航
 import server from "@/pages/servicerPage/servers"
@@ -245,9 +247,14 @@ const router = new Router({
 						}]
 						
 					},{						
-						path: 'storeManage',
-						name: 'storeManage',
+						path:'storeManage',
+						name:'storeManage',
 						component: storeManage,
+					},{					
+						path:'storeMessage',
+						name:'storeMessage',
+						component:storeMessage,
+						
 					}
 				]
 
@@ -278,4 +285,14 @@ const router = new Router({
 			}
 		] 
 })
+
+router.beforeEach((to, from, next) => {
+	console.log("router.addRoutes:",router.addRoutes)
+
+		
+
+	next()
+})
+
+
 export default router;

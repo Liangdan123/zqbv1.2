@@ -59,7 +59,6 @@
 </template>
 
 <script>
-	import {getProductList} from "@/api/servicer"	
 	import search from "@/components/func/search"
 	import commodityMethod from '@/utils/commodity'
 	import storeClassify from '@/utils/storeClassify'

@@ -62,7 +62,7 @@
 	import imgNav  from "@/components/platform/mallset/imgNav"
 	import txtNav  from "@/components/platform/mallset/txtNav"
 	import multiModule  from "@/components/platform/mallset/multiModule"
-	import {getProductList} from "@/api/servicer"
+	import {getProductList} from "@/api/platform"
 	export default{
 		data(){
 			return{	
@@ -184,6 +184,7 @@
 				};
 			},
 			productList(data,existAddProduct) {//商城列表搜索API
+				console.log(5555555555555)
 				getProductList(data)
 				.then(({data}) => {
 					if(data.data.length<this.needNum){//上架商品数量小于要展示的商品数量

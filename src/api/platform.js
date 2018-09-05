@@ -18,7 +18,7 @@ export const getMallClassifyList =()=>axios.get("product/mall_category_lists")//
 
 export const getClassifyList=(shop_id)=>axios.get("product/shop_category_lists",{params:{shop_id}})//获取店铺分类列表
 
-export const getProductList=(shopMess)=>axios.post("product/lists",shopMess)//商品列表信息
+export const getProductList=(shopMess)=>axios.post("mock/product/lists",shopMess)//获取商品列表
 
 export const getCouponConfig=()=>axios.get("coupon/get_config")//营销管理中获取优惠券配置
 
@@ -40,4 +40,12 @@ export const distributeAd=(data)=>axios.post("mock/ad_data/distribute_batch",dat
 
 export const getStoreList=(data)=>axios.post("mock/shop/lists",data)//获取店铺列表
 
+export const getStoreMessage=(data)=>axios.get("mock/shop/get",{params:data})//获取店铺信息
 
+export const getStoreStatistics=(data)=>axios.get("mock/shop/get_shop_statistics",{params:data})//获取店铺统计数据
+
+export const onoffBatch =(data)=>axios.put("mock/product/onoff_batch",data)//批量商品上下架
+
+export const deleteBatch =(data)=>axios.put("mock/product/delete_batch",data)//批量商品删除
+
+export const subIrrehint=(data)=>axios.post("mock/product/commit_illegal",data) //提交违规提醒
