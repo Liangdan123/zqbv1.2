@@ -14,6 +14,44 @@
 				<el-button class="store-button1 float-r mr-10" @click="suretxt">确定</el-button>
 			</div>
 		</el-dialog>
+		<!--.................查看商品详情弹框....................-->
+		<el-dialog :visible.sync="dialogVisible" 
+			size="small" 
+			:close-on-click-modal="false" 
+			custom-class="checkBox" 
+			:show-close="false">			
+			<svg width="26" height="26" 
+				class="closebox" 
+				@click="dialogVisible = false">
+				<use xlink:href="#close" />
+			</svg>
+			<!--.................查看商品详情弹框主体内容....................-->
+			<div class="commodityDetail">
+				<div class="clearfix btn">
+					<p class="title">商品信息</p>
+					<el-button class="store-button2 ml-10" @click="onlyDeletePro(index)">
+						<i class="iconfont icon-shanchu f12"></i>
+						<span>删除</span>
+					</el-button>
+					<el-button class="store-button2" @click="onlyOffPro(index)">
+						<svg width="12" height="13">
+							<use xlink:href="#xiajia" />
+						</svg>
+						<span>下架商品</span>
+					</el-button>
+					<el-button class="store-button2 goOut" @click="irreHint(index)">
+						<i class="iconfont icon-Rectangle f12"></i>
+						<span>违规提醒</span>
+					</el-button>
+				</div>
+				
+				<checkProducts 
+					:checkProduct="onlyProductMess" 
+					:irrList="irrList">
+					
+				</checkProducts>				
+			</div>
+		</el-dialog>
 		<!--..............商品上下架按钮搜索............-->
 		<div class="clearfix mb-20">
 			<div class="float-l">
@@ -37,7 +75,11 @@
 			</search>
 		</div>
 		<!--.................表格主体部分....................-->
-		<el-table :data="list.data" style="width: 100%" @selection-change="handleSelection" :empty-text="emptyText"
+		<el-table 
+			:data="list.data" 
+			style="width: 100%" 
+			@selection-change="handleSelection" 
+			:empty-text="emptyText"
 			@sort-change="sortChange">
 			<el-table-column type="selection" width="36"> </el-table-column>
 			<el-table-column prop="images" width="74">
@@ -45,14 +87,25 @@
 					<img :src="props.row.images[0].image_url" alt="" class="view_img">
 				</template>
 			</el-table-column>
-			<el-table-column prop="product_name" label="商品名称" width="274">
+			<el-table-column 
+				prop="product_name" 
+				label="商品名称" 
+				width="274">
 				<template slot-scope="props">
-					<div class="product_name">{{props.row.product_name}}</div>
+					<div class="product_name">
+						{{props.row.product_name}}
+					</div>
 				</template>
 			</el-table-column>
-			<el-table-column prop="product_price_yuan.min" label="价格"  sortable="custom" width="150">
+			<el-table-column 
+				prop="product_price_yuan.min" 
+				label="价格"  
+				sortable="custom" 
+				width="150">
 				<template slot-scope="props">
-					<span v-if="props.row.product_price_yuan.min==props.row.product_price_yuan.max " class="product_price">
+					<span 
+						v-if="props.row.product_price_yuan.min==props.row.product_price_yuan.max " 
+						class="product_price">
 			          {{props.row.product_price_yuan.min}}
 			        </span>
 					<span v-else class="product_price">
@@ -60,29 +113,39 @@
 			       </span>
 				</template>
 			</el-table-column>
-			<el-table-column prop="statistics_product.sell_num" label="销量" sortable="custom" width="150"></el-table-column>
-			<el-table-column prop="created_at" label="创建时间"  sortable="custom" width="216"></el-table-column>					
+			<el-table-column 
+				prop="statistics_product.sell_num" 
+				label="销量" 
+				sortable="custom" 
+				width="150"></el-table-column>
+			<el-table-column 
+				prop="created_at" 
+				label="创建时间"  
+				sortable="custom" 
+				width="216"></el-table-column>					
 			<el-table-column prop="status" label="商品状态"   width="142">
 				<template slot-scope="props">
-					<div v-if="props.row.status==='on'">正常出售中</div>
-					<div v-if="props.row.status==='off'">
-						<p v-if="props.row.deleted_at">商品已删除</p>
-						<p v-else>商品已下架</p>
-					</div>	
+					<div v-if="props.row.status==='on' && !props.row.deleted_at">正常出售中</div>
+					<div v-if="props.row.deleted_at">商品已删除</div>
+					<div v-if="props.row.status==='off' && !props.row.deleted_at">商品已下架</div>
 				</template>
 			</el-table-column>
 			<el-table-column prop="time" label="操作" width="156">
 				<template slot-scope="scope">
-					<el-button type="text" size="small"  @click="checkPro(scope.$index)">
+					<el-button type="text" size="small"  
+						@click="checkPro(scope.$index)">
 						查看商品 
 					</el-button>
-					<el-button type="text" size="small" class="pl-10" @click="irreHint(scope.$index)">
+					<el-button type="text" size="small" class="pl-10" 
+						@click="irreHint(scope.$index)">
 						违规提醒 
 					</el-button>
-					<el-button type="text" size="small" @click="onlyOffPro(scope.$index)">
+					<el-button type="text" size="small" 
+						@click="onlyOffPro(scope.$index)">
 						下架商品 
 					</el-button>
-					<el-button type="text" size="small" class="pl-10"  @click="onlyDeletePro(scope.$index)">
+					<el-button type="text" size="small" class="pl-10"  
+						@click="onlyDeletePro(scope.$index)">
 						删除商品 
 					</el-button>
 				</template>
@@ -103,10 +166,12 @@
 </template>
 
 <script>
-	import {getProductList,onoffBatch,deleteBatch,subIrrehint} from "@/api/platform"
+	import {getProductList,onoffBatch,deleteBatch,subIrrehint,checkIrrehint,checkProduct} from "@/api/platform"
 	import page from "@/utils/page"
+	import checkProducts from "@/components/platform/storeManage/checkProducts"
 	export default{
-		mixins:[page],
+		components:{checkProducts},
+		
 		data(){
 			return{
 				searchCondition:{//搜索条件
@@ -121,7 +186,7 @@
 				choiceInput:["input"],
 				order:{},//清空排序样式
 				deleteOffList:{products:[]},//下架，删除列表
-				dialogVisible:false,
+				dialogVisible:false,//商品详情弹框
 				irreHintModel:false,//违规提醒弹窗
 				irrIndex:0,//违规提醒顺序
 				txtBox:"",
@@ -130,8 +195,13 @@
 				    page: 1,
 				    per_page: 10
 				},
+				irrList:{
+					data:[]
+				},//违规信息列表
+				onlyProductMess:{},//商品详情信息
 			}
 		},
+		mixins:[page],
 		props:["shop_id"],
 		methods:{
 			_doSearch(){//获取商ping列表
@@ -179,7 +249,35 @@
 				this.searchMethod();
 			},
 			checkPro(index){//查看商品
-				
+				this.index = index;	
+				this._checkProduct(this.index);//调用查看商品API方法					
+			},
+			_checkProduct(index){//查看商品API方法	
+				let list = this.list.data;
+				//原先的id变成了product_id
+				let product_id = list[index].id;				
+				this.checkIrreList.product_id=product_id
+								
+				checkProduct(product_id)//查看商品API
+				.then(({data}) => {				
+					if(this.dialogVisible == false){
+						this.dialogVisible = true;
+					};
+					//调用默认运费物流API
+					this.onlyProductMess = data;
+					this._checkIrrehint(this.checkIrreList);////调用违规提醒列表API方法
+				}).catch(({response: {data}})=>{
+					this.$message.error(data.errorcmt);
+				});
+			},
+			_checkIrrehint(data){
+				checkIrrehint(data)//违规提醒列表
+				.then(({data})=>{
+					this.irrList=data;
+				})
+				.catch(({data:{response}})=>{
+					this.$message.error(data.errorcmt)
+				})	
 			},
 			irreHint(index){//违规提醒
 				this.dialogVisible=false;
@@ -368,6 +466,37 @@
 						border-radius: 2px;
 					}
 					
+				}
+			}
+		}
+		.el-dialog__wrapper{
+			.checkBox{
+				width: 1056px;
+				.el-dialog__header{
+					padding: 0;
+
+				}
+				.el-dialog__body{
+					.btn{
+						p.title{
+							float: left;
+							font-size: 18px;
+							color: #333;
+							font-weight: bold;
+						}
+						.store-button2{
+							float: right;
+							span{
+								color:#B4282D;	
+							}						
+						}
+						.goOut{
+							span{
+								color:#333333;	
+							}	
+						}
+					}
+
 				}
 			}
 		}

@@ -49,3 +49,7 @@ export const onoffBatch =(data)=>axios.put("mock/product/onoff_batch",data)//批
 export const deleteBatch =(data)=>axios.put("mock/product/delete_batch",data)//批量商品删除
 
 export const subIrrehint=(data)=>axios.post("mock/product/commit_illegal",data) //提交违规提醒
+
+export const checkIrrehint=(data)=>axios.post("mock/product/illegal_lists",data) //违规提醒列表
+
+export const checkProduct =(product_id)=>axios.get("mock/product/get",{params:{product_id}})//查看商品

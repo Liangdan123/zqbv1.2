@@ -286,13 +286,6 @@ const router = new Router({
 		] 
 })
 
-router.beforeEach((to, from, next) => {
-	console.log("router.addRoutes:",router.addRoutes)
-
-		
-
-	next()
-})
 
 
 export default router;
