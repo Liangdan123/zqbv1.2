@@ -11,7 +11,7 @@ import servicer from './modules/servicer'
 Vue.use(Vuex)
 
 const debug = process.env.NODE_ENV !== 'production'
-const persistedState = createPersistedState({paths:["user","storeMess","commodity_state"]})
+const persistedState = createPersistedState({paths:["user","storeMess","commodity_state","servicer"]})
 export default new Vuex.Store({
   modules: {
 		user,commodity_state,platform,servicer

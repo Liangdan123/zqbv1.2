@@ -16,7 +16,7 @@ const getters={
 		return state.shop_id
 	},
 	getAddSuccess:(state)=>{
-		return state.existSuccess
+		return state.addSuccess
 	}
 }
 
@@ -34,7 +34,7 @@ const mutations={
 
 const actions={
 	doGetUserMess({commit}){
-		getUserMess()
+		getUserMess()//获取服务商店铺
 		.then(({data})=>{
 			//没有数据时长度为0
 			let len=data.length;

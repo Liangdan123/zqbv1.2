@@ -51,7 +51,7 @@ import serverNiche from "@/pages/servicerPage/marketing/serverNiche"
 import storeSetInfo from "@/pages/servicerPage/storeSet/storeSetInfo"
 import storeMessShow from "@/pages/servicerPage/storeSet/storeMessShow"
 import editStoreMessage from "@/pages/servicerPage/storeSet/editStoreMessage"
-
+import storedecoration from "@/pages/servicerPage/storeSet/storedecoration"
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
@@ -300,6 +300,10 @@ const router = new Router({
 								path: 'editStoreMessage',
 								name: 'editStoreMessage',
 								component: editStoreMessage,
+							},{								
+								path: 'storedecoration',
+								name: 'storedecoration',
+								component: storedecoration,
 							}
 						]
 					}

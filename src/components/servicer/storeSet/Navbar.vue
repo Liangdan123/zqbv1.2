@@ -6,13 +6,12 @@
 			@select="handleSelect" 						
 			class="clearfix color-7F">
  			<el-menu-item index="storeMessShow" 
- 				:class="{active:selected=='storeMessShow'}">
- 				
+ 				:class="{active:selected=='storeMessShow'||selected=='editStoreMessage'}">				
  				店铺信息
  			</el-menu-item>
 			<el-menu-item 
-				index="shop_decoration" 
-				:class="{active:selected=='shop_decoration'}">
+				index="storedecoration" 
+				:class="{active:selected=='storedecoration'}">
 				店铺装修
 			</el-menu-item>
 		</el-menu>

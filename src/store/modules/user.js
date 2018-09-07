@@ -91,7 +91,6 @@ const actions={
 		router.replace('/');
 		loginOut()
 		.then(({data})=>{
-			commit(types.MESSLENGTH,"");
 			commit(types.LOGOUT);
 			router.replace('/');			
 		})

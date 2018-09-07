@@ -14,8 +14,9 @@
         {{msg}}
       </div>
       <el-button class="btn done mr-20 f14" @click="done"> 完成 </el-button>
-      还没有账号？
-      <router-link to="sfz" class="color-main f14">立即注册</router-link>
+      {{isReset?'还没有账号？':'已有账号'}}
+      <router-link to="sfz" class="color-main f14" v-if='isReset'>立即注册</router-link>
+      <router-link to="/" class="color-main f14" v-else>返回登录</router-link>
     </div>
   </div>
   </div>

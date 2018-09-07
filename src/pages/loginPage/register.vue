@@ -17,13 +17,12 @@
 </template>
 
 <script>
-  import { accountInfo, getRegisterMess, weixin, getPhoneNum } from "@/api/login"; 
   import {getUserMess} from "@/api/servicer"
+  import {accountInfo, getRegisterMess} from "@/api/login";       
   import router from "@/router";
   export default {
     data() {
       return {
-        unregistered: false,
         warn: false,
         errmsg: {
           401: "请输入正确的手机号",
@@ -51,16 +50,6 @@
             this.warn = true;
             this.msg = "请输入正确的手机号";
             break;
-          case patt1.test(this.login_name):
-            getPhoneNum(this.login_name).then(({
-              data
-            }) => {
-              if (data.status != 3) {
-                this.unregistered = true;
-              } else {
-                this.unregistered = false;
-              }
-            });
         }
       },
       login() {
@@ -82,31 +71,13 @@
             this.warn = true;
             this.msg = "密码至少6位数字母或者数字组合";
             break;
-          case this.unregistered == false:
+         default:
             accountInfo({login_name:this.login_name,password:this.password})
               //与后台交成功时的操作
               .then(({data}) => {                             
                 this.doLogin(data);
               })
               .catch(({ response: {data}}) => {                                                              
-                //与后台交互时出现的错误信息
-                this.warn = true;
-                this.msg = data.errorcmt;
-              });
-            break;
-          case this.unregistered == true:
-            if (this.verify_code == "") {
-              this.warn = true;
-              this.msg = "请输出验证码";
-              return;
-            }
-            getRegisterMess(this.login_name, this.verify_code, this.password)
-              //与后台交成功时的操作
-              .then(({data}) => {
-                this.warn = true;
-                this.doLogin(data);
-              })
-              .catch(({ response: { data} }) => {                                                            
                 //与后台交互时出现的错误信息
                 this.warn = true;
                 this.msg = data.errorcmt;
@@ -128,8 +99,10 @@
       },
       doLogin(data) {
         //登陆成功时执行的函
-        this.$store.dispatch("doLogin", data);       
-        this.$store.dispatch("doGetUserMess", data);        
+        this.$store.dispatch("doLogin", data); 
+        if(data.type===4){//服务商时才需要获取服务商店铺
+        	 this.$store.dispatch("doGetUserMess");
+        }              
       }
     },
     computed: {

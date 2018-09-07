@@ -2,7 +2,7 @@
   <div class="platform commodity">
     <div class="g-content">
       <div class="header">添加角色</div>
-      <el-tabs v-model="tabForShow" @tab-click="tabSwitch">
+      <el-tabs v-model="type" @tab-click="tabSwitch">
         <el-tab-pane label="代理商" name="2"></el-tab-pane>
         <el-tab-pane label="合伙人" name="3"></el-tab-pane>
         <el-tab-pane label="服务商" name="4"></el-tab-pane>
@@ -43,8 +43,8 @@
         <el-form-item label="公司名称：" v-if="is_company==1" prop="company_name">
           <el-input v-model="form.company_name" size="small" placeholder="请输入公司名称"></el-input>
         </el-form-item>
-        <el-form-item label="业务范围：" v-if="tabForShow!=2" prop="business_range">
-          <el-select v-model="form.business_range" :multiple="tabForShow==3" placeholder="请选择业务范围" size="small">
+        <el-form-item label="业务范围：" v-if="type!=2" prop="business_range">
+          <el-select v-model="form.business_range" :multiple="type==3" placeholder="请选择业务范围" size="small">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -121,7 +121,7 @@
             label: "投融资"
           }
         ],
-        tabForShow: "2",
+        type: "2",
         is_company: 1,
         form: {
           contact_name: "",

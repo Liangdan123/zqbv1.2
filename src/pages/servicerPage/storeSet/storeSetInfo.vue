@@ -9,7 +9,7 @@
 				</div>
 				<p><i class="iconfont icon-dianpuxinxi"></i></p>
 			</router-link>
-			<router-link :to="{name:'shop_decoration'}" class="item-2 item-list fl">
+			<router-link :to="{name:'storedecoration'}" class="item-2 item-list fl">
 				<div>
 					<i class="iconfont icon-dianpuzhuangxiu"></i>
 					<span>店铺装修</span>

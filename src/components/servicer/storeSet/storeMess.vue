@@ -19,6 +19,7 @@
 			    	<el-input v-model="addMessForm.shopkeeper_phone" class="login-input2" 
 			    		:class="{border:borderTwo}">
 			    	</el-input>
+			    	<em v-if="shop_nameError">{{shop_name}}</em>
 				</el-form-item>
 			  	<el-form-item label="营业时间">
 			    	<el-col  class="time-width">
@@ -64,7 +65,7 @@
 			    	<em v-if="addressInfoError">{{addressInfo}}</em>
 			    	<el-button  @click="location" class="store-button1">搜索定位</el-button>
 			  	</el-form-item>
-				<storeMap :storeAddress="detailAddress" @getDetail="getMess"></storeMap>				
+				<storeMap :storeAddress="addressLocation" @getDetail="getMess"></storeMap>
 				<div class="imageUrl_all text-l pos-a">
 					<span class="mb-10 display-in">店铺LOGO</span>
 					<imageUpload :imageUrl="imgUrl" :imageType="imageType" @getImageUrl="updataLogo"></imageUpload>
@@ -86,7 +87,7 @@
 
 <script>
 	import	{getStoreMessage} from "@/api/platform"
-	import {createStoreMess,editStoreMess} from "@/api/servicer"
+	import {createStoreMess,editStoreMess,getUserMess} from "@/api/servicer"
 	import router from '@/router'
 	import shareMth from '@/utils/shareMth'
 	import * as links from "@/links/index"
@@ -157,9 +158,15 @@
 				auditsMess:{},//审核的一部分信息				
 			}
 		},
-		mixins:[shareMth],			
+		mixins:[shareMth],		
 		created(){	
 			this.getStoreMessage();				
+		},
+		computed:{
+			addressLocation(){		
+				let mess=this.storeMessShow;
+				return this.storeMessShow&&(mess.province+mess.city+mess.area+mess.address)
+			},
 		},
 		updated(){
 			this.$emit('update:addMessForm', this.addMessForm)
@@ -233,6 +240,7 @@
 				let patt1=/^[1][3,4,5,7,8][0-9]{9}$/;
 				let patt2=/^(\(\d{3,4}\)|\d{3,4}-|\s)?\d{7,14}$/;
 				var shop_nameLen=store.shop_name.length;
+				let shopkeeper_phone=store.shopkeeper_phone;
 				var kefu_phone=store.kefu_phone;							
 				this.$refs[addMessForm].validate((valid) => {
 		          	if (valid) {
@@ -247,7 +255,8 @@
 								delete store[val]
 							}								
 						};
-	            		switch(true){
+						
+	            		switch(true){//验证
 	            			case !patt1.test(shopkeeper_phone):
 								let arr=["borderTwo","shop_nameError"];
 								this.isBoolean(arr,true)
@@ -272,7 +281,7 @@
 							default:
 								if(this.preservation){//编辑信息
 									this.doKeepMess(store);								
-								}else{//提交审核									
+								}else{//添加店铺									
 									this.createStoreMess(store);								
 								}				
 						}						
@@ -283,9 +292,21 @@
 			},	
 			createStoreMess(data){//创建信息接口				
 				createStoreMess(data)
-				.then(({data})=>{
-					this.$store.commit(types.ADDSUCESS,true);		
-					this.hopPage();
+				.then(({data})=>{						
+					getUserMess()//获取服务商店铺
+					.then(({data})=>{		
+						this.$store.commit(types.ADDSUCESS,true);//提示添加成功
+						let len=data.length;//没有数据时长度为0
+						if(len > 0) {
+							let shop_id = data[0].shop_id;					
+							this.$store.commit(types.GETSHOPID, shop_id);
+							this.hopPage();//跳转页面
+						};
+					})
+					.catch((error)=>{
+						console.log("error:",error)
+					})
+					
 				})
 				.catch(({response: {data}})=>{
 					 this.$message.error(data.errorcmt);

@@ -19,6 +19,7 @@
 <script>
 	import router from '@/router'
 	import storeMessVis from "@/components/servicer/storeSet/storeMessVis"
+	import * as types from "@/store/mutation-types"
 	import {getStoreMessage} from "@/api/platform"
 	import {getUserMess} from "@/api/servicer"
 	import * as links from "@/links/index"
@@ -42,17 +43,16 @@
 				this.HintInfo("添加成功")	       
 		        this.$store.commit(types.ADDSUCESS,false);	//解决不是保存页面跳进来也显示保存成功提示
 			};
-			getUserMess()//获取服务商shop_id
-			.then(({data})=>{			
-				let shop_id = data[0].shop_id;					
-				//获取店铺信息(创建店铺信息时就有shop_id);
-				this._getstoreMess({shop_id})
-			})
-			.catch(({response: {data}})=>{
-				this.$message.error(data.errorcmt);
-			})	
+			let shop_id=getter.getShop_id
+			this._getstoreMess({shop_id})//调用公共方法
 		},
 		methods:{
+			HintInfo(data){
+				this.$message({
+		        	message: data,
+		          	type: 'success'
+		       });
+			},
 			edit(){
 				router.replace("/server/storeSetInfo/editStoreMessage")
 			},
