@@ -18,6 +18,7 @@
 
 <script>
   import { accountInfo, getRegisterMess, weixin, getPhoneNum } from "@/api/login"; 
+  import {getUserMess} from "@/api/servicer"
   import router from "@/router";
   export default {
     data() {
@@ -127,8 +128,8 @@
       },
       doLogin(data) {
         //登陆成功时执行的函
-        this.$store.dispatch("doLogin", data);
-        
+        this.$store.dispatch("doLogin", data);       
+        this.$store.dispatch("doGetUserMess", data);        
       }
     },
     computed: {

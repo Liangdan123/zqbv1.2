@@ -1,6 +1,6 @@
 import * as types from "../mutation-types"
 
-import {getUserMess} from "@/api/platform"
+import {getUserMess} from "@/api/servicer"
 
 const state={
 	keepSucess:false,
