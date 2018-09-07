@@ -4,7 +4,9 @@
 		<img src="../assets/image/login.png" alt="">
     <!--...................注册登录开始页面........................-->
     <el-col class="login-box">
-      <router-view></router-view>
+      <router-view>
+      	
+      </router-view>
     </el-col>
   </div>
 </div>

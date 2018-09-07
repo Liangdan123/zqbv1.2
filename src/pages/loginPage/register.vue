@@ -9,7 +9,8 @@
     <div class="display-n" :class="{error:warn}">{{msg}}</div>
     <div>
       <el-button class=" btn mr-20 f14" @click="login"> 登 录 </el-button>
-      还没有账号？<router-link to="sfz" class="color-main f14">立即注册</router-link>
+      	还没有账号？
+      <router-link to="sfz" class="color-main f14">立即注册</router-link>
       </el-row>
     </div>
   </div>
@@ -75,16 +76,10 @@
          default:
             accountInfo({login_name:this.login_name,password:this.password})
               //与后台交成功时的操作
-              .then(({
-                data
-              }) => {
+              .then(({data}) => {                             
                 this.doLogin(data);
               })
-              .catch(({
-                response: {
-                  data
-                }
-              }) => {
+              .catch(({ response: {data}}) => {                                                              
                 //与后台交互时出现的错误信息
                 this.warn = true;
                 this.msg = data.errorcmt;
@@ -105,8 +100,9 @@
         }
       },
       doLogin(data) {
-        //登陆成功时执行的函数
+        //登陆成功时执行的函
         this.$store.dispatch("doLogin", data);
+        
       }
     },
     computed: {

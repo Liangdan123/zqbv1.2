@@ -18,7 +18,7 @@
 				<el-menu-item index="/server/serverMarketInfo" :class="{isActive:active=='serverMarketInfo'}">
 					<i></i>营销管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallSetInfo" :class="{isActive:active=='mallSetInfo'}">
+				<el-menu-item index="/server/storeSetInfo" :class="{isActive:active=='storeSetInfo'}">
 					<i></i>店铺设置
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/fund/extractCash" :class="{isActive:active=='fund'}">
@@ -59,13 +59,11 @@
     mixins: [navbar],
     computed: {
      	change_my_store() {
-     			console.log(1111111)
 				var path = this.$route.fullPath;
 				var arr = path.trim().split("/");
 				if (arr[2].indexOf("?") !== -1) { //店铺管理店铺具体信息页面
 					arr[2] = arr[2].split("?")[0];
-				}
-				console.log("arr[2]:",arr[2])
+				};
 				return this.active = arr[2]
 			}
     }

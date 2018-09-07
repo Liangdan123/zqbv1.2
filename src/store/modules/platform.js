@@ -7,13 +7,13 @@ const state={
 const getters={
 	getmallMessExist:(state)=>{
 		return state.mallMessExist
-	}
+	},
 }
 
 const mutations={
 	[types.MALLMESSEXIST](state,data){
 		state.mallMessExist=data
-	}
+	},
 }
 
 const actions={
