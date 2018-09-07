@@ -1,7 +1,11 @@
 <template>
 	<div class="NavbarOrder">
-		<el-menu :router="true" mode="horizontal" class="clearfix color-7F" @select="handleSelect">
-			<el-menu-item index="discountSet" :class="{active:selected=='serverMemberCenter'}">
+		<el-menu 
+			:router="true" 
+			mode="horizontal"  
+			@select="handleSelect" 
+			class="clearfix color-7F">
+			<el-menu-item index="serverMemberCenter" :class="{active:selected=='serverMemberCenter'}">
 				会员中心
 			</el-menu-item>
 			<el-menu-item index="serverMemberDev" :class="{active:selected=='serverMemberDev'}">

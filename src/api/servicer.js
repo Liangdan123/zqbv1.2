@@ -9,3 +9,9 @@ export const getRoleCPS=(user_id)=>axios.get("mock/platform/get_role_cps",{param
 export const getServerAdList=(data)=>axios.post("mock/ad_data/distribute_lists",data)//获取服务商分配广告数据列表
 
 export const deleteServerAdList=(data)=>axios.delete("mock/ad_data/delete_distribute_batch",{data})//批量删除服务商分配广告数据
+
+export const getUserMess=()=>axios.get("mock/user/get_shop")//获取用户店铺
+
+export const editStoreMess=(editMess)=>axios.put("shop/update",editMess)//编辑我的店铺
+
+export const createStoreMess=(storeMess)=>axios.post("shop/create",storeMess)//创建店铺信息

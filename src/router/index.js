@@ -47,6 +47,11 @@ import serverMemberCenter from "@/pages/servicerPage/marketing/serverMemberCente
 import serverMemberDev from "@/pages/servicerPage/marketing/serverMemberDev"
 import serverNiche from "@/pages/servicerPage/marketing/serverNiche"
 
+//服务商的店铺设置
+import storeSetInfo from "@/pages/servicerPage/storeSet/storeSetInfo"
+import storeMessShow from "@/pages/servicerPage/storeSet/storeMessShow"
+import editStoreMessage from "@/pages/servicerPage/storeSet/editStoreMessage"
+
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
@@ -262,26 +267,43 @@ const router = new Router({
 				path: '/server',
 				name: 'server',
 				component: server,
-				children:[{
-					path: 'serverMarketInfo',
-					name: 'serverMarketInfo',
-					component: serverMarketInfo,
-					children:[{
-						path: 'serverMemberCenter',
-						name: 'serverMemberCenter',
-						component: serverMemberCenter,
-					},
-					{						
-						path: 'serverMemberDev',
-						name: 'serverMemberDev',
-						component: serverMemberDev,
-					},{						
-						path: 'serverNiche',
-						name: 'serverNiche',
-						component: serverNiche,
+				children:[
+					{//营销管理
+						path: 'serverMarketInfo',
+						name: 'serverMarketInfo',
+						component: serverMarketInfo,
+						children:[{
+							path: 'serverMemberCenter',
+							name: 'serverMemberCenter',
+							component: serverMemberCenter,
+						},
+						{						
+							path: 'serverMemberDev',
+							name: 'serverMemberDev',
+							component: serverMemberDev,
+						},{						
+							path: 'serverNiche',
+							name: 'serverNiche',
+							component: serverNiche,
+						}
+						],					
+					},{
+						path: 'storeSetInfo',
+						name: 'storeSetInfo',
+						component: storeSetInfo,
+						children:[
+							{
+								path: 'storeMessShow',
+								name: 'storeMessShow',
+								component: storeMessShow,
+							},{
+								path: 'editStoreMessage',
+								name: 'editStoreMessage',
+								component: editStoreMessage,
+							}
+						]
 					}
-					]
-				}]
+				]
 			}
 		] 
 })

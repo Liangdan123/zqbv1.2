@@ -7,8 +7,6 @@ export const onoffBatch =(data)=>axios.put("product/onoff_batch",data)
 
 export const deleteBatch =(data)=>axios.put("product/delete_batch",data)
 
-export const checkProduct =(product_id)=>axios.get("product/get",{params:{product_id}})
-
 export const keepCategoryMess=(keepMess)=>axios.put("product/update",keepMess)
 
 export const editspef=(Mess)=>axios.post("product/save_spec",Mess)
