@@ -7,25 +7,22 @@
 			</div>
 			<el-menu :default-active='$route.path' :router="true" mode="horizontal">
 				<el-menu-item index="/mallZxh/data-center" :class="{isActive:active=='data-center'}">
-					<i></i>监控中心
+					<i></i>卖家中心
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/storeManage" :class="{isActive:active=='storeManage'||active=='storeMessage'}">
-					<i></i>店铺管理
+				<el-menu-item index="/mallZxh/mallStoreMana" :class="{isActive:active=='mallStoreMana'||active=='mallStoreMess'}">
+					<i></i>商品管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/mallOrder/mallAllOrder" :class="{isActive:active=='mallOrder'}">
 					<i></i>订单管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/marketingInfo" :class="{isActive:active=='marketingInfo'}">
+				<el-menu-item index="/server/serverMarketInfo" :class="{isActive:active=='serverMarketInfo'}">
 					<i></i>营销管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/mallSetInfo" :class="{isActive:active=='mallSetInfo'}">
-					<i></i>商城设置
+					<i></i>店铺设置
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/fund/extractCash" :class="{isActive:active=='fund'}">
 					<i></i>资金管理
-				</el-menu-item>
-				<el-menu-item index="/mallZxh/manage/join" :class="{isActive:active=='manage'}">
-					<i></i>平台管理
 				</el-menu-item>
 			</el-menu>
 			<div class="cont-navbar-right clearfix">
@@ -62,14 +59,13 @@
     mixins: [navbar],
     computed: {
      	change_my_store() {
+     			console.log(1111111)
 				var path = this.$route.fullPath;
 				var arr = path.trim().split("/");
-				if (arr.length != 0 && arr[1] != "mallZxh") {
-					return
-				};
 				if (arr[2].indexOf("?") !== -1) { //店铺管理店铺具体信息页面
 					arr[2] = arr[2].split("?")[0];
 				}
+				console.log("arr[2]:",arr[2])
 				return this.active = arr[2]
 			}
     }

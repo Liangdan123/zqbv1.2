@@ -9,7 +9,7 @@
 					</storeList>
 				</el-tab-pane>
 				<el-tab-pane label="商品分类" name="second" >
-					<productClassify   @categorys="categorys" :type="classifyType" :Classify="mallClassify">						
+					<productClassify   @categorys="categorys" :type="classifyType" :Classify="mallClassify" choiceRole="mall">						
 						<div class="btn clearfix pt-20 pb-20 border-t">
 							<el-button class="store-button2 float-r" @click="cancel">
 								取消

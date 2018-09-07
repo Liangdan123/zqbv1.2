@@ -608,7 +608,18 @@ em {
     }
   }
 }
-
+//中间部分
+.g-content{
+    -webkit-box-sizing: border-box;
+    box-sizing: border-box;
+    width: 1240px;
+    min-height: 204px;
+    border: 1px solid #F4F4F4;
+    border-radius: 4px;
+    background: #fff;
+    margin: 0 auto;
+    padding: 19px;
+}
 //一级导航栏
 .zxh {
   width: 100%;
@@ -811,4 +822,10 @@ em {
 
 .el-form-item__label {
   color: #333;
+}
+.el-dialog__wrapper.content{
+    .el-dialog--small{
+         width: 1056px;
+    }
+   
 }

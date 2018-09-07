@@ -30,12 +30,7 @@
 </template>
 
 <script>
-  import {
-    getMemMoney
-  } from "@/api/marketing"
-  import {
-    getMemLists
-  } from "@/api/marketing"
+  import { getMemMoney,getMemLists } from "@/api/marketing"  
   import vipTable from "@/components/marketing/vipTable"
   import member from "@/components/marketing/memberHeader"
   import page from '@/utils/page'

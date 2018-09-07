@@ -1,7 +1,7 @@
 <template>
 	<div class="storeLink_nav clearfix">
 		<div class="search-input float-r" v-if="componentList.includes('input')">
-			<input type="text" v-model="order_search" :placeholder="hintMess" @keyup.enter="inputName" @focus="inputName" />
+			<input type="text" v-model="order_search" :placeholder="hintMess" @keyup.enter="inputName"/>
 			<el-button class="store-button1" @click="inputName">
 				<svg width="16" height="16">
 					<use xlink:href="#seacher" />
@@ -35,6 +35,12 @@
 <script>
 	export default {
 		props: {
+			inputSearch:{//模糊查找默认属性
+				type:String,
+				default:function(){
+					return "name"
+				}
+			},
 			isDate:{
 				type:Boolean,
 				default:function(){
@@ -42,6 +48,7 @@
 				}
 			},
 			search: {
+				type: Object,
 				default: () => {
 					return {}
 				}
@@ -85,23 +92,23 @@
 		    search(val){
 		        let keys=Object.keys(val)//监听搜索条件变化
 		        keys.includes('created_time')||(this.time=[]);
-		        keys.includes('order_search')||(this.order_search="");
+		        keys.includes(this.inputSearch)||(this.order_search="");
 		    }
 	   	},
 		methods: {
 			inputName() {
 				//商品名称搜索
-				if(this.order_search) {
-					this.search.order_search = this.order_search
-				} else {
-					delete this.search.order_search
+				if(this.order_search){
+					this.search[this.inputSearch] = this.order_search
+				}else{
+					delete this.search[this.inputSearch]
 				}
 				this.$emit("searchMethod")
 			},
 			//筛选订单的确定按钮
 			Search(){
 				if(this.isDate){//有创建时间时
-					if(this.time.length && this.time[0] !== null && this.time[1] !== null) {
+					if(this.time.length && this.time[0] && this.time[1] ) {
 						let min = this.format(this.time[0]);
 						let max = this.format(this.time[1]);
 						this.created_time = Object.assign({}, this.created_time, {
@@ -109,7 +116,7 @@
 							max
 						});
 					};
-					if(this.time.length !== 0 && this.time[0] !== null && this.time[1] !== null) {
+					if(this.time.length !== 0 && this.time[0]&& this.time[1]) {
 						this.search.created_time = this.created_time;
 					} else {
 						delete this.search.created_time
@@ -120,7 +127,7 @@
 			},
 			//清除时间时Time值会变成undefined；
 			change() {
-				if(this.time === undefined) {
+				if(!this.time) {
 					this.time = [];
 				}
 			},
@@ -128,9 +135,9 @@
 				this.time = [];
 				this.order_search = '';
 				delete this.search.created_time;
-				delete this.search.order_search;
+				delete this.search[this.inputSearch];
 				this.$emit("emptyMthod");
-				//      this.closeSearch();
+				this.closeSearch();
 			},
 			//格式化时间
 			format(data) {

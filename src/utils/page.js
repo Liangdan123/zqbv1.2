@@ -20,7 +20,7 @@ export default {
 			this.Visible = false;
 		},
 		handleCurrentChange(val) {//分页跳转
-			this.searchCondition.page=val;
+			this.$set(this.searchCondition, "page", val);
 			this._doSearch();
 		},
 		searchMethod() { //搜索方法
@@ -31,7 +31,10 @@ export default {
 				//页面在第一页搜索列表就让他回到第一页然后触发handleCurrentChange（）方法（页面更改设置触发）
 				this.searchCondition.page = 1;
 			}
-		}
+		},
+		closeSearch(){//关闭搜索弹框，出发搜索弹框中的closeSearch()事件
+			this.$refs.isShow.closeSearch()
+		},
 	}
 
 }

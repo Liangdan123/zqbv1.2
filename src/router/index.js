@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import store from '@/store'
 import login from '@/pages/login'
 import register from '@/pages/loginPage/register'
 import reset from '@/pages/loginPage/mobileReset'
@@ -27,6 +28,25 @@ import mallMess from "@/pages/platformPage/mallSet/mallMess"
 import mallMessSet from "@/pages/platformPage/mallSet/mallMessSet"
 import mallDecoration from "@/pages/platformPage/mallSet/mallDecoration"
 import mallcategory from "@/pages/platformPage/mallSet/mallcategory"
+
+//平台中的营销管理
+import marketingInfo from "@/pages/platformPage/marketing/marketingInfo"
+import discountSet from "@/pages/platformPage/marketing/discountSet"
+import memberCenter from "@/pages/platformPage/marketing/memberCenter"
+import specialAd from "@/pages/platformPage/marketing/specialAd"
+
+//平台中的店铺管理
+import storeManage from "@/pages/platformPage/storeManage/storeManage"
+import storeMessage from "@/pages/platformPage/storeManage/storeMessage"
+
+//服务商导航
+import server from "@/pages/servicerPage/servers"
+//服务商的营销管理
+import serverMarketInfo from "@/pages/servicerPage/marketing/serverMarketInfo"
+import serverMemberCenter from "@/pages/servicerPage/marketing/serverMemberCenter"
+import serverMemberDev from "@/pages/servicerPage/marketing/serverMemberDev"
+import serverNiche from "@/pages/servicerPage/marketing/serverNiche"
+
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
@@ -172,7 +192,7 @@ const router = new Router({
 							component: joinRecord,
 						}]
 					},
-					{ //资金管理
+					{ //资金管理(平台管理)
 						path: 'fund',
 						name: 'fund',
 						component: blank,
@@ -182,7 +202,7 @@ const router = new Router({
 							component: extractCash,
 						}]
 					},
-					{ //商城设置
+					{ //商城设置(平台管理)
 						path: 'mallSetInfo',
 						name: 'mallSetInfo',
 						component: mallSetInfo,
@@ -207,10 +227,65 @@ const router = new Router({
 								component: mallcategory,
 							}
 						]
+					},
+					{//营销管理(平台管理)
+						path: 'marketingInfo',
+						name: 'marketingInfo',
+						component: marketingInfo,
+						children:[{
+							path: 'discountSet',
+							name: 'discountSet',
+							component: discountSet,
+						},{
+							path: 'memberCenter',
+							name: 'memberCenter',
+							component: memberCenter,
+						},{							
+							path: 'specialAd',
+							name: 'specialAd',
+							component: specialAd,
+						}]
+						
+					},{						
+						path:'storeManage',
+						name:'storeManage',
+						component: storeManage,
+					},{					
+						path:'storeMessage',
+						name:'storeMessage',
+						component:storeMessage,
+						
 					}
 				]
 
+			},{//服务商
+				path: '/server',
+				name: 'server',
+				component: server,
+				children:[{
+					path: 'serverMarketInfo',
+					name: 'serverMarketInfo',
+					component: serverMarketInfo,
+					children:[{
+						path: 'serverMemberCenter',
+						name: 'serverMemberCenter',
+						component: serverMemberCenter,
+					},
+					{						
+						path: 'serverMemberDev',
+						name: 'serverMemberDev',
+						component: serverMemberDev,
+					},{						
+						path: 'serverNiche',
+						name: 'serverNiche',
+						component: serverNiche,
+					}
+					]
+				}]
 			}
 		] 
 })
+
+
+
 export default router;

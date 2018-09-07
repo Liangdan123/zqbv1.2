@@ -16,7 +16,9 @@
 					</div>
 				</div>
 			</div>
-			<el-input type="text" v-model="item.name"  placeholder="请输入导航名称(必填)" class="login-input2 mb-20"></el-input>
+			<el-input type="text" v-model="item.name"  placeholder="请输入导航名称(必填)" class="login-input2 mb-20">
+				
+			</el-input>
 			<imageUpload :imageUrl="item.image_url"  :imageType="'mall'" :index="index" 
 			  @getImageUrl="updataBanner"></imageUpload>
 			<p class="f12 color-7F sug mt-10 mb-10">图片尺寸建议104×104px，格式支持png、jpg</p>			
@@ -42,7 +44,7 @@
 					</storeList>
 				</el-tab-pane>
 				<el-tab-pane label="商品分类" name="second" >
-					<productClassify   @categorys="categorys" :type="classifyType" :Classify="mallClassify">						
+					<productClassify   @categorys="categorys" :type="classifyType" :Classify="mallClassify" choiceRole="mall">						
 						<div class="btn clearfix pt-20 pb-20 border-t">
 							<el-button class="store-button2 float-r" @click="cancel">
 								取消
@@ -86,7 +88,7 @@
 			}
 		},
 		props:["banner","length"],
-		created(){						
+		created(){				
 			getMallClassifyList()//商城分类列表
 			.then(({data})=>{
 				this.mallClassifyList=data;					
@@ -191,10 +193,6 @@ button.btn-link{
 }
 </style>
 <style>
-	.imgNav .imageUpload_con{
-		margin-top: -16px;
-		margin-left: -15px;
-	}
 	.imgNav .imageUpload_con .iconfont{
 		font-size: 32px;
 	}

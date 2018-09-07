@@ -561,7 +561,7 @@
 <style scoped="scoped">
 	.mallDecor_middle{
 	 	position: absolute;
-	    top: 110px;
+	    top: 120px;
 	    left: 0;
 	    right: 0;
 	    width: 375px;

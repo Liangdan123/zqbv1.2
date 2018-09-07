@@ -18,6 +18,38 @@ export const getMallClassifyList =()=>axios.get("product/mall_category_lists")//
 
 export const getClassifyList=(shop_id)=>axios.get("product/shop_category_lists",{params:{shop_id}})//获取店铺分类列表
 
-export const getProductList=(shopMess)=>axios.post("product/lists",shopMess)//商品列表信息
+export const getProductList=(shopMess)=>axios.post("mock/product/lists",shopMess)//获取商品列表
 
+export const getCouponConfig=()=>axios.get("coupon/get_config")//营销管理中获取优惠券配置
 
+export const existCouponConfig=(data)=>axios.post("coupon/save_config",data)//营销管理中保存优惠券配置
+
+export const getMemberNum=()=>axios.get("member/get_statistics")//获取会员统计数据
+
+export const getMemberList=(data)=>axios.post("mock/member/lists",data)//获取会员列表
+
+export const memberRechargeList=(data)=>axios.post("mock/member/recharge_lists",data)//获取会员充值列表
+
+export const getAdList=(data)=>axios.post("mock/ad_data/lists",data)//获取广告数据列表
+
+export const deleteAdList=(data)=>axios.delete("mock/ad_data/delete_batch",{data})//批量删除广告数据
+
+export const getRoleList=(data)=>axios.post("mock/platform/role_lists",data)//获取角色列表（例如：服务商）
+
+export const distributeAd=(data)=>axios.post("mock/ad_data/distribute_batch",data)//批量分配广告数据
+
+export const getStoreList=(data)=>axios.post("mock/shop/lists",data)//获取店铺列表
+
+export const getStoreMessage=(data)=>axios.get("mock/shop/get",{params:data})//获取店铺信息
+
+export const getStoreStatistics=(data)=>axios.get("mock/shop/get_shop_statistics",{params:data})//获取店铺统计数据
+
+export const onoffBatch =(data)=>axios.put("mock/product/onoff_batch",data)//批量商品上下架
+
+export const deleteBatch =(data)=>axios.put("mock/product/delete_batch",data)//批量商品删除
+
+export const subIrrehint=(data)=>axios.post("mock/product/commit_illegal",data) //提交违规提醒
+
+export const checkIrrehint=(data)=>axios.post("mock/product/illegal_lists",data) //违规提醒列表
+
+export const checkProduct =(product_id)=>axios.get("mock/product/get",{params:{product_id}})//查看商品

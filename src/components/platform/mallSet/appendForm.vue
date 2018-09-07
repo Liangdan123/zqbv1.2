@@ -122,7 +122,6 @@
 						this.$set(this.images,this.formData.click_style,this.formData.click_image_url);
 						this.flag = false;
 					};
-					console.log("this.images:",this.images)
 					return this.images
 				},
 				set(value){

@@ -16,12 +16,11 @@
 </template>
 
 <script>
-  import {
-    getMallClassifyList
-  } from "@/api/commodity"
+  import {getMallClassifyList} from "@/api/commodity"
+ 
   export default {
     props: {
-      search: {
+      search: {//搜索条件
         default: () => {
           return {}
         }
@@ -42,13 +41,13 @@
     },
     data() {
       return {
-        is_company: "0",
+        is_company: "1",
         options1: [{
-            value: "0",
+            value: "1",
             label: "企业"
           },
           {
-            value: "1",
+            value: "0",
             label: "个人"
           }
         ],
@@ -92,9 +91,7 @@
         arr = this.$store.getters.getMallClassifyList;
       } else {
         //获取商城分类列表
-        let {
-          data
-        } = await getMallClassifyList()
+        let {data} = await getMallClassifyList()     
         this.$store.commit("MALLCLASSIFYLIST", data)
         arr = data;
       }
@@ -112,7 +109,7 @@
     methods: {
       select() {
         if (this.companyShow) {
-          this.search.is_company = this.is_company;
+          this.search.is_company = Number(this.is_company);
         }
         if (this.typeShow) {
           if (this.type) {
@@ -121,7 +118,7 @@
             delete this.search.type
           }
         }
-        if (this.companyShow) {
+        if (this.businessShow) {
           if (this.business_range) {
             this.search.business_range = this.business_range
           } else {
@@ -140,6 +137,7 @@
     display: inline-block;
     >.el-select{
       width:200px;
+      height:32px;
       margin-right:10px;
     }
   }

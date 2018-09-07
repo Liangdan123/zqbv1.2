@@ -63,7 +63,8 @@
 						<storeList  @productName="classifyCnt"
 							@shop_hidden="shop_hidden"
 							:productChecked="productChecked" 
-							choiceRole="mall">	
+							choiceRole="mall">
+								
 							 
 						</storeList>
 					</el-tab-pane>
@@ -72,6 +73,7 @@
     						:type="classifyType" 
     						:Classify="choicePlate==='mall'?mallClassify:storeClassify"
     						choiceRole="mall">
+    						
 								<div class="btn clearfix pt-20 pb-20 border-t">
 									<el-button class="store-button2 float-r" @click="cancel">
 										取消
@@ -228,7 +230,7 @@
 					item_new.image_url=data.new_url;
 				};				
 			},
-			addBanner(){//点击添加海报				
+			addBanner(){//点击添加海报	
 				if(JSON.stringify(this.banner.length)==4){
 					this.disabled=false;
 				};	
