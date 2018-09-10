@@ -24,6 +24,8 @@ export const AUDITSMESS="AUDITSMESS" //审核信息
 
 export const MALLMESSEXIST="MALLMESSEXIST"  //商城信息保存成功
 
+export const CLOSESTORE="CLOSESTORE"  //改变开店店铺信息头部
+
 
 
 

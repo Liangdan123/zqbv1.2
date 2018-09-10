@@ -408,12 +408,6 @@
 			font-weight: bold;
 		}
 		.addMess-con{
-			width: 1198px;
-			padding: 20px 20px 20px 20px;
-			margin-right: auto;
-			margin-left: auto;
-			background: #FFFFFF;
-			margin-bottom:60px;
 			#mapContain{
 				width: 436px;
 				height: 200px;

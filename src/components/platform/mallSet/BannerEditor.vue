@@ -37,7 +37,7 @@
 			<p class="f12 color-6 sug">图片尺寸建议{{choicePlate==='mall'?'750×420px':'750×640px'}}，格式支持png、jpg</p>				
 			<p class="jump">跳转链接</p>
 			<div class="link">
-				<span v-if="$route.path==='/zxh/my_store_blank/shop_decoration'">
+				<span v-if="choicePlate==='store'">
 					{{item.banner_click_type=="product"?"商品链接"+" -":
 					(item.banner_click_type=="shop_category"?"商品分类"+" -":"")}}
 					{{item.banner_click_name}}
@@ -63,7 +63,7 @@
 						<storeList  @productName="classifyCnt"
 							@shop_hidden="shop_hidden"
 							:productChecked="productChecked" 
-							choiceRole="mall">
+							:choiceRole="choiceRole">
 								
 							 
 						</storeList>
@@ -72,7 +72,7 @@
     					<productClassify   @categorys="categorys" 
     						:type="classifyType" 
     						:Classify="choicePlate==='mall'?mallClassify:storeClassify"
-    						choiceRole="mall">
+    						:choiceRole="choiceRole">
     						
 								<div class="btn clearfix pt-20 pb-20 border-t">
 									<el-button class="store-button2 float-r" @click="cancel">
@@ -84,7 +84,7 @@
 								</div>
 						</productClassify>
     				</el-tab-pane>
-    				<el-tab-pane label="表单信息" name="three">
+    				<el-tab-pane label="表单信息" name="three" v-if="isForm">
     					<appendForm @shop_hidden="shop_hidden" 
     						@setFormMess="setFormMess" 
     						@resetData ="resetData"
@@ -106,17 +106,16 @@
 </template>
 
 <script>
-	import imageUpload from "@/components/func/imageUpload"
+
 	import storeList from "@/components/platform/mallSet/storeList"
 	import productClassify from "@/components/platform/mallSet/productClassify"
 	import appendForm from "@/components/platform/mallSet/appendForm"
 	import shareMth from '@/utils/shareMth'
-	import {existStoreMess} from "@/api/servicer"
 	import {getMallClassifyList,getClassifyList} from "@/api/platform"
 	import storeClassify from "@/utils/storeClassify"
 	import {deletes} from "@/api/script"
 	export default{
-		components:{imageUpload,storeList,productClassify,appendForm},	
+		components:{storeList,productClassify,appendForm},	
 		data(){
 			return {
 				imageType:"shop",
@@ -137,11 +136,43 @@
                     click_style: 1,
                     click_image_url: "",                   
 				},
-				click_style:0,//表单样式				
+				click_style:0,//表单样式		
+				choiceRole:"mall",
 			}
 		},
-		props:["banner","title","allBanner","choicePlate"],
+		props:{
+			banner:{
+				default:function(){
+					return []
+				},
+			},
+			title:{//是否需要标题
+				default:function(){
+					return ""
+				}
+			},
+			allBanner:{
+				default:function(){
+					return ""
+				}
+			},
+			choicePlate:{//商城还是服务商
+				default:function(){
+					return "mall"
+				}
+			},
+			isForm:{
+				default:function(){
+					return true
+				}
+			}
+		},
 		created(){
+			if(this.choicePlate==="mall"){//商城和服务商店铺所需数据不同，以此区分
+				this.choiceRole="mall"
+			}else if(this.choicePlate==="store"){
+				this.choiceRole="store"
+			};
 			let shop_id = this.$store.getters.getShop_id;
 			if(this.allBanner){//大部分都没有传"allBanner",为防止出错
 				this.BannerRadio=this.allBanner.title_switch;//判断商城装修时海报样式二的标题开关
@@ -155,7 +186,6 @@
 				}).catch((error)=>{
 				})	
 			}
-
 			if(status === 2){
 				getClassifyList(shop_id)//商家分类列表
 				.then(({data})=>{
@@ -193,7 +223,7 @@
 			},			
 			sureclassify() {//保存按钮
 				this.dialogFormVisible=false;
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.choicePlate==="store"){//我的店铺
 					var classifyCnt = {
 						banner_click_type: "shop_category",
 						banner_click_name: this.classifyName.banner_click_name,
@@ -223,7 +253,7 @@
 			updataBanner(data){				
 				let index=data.index
 				let item_new=this.banner[index];
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.choicePlate==="store"){//我的店铺
 					item_new.banner_url=data.new_url;
 				};
 				if(this.choicePlate==="mall"){//商城时
@@ -235,7 +265,7 @@
 					this.disabled=false;
 				};	
 				let bannerIndex=this.banner.length;//添加海报顺序
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺时
+				if(this.choicePlate==="store"){//我的店铺时
 					this.banner.push({id: "", shop_id:"", banner_url:"",banner_click_type: "",banner_click_id: "", banner_click_name:"",sort:bannerIndex});
 				};
 				if(this.choicePlate==="mall"){//商城
@@ -276,7 +306,7 @@
 			showBomb(item,index){//打开弹窗		
 				this.dialogFormVisible = true;
 				this.bannerIndex=index;
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+				if(this.choicePlate==="store"){//我的店铺
 					this.initStoreClassify("storeClassify");//初始化数据，数据不选中
 					if(this.storeClassify.length!= 0&&this.banner.length != 0){//我的店铺					
 						if(this.banner[index].banner_click_type==="shop_category"){//商品分类中是否选中
@@ -295,7 +325,7 @@
 				}							
 				this.$set(this.productChecked,"id",{});//开始点击弹框时让他都不选择
 				if(this.banner.length != 0){
-					if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺
+					if(this.choicePlate==="store"){//我的店铺
 						if(this.banner[index].banner_click_type==="product"){//商品链接中是否选中
 							this.$set(this.productChecked,"id",this.banner[index].banner_click_id);
 						}
@@ -323,7 +353,7 @@
 				var id=this.$store.getters.getShop_id;
 				var len=this.upBanner.length
 				for(let i=0,max=len;i<max;i++){		
-					if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){//我的店铺时
+					if(this.choicePlate==="store"){//我的店铺时
 						var banner=["shop_id","sort","banner_click_name",]
 						//调用批量删除对象属性的方法
 						deletes(banner,this.upBanner[i])

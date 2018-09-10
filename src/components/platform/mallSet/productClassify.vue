@@ -4,7 +4,7 @@
 		<div class="Classify">
 			<div v-if="Classify.length!=0?true:false">
 				<div v-show="type=='单选'">
-					<div v-if="$route.path==='/zxh/my_store_blank/shop_decoration'">
+					<div v-if="choiceRole==='store'">
 						<label class="display-b store_label" v-for="(item,index) in Classify" :key="index">		        	
 				            <input type="radio" name="one" @click="RadioIndex(index)" :checked="item.checked" 
 				              :disabled="(item.level==1&&item.is_final==0)?true:false"  class="display-n"/>
@@ -52,7 +52,7 @@
 		props: ["type", "checkStyle", "Classify", "classfyId","choiceRole"],
 		methods: {
 			RadioIndex(index) {
-				if(this.$route.fullPath==='/zxh/my_store_blank/shop_decoration'){
+				if(this.choiceRole==="store"){
 					var classify = {banner_click_name: this.Classify[index].shop_category_name,banner_click_id: this.Classify[index].id};					
 				}else if(this.choiceRole==="mall"){
 					var classify = {click_name: this.Classify[index].mall_category_name,click_id: this.Classify[index].id};	

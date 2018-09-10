@@ -5,8 +5,12 @@
 				<svg width="30" height="30"><use xlink:href="#logo" /></svg>
 				<img src="../../assets/image/weishangcheng.png" />
 			</div>
-			<el-menu :default-active='$route.path' :router="true" mode="horizontal">
-				<el-menu-item index="/mallZxh/data-center" :class="{isActive:active=='data-center'}">
+			<el-menu 
+				:default-active='$route.path' 
+				:router="true" 
+				mode="horizontal"
+				v-if="navbarshow">
+				<el-menu-item index="/server/sellercenter/servicerCenter" :class="{isActive:active=='servicerCenter'}">
 					<i></i>卖家中心
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/mallStoreMana" :class="{isActive:active=='mallStoreMana'||active=='mallStoreMess'}">
@@ -57,6 +61,14 @@
  import navbar from "@/utils/navbar"
   export default {
     mixins: [navbar],
+    data(){
+    	return {
+    		navbarshow:true,
+    	}
+    },
+    created(){
+    	this.navbarshow= this.$store.state.servicer.closeStore
+    },
     computed: {
      	change_my_store() {
 				var path = this.$route.fullPath;

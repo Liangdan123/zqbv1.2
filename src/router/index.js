@@ -53,6 +53,11 @@ import storeMessShow from "@/pages/servicerPage/storeSet/storeMessShow"
 import editStoreMessage from "@/pages/servicerPage/storeSet/editStoreMessage"
 import storedecoration from "@/pages/servicerPage/storeSet/storedecoration"
 
+//服务商的卖家中心
+import servicerCenter from "@/pages/servicerPage/sellerCenter/servicerCenter"
+import openStore from "@/pages/servicerPage/sellerCenter/openStore"
+
+
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
 //代理商
@@ -268,7 +273,7 @@ const router = new Router({
 				name: 'server',
 				component: server,
 				children:[
-					{//营销管理
+					{//营销管理(服务商)
 						path: 'serverMarketInfo',
 						name: 'serverMarketInfo',
 						component: serverMarketInfo,
@@ -287,7 +292,7 @@ const router = new Router({
 							component: serverNiche,
 						}
 						],					
-					},{
+					},{//店铺设置（服务商）
 						path: 'storeSetInfo',
 						name: 'storeSetInfo',
 						component: storeSetInfo,
@@ -306,6 +311,23 @@ const router = new Router({
 								component: storedecoration,
 							}
 						]
+					},
+					{//卖家中心（服务商）		
+						path: 'sellercenter',
+						name: 'sellercenter',
+						component: blank,
+						children:[
+							{
+								path: 'servicerCenter',
+								name: 'servicerCenter',
+								component: servicerCenter,	
+							},{								
+								path: 'openStore',
+								name: 'openStore',
+								component: openStore,	
+							}
+						]
+
 					}
 				]
 			}

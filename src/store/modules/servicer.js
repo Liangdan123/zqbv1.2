@@ -5,7 +5,8 @@ import {getUserMess} from "@/api/servicer"
 const state={
 	keepSucess:false,
 	shop_id:"",
-	addSuccess:false
+	addSuccess:false,
+	closeStore:true,//改变开店店铺信息头部
 }
 
 const getters={
@@ -30,6 +31,9 @@ const mutations={
 	[types.GETSHOPID](state,shop_id){
 		state.shop_id=shop_id;
 	},
+	[types.CLOSESTORE](state,data){
+		state.closeStore=data;
+	}
 }
 
 const actions={
@@ -47,6 +51,9 @@ const actions={
 			console.log("error:",error)
 		})
 	},
+	doCloseStore({commit},data){//改变开店店铺信息头部
+		commit(types.CLOSESTORE, data);	
+	}
 }
 export default {
 	state,getters,mutations,actions
