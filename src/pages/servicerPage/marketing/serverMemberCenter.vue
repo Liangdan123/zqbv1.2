@@ -69,9 +69,10 @@
 
 <script>
 	import {getRoleData} from "@/api/servicer"
-	import memberManage from "@/components/platform/marketing/memberManage"
 	export default{
-		components:{memberManage},
+		components:{
+			"memberManage":()=>import("@/components/platform/marketing/memberManage")
+		},
 		data(){
 			return{
 				activeName:"first",

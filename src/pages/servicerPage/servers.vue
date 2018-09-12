@@ -61,14 +61,6 @@
  import navbar from "@/utils/navbar"
   export default {
     mixins: [navbar],
-    data(){
-    	return {
-    		navbarshow:true,
-    	}
-    },
-    created(){
-    	this.navbarshow= this.$store.state.servicer.closeStore
-    },
     computed: {
      	change_my_store() {
 				var path = this.$route.fullPath;
@@ -77,7 +69,10 @@
 					arr[2] = arr[2].split("?")[0];
 				};
 				return this.active = arr[2]
-			}
+		},
+		navbarshow(){
+			return this.$store.state.servicer.closeStore
+		}
     }
   }
 </script>

@@ -58,7 +58,7 @@
 </template>
 
 <script>
-	import BannerEditor from "@/components/platform/mallset/BannerEditor"
+	import BannerEditor from "@/components/platform/mallSet/BannerEditor"
 	import imgNav  from "@/components/platform/mallset/imgNav"
 	import txtNav  from "@/components/platform/mallset/txtNav"
 	import multiModule  from "@/components/platform/mallset/multiModule"

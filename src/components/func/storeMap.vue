@@ -22,13 +22,15 @@
 				this.storeMap=new qq.maps.Map(document.getElementById('mapContain'),{
 			        center: new qq.maps.LatLng(39.916527,116.397128),
 			        zoom: 15
-			    });
+			  });
 			    this.storeGeocoder();
 			})
 		},
 		computed:{
 			storeAddressChange(){
-				return this.geocoder.getLocation&&this.geocoder.getLocation(this.storeAddress);
+				if(this.storeAddress){
+					return this.geocoder.getLocation&&this.geocoder.getLocation(this.storeAddress);
+				}
 			}
 		},
 		methods:{
@@ -37,6 +39,7 @@
 				//调用地址解析类
 				this.geocoder=new qq.maps.Geocoder({
 		 	        complete:function(result){
+		 	        	console.log("result:",result)
 			            that.storeMap.setCenter(result.detail.location);
 			            var marker = new qq.maps.Marker({
 			                map:that.storeMap,
@@ -47,7 +50,7 @@
 			        error:function(error){	
 			        	 that.getPlace(error);	
 			        }
-			  });				
+			 });	
 			},
 			getPlace(result){
 				//传给父集的值

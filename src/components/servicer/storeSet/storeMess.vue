@@ -65,7 +65,7 @@
 			    	<em v-if="addressInfoError">{{addressInfo}}</em>
 			    	<el-button  @click="location" class="store-button1">搜索定位</el-button>
 			  	</el-form-item>
-				<storeMap :storeAddress="addressLocation" @getDetail="getMess"></storeMap>
+				<storeMap :storeAddress="detailAddress" @getDetail="getMess"></storeMap>
 				<div class="imageUrl_all text-l pos-a">
 					<span class="mb-10 display-in">店铺LOGO</span>
 					<imageUpload :imageUrl="imgUrl" :imageType="imageType" @getImageUrl="updataLogo"></imageUpload>
@@ -162,12 +162,12 @@
 		created(){	
 			this.getStoreMessage();				
 		},
-		computed:{
-			addressLocation(){		
-				let mess=this.storeMessShow;
-				return this.storeMessShow&&(mess.province+mess.city+mess.area+mess.address)
-			},
-		},
+//		computed:{
+//			addressLocation(){		
+//				let mess=this.storeMessShow;
+//				return this.storeMessShow&&(mess.province+mess.city+mess.area+mess.address)
+//			},
+//		},
 		updated(){
 			this.$emit('update:addMessForm', this.addMessForm)
 		},
@@ -208,10 +208,10 @@
 					//地址解析失败
 					this.addressFail=true;
 				}
-
 			},
-			location(){
-				this.detailAddress=this.addMessForm.address;
+			location(){//获取地图地址
+				let addRessMess=this.addMessForm
+				this.detailAddress=addRessMess.province+addRessMess.city+addRessMess.area+addRessMess.address;
 				let arr3=["borderFour","addressInfoError"];
 				this.isBoolean(arr3,false);	
 			},
@@ -290,22 +290,23 @@
 		          	}
 		        });
 			},	
-			createStoreMess(data){//创建信息接口				
-				createStoreMess(data)
+			createStoreMess(data){		
+				createStoreMess(data)//创建信息接口	
 				.then(({data})=>{						
 					getUserMess()//获取服务商店铺
 					.then(({data})=>{		
 						this.$store.commit(types.ADDSUCESS,true);//提示添加成功
-						let len=data.length;//没有数据时长度为0
+						let len=data.length;//没有数据时长度为0;
+						this.$store.dispatch("doCloseStore",true);//导航能够看见
 						if(len > 0) {
-							let shop_id = data[0].shop_id;					
+							let shop_id = data[0].shop_id;	
 							this.$store.commit(types.GETSHOPID, shop_id);
 							this.hopPage();//跳转页面
 						};
 					})
-					.catch((error)=>{
-						console.log("error:",error)
-					})
+					.catch(({response: {data}})=>{
+						 this.$message.error(data.errorcmt);
+					})	
 					
 				})
 				.catch(({response: {data}})=>{
@@ -359,7 +360,7 @@
 			},
 			logo(){
 				//没有LOGO显示默认Logo,有就显示				
-				if(this.storeMessShow.shop_logo!==null){
+				if(this.storeMessShow.shop_logo){
 					this.imgUrl=this.storeMessShow.shop_logo;
 				}else{
 					this.imgUrl=links.IMG
@@ -388,7 +389,7 @@
 				this.deleteEmptyString(this.storeMessShow);
 				//删除不需要的
 				delete this.storeMessShow.statistics_shop_logs
-				this.addMessForm=Object.assign({},this.storeMessShow)
+				this.addMessForm=Object.assign({},this.storeMessShow);//改变内存，以用于取消用
 				this.exitsMess=JSON.parse(JSON.stringify(this.storeMessShow));
 				this.$emit("createMess",this.exitsMess);//传到父集去
 				//没有LOGO显示默认Logo,有就显示	
