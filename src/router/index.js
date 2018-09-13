@@ -56,6 +56,7 @@ import storedecoration from "@/pages/servicerPage/storeSet/storedecoration"
 //服务商的卖家中心
 import servicerCenter from "@/pages/servicerPage/sellerCenter/servicerCenter"
 import openStore from "@/pages/servicerPage/sellerCenter/openStore"
+import Irregularities from "@/pages/servicerPage/sellerCenter/Irregularities"
 
 
 //代理商订单和合伙人订单通用
@@ -325,6 +326,10 @@ const router = new Router({
 								path: 'openStore',
 								name: 'openStore',
 								component: openStore,	
+							},{							
+								path: 'Irregularities',
+								name: 'Irregularities',
+								component: Irregularities,	
 							}
 						]
 

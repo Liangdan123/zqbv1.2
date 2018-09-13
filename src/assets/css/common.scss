@@ -829,3 +829,14 @@ em {
     }
    
 }
+//Breadcrumb 
+.el-breadcrumb{
+    .el-breadcrumb__item{           
+        .el-breadcrumb__item__inner{
+            color:#7F7F7F;
+            font-size: 16px;
+            font-weight: bold;
+        } 
+    }
+
+}

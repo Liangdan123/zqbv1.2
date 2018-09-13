@@ -18,7 +18,7 @@
 		</el-dialog>
 	
 		<!--................累计金额.............-->
-		<div class="count clearfix mb-20">
+		<div class="count clearfix" v-loading="loadTotal">
 			<div class="plate bg-f mr-20 ">
 				<div class="border-b clearfix">
 					<div class="float-l mb-10">
@@ -88,26 +88,117 @@
 				</div>	
 			</div>
 		</div>
-	
+		<!--.....................店铺动态和待处理事件..............-->
+		<div class="dynamicEvent clearfix">
+			<!--.....................店铺动态..............-->
+			<div class="dynamic float-l">
+				<h3 class="color-3 f14 shopTitle">店铺动态</h3>
+				<div v-loading="loadDynamic">		
+					<div v-if="DynamicList.length>0"> 											
+						<div class="dynamicLists" 
+							v-for="item in DynamicList"> 						
+							<div class="storeItem clearfix">
+								<div class="storeItemLf float-l mr-10"><i class="iconfont icon-hebingxingzhuang"></i></div>
+								<div class="storeItemRt float-l">
+									<div class="top color-3 f14">
+										{{item.nick_name}}
+										{{item.operate_type===1?"购买了":item.operate_type===2?"确认收货":item.operate_type===3?"申请了"
+										:item.operate_type===4?"撤销了":item.operate_type===101?"发布了商品":"装修了店铺"}}
+										<span v-if="item.operate_type===1" v-for="child in item.remark.split(';')" class="color-b">
+											{{child}}
+										</span>
+										<span class="color-red">{{item.operate_type===3?"退款":""}}</span>
+										<span class="color-b">{{item.operate_type===4?"退款申请":""}}</span>										
+									</div>
+									<div class="bottom f12 color-7F">{{item.created_at_show}}</div>
+								</div>
+							</div>						
+						</div>					
+					</div>
+					<div v-if="DynamicList.length===0">
+						<div v-for="item in empty" class="storeItem">
+							{{item.index}}
+						</div>
+					</div>
+				</div>
+			</div>		
+			<!--.....................待处理事件..............-->
+			<div class="event float-r" v-loading="loadUntreated">
+				<h3 class="color-3 f14 shopTitle">待处理事件</h3>
+				<div class="clearfix lh cursor" @click="expressJump('express')">
+					<span class="float-l color-3 f14">待服务订单</span>
+					<div class="float-r btn">{{getNum.need_delivery}}</div>
+				</div>
+				<div class="clearfix lh cursor" @click="expressJump('shop')">
+					<span class="float-l color-3 f14">服务中订单待操作</span>
+					<div class="float-r btn">{{getNum.need_complete}}</div>
+				</div>
+				<div class=" clearfix lh cursor" @click="expressJump('self')">
+					<span class="float-l color-3 f14">退款申请</span>
+					<div class="float-r btn">{{getNum.need_refund}}</div>
+				</div>
+				<div class="clearfix lh cursor" @click="Irregularities">
+					<span class="float-l color-3 f14">违规提醒</span>
+					<div class="float-r btn">{{getNum.illegal_warn}}</div>
+				</div>
+			</div>			
+		</div>
+		<!--.....................四个表格..............-->
+		<ECharts
+			:chart-data="statisticsData"
+			:statistics-key="statisticsTabShow"
+			@timeRange="timeRangeChange">
+			<el-tabs v-model="statisticsTabShow"  slot="tab">
+                <el-tab-pane label="销售额" name="total_sell_money_yuan"></el-tab-pane>
+                <el-tab-pane label="订单数" name="total_pay_order_num"></el-tab-pane>
+                <el-tab-pane label="访问量" name="total_pv_num"></el-tab-pane>
+                <el-tab-pane label="访客量" name="total_uv_num"></el-tab-pane>
+            </el-tabs>
+		</ECharts>
 	</div>
 </template>
 
 <script>
 	import * as links from "@/links/index"
-	import {getUserMess,getStoreData} from "@/api/servicer"
+	import {getUserMess,getStoreData,getshopDynamics,getDynamicsNum} from "@/api/servicer"
 	import {getStoreStatistics} from "@/api/platform"
 	import router from "@/router"
 	export default{
+		name:"servicerCenter",
+		components:{
+			'ECharts':()=>import('@/components/servicer/sellerCenter/Echarts')
+		},
 		data(){
 			return {
 				dialogVisible:false,
 				urls:links.IMG,//弹窗图片链接
 				total:{},
+				statisticsData:[],// 店铺表格统计数据
+				statisticsTabShow:'total_sell_money_yuan',
+				DynamicList:[],//店铺动态列表
+				empty:[//店铺动态没有数据时
+					{index:""},
+					{index:""},
+					{index:""},				
+					{index:""},			
+					{index:""},	
+					{index:""}
+				],
+				clearNumTime:"",
+				clearDynamicTime:"",
+				getNum:{},
+				loadDynamic:true,
+				loadUntreated:true,
+				loadTotal:true,
 			}
 		},
 		created(){
 			this.getUser();//获取服务商店铺
-			
+		},
+		beforeRouteLeave(to, from, next){
+			clearInterval(this.clearNumTime);
+			clearInterval(this.clearDynamicTime);
+			next(true);
 		},
 		filters:{
             money(value,label=''){
@@ -118,6 +209,32 @@
             },
         },
 		methods:{
+			_shopDynamicsAPI(data){//店铺动态
+				getshopDynamics(data)//获取动态列表接口
+				.then(({data})=>{
+					this.DynamicList=data;
+					this.loadDynamic=false;
+				})
+				.catch(({response: {data}})=>{
+					this.$message.error(data.errorcmt);
+				})	
+			},
+			_DynamicsNumAPI(data){//待处理事件				
+				getDynamicsNum(data)//获取店铺待处理事件数量API
+				.then(({data})=>{
+					this.getNum=data;
+					this.loadUntreated=false;
+				})
+				.catch(({response: {data}})=>{
+					this.$message.error(data.errorcmt);
+				})	
+			},
+			expressJump(){//点击待处理事件的列表
+				
+			},
+			Irregularities(){//违规提醒
+				this.$router.push("/server/sellercenter/Irregularities")
+			},
 			getUser(){
 				getUserMess()//获取服务商店铺
 				.then(({data})=>{
@@ -125,17 +242,27 @@
 						this.dialogVisible=true
 					}else if(data.length>0){//有店铺时获取店铺数据（卖家中心的数据）
 						let shop_id = data[0].shop_id;	
-						this.getServicerMess({shop_id})
+						this.getServicerMess({shop_id})//获取店铺统计数据
+						let setDynamic={
+							shop_id, 
+							page: 1,
+							per_page: 5
+						};
+						this._shopDynamicsAPI(setDynamic);//店铺动态
+			//			this.clearDynamicTime=setInterval(()=>{this._shopDynamicsAPI(setDynamic)},10000);
+						this._DynamicsNumAPI({shop_id})//待处理事件
+			//			this.clearNumTime=setInterval(()=>{this._DynamicsNumAPI({shop_id})},10000);
 					}
 				})
 				.catch(({response: {data}})=>{
 					this.$message.error(data.errorcmt);
 				})
 			},
-			getServicerMess(data){
+			getServicerMess(data){//获取店铺统计数据
 				getStoreStatistics(data)
 				.then(({data})=>{
-					this.total=data
+					this.total=data;
+					this.loadTotal=false;
 				})
 				.catch(({response: {data}})=>{
 					this.$message.error(data.errorcmt);
@@ -147,7 +274,17 @@
 			},
 			loginOut(){//退出按钮
 				this.$store.dispatch('doLogout');
-			}
+			},
+			timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口
+				let shop_id=this.$store.state.servicer.shop_id;
+				let condition_search={
+					shop_id,start_date,end_date
+				};
+				getStoreData(condition_search)
+				    .then(({data:{data}})=>{
+                        this.statisticsData = data;
+                    })
+			},
 		}
 	}
 </script>
@@ -178,7 +315,9 @@
 	}
 	.count{
 		width: 1240px;
-		margin: 0 auto;
+		margin-left: auto;
+		margin-right: auto;
+		margin-top: 20px;
 		.plate{
 			float: left;
 			padding: 20px;
@@ -186,6 +325,92 @@
 			height: 102px;
 			border-radius: 2px;
 		}
+	}
+	.dynamicEvent{
+		width: 1240px;
+		margin-top: 20px;
+		margin-left: auto;
+		margin-right: auto;
+		.dynamic{			
+			padding: 20px;
+		    width: 885px;
+		    background-color: #fff;
+		    height: 354px;
+		    .shopTitle{
+		    	padding-bottom: 18px;
+    			border-bottom: 1px solid #F0F4F7;
+		    }
+		    .storeItem{
+		    	padding-top:11px;
+		    	padding-bottom: 11px;
+    			border-bottom: 1px solid #F0F4F7;
+    			&:hover{
+    				background-color:#F8FAFC ;
+    			}
+    			.storeItemLf{
+    				position: relative;
+				    height: 30px;
+				    width: 30px;
+				    border-radius: 50%;
+				    background-color: #0070C9;
+				    i{
+				    	position: absolute;
+					    color: #fff;
+					    font-size: 24px;
+					    left: 50%;
+					    top: 50%;
+					    margin-top: -12px;
+					    margin-left: -12px;
+				    }
+    			}
+    			.storeItemRt{
+    				width: 845px;
+    				.top{
+    					white-space: nowrap;
+					    overflow: hidden;
+					    text-overflow: ellipsis;
+    				}
+    			}
+		    }
+		}
+		.event{
+			width: 255px;
+		    padding: 20px;
+		    height: 354px;
+		    background-color: #fff;
+        	.shopTitle{
+				padding-bottom: 18px;
+				border-bottom: 1px solid #F0F4F7;
+			}
+		    .lh{
+		    	line-height: 33px;				
+			    padding-top: 11px;
+			    padding-bottom: 11px;
+			    border-bottom: 1px solid #F0F4F7;
+			    &:hover{
+    				background-color:#F8FAFC ;
+    			}
+			    .btn{
+			    	width: 48px;
+				    height: 24px;
+				    border-radius: 12px;
+				    background-color: #008FF2;
+				    text-align: center;
+				    color: #fff;
+				    line-height: 24px;
+				    margin-top: 4px;
+			    }
+		    }
+		}
+	}
+	.chart{
+		width: 1240px;
+		margin-left: auto;
+		margin-right: auto;
+		.echarts{
+			width: 1240px;
+		}
+		
 	}
 	
 }

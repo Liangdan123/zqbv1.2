@@ -12,11 +12,6 @@
 		components:{
 			storeMess:()=>import("@/components/servicer/storeSet/storeMess")
 		},
-		data(){
-			return{
-				
-			}
-		}
 	}
 </script>
 

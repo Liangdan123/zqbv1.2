@@ -24,6 +24,11 @@ import "./assets/css/store.css"
 import "./assets/css/commodity.scss"
 import "./assets/css/order.css"
 
+import moment from "moment"
+Vue.prototype.$moment = moment
+import _ from "lodash";
+Vue.prototype.$_ = _
+
 Vue.use(ElementUI)
 Vue.prototype.$http = axios
 Vue.config.productionTip = false

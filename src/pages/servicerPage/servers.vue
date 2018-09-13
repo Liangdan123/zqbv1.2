@@ -10,22 +10,28 @@
 				:router="true" 
 				mode="horizontal"
 				v-if="navbarshow">
-				<el-menu-item index="/server/sellercenter/servicerCenter" :class="{isActive:active=='servicerCenter'}">
+				<el-menu-item index="/server/sellercenter/servicerCenter" 
+					:class="{isActive:active=='sellercenter'}">
 					<i></i>卖家中心
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallStoreMana" :class="{isActive:active=='mallStoreMana'||active=='mallStoreMess'}">
+				<el-menu-item index="/mallZxh/mallStoreMana" 
+					:class="{isActive:active=='mallStoreMana'||active=='mallStoreMess'}">
 					<i></i>商品管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallOrder/mallAllOrder" :class="{isActive:active=='mallOrder'}">
+				<el-menu-item index="/mallZxh/mallOrder/mallAllOrder" 
+					:class="{isActive:active=='mallOrder'}">
 					<i></i>订单管理
 				</el-menu-item>
-				<el-menu-item index="/server/serverMarketInfo" :class="{isActive:active=='serverMarketInfo'}">
+				<el-menu-item index="/server/serverMarketInfo" 
+					:class="{isActive:active=='serverMarketInfo'}">
 					<i></i>营销管理
 				</el-menu-item>
-				<el-menu-item index="/server/storeSetInfo" :class="{isActive:active=='storeSetInfo'}">
+				<el-menu-item index="/server/storeSetInfo" 
+					:class="{isActive:active=='storeSetInfo'}">
 					<i></i>店铺设置
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/fund/extractCash" :class="{isActive:active=='fund'}">
+				<el-menu-item index="/mallZxh/fund/extractCash" 
+					:class="{isActive:active=='fund'}">
 					<i></i>资金管理
 				</el-menu-item>
 			</el-menu>

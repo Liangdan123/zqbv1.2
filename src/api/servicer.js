@@ -19,3 +19,7 @@ export const createStoreMess=(storeMess)=>axios.post("mock/shop/create",storeMes
 export const getStoreBanner=(shop_id)=>axios.get("mock/shop/get_banner",{params:{shop_id}})//获取店铺轮播图
 													
 export const getStoreData =(shop_id)=>axios.get("mock/seller/get_shop_statistics",{params:{shop_id}})//获取店铺统计图表(服务商)
+
+export const getshopDynamics=(data)=>axios.post("mock/seller/operate_log_lists",data)//获取店铺动态列表(卖家中心)
+
+export const getDynamicsNum=(data)=>axios.get("mock/seller/get_shop_pending_num",{params:data})//获取店铺待处理事件数量
