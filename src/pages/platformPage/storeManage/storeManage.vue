@@ -89,7 +89,7 @@
 					per_page: 20,
 				};
 				this.loading=true;
-				this._doSearch();
+				this.searchMethod();
 			}
 		},
 		methods:{
@@ -109,11 +109,11 @@
 			},
 			searchRole(){//搜索角色
 				this.emptyText="未搜索到相关匹配信息";
-				this._doSearch();
+				this.searchMethod();
 			},
 			searchInput(){
 				this.emptyText="未搜索到相关匹配信息";
-				this._doSearch();
+				this.searchMethod();
 			},
 		}
 	}

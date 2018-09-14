@@ -23,3 +23,7 @@ export const getStoreData =(shop_id)=>axios.get("mock/seller/get_shop_statistics
 export const getshopDynamics=(data)=>axios.post("mock/seller/operate_log_lists",data)//获取店铺动态列表(卖家中心)
 
 export const getDynamicsNum=(data)=>axios.get("mock/seller/get_shop_pending_num",{params:data})//获取店铺待处理事件数量
+
+export const getIrregularities=(data)=>axios.post("mock/product/seller_illegal_lists",data)//获取违规提醒列表(商户)
+
+export const checkIrregularities=(illegal_id)=>axios.post("mock/product/check_illegal",{illegal_id})//查看违规提醒(商户)
