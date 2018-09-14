@@ -840,3 +840,12 @@ em {
     }
 
 }
+//去掉标志重要的*号
+.el-form-item {
+    .el-form-item__label{
+        &::before {
+            content: "";
+            font-size: 0;
+        }
+    }
+}

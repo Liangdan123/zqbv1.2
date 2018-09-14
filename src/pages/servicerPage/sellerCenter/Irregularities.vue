@@ -56,7 +56,7 @@
   		</div>
   		<!--................编辑商品..................-->
   		<div v-if="editProductPage">
-  			<productMess></productMess>
+  			<productMess ></productMess>
   		</div>
   		<!--................违规提醒弹框............-->
   		<el-dialog title="违规提醒" :visible.sync="readModel" :modal="false">
