@@ -162,12 +162,6 @@
 		created(){	
 			this.getStoreMessage();				
 		},
-//		computed:{
-//			addressLocation(){		
-//				let mess=this.storeMessShow;
-//				return this.storeMessShow&&(mess.province+mess.city+mess.area+mess.address)
-//			},
-//		},
 		updated(){
 			this.$emit('update:addMessForm', this.addMessForm)
 		},

@@ -64,6 +64,7 @@
 		},
 		props:{
 			spec:{
+				type: Array,
 				default:function(){
 					return []
 				}
@@ -88,13 +89,16 @@
 			handleDelete(index,row){//删除
 				this.spec.splice(index,1);
 			},
-			addSpec(){
+			addSpec(){	
+				console.log(8888888);
+				console.log(this.spec.length)
 				this.spec.push({
-		            spec_name: "",
-		            init_price_yuan: "",
-		            spec_price_yuan: "",
-		            enable_refund:0,
+		            spec_name:"",
+		            init_price_yuan:"",
+		            spec_price_yuan:"",
+		            enable_refund:0
 				});
+				console.log(this.spec.length)
 			}
 		}
 	}

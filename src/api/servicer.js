@@ -27,3 +27,5 @@ export const getDynamicsNum=(data)=>axios.get("mock/seller/get_shop_pending_num"
 export const getIrregularities=(data)=>axios.post("mock/product/seller_illegal_lists",data)//获取违规提醒列表(商户)
 
 export const checkIrregularities=(illegal_id)=>axios.post("mock/product/check_illegal",{illegal_id})//查看违规提醒(商户)
+
+export const isRead=(illegal_id)=>axios.put("mock/product/operate_illegal",{illegal_id})//处理违规提醒(商户)

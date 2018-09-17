@@ -3,7 +3,9 @@
 		<!--...............主体内容..........-->
 		<div v-if="!editProductPage">		
 			<el-breadcrumb separator=">">
-				<el-breadcrumb-item :to="{path:'/server/sellercenter/servicerCenter'}">卖家中心</el-breadcrumb-item>
+				<el-breadcrumb-item :to="{path:'/server/sellercenter/servicerCenter'}">
+					卖家中心
+				</el-breadcrumb-item>
 		  		<el-breadcrumb-item class="irr_product">
 		  			{{is_read==="1"?"违规商品":"历史违规商品"}}
 		  		</el-breadcrumb-item>
@@ -31,8 +33,10 @@
 					 		</div>           	       				  	       						       					       			 					       			
 						</template>
 					</el-table-column>
-					<el-table-column label="违规提醒" prop="illegal_content"></el-table-column>
-					<el-table-column label="提醒时间" prop="created_at"></el-table-column>	
+					<el-table-column label="违规提醒" prop="illegal_content">						
+					</el-table-column>
+					<el-table-column label="提醒时间" prop="created_at">						
+					</el-table-column>	
 					<el-table-column label="操作">
 						<template slot-scope="scope">
 							<el-button 
@@ -52,14 +56,29 @@
 						</template>
 					</el-table-column>
 				</el-table>
+				<div class="clearfix mt-20">
+					<el-pagination :total="list.total"
+						:current-page.sync="list.current_page" 
+						:page-size="list.per_page"
+						layout="total, prev, pager, next"
+						@current-change="handleCurrentChange"
+						class="pagination float-r">
+						
+					</el-pagination>
+				</div>
 	  		</div> 
   		</div>
   		<!--................编辑商品..................-->
   		<div v-if="editProductPage">
-  			<productMess ></productMess>
+  			<productMess 
+  				@closeEditor="closeEditor" 
+  				@seePro="seePro" 
+  				:ediorMess="onlyProductMess"></productMess>    								 				
   		</div>
   		<!--................违规提醒弹框............-->
-  		<el-dialog title="违规提醒" :visible.sync="readModel" :modal="false">
+  		<el-dialog title="违规提醒" 
+  			:visible.sync="readModel" 
+  			:modal="false">
 			<p>{{read.illegal_content}}</p>
 			<div class="clearfix">
 				<el-button class="store-button2 float-r px-30" 
@@ -78,7 +97,7 @@
 
 <script>
 	import page from "@/utils/page"
-	import {getIrregularities,checkIrregularities} from "@/api/servicer"
+	import {getIrregularities,checkIrregularities,isRead} from "@/api/servicer"
 	import {checkProduct} from "@/api/platform"
 	 export default{	 	
 	 	name:"Irregularities",
@@ -103,7 +122,7 @@
 				read:{ },
 				illegal_id:"",//商品违规提醒记录id
 				onlyProductMess:{},//商品数据详情
-				editProductPage:true,//编辑页面显示不显示
+				editProductPage:false,//编辑页面显示不显示
 	 		} 		
 	 	},
 	 	created(){
@@ -162,7 +181,21 @@
 	 		},
 	 		keepCancelPro(){//违规提醒弹窗的取消，保存（只是用于看）
 	 			this.readModel=false;
-	 		}
+	 		},
+	 		closeEditor(){//取消按钮（productMess）	 			
+				this.editProductPage=false;
+	 		},
+	 		seePro(){//保存成功所发生的事情
+				isRead(this.illegal_id)//保存成功就成为历史违规提醒
+			  	.then(({data})=>{
+			  		this.searchMethod();//重新掉列表接口
+			  		this.editProductPage=false;
+			  	})
+			  	.catch(({response:{data}})=>{
+			  		this.$message.error(data.errorcmt);
+			  	})
+	 			
+	 		},
 	 	}
 	 }
 </script>

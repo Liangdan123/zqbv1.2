@@ -37,8 +37,14 @@
             <span slot-scope="scope" class="u-btn" @click="check(scope.row)">查看记录</span>
           </el-table-column>
         </el-table>
-        <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
-          :page-size="searchCondition.per_page" layout="total, prev, pager, next" :total="total">
+        <el-pagination 
+        	class="pagination mt-20" 
+        	v-if="total>searchCondition.per_page" 
+        	@current-change="handleCurrentChange" 
+        	:current-page.sync="searchCondition.page"
+          :page-size="searchCondition.per_page" 
+          layout="total, prev, pager, next" 
+          :total="total">
         </el-pagination>
       </div>
     </div>

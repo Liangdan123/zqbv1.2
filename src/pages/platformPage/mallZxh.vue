@@ -6,7 +6,7 @@
 				<img src="../../assets/image/weishangcheng.png" />
 			</div>
 			<el-menu :default-active='$route.path' :router="true" mode="horizontal">
-				<el-menu-item index="/mallZxh/data-center" :class="{isActive:active=='data-center'}">
+				<el-menu-item index="/mallZxh/controlCenter/platDataCenter" :class="{isActive:active=='controlCenter'}">
 					<i></i>监控中心
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/storeManage" :class="{isActive:active=='storeManage'||active=='storeMessage'}">

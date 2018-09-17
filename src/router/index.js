@@ -39,6 +39,10 @@ import specialAd from "@/pages/platformPage/marketing/specialAd"
 import storeManage from "@/pages/platformPage/storeManage/storeManage"
 import storeMessage from "@/pages/platformPage/storeManage/storeMessage"
 
+//平台中的商城设置
+import platDataCenter from "@/pages/platformPage/controlCenter/platDataCenter"
+
+
 //服务商导航
 import server from "@/pages/servicerPage/servers"
 //服务商的营销管理
@@ -257,15 +261,26 @@ const router = new Router({
 							component: specialAd,
 						}]
 						
-					},{						
+					},{//店铺管理（平台）						
 						path:'storeManage',
 						name:'storeManage',
 						component: storeManage,
-					},{					
+					},{//店铺管理（平台）					
 						path:'storeMessage',
 						name:'storeMessage',
-						component:storeMessage,
-						
+						component:storeMessage,						
+					},
+					{
+						path:'controlCenter',	
+						name: 'controlCenter',
+						component:blank,
+						children:[
+							{
+								path: 'platDataCenter',
+								name: 'platDataCenter',
+								component: platDataCenter,	
+							},
+						]
 					}
 				]
 
@@ -332,7 +347,6 @@ const router = new Router({
 								component: Irregularities,	
 							}
 						]
-
 					}
 				]
 			}

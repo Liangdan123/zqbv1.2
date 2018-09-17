@@ -1,6 +1,5 @@
 <template>
-	<div class="checkClassify">
-		
+	<div class="checkClassify">		
 		<label class=" store_label cursor" 
 	    	v-for="(item,index) in mallClassify" 
 	    	:key="index">  	
