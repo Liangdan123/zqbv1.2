@@ -53,3 +53,9 @@ export const subIrrehint=(data)=>axios.post("mock/product/commit_illegal",data) 
 export const checkIrrehint=(data)=>axios.post("mock/product/illegal_lists",data) //违规提醒列表
 
 export const checkProduct =(product_id)=>axios.get("mock/product/get",{params:{product_id}})//查看商品
+
+export const getMallStatisticsData = ()=>axios.get("mock/seller/get_mall_statistics");//获取商城所以统计数据
+
+export const getMallPendingEventNum = ()=>axios.get("mock/seller/get_mall_pending_num");//获取商城待处理事件数
+
+export const getStatisticsByDate = (data)=>axios.post("mock/seller/get_mall_statistics_chart",data);//获取商城统计图表数据

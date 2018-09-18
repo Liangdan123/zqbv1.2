@@ -54,10 +54,10 @@
             chartDataByFilter() {
                 let data =  this.chartData.map((v)=>{
                     return v[this.statisticsKey]
-                });
-                let data_change = this.polar.series[0];
-                data_change.data = data;
-                this.$set(this.polar,'series',[data_change]);
+                });                            
+                let data_change = this.polar.series[0];                                             
+                data_change.data = data;              
+                this.$set(this.polar,'series',[data_change]);//为了让页面效果一定显示出来
                 return data;
             },
             xAxisDataByDefine(){
@@ -65,7 +65,7 @@
                  let date_arr = this.chartData.map(({statistics_date})=>statistics_date);
                  if(!this.statisticsType){
                      this.$set(this.polar,'xAxis',Object.assign({},this.polar.xAxis,{data:date_arr}));
-                 }
+                }
             }
         },
         data() {
@@ -148,11 +148,11 @@
                 this.$set(this.polar,'xAxis',Object.assign({},this.polar.xAxis,{data:xAxisData}));
                 this.timeRange = [];
             },
-            _xAxisDataInit(type = 'isoWeek',) {
+            _xAxisDataInit(type = 'isoWeek',) {           	
                 // 生成本月、本周、本月X轴数据
                 let start_date, end_date;
                 let start_date_fill, fill_length;
-                start_date = this.$moment().startOf(type);
+                start_date = this.$moment().startOf(type);                              
                 end_date = this.$moment().endOf(type);
                 start_date_fill = +start_date.format('DD');
                 switch (type) {
