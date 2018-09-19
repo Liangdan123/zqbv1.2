@@ -6,7 +6,12 @@
       <div class="content-con mt-20">
         <el-tabs v-model="activeName">
           <div class="buttons clearfix mb-20">
-            <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='emptyMthod'  ref="isShow" selectTitle='筛选会员' hintMess="输入相关信息进行搜索">
+            <search :search.sync="searchCondition.search" 
+            	@searchMethod="searchMethod" 
+            	@emptyMthod='emptyMthod'  
+            	ref="isShow" 
+            	selectTitle='筛选会员' 
+            	hintMess="输入相关信息进行搜索">
               <template>
                 <div class="condition clearfix mb-10">
                   <span class="float-l grade">会员等级：</span>
@@ -21,7 +26,11 @@
           </div>
           <el-tab-pane label="会员管理" name="first">
             <!-- 会员管理表格 数据父组件提供 -->
-            <vipTable :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod"></vipTable>
+            <vipTable 
+            	:searchCondition='searchCondition' 
+            	:list="list" 
+            	:total="total" 
+            	@searchMethod="searchMethod"></vipTable>
           </el-tab-pane>
         </el-tabs>
       </div>

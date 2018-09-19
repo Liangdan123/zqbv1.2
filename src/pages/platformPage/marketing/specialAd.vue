@@ -20,9 +20,10 @@
 </template>
 
 <script>
-	import tableAd from "@/components/platform/marketing/tableAd"
 	export default{
-		components:{tableAd},
+		components:{
+			"tableAd":()=>import('@/components/platform/marketing/tableAd')
+		},
 		data(){
 			return{
 				activeName:"1",

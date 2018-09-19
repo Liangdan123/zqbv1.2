@@ -35,8 +35,15 @@
           <span slot-scope="scope" class="u-btn" @click="check(scope.row.join_id)">查看详情</span>
         </el-table-column>
       </el-table>
-      <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
-        :page-size="searchCondition.per_page" layout="total, prev, pager, next" :total="total">
+      <el-pagination 
+      	class="pagination mt-20" 
+      	v-if="total>searchCondition.per_page" 
+      	@current-change="handleCurrentChange" 
+      	:current-page.sync="searchCondition.page"
+        :page-size="searchCondition.per_page" 
+        layout="total, prev, pager, next" 
+        :total="total">
+        
       </el-pagination>
     </div>
   </div>
@@ -124,9 +131,7 @@
       closeSearch() {
         this.$refs.isShow.closeSearch();
       },
-      tabSwitch({
-        name
-      }) {
+      tabSwitch({name}) {            
         // tab面板切换
         this.searchCondition.page = 1;
         this.searchCondition.search={};

@@ -92,14 +92,14 @@
                 </el-col>
                 <el-col :span="4">
                     <div class="statistics-module">
-                        <i class="iconfont icon-product"></i>
+                        <i class="iconfont icon-huiyuan"></i>
                         	会员共计
                         <span>{{mallDataStatistics.total_member_num}}件</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
                     <div class="statistics-module">
-                        <i class="iconfont icon-member"></i>
+                        <i class="iconfont icon-dianpuxinxi"></i>
                         	店铺共计
                         <span>{{mallDataStatistics.total_shop_num}}位</span>
                     </div>
@@ -113,14 +113,14 @@
                 </el-col>
                 <el-col :span="4">
                     <div class="statistics-module">
-                        <i class="iconfont icon-member"></i>
+                        <i class="iconfont icon-hehuoren f18"></i>
                         	合伙人共计
                         <span>{{mallDataStatistics.total_hhr_num}}位</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
                     <div class="statistics-module">
-                        <i class="iconfont icon-money"></i>
+                        <i class="iconfont icon-fuwushang"></i>
                         	服务商共计
                         <span>{{mallDataStatistics.total_fws_num}}元</span>
                     </div>

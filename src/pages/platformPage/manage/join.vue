@@ -40,8 +40,14 @@
             class="u-btn">查看记录</router-link>
         </el-table-column>
       </el-table>
-      <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
-        :page-size="searchCondition.per_page" layout="total, prev, pager, next" :total="total">
+      <el-pagination 
+      	class="pagination mt-20" 
+      	v-if="total>searchCondition.per_page" 
+      	@current-change="handleCurrentChange" 
+      	:current-page.sync="searchCondition.page"
+        :page-size="searchCondition.per_page" 
+        layout="total, prev, pager, next" 
+        :total="total">
       </el-pagination>
     </div>
   </div>

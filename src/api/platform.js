@@ -59,3 +59,8 @@ export const getMallStatisticsData = ()=>axios.get("mock/seller/get_mall_statist
 export const getMallPendingEventNum = ()=>axios.get("mock/seller/get_mall_pending_num");//获取商城待处理事件数
 
 export const getStatisticsByDate = (data)=>axios.post("mock/seller/get_mall_statistics_chart",data);//获取商城统计图表数据
+
+export const getFundTotalGive = (data)=>axios.get("mock/fund/total_give",{params:data});//获取累计收入
+
+export const getFundList=(data)=>axios.post("mock/fund/tixian_lists",data)//获取提现列表
+

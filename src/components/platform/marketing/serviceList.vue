@@ -16,7 +16,7 @@
 			:data="list.data"
 			@selection-change="handleSelection"
 			v-loading="loading"
-			:empty-text="emptyText">>
+			:empty-text="emptyText">
 			<el-table-column type="selection" width="55">      			
     		</el-table-column>
     		<el-table-column prop="city" label="所属区域">
@@ -26,7 +26,7 @@
 			<el-table-column prop="phone" label="电话">
 			</el-table-column>
 			<el-table-column prop="company_name" label="公司名称" 
-				v-if="searchCondition.search.is_company===1" s>
+				v-if="searchCondition.search.is_company===1">
 			</el-table-column>
 			<el-table-column prop="created_at" label="创建时间">
 			</el-table-column>
@@ -105,11 +105,11 @@
 			},
 			searchRole(){//搜索角色
 				this.emptyText="未搜索到相关匹配信息";
-				this._doSearch();
+				this.searchMethod();
 			},
 			searchInput(){
 				this.emptyText="未搜索到相关匹配信息";
-				this._doSearch();
+				this.searchMethod();
 			},
 			sureDistri(){
 				if(!this.distribute.user){
@@ -119,7 +119,7 @@
 				distributeAd(this.distribute)
 				.then((data)=>{
 					this.$message({showClose: true,message: '分配成功',type: 'success'});	
-					this._doSearch();
+					this.searchMethod();
 					this.closeMood()
 				})
 				.catch(({response: {data}})=>{

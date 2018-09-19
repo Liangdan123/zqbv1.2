@@ -68,9 +68,10 @@
 	import page from "@/utils/page"
 	import {getAdList,deleteAdList} from "@/api/platform"
 	import {getServerAdList,deleteServerAdList} from "@/api/servicer"
-	import serviceList from "@/components/platform/marketing/serviceList"
 	export default{
-		components:{serviceList},		
+		components:{
+			"serviceList":()=>import('@/components/platform/marketing/serviceList')
+		},
 		data(){
 			return {
 				searchCondition:{//搜索条件
@@ -110,7 +111,7 @@
 					per_page: 20,
 				};
 				this.loading=true;
-				this._doSearch();
+				this.searchMethod();
 			}
 		},
 		methods:{
@@ -207,7 +208,7 @@
 							type: 'success'
 						});							
 				};
-				this._doSearch();
+				this.searchMethod();
 			},
 			delt(index){//每行中的删除
 				let only_ad=this.list.data[index].ad_id

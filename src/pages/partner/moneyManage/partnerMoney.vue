@@ -26,12 +26,25 @@
           <i class="iconfont icon-Rectangle f12"></i>
           <span class="font-b">申请提现</span>
         </el-button>
-        <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='emptyMthod' ref="isShow" selectTitle='筛选列表'
+        <search 
+        	:search.sync="searchCondition.search" 
+        	@searchMethod="searchMethod" 
+        	@emptyMthod='emptyMthod' 
+        	ref="isShow" 
+        	selectTitle='筛选列表'
           hintMess="输入相关信息进行搜索">
         </search>
         <template v-loading="loading">
-          <OrderIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==1"></OrderIncome>
-          <memberIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==2"></memberIncome>
+          <OrderIncome 
+          	:searchCondition='searchCondition' 
+          	:list="list" :total="total" 
+          	@searchMethod="searchMethod" 
+          	v-if="activeName==1"></OrderIncome>
+          <memberIncome 
+          	:searchCondition='searchCondition' 
+          	:list="list" :total="total" 
+          	@searchMethod="searchMethod" 
+          	v-if="activeName==2"></memberIncome>
         </template>
       </div>
     </div>
@@ -90,9 +103,7 @@
         this.visible=false;
         this.$refs.widthdarw.cancel()//关闭弹窗回调 调用子组件的清除方法
       },
-      tabSwitch({
-        name
-      }) {
+      tabSwitch({name }) {            
         // tab面板切换
         this.searchCondition.page = 1;
         this.searchCondition.search={}

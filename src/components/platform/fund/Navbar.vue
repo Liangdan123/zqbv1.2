@@ -1,7 +1,7 @@
 <template>
 	<div class="NavbarOrder">
 		<el-menu :router="true" mode="horizontal" class="clearfix color-7F" @select="handleSelect">
-			<el-menu-item index="join" :class="{active:selected=='extractCash'}">
+			<el-menu-item index="extractCash" :class="{active:selected=='extractCash'}">
 				提现申请
 			</el-menu-item>
 			<el-menu-item index="role" :class="{active:selected=='role'}">
@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import navbar from "@/utils/navbar"
+  	import navbar from "@/utils/navbar"
 	export default {
 		mixins: [navbar]
 	}
