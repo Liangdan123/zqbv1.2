@@ -1,18 +1,47 @@
 <template>
   <div class="selectType">
-    <el-select v-model="is_company" placeholder="请选择" size="small" @change="select" v-if="companyShow">
+    <el-select 
+    	v-model="is_company" 
+    	placeholder="请选择" 
+    	size="small" 
+    	@change="select" 
+    	v-if="companyShow">
+    	
       <el-option v-for="item in options1" 
       	:key="item.value" 
       	:label="item.label" 
       	:value="item.value">
       </el-option>
     </el-select>
-    <el-select v-model="type" placeholder="角色选择" size="small" @change="select"  v-if="typeShow">
-      <el-option v-for="item in options2" :key="item.value" :label="item.label" :value="item.value">
+    
+    <el-select 
+    	v-model="type" 
+    	placeholder="角色选择" 
+    	size="small" 
+    	@change="select"  
+    	v-if="typeShow">
+    	
+      <el-option 
+      	v-for="item in options2" 
+      	:key="item.value" 
+      	:label="item.label" 
+      	:value="item.value">
       </el-option>
+      
     </el-select>
-    <el-select v-model="business_range" placeholder="业务范围选择" size="small" @change="select" v-if="businessShow">
-      <el-option v-for="item in options3" :key="item.value" :label="item.label" :value="item.value">
+    
+    <el-select v-model="business_range" 
+    	placeholder="业务范围选择" 
+    	size="small" 
+    	@change="select" 
+    	v-if="businessShow">
+    	
+      <el-option 
+      	v-for="item in options3" 
+      	:key="item.value" 
+      	:label="item.label" 
+      	:value="item.value">
+      	
       </el-option>
     </el-select>
   </div>
@@ -35,23 +64,13 @@
       }
     },
     watch: {
-      search(val){
-        let keys=Object.keys(val)//监听搜索条件变化
-        keys.includes('type')||(this.type="");
-        keys.includes('business_range')||(this.business_range="");
-        keys.includes('is_company')||(this.is_company="0");
+      search(val){   	
+       	this.type = val['type']||"";      	
+       	this.business_range = val['business_range']||"";      	
+       	this.is_company = val['is_company']||1;
       }
     },
-    computed:{
-    	is_company:{//企业个人搜索
-				get(){
-					return this.search.is_company
-				},
-				set(val){
-					this.search.is_company=val;
-				},
-    	},
-    },
+
     data() {
       return {
         options1: [{
@@ -63,7 +82,7 @@
             label: "个人"
           }
         ],
-        type: null,
+        type: "",
         options2: [{
             value: "",
             label: "全部"
@@ -81,7 +100,7 @@
             label: "合伙人"
           }
         ],
-        business_range: null,
+        business_range: "",
         options3: [{
           value: "",
           label: "全部"
@@ -89,7 +108,10 @@
         companyShow: true,
         typeShow: true,
         businessShow: true,
+        isSearch:true,
+        is_company:1,
       }
+     
     },
     async created() {
       this.companyShow = this.inputType.includes('is_company');
@@ -121,23 +143,24 @@
     methods: {
       select() {
         if (this.companyShow) {
-          this.search.is_company = Number(this.is_company);
-        }
-        if (this.typeShow) {
+        	console.log(5555555511111111)//TODO
+          this.search.is_company = +this.is_company;
+        };
+        if (this.typeShow) {       	
           if (this.type) {
             this.search.type = this.type
           } else {
             delete this.search.type
           }
         }
-        if (this.businessShow) {
+        if (this.businessShow) {      	
           if (this.business_range) {
             this.search.business_range = this.business_range
           } else {
             delete this.search.business_range
           }
-        }
-        this.$emit("searchMethod")
+        };
+        this.$emit("searchMethod")      
       }
     }
   }

@@ -4,12 +4,22 @@
     <div>
       <div class="dialog-content">
         <el-steps :space="250" align-center process-status="wait" :active="detailData.status+1" class="step ml-20" :align-center="true">
-          <el-step title="申请提现" :description="detailData.apply_time" :class="{last:detailData.status=='0',error:detailData.status=='3'}"></el-step>
-          <el-step title="提现失败" status="error" v-if="detailData.status==3" :description="detailData.remittance_time"></el-step>
+          <el-step title="申请提现" :description="detailData.apply_time" :class="{last:detailData.status=='0',error:detailData.status=='3'}">
+          	
+          </el-step>
+          <el-step title="提现失败" status="error" v-if="detailData.status==3" :description="detailData.remittance_time">
+          	
+          </el-step>
           <template v-if="detailData.status!==3">
-            <el-step title="等待平台汇款" :description="detailData.remittance_time+222222" :class="{last:detailData.status=='1'}"></el-step>
-            <el-step title="商家确认收款" v-if="detailData.status!==3" :description="detailData.confirm_time" :class="{last:detailData.status=='2'}"></el-step>
-            <el-step title="完成提现" v-if="detailData.status!==3" :description="detailData.confirm_time"></el-step>
+            <el-step title="等待平台汇款" :description="detailData.remittance_time+222222" :class="{last:detailData.status=='1'}">
+            	
+            </el-step>
+            <el-step title="商家确认收款" v-if="detailData.status!==3" :description="detailData.confirm_time" :class="{last:detailData.status=='2'}">
+            	
+            </el-step>
+            <el-step title="完成提现" v-if="detailData.status!==3" :description="detailData.confirm_time">
+            	
+            </el-step>
           </template>
         </el-steps>
         <p class="panel-title">提现详情</p>

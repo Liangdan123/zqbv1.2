@@ -64,3 +64,7 @@ export const getFundTotalGive = (data)=>axios.get("mock/fund/total_give",{params
 
 export const getFundList=(data)=>axios.post("mock/fund/tixian_lists",data)//获取提现列表
 
+export const getFundMess=(data)=>axios.get("mock/fund/get_tixian",{params:data})//获取提现信息
+
+export const fundOperation=(data)=>axios.post("mock/fund/remittance",data)//提现申请汇款操作
+
