@@ -2,9 +2,15 @@
 	<div class="fundTable" @click="closeSearch">
 		<div class="clearfix">
 			<searchRole
+				@searchMethod="searchRole"
+				:search.sync="searchCondition.search"
 				class="float-l"></searchRole>
 			<search hintMess="输入相关信息进行搜索"
 				selectTitle="筛选条件"
+				applyCreate="申请时间"
+				:search.sync="searchCondition.search"
+				@searchMethod="searchInput"
+				@emptyMthod="emptyMthod"
 				ref="closecondition"
 				class="float-r">				
 			</search>			
@@ -113,7 +119,8 @@
 				searchCondition:{//搜索条件
 					user_id:this.$store.state.user.user.type,
 					search:{
-						status:this.activeName
+						status:this.activeName,
+						is_company:1
 					},
 					page: 1,
 					per_page: 20,
@@ -136,11 +143,13 @@
 				this.searchCondition={
 					user_id:this.$store.state.user.user.type,
 					search:{
-						status:this.activeName
+						status:this.activeName,
+						is_company:1
 					},
 					page: 1,
 					per_page: 20,
 				};
+				console.log("this.searchCondition:",this.searchCondition)
 				this.loading=true;
 				this.searchMethod();
 			},
@@ -155,6 +164,17 @@
 				.catch(({response: {data}})=>{
 					this.$message.error(data.errorcmt);
 				})
+			},
+			searchRole(){//角色搜索
+				this.emptyText="未搜索到相关匹配信息";
+				this.searchMethod();
+			},
+			searchInput(){//筛选搜索
+				this.emptyText="未搜索到相关匹配信息";
+				this.searchMethod();
+			},
+			emptyMthod(){//筛选搜索中的清空条件
+				this.searchMethod();
 			},
 			closeSearch(){//关闭筛选条件
 				this.$refs.closecondition.closeSearch()

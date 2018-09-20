@@ -83,7 +83,7 @@
 			activeName(val){//监听事件变化
 				this.searchCondition={//搜索条件
 					search:{
-						is_company:Number(this.activeName),
+						is_company:+this.activeName,
 					},
 					page: 1,
 					per_page: 20,

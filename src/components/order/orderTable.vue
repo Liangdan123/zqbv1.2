@@ -21,7 +21,10 @@
       </el-tabs>
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
-        <searchRole :search.sync="searchCondition.search" :inputType="['is_company', 'business_range']" @searchMethod="searchMethod"></searchRole>
+        <searchRole 
+        	:search.sync="searchCondition.search" 
+        	:inputType="['is_company', 'business_range']" 
+        	@searchMethod="searchMethod"></searchRole>
         <search :search.sync="searchCondition.search" @searchMethod="searchMethod"  @emptyMthod='searchMethod'  ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
         </search>
         <!-- 表格 -->
@@ -64,7 +67,7 @@
           page: 1,
           search: {
             status: "1",
-            is_company: "1"
+            is_company: 1
           },
           per_page: 20
         },
@@ -84,9 +87,7 @@
       closeSearch() {
         this.$refs.isShow.closeSearch();
       },
-      tabSwitch({
-        name
-      }) {
+      tabSwitch({name}) {              
         // tab面板切换
         this.searchCondition.page = 1;
         this.searchCondition.search={};

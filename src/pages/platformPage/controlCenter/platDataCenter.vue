@@ -58,7 +58,7 @@
                 <el-col
                     class="module"
                     :span="12">
-                    <router-link :to="{ name: 'join'}" tag="div">
+                    <router-link :to="{name: 'join'}" tag="div">
 						<img src="../../../assets/image/statistics-01.png" width="591" class="module-bg"/>
                         <div class="module-content clearfix">
                             <p class="module-title">加盟申请</p>
@@ -69,7 +69,7 @@
                 <el-col
                     class="module"
                     :span="12">
-                    <router-link to='shop-withdrawal' tag="div" append>
+                    <router-link :to="{name:'extractCash'}" tag="div" append>
 						<img src="../../../assets/image/statistics-02.png" width="591" class="module-bg"/>
                         <div class="module-content">
                             <p class="module-title">提现申请</p>

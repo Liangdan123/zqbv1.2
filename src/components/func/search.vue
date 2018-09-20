@@ -18,7 +18,7 @@
 					<p class="color-3">筛选条件</p>
 					<slot></slot>
 					<div class="condition" v-if="isDate">
-						<span class="f12 color-3">创建时间:</span>
+						<span class="f12 color-3">{{applyCreate}}:</span>
 						<el-date-picker v-model="time" type="daterange" placeholder="选择日期范围" :editable="false" @change="change" size="small">
 						</el-date-picker>
 					</div>
@@ -35,6 +35,11 @@
 <script>
 	export default {
 		props: {
+			applyCreate:{
+				default:function(){
+					return "创建时间"
+				}
+			},
 			inputSearch:{//模糊查找默认属性
 				type:String,
 				default:function(){
@@ -84,15 +89,21 @@
 					min: "",
 					max: "",
 				},
+				apply_time: {
+					min: "",
+					max: "",
+				},
 				order_search: "",
 				switchShow: false,
 			}
 		},
 		watch: {
-		    search(val){
+		    search(val){//TODO		    	
 		        let keys=Object.keys(val)//监听搜索条件变化
-		        keys.includes('created_time')||(this.time=[]);
-		        keys.includes(this.inputSearch)||(this.order_search="");
+//		        keys.includes('created_time')||(this.time=[]);//监听重置时间
+//		        keys.includes(this.inputSearch)||(this.order_search="");
+				this.time=[];//监听重置时间
+				this.order_search="";
 		    }
 	   	},
 		methods: {
@@ -107,23 +118,49 @@
 			},
 			//筛选订单的确定按钮
 			Search(){
-				if(this.isDate){//有创建时间时
-					if(this.time.length && this.time[0] && this.time[1] ) {
+				if(this.isDate){//（申请时间跟创建时间在一起）				
+					if(this.time.length && this.time[0] && this.time[1] ){
 						let min = this.format(this.time[0]);
 						let max = this.format(this.time[1]);
-						this.created_time = Object.assign({}, this.created_time, {
-							min,
-							max
-						});
+						if(this.applyCreate==="创建时间"){
+							this._timeType(1,"created_time",min,max)
+						}else if(this.applyCreate==="申请时间"){
+							this._timeType(1,"apply_time",min,max)
+						}
 					};
-					if(this.time.length !== 0 && this.time[0]&& this.time[1]) {
-						this.search.created_time = this.created_time;
-					} else {
-						delete this.search.created_time
-					};
+					if(this.time.length !== 0 && this.time[0]&& this.time[1]){
+						if(this.applyCreate==="创建时间"){
+							this._timeType(2,"created_time")
+						}else if(this.applyCreate==="申请时间"){
+							this._timeType(2,"apply_time")
+						}
+					}else{
+						if(this.applyCreate==="创建时间"){
+							this._timeType(3,"created_time")
+						}else if(this.applyCreate==="申请时间"){
+							this._timeType(3,"apply_time")
+						}
+					}
+
 				}
 				this.$emit("searchMethod")
 				this.closeSearch();
+			},
+			_timeType(num,type,min,max){
+				switch(num){
+					case 1:
+						this[type]=Object.assign({}, this[type], {
+							min,
+							max
+						});
+						break;
+					case 2:
+						this.search[type] = this[type];
+						break;
+					case 3:
+						delete this.search[type]
+						break;
+				}
 			},
 			//清除时间时Time值会变成undefined；
 			change() {
@@ -134,7 +171,11 @@
 			Empty() {
 				this.time = [];
 				this.order_search = '';
-				delete this.search.created_time;
+				if(this.applyCreate==="创建时间"){
+					delete this.search.created_time;
+				}else if(this.applyCreate==="申请时间"){
+					delete this.search.apply_time;
+				}
 				delete this.search[this.inputSearch];
 				this.$emit("emptyMthod");
 				this.closeSearch();

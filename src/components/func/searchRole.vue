@@ -1,7 +1,10 @@
 <template>
   <div class="selectType">
     <el-select v-model="is_company" placeholder="请选择" size="small" @change="select" v-if="companyShow">
-      <el-option v-for="item in options1" :key="item.value" :label="item.label" :value="item.value">
+      <el-option v-for="item in options1" 
+      	:key="item.value" 
+      	:label="item.label" 
+      	:value="item.value">
       </el-option>
     </el-select>
     <el-select v-model="type" placeholder="角色选择" size="small" @change="select"  v-if="typeShow">
@@ -31,7 +34,7 @@
         }
       }
     },
-     watch: {
+    watch: {
       search(val){
         let keys=Object.keys(val)//监听搜索条件变化
         keys.includes('type')||(this.type="");
@@ -39,15 +42,24 @@
         keys.includes('is_company')||(this.is_company="0");
       }
     },
+    computed:{
+    	is_company:{//企业个人搜索
+				get(){
+					return this.search.is_company
+				},
+				set(val){
+					this.search.is_company=val;
+				},
+    	},
+    },
     data() {
       return {
-        is_company: "1",
         options1: [{
-            value: "1",
+            value: 1,
             label: "企业"
           },
           {
-            value: "0",
+            value: 0,
             label: "个人"
           }
         ],

@@ -32,7 +32,7 @@
         </el-table-column>
         <el-table-column prop="contact_name" label="姓名"></el-table-column>
         <el-table-column prop="phone" label="手机号"></el-table-column>
-        <el-table-column prop="company_name" label="公司名称" v-if="searchCondition.search.is_company=='1'"></el-table-column>
+        <el-table-column prop="company_name" label="公司名称" v-if="searchCondition.search.is_company==1"></el-table-column>
         <el-table-column prop="contact_email" label="常用邮箱" v-else></el-table-column>
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="120" label="操作">
@@ -47,7 +47,7 @@
       	:current-page.sync="searchCondition.page"
         :page-size="searchCondition.per_page" 
         layout="total, prev, pager, next" 
-        :total="total">
+        :total="total"
       </el-pagination>
     </div>
   </div>
@@ -66,7 +66,7 @@
           page: 1,
           search: {
             status:"1",
-            is_company:"1"
+            is_company:1
           },
           per_page: 20
         },
