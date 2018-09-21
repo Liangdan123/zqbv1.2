@@ -4,13 +4,13 @@
 			<el-menu-item index="extractCash" :class="{active:selected=='extractCash'}">
 				提现申请
 			</el-menu-item>
-			<el-menu-item index="role" :class="{active:selected=='role'}">
+			<el-menu-item index="orderIncome" :class="{active:selected=='orderIncome'}">
 				订单收入
 			</el-menu-item>
-			<el-menu-item index="commission" :class="{active:selected=='commission'}">
+			<el-menu-item index="memberIncome" :class="{active:selected=='memberIncome'}">
 				会员发展收入
 			</el-menu-item>
-			<el-menu-item index="permission" :class="{active:selected=='permission'}">
+			<el-menu-item index="roleFund" :class="{active:selected=='roleFund'}">
 				角色发展收入
 			</el-menu-item>
 			<el-menu-item index="message" :class="{active:selected=='message'}">

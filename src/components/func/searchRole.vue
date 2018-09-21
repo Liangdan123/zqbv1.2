@@ -4,14 +4,15 @@
     	v-model="is_company" 
     	placeholder="请选择" 
     	size="small" 
-    	@change="select" 
-    	v-if="companyShow">
+    	@change="select"     	
+    	v-if="inputType.includes('is_company')">
     	
       <el-option v-for="item in options1" 
       	:key="item.value" 
       	:label="item.label" 
       	:value="item.value">
       </el-option>
+      
     </el-select>
     
     <el-select 
@@ -19,7 +20,7 @@
     	placeholder="角色选择" 
     	size="small" 
     	@change="select"  
-    	v-if="typeShow">
+    	v-if="inputType.includes('type')">
     	
       <el-option 
       	v-for="item in options2" 
@@ -30,11 +31,11 @@
       
     </el-select>
     
-    <el-select v-model="business_range" 
+   <el-select v-model="business_range" 
     	placeholder="业务范围选择" 
     	size="small" 
     	@change="select" 
-    	v-if="businessShow">
+    	v-if="inputType.includes('business_range')">
     	
       <el-option 
       	v-for="item in options3" 
@@ -44,6 +45,7 @@
       	
       </el-option>
     </el-select>
+    
   </div>
 </template>
 
@@ -105,55 +107,38 @@
           value: "",
           label: "全部"
         }],
-        companyShow: true,
-        typeShow: true,
-        businessShow: true,
         isSearch:true,
         is_company:1,
       }
      
     },
     async created() {
-      this.companyShow = this.inputType.includes('is_company');
-      this.typeShow = this.inputType.includes('type');
-      this.businessShow = this.inputType.includes('business_range');
-      if (!this.businessShow) {
-        return;
-      }
-      let arr = [];
-      if (this.$store.getters.getMallClassifyList.length > 0) {
-        arr = this.$store.getters.getMallClassifyList;
-      } else {
-        //获取商城分类列表
-        let {data} = await getMallClassifyList()     
-        this.$store.commit("MALLCLASSIFYLIST", data)
-        arr = data;
-      }
+   	 //获取商城分类列表
+    	let {data} = await getMallClassifyList()     
       this.options3 = [{
-        value: "",
+        value:null,
         label: "全部"
       }];
-      for (let val of arr) {
+      for (let val of data) {
         this.options3.push({
           value: val.id,
           label: val.mall_category_name,
         })
-      }
+      }     
     },
     methods: {
       select() {
-        if (this.companyShow) {
-        	console.log(5555555511111111)//TODO
+        if (this.inputType.includes('is_company')) {
           this.search.is_company = +this.is_company;
         };
-        if (this.typeShow) {       	
+        if (this.inputType.includes('type')) {       	
           if (this.type) {
             this.search.type = this.type
           } else {
             delete this.search.type
           }
-        }
-        if (this.businessShow) {      	
+        };
+        if (this.inputType.includes('business_range')) {  
           if (this.business_range) {
             this.search.business_range = this.business_range
           } else {

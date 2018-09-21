@@ -110,6 +110,7 @@
 				hintMess="输入相关信息进行搜索" 
 				selectTitle="筛选条件" 
 				applyCreate="申请时间" 
+				inputSearch="keyword"
 				:search.sync="searchCondition.search" 
 				@searchMethod="searchInput" 
 				@emptyMthod="emptyMthod" 
@@ -237,7 +238,6 @@
 		data() {
 			return {
 				searchCondition: { //搜索条件
-					user_id: this.$store.state.user.user.type,
 					search: {
 						status: this.activeName,
 						is_company: 1
@@ -273,7 +273,6 @@
 		watch: {
 			activeName() {									
 				this.searchCondition = {
-					user_id: this.$store.state.user.user.type,
 					search: {
 						status: this.activeName,
 						is_company: 1
@@ -345,10 +344,13 @@
 						break;	
 				}
 			},
-			sureCancel(data){//汇款失败中的确定和取消
-				
+			sureCancel(data){//汇款失败中的确定和取消				
 				switch(data){
 					case "确定":
+						if(!this.remark){
+							this.$message("请输入失败原因");
+							return
+						};
 						let fundData={
 							tixian_id:this.tixian_id,
 							status:3,	
