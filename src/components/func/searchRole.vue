@@ -6,7 +6,6 @@
     	size="small" 
     	@change="select" 
     	v-if="companyShow">
-    	
       <el-option v-for="item in options1" 
       	:key="item.value" 
       	:label="item.label" 
@@ -20,7 +19,6 @@
     	size="small" 
     	@change="select"  
     	v-if="typeShow">
-    	
       <el-option 
       	v-for="item in options2" 
       	:key="item.value" 
@@ -35,20 +33,18 @@
     	size="small" 
     	@change="select" 
     	v-if="businessShow">
-    	
       <el-option 
       	v-for="item in options3" 
       	:key="item.value" 
       	:label="item.label" 
       	:value="item.value">
-      	
       </el-option>
     </el-select>
   </div>
 </template>
 
 <script>
-  import {getMallClassifyList} from "@/api/commodity"
+  import {getMallClassifyList} from "@/api/platform"
  
   export default {
     props: {
@@ -121,14 +117,9 @@
         return;
       }
       let arr = [];
-      if (this.$store.getters.getMallClassifyList.length > 0) {
-        arr = this.$store.getters.getMallClassifyList;
-      } else {
-        //获取商城分类列表
-        let {data} = await getMallClassifyList()     
-        this.$store.commit("MALLCLASSIFYLIST", data)
-        arr = data;
-      }
+      //获取商城分类列表
+      let {data} = await getMallClassifyList()     
+      arr = data;
       this.options3 = [{
         value: "",
         label: "全部"
@@ -143,7 +134,6 @@
     methods: {
       select() {
         if (this.companyShow) {
-        	console.log(5555555511111111)//TODO
           this.search.is_company = +this.is_company;
         };
         if (this.typeShow) {       	
@@ -160,6 +150,7 @@
             delete this.search.business_range
           }
         };
+        console.log(this.is_company,this.type,this.business_range);
         this.$emit("searchMethod")      
       }
     }

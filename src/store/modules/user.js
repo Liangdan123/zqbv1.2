@@ -1,7 +1,7 @@
 import * as types from "../mutation-types"
 import Store from "../../utils/store.js"
 import router from '@/router'
-import {getMallInfo,loginOut} from '@/api/login'
+import {loginOut} from '@/api/login'
 const state={
 	login:false,
 	manualLogout:false,
@@ -83,7 +83,7 @@ const actions={
 		// 	router.replace("/mallZxh/data-center");						
 		// }
 		commit(types.LOGIN,user);//登录成功的一系列的信息
-		router.replace("/agent")
+		router.replace("mallZxh/manage/join")
 	},
 	//退出登录
 	doLogout({commit}){
@@ -95,13 +95,6 @@ const actions={
 			router.replace('/');			
 		})
 		.catch(({response: {status, data}})=>{
-		})
-	},
-	//获取登陆页面logo和底图
-	doLoginURL({commit}){
-		getMallInfo()
-		.then(({data})=>{
-			commit(types.LOGINURL,data);
 		})
 	},
 	//重置密码成功（手机和邮箱）

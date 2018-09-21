@@ -20,8 +20,8 @@
       </el-tabs>
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
-        <searchRole :search.sync="searchCondition.search" @searchMethod="searchMethod"></searchRole>
-        <search :search.sync="searchCondition.search"  @searchMethod="searchMethod"  @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
+        <searchRole :search.sync="searchCondition.search"  @searchMethod="searchMethod"></searchRole>
+        <search :search.sync="searchCondition.search" inputSearch='order_search' @searchMethod="searchMethod"  @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
         </search>
       </div>
       <!--........................表格...............-->
@@ -40,14 +40,14 @@
             class="u-btn">查看记录</router-link>
         </el-table-column>
       </el-table>
-      <el-pagination 
+      <el-pagination
       	class="pagination mt-20" 
       	v-if="total>searchCondition.per_page" 
       	@current-change="handleCurrentChange" 
       	:current-page.sync="searchCondition.page"
         :page-size="searchCondition.per_page" 
         layout="total, prev, pager, next" 
-        :total="total"
+        :total="total">
       </el-pagination>
     </div>
   </div>
@@ -56,6 +56,7 @@
 <script>
   import Navbar from "@/components/platform/manage/Navbar";
   import page from '@/utils/page'
+	import {getAppllyList} from "@/api/platform"
 
   export default {
     data() {
@@ -68,27 +69,9 @@
             status:"1",
             is_company:1
           },
-          per_page: 20
+          per_page: 1
         },
-        list: [{
-          "join_id": 1,
-          "join_no": "J18013110204412011155",
-          "is_company": 1,
-          "type": 2,
-          "contact_name": "小王",
-          "cps_id": 0,
-          "phone": "18457922111",
-          "province": "浙江省",
-          "city": "金华市",
-          "contact_email": "cs@163.com",
-          "company_name": "快服科技",
-          "business_range": "1,2,3",
-          "business_range_name": "app开发,管理软件,人力资源",
-          "pay_fee_yuan": 1000,
-          "audit_status": 1,
-          "pay_status": 0,
-          "created_at": "2018-08-07 08:45:11"
-        }],
+        list: [],
       };
     },
     mixins: [page],
@@ -108,19 +91,19 @@
         this.searchCondition.page = 1;
         this.searchCondition.search={};
         this.searchCondition.search.status=this.tabForShow;
-        this._doSearch();
+        this.searchMethod();
       },
       _doSearch() {
         // 搜索入驻申请列表
-        // this.tableDataLoading = true;
-        // getShopApplyLists(this.searchCondition)
-        //     .then(({
-        //         data
-        //     }) => {
-        //         this.tableDataLoading = false;
-        //         this.list = data.data;
-        //         this.total = data.total;
-        //     })
+        this.tableDataLoading = true;
+        getAppllyList(this.searchCondition)
+            .then(({
+                data
+            }) => {
+                this.tableDataLoading = false;
+                this.list = data.data;
+                this.total = data.total;
+            })
       }
     }
   };

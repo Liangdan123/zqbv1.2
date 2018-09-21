@@ -36,6 +36,10 @@ export const deleteAdList=(data)=>axios.delete("mock/ad_data/delete_batch",{data
 
 export const getRoleList=(data)=>axios.post("mock/platform/role_lists",data)//获取角色列表（例如：服务商）
 
+export const getAppllyList=(data)=>axios.post("mock/platform/application_lists",data)//获取角色申请列表
+
+export const applyRole=(data)=>axios.post("mock/platform/add_application",data)//角色申请
+
 export const distributeAd=(data)=>axios.post("mock/ad_data/distribute_batch",data)//批量分配广告数据
 
 export const getStoreList=(data)=>axios.post("mock/shop/lists",data)//获取店铺列表
@@ -67,4 +71,6 @@ export const getFundList=(data)=>axios.post("mock/fund/tixian_lists",data)//获�
 export const getFundMess=(data)=>axios.get("mock/fund/get_tixian",{params:data})//获取提现信息
 
 export const fundOperation=(data)=>axios.post("mock/fund/remittance",data)//提现申请汇款操作
+
+
 

@@ -2,10 +2,9 @@
 <div class="login pos-a  pos-all">
   <div class="login-con pos-a">
 		<img src="../assets/image/login.png" alt="">
-    <!--...................注册登录开始页面........................-->
+    <!--...................注册登录........................-->
     <el-col class="login-box">
       <router-view>
-      	
       </router-view>
     </el-col>
   </div>

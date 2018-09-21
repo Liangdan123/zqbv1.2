@@ -2,9 +2,9 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import store from '@/store'
 import login from '@/pages/login'
-import register from '@/pages/loginPage/register'
+import signIn from '@/pages/loginPage/signIn'
 import reset from '@/pages/loginPage/mobileReset'
-import sfz from '@/pages/loginPage/SFZ'
+import register from '@/pages/loginPage/register'
 import blank from '@/components/func/blank' //空白页面
 
 //平台导航
@@ -89,13 +89,13 @@ const router = new Router({
 				component: login,
 				children: [{
 					path: '',
-					component: register
+					component: signIn
 				}, {
 					path: 'reset',
 					component: reset
 				}, {
-					path: 'sfz',
-					component: sfz
+					path: 'register',
+					component: register
 				}]
 			},
 			{ //合伙人

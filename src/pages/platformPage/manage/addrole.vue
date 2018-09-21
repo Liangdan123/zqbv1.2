@@ -76,51 +76,11 @@
 
 <script>
   import router from '@/router'
-
+	import {applyRole} from "@/api/platform"
   export default {
     data() {
       return {
-        options: [{
-            value: "1",
-            label: "工商注册、财务记账"
-          },
-          {
-            value: "2",
-            label: "管理软件"
-          },
-          {
-            value: "3",
-            label: "网站app开发"
-          },
-          {
-            value: "4",
-            label: "人力资源"
-          },
-          {
-            value: "5",
-            label: "资质许可证"
-          },
-          {
-            value: "6",
-            label: "认证服务"
-          },
-          {
-            value: "7",
-            label: "知识产权"
-          },
-          {
-            value: "8",
-            label: "企业信用评级"
-          },
-          {
-            value: "9",
-            label: "法律顾问"
-          },
-          {
-            value: "10",
-            label: "投融资"
-          }
-        ],
+        options: [],
         type: "2",
         is_company: 1,
         form: {
