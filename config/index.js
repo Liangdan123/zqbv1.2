@@ -19,7 +19,6 @@ module.exports = {
             target: 'http://zqb.71baomu.com',
             changeOrigin: true
        },
-
 	    '/uploads':{
             target: 'http://zqb.71baomu.com',
             changeOrigin: true

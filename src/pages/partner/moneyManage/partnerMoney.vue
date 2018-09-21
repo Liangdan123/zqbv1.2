@@ -133,10 +133,13 @@
 
 
 <style lang="scss" scoped>
-  .g_content {
+   .g_content {
     position: relative;
     width: 1240px;
     margin: 20px auto 0;
+    background:#fff;
+    padding:25px;
+    box-sizing:border-box;
   }
 
 </style>
