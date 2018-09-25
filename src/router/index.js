@@ -51,6 +51,7 @@ import platDataCenter from "@/pages/platformPage/controlCenter/platDataCenter"
 import server from "@/pages/servicerPage/servers"
 //服务商的资金管理
 import fundManage from "@/pages/servicerPage/fund/fundManage"
+import withdrawalapply from "@/pages/servicerPage/fund/withdrawalapply"
 //服务商的营销管理
 import serverMarketInfo from "@/pages/servicerPage/marketing/serverMarketInfo"
 import serverMemberCenter from "@/pages/servicerPage/marketing/serverMemberCenter"
@@ -372,10 +373,15 @@ const router = new Router({
 							}
 						]
 					},
-					{					
+					{//资金管理（服务商）					
 						path: 'fundManage',
 						name: 'fundManage',
 						component: fundManage,	
+					},
+					{
+						path: 'fundManage/withdrawalapply',
+						name: 'withdrawalapply',
+						component: withdrawalapply,		
 					}
 				]
 			}

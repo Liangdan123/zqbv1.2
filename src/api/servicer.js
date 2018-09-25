@@ -29,3 +29,5 @@ export const getIrregularities=(data)=>axios.post("mock/product/seller_illegal_l
 export const checkIrregularities=(illegal_id)=>axios.post("mock/product/check_illegal",{illegal_id})//查看违规提醒(商户)
 
 export const isRead=(illegal_id)=>axios.put("mock/product/operate_illegal",{illegal_id})//处理违规提醒(商户)
+
+export const getAccountInfo=(user_id)=>axios.get("mock/fund/get_account",{params:{user_id}})//获取账户信息
