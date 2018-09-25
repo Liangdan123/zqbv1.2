@@ -28,6 +28,10 @@ export const getMemberNum=()=>axios.get("member/get_statistics")//获取会员�
 
 export const getMemberList=(data)=>axios.post("mock/member/lists",data)//获取会员列表
 
+export const getApplication=(join_id)=>axios.get("mock/platform/get_application",{param:{join_id}})//获取角色申请信息
+
+export const updateApplication=(data)=>axios.put("mock/platform/update_application",data)//修改角色申请信息
+
 export const memberRechargeList=(data)=>axios.post("mock/member/recharge_lists",data)//获取会员充值列表
 
 export const getAdList=(data)=>axios.post("mock/ad_data/lists",data)//获取广告数据列表

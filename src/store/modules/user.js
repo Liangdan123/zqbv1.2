@@ -1,7 +1,9 @@
 import * as types from "../mutation-types"
+import {getArea} from '@/api/login.js'
 import Store from "../../utils/store.js"
 import router from '@/router'
 import {loginOut} from '@/api/login'
+export const AREA = 'AREA'
 const state={
 	login:false,
 	manualLogout:false,
@@ -19,6 +21,7 @@ const state={
 		background:"",
 		logo:""
 	},
+	area:[],
 	resetSuccess:false,
 	registerSuccess:false
 }
@@ -46,7 +49,10 @@ const getters={
 	},
 	getPhone:(state)=>{
 		return state.user.phone
-	}
+	},
+	getArea:(state)=>{
+		return state.area
+	},
 }
 
 const mutations={
@@ -69,7 +75,10 @@ const mutations={
 	},
 	[types.REGISTERSUCCESS](state,booleans){
 		state.registerSuccess=booleans
-	}
+	},
+	[AREA](state,area){
+		state.area=area
+	},
 }
 const actions={
 	//登陆成功
@@ -83,6 +92,9 @@ const actions={
 		// 	router.replace("/mallZxh/data-center");						
 		// }
 		commit(types.LOGIN,user);//登录成功的一系列的信息
+		// getArea().then(({data})=>{
+		// 	commit(AREA,data);
+		// })
 		router.replace("mallZxh/manage/join")
 	},
 	//退出登录

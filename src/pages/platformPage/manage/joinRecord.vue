@@ -2,7 +2,7 @@
   <div class="platform commodity">
     <div class="g-content">
       <div class="header">详情信息
-        <el-button class="store-button2 edit mb-10 float-r" @click="edit" v-if="(tab==1||tab==2)&&path=='join'">
+        <el-button class="store-button2 edit mb-10 float-r" @click="edit" v-if="(tab==1||tab==2)&&path=='join'&&!isEdit">
           <i class="iconfont icon-Rectangle f12"></i>
           <span class="font-b">编辑信息</span>
         </el-button>
@@ -66,87 +66,17 @@
 </template>
 
 <script>
+	import {getApplication,updateApplication} from "@/api/platform"
   import router from '@/router'
   export default {
     data() {
       return {
         status: "1",
         tab: "",
-        id: "",
+        join_id: "",
         isEdit: false,
-        list: {
-          "join_id": 1,
-          "join_no": "J18013110204412011155",
-          "mall_id": 1,
-          "is_company": 1,
-          "type": 3,
-          "cps_id": 0,
-          "contact_name": "小王",
-          "sex": 1,
-          "identity_num": "330702211112222222",
-          "phone": "18457922111",
-          "wx_qq": "3323312",
-          "contact_email": "cs@163.com",
-          "province": "浙江省",
-          "city": "金华市",
-          "address": "豪森智慧谷6幢",
-          "company_name": "快服科技",
-          "business_range": "1,2,3",
-          "business_range_name": "app开发,管理软件,人力资源",
-          "license_url": "uploads/1/product/3/2018-07-26-14-30-38-5b596a8e76b2a.png",
-          "identity_front_url": "uploads/1/product/3/2018-07-26-14-30-38-5b596a8e76b2a.png",
-          "identity_back_url": "uploads/1/product/3/2018-07-26-14-30-38-5b596a8e76b2a.png",
-          "pay_fee_yuan": 1000,
-          "pay_type": "weixin",
-          "audit_status": 1,
-          "pay_status": 0,
-          "commit_time": "2018-08-07 08:45:11",
-          "audit_time": "2018-08-07 08:45:11",
-          "pay_time": null,
-          "remark": null,
-          "created_at": "2018-08-07 08:45:11"
-        },
-        options: [{
-            value: "1",
-            label: "工商注册、财务记账"
-          },
-          {
-            value: "2",
-            label: "管理软件"
-          },
-          {
-            value: "3",
-            label: "网站app开发"
-          },
-          {
-            value: "4",
-            label: "人力资源"
-          },
-          {
-            value: "5",
-            label: "资质许可证"
-          },
-          {
-            value: "6",
-            label: "认证服务"
-          },
-          {
-            value: "7",
-            label: "知识产权"
-          },
-          {
-            value: "8",
-            label: "企业信用评级"
-          },
-          {
-            value: "9",
-            label: "法律顾问"
-          },
-          {
-            value: "10",
-            label: "投融资"
-          }
-        ],
+        list: {},
+        options: [],
         form: {},
         rules: {
           contact_name: [{
@@ -215,10 +145,13 @@
       }
     },
     created() {
-      this.id = this.$route.query.id;
+      this.join_id = this.$route.query.id;
       this.path = this.$route.query.path;
       this.tab = this.$route.query.tab || null;
       //根据id查记录
+      getApplication(this.id).then(({data})=>{
+          this.list=data;
+      })
     },
     methods: {
       save() {

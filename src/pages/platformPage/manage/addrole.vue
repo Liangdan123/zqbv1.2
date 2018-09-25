@@ -2,7 +2,7 @@
   <div class="platform commodity">
     <div class="g-content">
       <div class="header">添加角色</div>
-      <el-tabs v-model="type" @tab-click="tabSwitch">
+      <el-tabs v-model="type" @tab-click="tabSwitch" >
         <el-tab-pane label="代理商" name="2"></el-tab-pane>
         <el-tab-pane label="合伙人" name="3"></el-tab-pane>
         <el-tab-pane label="服务商" name="4"></el-tab-pane>
@@ -10,7 +10,7 @@
       <div class="mt-20">
         <label class="mr-20 ml-20">性质选择：</label>
         <el-radio v-model="is_company" :label="1" class="mr-20">企业</el-radio>
-        <el-radio v-model="is_company" :label="2">个人</el-radio>
+        <el-radio v-model="is_company" :label="0">个人</el-radio>
       </div>
       <el-form :model="form" label-width="120px" class="mt-20 clearfix join" :rules="rules" ref="ruleForm">
         <el-form-item label="姓名：" prop="contact_name">
@@ -31,8 +31,8 @@
         <el-form-item label="QQ号：" v-if="is_company==1" prop="wx_qq">
           <el-input v-model="form.wx_qq" size="small" placeholder="请输入qq号"></el-input>
         </el-form-item>
-        <el-form-item label="所在地区：" prop="city">
-          <city :areaSelect.sync="form.city" :placeholder="'请选择地区'"></city>
+        <el-form-item label="所在地区：" prop="city" >
+          <city :areaSelect.sync="form.city" :placeholder="'请选择地区'" key="33"></city>
         </el-form-item>
         <el-form-item label="邮箱：" prop="contact_email">
           <el-input v-model="form.contact_email" size="small" placeholder="请输入邮箱"></el-input>
@@ -43,23 +43,29 @@
         <el-form-item label="公司名称：" v-if="is_company==1" prop="company_name">
           <el-input v-model="form.company_name" size="small" placeholder="请输入公司名称"></el-input>
         </el-form-item>
-        <el-form-item label="业务范围：" v-if="type!=2" prop="business_range">
-          <el-select v-model="form.business_range" :multiple="type==3" placeholder="请选择业务范围" size="small">
+        <el-form-item label="业务范围：" v-if="type==3" prop="business_range">
+          <el-select v-model="form.business_range" multiple placeholder="请选择业务范围" size="small" key="11">
+            <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
+            </el-option>
+          </el-select>
+        </el-form-item>
+          <el-form-item label="业务范围：" v-if='type==4' prop="business_range1">
+          <el-select v-model="form.business_range1"  placeholder="请选择业务范围" size="small" key="22">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
         </el-form-item>
         <div class="clearfix"></div>
         <el-form-item label="营业执照副本扫描件（三证合一时）：" prop="license_url" class="identity">
-          <imageUpload :imageUrl="form.license_url" :imageType="imageType" @getImageUrl="licenseView">
+          <imageUpload :imageUrl="form.license_url" imageType="role" @getImageUrl="licenseView">
           </imageUpload>
         </el-form-item>
         <el-form-item label="法人身份证（正面）：" prop="identity_front_url" class="identity ml-10">
-          <imageUpload :imageUrl="form.identity_front_url" :imageType="imageType" @getImageUrl="frontalView">
+          <imageUpload :imageUrl="form.identity_front_url" imageType="role" @getImageUrl="frontalView">
           </imageUpload>
         </el-form-item>
         <el-form-item label="法人身份证（反面）：" prop="identity_back_url" class="identity ml-10">
-          <imageUpload :imageUrl="form.identity_back_url" :imageType="imageType" @getImageUrl="reverseView">
+          <imageUpload :imageUrl="form.identity_back_url" imageType="role" @getImageUrl="reverseView">
           </imageUpload>
         </el-form-item>
         <div class="clearfix"></div>
@@ -68,7 +74,7 @@
         <router-link to="join">
           <el-button class='store-button2 float-r ml-20'>取消</el-button>
         </router-link>
-        <el-button class='store-button1 float-r ml-20' @click="add">添加</el-button>
+        <el-button class='store-button1 float-r ml-20' @click="add('ruleForm')">添加</el-button>
       </div>
     </div>
   </div>
@@ -76,7 +82,7 @@
 
 <script>
   import router from '@/router'
-	import {applyRole} from "@/api/platform"
+	import {applyRole,getMallClassifyList} from "@/api/platform"
   export default {
     data() {
       return {
@@ -91,9 +97,9 @@
           wx_qq: '',
           city: [],
           contact_email: '',
-          address: '',
           company_name: '',
-          business_range: "",
+          business_range: [],
+          business_range1:"",
           license_url: "",
           identity_front_url: "",
           identity_back_url: "",
@@ -105,10 +111,11 @@
             trigger: 'blur'
           }, ],
           sex: [{
+             type: 'number',
             required: true,
             message: '请选择性别',
             trigger: 'change'
-          }, ],
+          }],
           identity_num: [{
               required: true,
               message: '请输入身份证号',
@@ -116,7 +123,8 @@
             },
             {
               pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-              message: '证件号码不正确'
+              message: '证件号码不正确',
+              trigger: 'blur'
             }
           ],
           phone: [{
@@ -126,7 +134,8 @@
             },
             {
               pattern: /^1[34578]\d{9}$/,
-              message: '目前只支持中国大陆的手机号码'
+              message: '目前只支持中国大陆的手机号码',
+              trigger: 'blur'
             }
           ],
           wx_qq: [{
@@ -136,22 +145,20 @@
             },
             {
               pattern: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-              message: '输入正确的QQ号'
+              message: '输入正确的QQ号',
             }
           ],
           city: [{
+             type: 'array',
             required: true,
             message: '请选择城市',
-            trigger: 'change'
+            trigger: 'selectArea'
           }],
           contact_email: [{
+            type:'email',
               required: true,
               message: '请输入邮箱',
               trigger: 'blur'
-            },
-            {
-              pattern: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-              message: '请输入正确的邮箱'
             }
           ],
           company_name: [{
@@ -160,10 +167,19 @@
             trigger: 'blur'
           }],
           business_range: [{
+                type:'array',
             required: true,
             message: '请选择经营范围',
             trigger: 'change'
-          }],
+          }
+          ],
+          business_range1: [{
+            type:'number',
+            required: true,
+            message: '请选择经营范围',
+            trigger: 'change'
+           }
+          ],
           license_url: [{
             required: true,
             message: '请上传营业执照复印件',
@@ -180,21 +196,68 @@
             trigger: 'change'
           }]
         },
-        imageType: "identity", //图片类型
+      }
+    },
+    async created(){
+      //获取商城分类列表
+      let {data} = await getMallClassifyList();
+      this.options = [];
+      for (let val of data) {
+        this.options.push({
+          value: val.id,
+          label: val.mall_category_name,
+        })
       }
     },
     methods: {
-      add() {
-        router.push("join")
+      add(formName) {
+          this.$refs[formName].validate((valid) => {
+          if (valid) {
+            let post_data=Object.assign({},this.form,{type:this.type,is_company:this.is_company});
+            post_data.province=this.form.city[0];
+            post_data.city=this.form.city[1];
+            if(post_data.type==3){
+              post_data.business_range.join(",")
+            }else if(post_data.type==4){
+              post_data.business_range=post_data.business_range1;
+              delete post_data.business_range1;
+            }
+            applyRole(post_data).then((data)=>{
+              if(data.errcode){
+                this.$message.error(data.errorcmt)
+              }else{
+                this.$message.success("提交成功");
+                setTimeout(() => {
+                  // router.push("join");
+                }, 1000);
+              }
+            })
+          } else {
+            return false;
+          }
+        });
       },
       tabSwitch(tab) {
         // 清除表单数据
-        this.$refs['ruleForm'].resetFields();
         if (tab.name == 3) {
-          this.form.business_range = []
+            this.rules.business_range=[{
+                type:'array',
+            required: true,
+            message: '请选择经营范围',
+            trigger: 'change'
+          }]
+         this.$set(this.form,"business_range",[]);
         } else if (tab.name == 4) {
-          this.form.business_range = ""
+            this.rules.business_range=[{
+            type:'number',
+            required: true,
+            message: '请选择经营范围',
+            trigger: 'change'
+          }]
+          this.$set(this.form,"business_range","");
         }
+        // this.$refs['ruleForm'].resetFields();
+        this.$set(this.form,"city",[]);
       },
       licenseView(data) {
         console.log(data)
@@ -219,6 +282,7 @@
   .header {
     color: #333333;
     font-size: 20px;
+    margin-bottom: 30px;
   }
 
   .floot {

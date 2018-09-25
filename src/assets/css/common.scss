@@ -811,13 +811,13 @@ em {
   font-size: $font-normal;
   color: $color-base;
   &.is-active {
-    font-weight: 600;
     color: $color-light;
   }
 }
 
 .el-tabs__active-bar {
   background-color: $color-light;
+  height:2px;
 }
 
 .el-form-item__label {

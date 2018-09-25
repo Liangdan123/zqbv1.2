@@ -1,23 +1,20 @@
-<template>
-  <area-cascader type='text' v-model='selectedOptions' :data="pca" @change="handleChange" :size="size" :placeholder="placeholder"></area-cascader>
+<template lang="html">
+  <el-cascader :options="area" v-model="selectedOptions" @change="handleChange" :size="size"></el-cascader>
 </template>
 
 <script>
-  import {
-    pca
-  } from 'area-data'; // v5 or higher
   export default {
     data() {
       return {
-        pca: pca
+        area: [],
       }
     },
     props: {
-      placeholder:{
-        defalut: ''
-      },
       size: {
         defalut: 'small'
+      },
+      type: {
+        defalut: '1' //全国
       },
       areaSelect: {
         default: () => {
@@ -31,11 +28,17 @@
           return this.areaSelect;
         },
         set(value) {
-          this.areaSelect.splice(0,this.areaSelect.length)
-          for(let val of value){
-             this.areaSelect.push(val)
-           }
+          this.areaSelect.splice(0, this.areaSelect.length);
+          for (let val of value) {
+            this.areaSelect.push(val)
+          }
         }
+      }
+    },
+    created() {
+      this.area = JSON.parse(JSON.stringify(this.$store.getters.getArea));
+      if (this.type != 1) {
+        this.area.shift()
       }
     },
     methods: {
@@ -47,12 +50,3 @@
 
 </script>
 
-<style >
-.area-cascader-wrap{
-  line-height: normal;
-  width: 100%;
-}
-.cascader-menu-list .cascader-menu-option.selected{
-  color:#20a0ff;
-}
-</style>
