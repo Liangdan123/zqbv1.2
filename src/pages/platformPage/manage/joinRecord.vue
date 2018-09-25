@@ -58,7 +58,7 @@
           <el-button class='float-r ml-20' :class="[(tab==1||tab==2)&&path=='join'? 'store-button2 ':'store-button1']">{{(tab==1||tab==2)?"取消":"返回"}}</el-button>
         </router-link>
         <!-- 通过申请的按钮 -->
-        <el-button class='store-button1 float-r ml-20' v-if="tab==1&&path=='join'&&!isEdit">确定</el-button>
+        <el-button class='store-button1 float-r ml-20' v-if="tab==1&&path=='join'&&!isEdit" @click='sure'>确定</el-button>
         <el-button class='store-button1 float-r ml-20' v-if="isEdit" @click="save">保存</el-button>
       </div>
     </div>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-	import {getApplication,updateApplication} from "@/api/platform"
+	import {getApplication,updateApplication,auditApplication} from "@/api/platform"
   import router from '@/router'
   export default {
     data() {
@@ -97,7 +97,8 @@
             },
             {
               pattern: /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/,
-              message: '证件号码不正确'
+              message: '证件号码不正确',
+               trigger: 'blur'
             }
           ],
           wx_qq: [{
@@ -107,7 +108,8 @@
             },
             {
               pattern: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-              message: '输入正确的QQ号'
+              message: '输入正确的QQ号',
+               trigger: 'blur'
             }
           ],
           contact_email: [{
@@ -117,7 +119,8 @@
             },
             {
               pattern: /^[a-zA-Z0-9_.-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)*\.[a-zA-Z0-9]{2,6}$/,
-              message: '请输入正确的邮箱'
+              message: '请输入正确的邮箱',
+                    trigger: 'blur'
             }
           ],
           company_name: [{
@@ -157,9 +160,13 @@
       save() {
         this.$refs['ruleForm'].validate((valid) => {
           if (valid) {
-            this.isEdit = false;
+            updateApplication(this.form).then(({data})=>{
+             if(data.join_id){
+               this.$message.success('信息修改成功')
+               this.isEdit = false;
+             }
+            })
           } else {
-            console.log('error submit!!');
             return false;
           }
         });
@@ -183,8 +190,17 @@
         this.form = data;
         this.isEdit = true;
       },
+      sure(){
+        auditApplication({join_id:this.join_id,status:this.status}).then(({data})=>{
+          if(data.join_id){
+              this.$message.success('审批成功');
+             setTimeout(() => {
+               router.push('join')
+             }, 1000);
+          }
+        })
+      },
       licenseView(data) {
-        console.log(data)
         this.form.license_url = data.new_url
       },
       frontalView(data) {

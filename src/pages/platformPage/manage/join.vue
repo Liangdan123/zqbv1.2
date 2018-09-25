@@ -69,7 +69,7 @@
             status:"1",
             is_company:1
           },
-          per_page: 1
+          per_page: 20
         },
         list: [],
       };

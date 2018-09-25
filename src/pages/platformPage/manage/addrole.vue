@@ -2,7 +2,7 @@
   <div class="platform commodity">
     <div class="g-content">
       <div class="header">添加角色</div>
-      <el-tabs v-model="type" @tab-click="tabSwitch" >
+      <el-tabs v-model="type" @tab-click="tabSwitch">
         <el-tab-pane label="代理商" name="2"></el-tab-pane>
         <el-tab-pane label="合伙人" name="3"></el-tab-pane>
         <el-tab-pane label="服务商" name="4"></el-tab-pane>
@@ -31,7 +31,7 @@
         <el-form-item label="QQ号：" v-if="is_company==1" prop="wx_qq">
           <el-input v-model="form.wx_qq" size="small" placeholder="请输入qq号"></el-input>
         </el-form-item>
-        <el-form-item label="所在地区：" prop="city" >
+        <el-form-item label="所在地区：" prop="city">
           <city :areaSelect.sync="form.city" :placeholder="'请选择地区'" key="33"></city>
         </el-form-item>
         <el-form-item label="邮箱：" prop="contact_email">
@@ -49,8 +49,8 @@
             </el-option>
           </el-select>
         </el-form-item>
-          <el-form-item label="业务范围：" v-if='type==4' prop="business_range1">
-          <el-select v-model="form.business_range1"  placeholder="请选择业务范围" size="small" key="22">
+        <el-form-item label="业务范围：" v-if='type==4' prop="business_range1">
+          <el-select v-model="form.business_range1" placeholder="请选择业务范围" size="small" key="22">
             <el-option v-for="item in options" :key="item.value" :label="item.label" :value="item.value">
             </el-option>
           </el-select>
@@ -82,7 +82,10 @@
 
 <script>
   import router from '@/router'
-	import {applyRole,getMallClassifyList} from "@/api/platform"
+  import {
+    applyRole,
+    getMallClassifyList
+  } from "@/api/platform"
   export default {
     data() {
       return {
@@ -99,7 +102,7 @@
           contact_email: '',
           company_name: '',
           business_range: [],
-          business_range1:"",
+          business_range1: "",
           license_url: "",
           identity_front_url: "",
           identity_back_url: "",
@@ -111,7 +114,7 @@
             trigger: 'blur'
           }, ],
           sex: [{
-             type: 'number',
+            type: 'number',
             required: true,
             message: '请选择性别',
             trigger: 'change'
@@ -149,37 +152,34 @@
             }
           ],
           city: [{
-             type: 'array',
+            type: 'array',
             required: true,
             message: '请选择城市',
             trigger: 'selectArea'
           }],
           contact_email: [{
-            type:'email',
-              required: true,
-              message: '请输入邮箱',
-              trigger: 'blur'
-            }
-          ],
+            type: 'email',
+            required: true,
+            message: '请输入邮箱',
+            trigger: 'blur'
+          }],
           company_name: [{
             required: true,
             message: '请输入公司名称',
             trigger: 'blur'
           }],
           business_range: [{
-                type:'array',
+            type: 'array',
             required: true,
             message: '请选择经营范围',
             trigger: 'change'
-          }
-          ],
+          }],
           business_range1: [{
-            type:'number',
+            type: 'number',
             required: true,
             message: '请选择经营范围',
             trigger: 'change'
-           }
-          ],
+          }],
           license_url: [{
             required: true,
             message: '请上传营业执照复印件',
@@ -198,9 +198,11 @@
         },
       }
     },
-    async created(){
+    async created() {
       //获取商城分类列表
-      let {data} = await getMallClassifyList();
+      let {
+        data
+      } = await getMallClassifyList();
       this.options = [];
       for (let val of data) {
         this.options.push({
@@ -211,26 +213,25 @@
     },
     methods: {
       add(formName) {
-          this.$refs[formName].validate((valid) => {
+        this.$refs[formName].validate((valid) => {
           if (valid) {
-            let post_data=Object.assign({},this.form,{type:this.type,is_company:this.is_company});
-            post_data.province=this.form.city[0];
-            post_data.city=this.form.city[1];
-            if(post_data.type==3){
-              post_data.business_range.join(",")
-            }else if(post_data.type==4){
-              post_data.business_range=post_data.business_range1;
-              delete post_data.business_range1;
+            let post_data = Object.assign({}, this.form, {
+              type: this.type,
+              is_company: this.is_company
+            });
+            post_data.province = this.form.city[0];
+            post_data.city = this.form.city[1];
+            if (post_data.type == 3) {
+              post_data.business_range = post_data.business_range.join(",");
+            } else if (post_data.type == 4) {
+              post_data.business_range = post_data.business_range1;
             }
-            applyRole(post_data).then((data)=>{
-              if(data.errcode){
-                this.$message.error(data.errorcmt)
-              }else{
+            delete post_data.business_range1;
+            applyRole(post_data).then((data) => {
                 this.$message.success("提交成功");
                 setTimeout(() => {
-                  // router.push("join");
+                  router.push("join");
                 }, 1000);
-              }
             })
           } else {
             return false;
@@ -240,27 +241,26 @@
       tabSwitch(tab) {
         // 清除表单数据
         if (tab.name == 3) {
-            this.rules.business_range=[{
-                type:'array',
+          this.rules.business_range = [{
+            type: 'array',
             required: true,
             message: '请选择经营范围',
             trigger: 'change'
           }]
-         this.$set(this.form,"business_range",[]);
+          this.$set(this.form, "business_range", []);
         } else if (tab.name == 4) {
-            this.rules.business_range=[{
-            type:'number',
+          this.rules.business_range = [{
+            type: 'number',
             required: true,
             message: '请选择经营范围',
             trigger: 'change'
           }]
-          this.$set(this.form,"business_range","");
+          this.$set(this.form, "business_range", "");
         }
-        // this.$refs['ruleForm'].resetFields();
-        this.$set(this.form,"city",[]);
+        this.$refs['ruleForm'].resetFields();
+        this.$set(this.form, "city", []);
       },
       licenseView(data) {
-        console.log(data)
         this.form.license_url = data.new_url
       },
       frontalView(data) {
@@ -271,25 +271,21 @@
       },
     }
   }
-
 </script>
 
 <style scoped>
   .g-content {
     font-size: 14px;
   }
-
   .header {
     color: #333333;
     font-size: 20px;
     margin-bottom: 30px;
   }
-
   .floot {
     margin-right: 30%;
     margin-bottom: 50px;
   }
-
 </style>
 
 <style lang="scss">
@@ -330,5 +326,4 @@
       height: 219px;
     }
   }
-
 </style>

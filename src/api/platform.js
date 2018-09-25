@@ -32,6 +32,8 @@ export const getApplication=(join_id)=>axios.get("mock/platform/get_application"
 
 export const updateApplication=(data)=>axios.put("mock/platform/update_application",data)//修改角色申请信息
 
+export const auditApplication=(data)=>axios.post("mock/platform/audit_application",data)//审核角色申请信息
+
 export const memberRechargeList=(data)=>axios.post("mock/member/recharge_lists",data)//获取会员充值列表
 
 export const getAdList=(data)=>axios.post("mock/ad_data/lists",data)//获取广告数据列表
@@ -81,3 +83,52 @@ export const orderCommission=(data)=>axios.post("mock/fund/give_order_lists",dat
 export const memberCommission=(data)=>axios.post("mock/fund/give_member_lists",data)//获取会员发展佣金列表
 
 export const roleCommission=(data)=>axios.post("mock/fund/give_join_lists",data)//获取角色加盟佣金列表
+
+export const getRoleCps=(user_id)=>axios.get("mock/platform/get_role_cps",{params:{user_id}})//获取角色cps链接
+
+export const blacklist=(data)=>axios.put("mock/platform/blacklist_operate_batch",data)//批量黑名单操作
+
+export const getRoleRate=()=>axios.get("mock/platform/get_role_rate")//获取角色分佣
+
+export const saveRoleRate=(data)=>axios.post("mock/platform/save_role_rate",data)//保存角色分佣
+
+export const getMemberRate=()=>axios.get("mock/platform/get_member_rate")//获取会员分佣
+
+export const saveMemberRate=(data)=>axios.post("mock/platform/save_member_rate",data)//保存会员分佣
+
+export const getSpecialOrderRate=()=>axios.get("mock/platform/get_special_order_rate")//获取订单分佣（非会员消费）
+
+export const saveSpecialOrderRate=(data)=>axios.post("mock/platform/save_special_order_rate",data)//保存订单分佣（非会员消费）
+
+export const getOrderExtRate=()=>axios.get("mock/platform/get_order_ext_rate")//获取订单分佣（会员消费额外）
+
+export const saveOrderExtRate=(data)=>axios.post("mock/platform/save_order_ext_rate",data)//保存订单分佣（会员消费）
+
+export const saveOrderRate=(data)=>axios.post("mock/platform/save_order_rate",data)//保存订单分佣（会员消费）
+
+export const getOrderRate=()=>axios.get("mock/platform/get_order_rate")//-获取订单分佣（会员消费）
+
+export const get_mall_rate=()=>axios.get("mock/platform/get_mall_rate")//获取商城佣金比率
+
+export const save_mall_rate=(data)=>axios.post("mock/platform/save_mall_rate",data)//-获取订单分佣（会员消费）
+
+export const platformLists=(data)=>axios.post("mock/platform/platform_lists",data)//-获取平台用户列表
+
+export const addPlatform=(data)=>axios.post("mock/platform/add_platform",data)//-添加平台用户
+
+export const savePermission=(data)=>axios.put("mock/platform/save_permission",data)//设置平台用户权限
+
+export const getPlatform=(user_id)=>axios.get("mock/platform/get_platform",{param:{user_id}})//获取平台用户信息
+
+export const deletePlatform=(data)=>axios.delete("mock/platform/delete_platform_batch",{param:data})//批量删除平台用户
+
+export const deleteMessage=(data)=>axios.delete("mock/platform/delete_message_batch",{param:data})//批量删除平台用户
+
+export const message_lists=(data)=>axios.post("mock/platform/message_lists",data)//获取消息列表
+
+export const addMessage=(data)=>axios.post("mock/platform/add_message",data)//添加消息
+
+export const updateMessage=(data)=>axios.put("mock/platform/update_message",data)//编辑消息
+
+export const getMessage=(message_id)=>axios.get("mock/platform/get_message",{param:{message_id}})//编辑消息
+

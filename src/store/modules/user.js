@@ -92,9 +92,9 @@ const actions={
 		// 	router.replace("/mallZxh/data-center");						
 		// }
 		commit(types.LOGIN,user);//登录成功的一系列的信息
-		// getArea().then(({data})=>{
-		// 	commit(AREA,data);
-		// })
+		getArea().then(({data})=>{
+			commit(AREA,data);
+		})
 		router.replace("mallZxh/manage/join")
 	},
 	//退出登录

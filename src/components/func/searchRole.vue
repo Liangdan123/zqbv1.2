@@ -65,8 +65,8 @@
     },
     watch: {
       search(val){   	
-       	this.type = val['type']||"";      	
-       	this.business_range = val['business_range']||"";      	
+       	this.type = val['type']||null;      	
+       	this.business_range = val['business_range']||null;      	
        	this.is_company = val['is_company']||1;
       }
     },
@@ -82,7 +82,7 @@
             label: "个人"
           }
         ],
-        type: "",
+        type: null,
         options2: [{
             value: "",
             label: "全部"
@@ -100,7 +100,7 @@
             label: "合伙人"
           }
         ],
-        business_range: "",
+        business_range:null,
         options3: [{
           value: "",
           label: "全部"
@@ -114,7 +114,7 @@
    	 //获取商城分类列表
     	let {data} = await getMallClassifyList()     
       this.options3 = [{
-        value:null,
+        value:"",
         label: "全部"
       }];
       for (let val of data) {

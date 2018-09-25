@@ -6,18 +6,18 @@
         <el-form-item label="姓名：" label-width="80px" prop="contact_name" required>
           <el-input v-model="form.contact_name" auto-complete="off" placeholder="请输入用户姓名" size="small"></el-input>
         </el-form-item>
-        <el-form-item label="手机号：" label-width="80px" prop="phone" required>
+        <el-form-item label="手机号：" label-width="80px" prop="phone" required v-if='dialogIndex==0'>
           <el-input v-model="form.phone" auto-complete="off" placeholder="请输入用户手机号" size="small"></el-input>
         </el-form-item>
         <el-form-item prop="permission" required class="hr">
           <el-checkbox-group v-model="form.permission" class="clearfix">
-            <el-checkbox label="会员管理" name="permission"></el-checkbox>
-            <el-checkbox label="权限管理" name="permission"></el-checkbox>
-            <el-checkbox label="案例管理" name="permission"></el-checkbox>
-            <el-checkbox label="建材管理" name="permission"></el-checkbox>
-            <el-checkbox label="工匠管理" name="permission"></el-checkbox>
-            <el-checkbox label="项目管理" name="permission"></el-checkbox>
-            <el-checkbox label="预约管理" name="permission"></el-checkbox>
+            <el-checkbox label="监控中心" name="permission"></el-checkbox>
+            <el-checkbox label="店铺管理" name="permission"></el-checkbox>
+            <el-checkbox label="订单管理" name="permission"></el-checkbox>
+            <el-checkbox label="营销管理" name="permission"></el-checkbox>
+            <el-checkbox label="商城设置" name="permission"></el-checkbox>
+            <el-checkbox label="资金管理" name="permission"></el-checkbox>
+            <el-checkbox label="平台管理" name="permission"></el-checkbox>
           </el-checkbox-group>
         </el-form-item>
       </el-form>
@@ -29,7 +29,7 @@
     <div class="g-content">
       <el-button class="store-button2 add mb-20" @click="add">
         <i class="iconfont icon-tianjia f12"></i>
-        <span>添加分类</span>
+        <span>添加用户</span>
       </el-button>
       <el-button class="store-button2 remove mb-20" @click="moreRemove">
         <i class="iconfont icon-shanchu f12"></i>
@@ -54,27 +54,24 @@
           </el-button>
         </el-table-column>
       </el-table>
-      <!-- <el-pagination  v-if='total>0' @current-change="handleCurrentChange" :current-page.sync="page" :page-size="perPage" layout="total, prev, pager, next" :total="total"> </el-pagination> -->
+      <el-pagination  v-if="total>searchCondition.per_page"  @current-change="handleCurrentChange" 	:current-page.sync="searchCondition.page"
+        :page-size="searchCondition.per_page"  layout="total, prev, pager, next" :total="total"> </el-pagination>
     </div>
   </div>
 </template>
 
 <script>
   import Navbar from "@/components/platform/manage/Navbar";
+  import page from '@/utils/page'
+import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/platform'
   export default {
     data() {
       return {
-        selectArr: [],
-        list: [{
-          "user_id": 1,
-          "is_admin": 1,
-          "contact_name": "小王",
-          "phone": "18457922111",
-          "permission": [1, 2, 6],
-          "created_at": "2018-08-07 08:45:11",
-          "is_blacklist": 0,
-          "is_active": 1
-        }],
+        list: [],
+        searchCondition: {
+          page: 1,
+          per_page: 20
+        },
         permission: ['监控中心', '店铺管理', '订单管理', '营销管理', '商城设置', '资金管理', '平台管理'],
         Visible: false,
         dialogType: [{
@@ -110,6 +107,7 @@
         },
       }
     },
+    mixins: [page],
     components: {
       Navbar
     },
@@ -121,25 +119,16 @@
         this.$refs['ruleForm'].resetFields();
         this.Visible = false;
       },
-      searchList() {
-        getList(this.form1)
+      _doSearch() {
+        platformLists(this.searchCondition)
           .then(({
             data
           }) => {
-            if (data.current_page > data.last_page) {
+            if(data.data.length==0&&data.total>0){
               this.handleCurrentChange(data.last_page)
             }
-            this.total = Number(data.total);
-            this.perPage = Number(data.per_page);
-            this.lastPage = Number(data.last_page);
-            this.list = data.data;
-          })
-          .catch(({
-            response: {
-              data
-            }
-          }) => { //与后台交互时出现的错误信息
-            this.$message.error(data.errorcmt);
+           this.list = data.data;
+           this.total = data.total;
           })
       },
       moreRemove() {
@@ -153,28 +142,23 @@
           lockScroll: false
         }).then(() => {
           //删除接口用返回值替换list
-          let arr = [];
+        let arr = {data:[]};
           for (let val of this.selectArr) {
-            arr.push(val.id)
+            arr.data.push({user_id:val.user_id})
           }
-          delList(arr).then(({
+          deletePlatform(arr).then(({
             data
           }) => {
             let success = true;
-            for (let val of data) {
+            for (let val of data.data) {
               if (val.errcode) {
-                this.$message.error("编号" + err.id + "删除失败");
+                this.$message.error("删除失败");
                 success = false;
+                break;
               }
             }
             success && this.$message.success("删除成功");
-            this.searchList()
-          }).catch(({
-            response: {
-              data
-            }
-          }) => {
-            this.$message.error(data.errorcmt);
+            this._doSearch()
           })
         }).catch(() => {
           return;
@@ -187,7 +171,7 @@
         this.actionIndex = index;
         let arr = [];
         if (list.is_admin == 1) {
-          arr = ['会员管理', '权限管理', '案例管理', '建材管理', '工匠管理', '项目管理', '预约管理'];
+          arr = JSON.parse(JSON.stringify(this.permission));
         } else {
           for (let val of list.permission) {
             arr.push(this.permission[val])
@@ -195,11 +179,8 @@
         }
         this.form = {
           contact_name: list.contact_name,
-          phone: list.phone,
           permission: arr,
-          area: list.area,
-          id: list.id,
-          is_all: list.is_all
+          user_id: list.user_id,
         }
         this.dialogIndex = 1;
       },
@@ -212,7 +193,6 @@
           contact_name: '',
           phone: '',
           permission: [],
-          is_all: 0
         }
         this.Visible = true;
         if (this.$refs['ruleForm']) {
@@ -225,43 +205,24 @@
         item.permission = item.permission.map((val) => {
           return this.permission.indexOf(val)
         })
-        item.province = item.area[0];
-        item.city = item.area[1];
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             return false;
           }
-          item.is_all = item.province == 0 ? 1 : 0;
           if (this.dialogIndex == 0) {
-            addList(item).then(({
+            addPlatform(item).then(({
               data
             }) => {
-              item.id = data.id;
-              item.no = data.no;
-              this.list.push(item)
+              this.list.push(data)
               this.$message.success("添加成功");
-            }).catch(({
-              response: {
-                data
-              }
-            }) => {
-              this.$message.error(data.errorcmt);
             })
           } else { //发送修改请求
-            updateList(item).then(({
+            savePermission(item).then(({
               data
             }) => {
-              item.id = data.id;
-              item.no = data.no;
-              this.list.splice(this.actionIndex, 1, item)
+              this.list.splice(this.actionIndex, 1, data)
               this.$message.success("保存成功");
               this.actionIndex = "";
-            }).catch(({
-              response: {
-                data
-              }
-            }) => {
-              this.$message.error(data.errorcmt);
             })
           }
         });

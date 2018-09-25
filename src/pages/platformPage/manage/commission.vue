@@ -32,30 +32,38 @@
               <td rowspan="2">平台</td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[1].rate}}</span>
-                <el-input v-else size="samll" v-model="list1Coyp[1].rate"></el-input>%
+                <template v-if='list1[1].rate'>
+                  <span v-if="status!=1">{{list1[1].rate}}</span>
+                  <el-input v-else size="samll" v-model="list1Coyp[1].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[2].rate}}</span>
-                <el-input v-else size="samll" v-model="list1Coyp[2].rate"></el-input>%
+                <template v-if='list1[2].rate'>
+                  <span v-if="status!=1">{{list1[2].rate}}</span>
+                  <el-input v-else size="samll" v-model="list1Coyp[2].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td rowspan="2">代理商</td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[3].rate}}</span>
-                <el-input v-else size="samll" v-model="list1Coyp[3].rate"></el-input>%
+                <template v-if='list1[3].rate'>
+                  <span v-if="status!=1">{{list1[3].rate}}</span>
+                  <el-input v-else size="samll" v-model="list1Coyp[3].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[4].rate}}</span>
-                <el-input v-else size="samll" v-model="list1Coyp[4].rate"></el-input>%
+                <template v-if='list1[4].rate'>
+                  <span v-if="status!=1">{{list1[4].rate}}</span>
+                  <el-input v-else size="samll" v-model="list1Coyp[4].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -85,15 +93,19 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[1].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[1].rate"></el-input>%
+                <template v-if='list2[1].rate'>
+                  <span v-if="status!=2">{{list2[1].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[1].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[2].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[2].rate"></el-input>%
+                <template v-if='list2[2].rate'>
+                  <span v-if="status!=2">{{list2[2].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[2].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
@@ -102,22 +114,28 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[3].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[3].rate"></el-input>%
+                <template v-if='list2[3].rate'>
+                  <span v-if="status!=2">{{list2[3].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[3].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[4].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[4].rate"></el-input>%
+                <template v-if='list2[4].rate'>
+                  <span v-if="status!=2">{{list2[4].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[4].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[5].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[5].rate"></el-input>%
+                <template v-if='list2[5].rate'>
+                  <span v-if="status!=2">{{list2[5].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[5].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
@@ -128,29 +146,37 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[6].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[6].rate"></el-input>%
+                <template v-if='list2[6].rate'>
+                  <span v-if="status!=2">{{list2[6].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[6].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[7].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[7].rate"></el-input>%
+                <template v-if='list2[7].rate'>
+                  <span v-if="status!=2">{{list2[7].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[7].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[8].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[8].rate"></el-input>%
+                <template v-if='list2[8].rate'>
+                  <span v-if="status!=2">{{list2[8].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[8].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>服务商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[9].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[9].rate"></el-input>%
+                <template v-if='list2[9].rate'>
+                  <span v-if="status!=2">{{list2[9].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[9].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
@@ -161,22 +187,28 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[10].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[10].rate"></el-input>%
+                <template v-if='list2[10].rate'>
+                  <span v-if="status!=2">{{list2[10].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[10].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[11].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[11].rate"></el-input>%
+                <template v-if='list2[11].rate'>
+                  <span v-if="status!=2">{{list2[11].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[11].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>服务商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[12].rate}}</span>
-                <el-input v-else size="samll" v-model="list2Coyp[12].rate"></el-input>%
+                <template v-if='list2[12].rate'>
+                  <span v-if="status!=2">{{list2[12].rate}}</span>
+                  <el-input v-else size="samll" v-model="list2Coyp[12].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -203,15 +235,19 @@
               </td>
               <td>平台</td>
               <td width='322'>
+                <template v-if='list3[0].rate'>
                 <span v-if="status!=3">{{list3[0].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[0].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
+                <template v-if='list3[1].rate'>
                 <span v-if="status!=3">{{list3[1].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[1].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
@@ -220,15 +256,19 @@
               </td>
               <td>平台</td>
               <td width='322'>
+                <template v-if='list3[2].rate'>
                 <span v-if="status!=3">{{list3[2].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[2].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
+                <template v-if='list3[3].rate'>
                 <span v-if="status!=3">{{list3[3].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[3].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
@@ -237,22 +277,28 @@
               </td>
               <td>平台</td>
               <td width='322'>
+                <template v-if='list3[4].rate'>
                 <span v-if="status!=3">{{list3[4].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[4].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
+                <template v-if='list3[5].rate'>
                 <span v-if="status!=3">{{list3[5].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[5].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
+                <template v-if='list3[6].rate'>
                 <span v-if="status!=3">{{list3[6].rate}}</span>
                 <el-input v-else size="samll" v-model="list3Coyp[6].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -280,15 +326,19 @@
               </td>
               <td>平台</td>
               <td width='322'>
+                <template v-if='list4[0].rate'>
                 <span v-if="status!=4">{{list4[0].rate}}</span>
                 <el-input v-else size="samll" v-model="list4Coyp[0].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
+                <template v-if='list4[1].rate'>
                 <span v-if="status!=4">{{list4[1].rate}}</span>
                 <el-input v-else size="samll" v-model="list4Coyp[1].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
@@ -297,15 +347,19 @@
               </td>
               <td>平台</td>
               <td width='322'>
+                <template v-if='list4[2].rate'>
                 <span v-if="status!=4">{{list4[2].rate}}</span>
                 <el-input v-else size="samll" v-model="list4Coyp[2].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
+                <template v-if='list4[3].rate'>
                 <span v-if="status!=4">{{list4[3].rate}}</span>
                 <el-input v-else size="samll" v-model="list4Coyp[3].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
@@ -314,22 +368,28 @@
               </td>
               <td>平台</td>
               <td width='322'>
+                <template v-if='list4[4].rate'>
                 <span v-if="status!=4">{{list4[4].rate}}</span>
                 <el-input v-else size="samll" v-model="list4Coyp[4].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
+                <template v-if='list4[5].rate'>
                 <span v-if="status!=4">{{list4[5].rate}}</span>
                 <el-input v-else size="samll" v-model="list4Coyp[5].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
+                <template v-if='list4[6].rate'>
                 <span v-if="status!=4">{{list4[6].rate}}</span>
                 <el-input v-else size="samll" v-model="list4Coyp[6].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -347,8 +407,10 @@
             <tr>
               <td width="336">代理商</td>
               <td>
+                <template v-if='list5[0].rate'>
                 <span v-if="status!=5">{{list5[0].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[0].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -361,15 +423,19 @@
             <tr>
               <td width="336">代理商</td>
               <td>
+                <template v-if='list5[1].rate'>
                 <span v-if="status!=5">{{list5[1].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[1].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td width="336">合伙人</td>
               <td>
+                <template v-if='list5[2].rate'>
                 <span v-if="status!=5">{{list5[2].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[2].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -382,22 +448,28 @@
             <tr>
               <td width="336">代理商</td>
               <td>
+                <template v-if='list5[3].rate'>
                 <span v-if="status!=5">{{list5[3].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[3].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td width="336">合伙人</td>
               <td>
+                <template v-if='list5[4].rate'>
                 <span v-if="status!=5">{{list5[4].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[4].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td width="336">服务商</td>
               <td>
+                <template v-if='list5[5].rate'>
                 <span v-if="status!=5">{{list5[5].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[5].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -410,15 +482,19 @@
             <tr>
               <td width="336">代理商</td>
               <td>
+                <template v-if='list5[6].rate'>
                 <span v-if="status!=5">{{list5[6].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[6].rate"></el-input>%
+                </template>
               </td>
             </tr>
             <tr>
               <td width="336">服务商</td>
               <td>
+                <template v-if='list5[7].rate'>
                 <span v-if="status!=5">{{list5[7].rate}}</span>
                 <el-input v-else size="samll" v-model="list5Coyp[7].rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -433,8 +509,10 @@
             <tr>
               <td width="336">佣金比例</td>
               <td>
+                <template v-if='list6.order_rate'>
                 <span v-if="status!=6">{{list6.order_rate}}</span>
                 <el-input v-else size="samll" v-model="list6Coyp.order_rate"></el-input>%
+                </template>
               </td>
             </tr>
           </table>
@@ -446,40 +524,55 @@
 
 <script>
   import Navbar from "@/components/platform/manage/Navbar";
+  import axios from "axios"
+  import {
+    getRoleRate,
+    saveRoleRate,
+    getMemberRate,
+    saveMemberRate,
+    getSpecialOrderRate,
+    saveSpecialOrderRate,
+    getOrderExtRate,
+    saveOrderExtRate,
+    saveOrderRate,
+    getOrderRate,
+    get_mall_rate,
+    save_mall_rate
+  } from "@/api/platform"
   export default {
     data() {
       return {
-        tabForShow: "3",
+        tabForShow: "1",
         status: 0, //0保存 1修改角色 2修改会员 3修改订单
         list1: [{
             "join_role": 2,
             "yx_from": 1,
             "give_role": 1,
-            "rate": 100
+            "rate": null
           },
           {
             "join_role": 3,
             "yx_from": 1,
             "give_role": 1,
-            "rate": 95
+            "rate": null
           },
           {
             "join_role": 3,
             "yx_from": 1,
             "give_role": 2,
-            "rate": 5
+            "rate": null
           },
           {
             "join_role": 3,
             "yx_from": 2,
             "give_role": 1,
-            "rate": 90
+            "rate": null
           },
           {
             "join_role": 3,
             "yx_from": 2,
             "give_role": 2,
-            "rate": 10
+            "rate": null
           }
         ],
         list1Coyp: [],
@@ -487,187 +580,188 @@
         list3Coyp: [],
         list4Coyp: [],
         list5Coyp: [],
+        list6Coyp: [],
         list2: [{
             "yx_from": 1,
             "give_role": 1,
-            "rate": 100
+            "rate": null
           },
           {
             "yx_from": 2,
             "give_role": 1,
-            "rate": 95
+            "rate": null
           },
           {
             "yx_from": 2,
             "give_role": 2,
-            "rate": 5
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 1,
-            "rate": 80
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 2,
-            "rate": 5
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 3,
-            "rate": 15
+            "rate": null
           },
           {
             "yx_from": 4,
             "give_role": 1,
-            "rate": 70
+            "rate": null
           },
           {
             "yx_from": 4,
             "give_role": 2,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 4,
             "give_role": 3,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 4,
             "give_role": 4,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 5,
             "give_role": 1,
-            "rate": 80
+            "rate": null
           },
           {
             "yx_from": 5,
             "give_role": 2,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 5,
             "give_role": 4,
-            "rate": 10
+            "rate": null
           }
         ],
         list3: [{
             "yx_from": 1,
             "give_role": 1,
-            "rate": 90
+            "rate": null
           },
           {
             "yx_from": 1,
             "give_role": 2,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 2,
             "give_role": 1,
-            "rate": 80
+            "rate": null
           },
           {
             "yx_from": 2,
             "give_role": 2,
-            "rate": 20
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 1,
-            "rate": 60
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 2,
-            "rate": 15
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 3,
-            "rate": 25
+            "rate": null
           }
         ],
         list4: [{
             "yx_from": 1,
             "give_role": 1,
-            "rate": 90
+            "rate": null
           },
           {
             "yx_from": 1,
             "give_role": 2,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 2,
             "give_role": 1,
-            "rate": 80
+            "rate": null
           },
           {
             "yx_from": 2,
             "give_role": 2,
-            "rate": 20
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 1,
-            "rate": 60
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 2,
-            "rate": 15
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 3,
-            "rate": 25
+            "rate": null
           }
         ],
         list5: [{
             "yx_from": 2,
             "give_role": 2,
-            "rate": 20
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 2,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 3,
             "give_role": 3,
-            "rate": 15
+            "rate": null
           },
           {
             "yx_from": 4,
             "give_role": 2,
-            "rate": 5
+            "rate": null
           },
           {
             "yx_from": 4,
             "give_role": 3,
-            "rate": 10
+            "rate": null
           },
           {
             "yx_from": 4,
             "give_role": 4,
-            "rate": 15
+            "rate": null
           },
           {
             "yx_from": 5,
             "give_role": 2,
-            "rate": 5
+            "rate": null
           },
           {
             "yx_from": 5,
             "give_role": 4,
-            "rate": 20
+            "rate": null
           }
         ],
         list6: {
-          "order_rate": 15
+          "order_rate": null
         }
       }
     },
@@ -676,17 +770,61 @@
     },
     created() {
       //请求接口获取所有分佣
-      // this.list2Coyp=JSON.parse(JSON.stringify(this.list2));
-      // this.list3Coyp=JSON.parse(JSON.stringify(this.list3));
-      // this.list4Coyp=JSON.parse(JSON.stringify(this.list4));
-      // this.list5Coyp=JSON.parse(JSON.stringify(this. list5));
+      this.getList1();
     },
     methods: {
+      getList1() { //获取角色分佣
+        getRoleRate().then(({
+          data
+        }) => {
+          this.list1 = data;
+          if (Object.keys(this.list1).length > 0) {
+            this.list1Coyp = JSON.parse(JSON.stringify(this.list1));
+          }
+        })
+      },
+      getList2() { //获取会员分佣
+        getMemberRate().then(({
+          data
+        }) => {
+          this.list2 = data;
+          if (Object.keys(this.list2).length > 0) {
+            this.list2Coyp = JSON.parse(JSON.stringify(this.list2));
+          }
+        })
+      },
+      getList3() { //获取订单分佣
+        axios.all([getSpecialOrderRate(), getOrderRate(), getOrderExtRate(), get_mall_rate()]).then(axios.spread((data1,
+          data2, data3, data4) => {
+          this.list3 = data1.data;
+          if (Object.keys(this.list3).length > 0) {
+            this.list3Coyp = JSON.parse(JSON.stringify(this.list3));
+          }
+          this.list4 = data2.data;
+          if (Object.keys(this.list3).length > 0) {
+            this.list4Coyp = JSON.parse(JSON.stringify(this.list4));
+          }
+          this.list5 = data3.data;
+          if (Object.keys(this.list5).length > 0) {
+            this.list5Coyp = JSON.parse(JSON.stringify(this.list5));
+          }
+          this.list6 = data4.data;
+          if (this.list6.order_rate) {
+            this.list6Coyp = JSON.parse(JSON.stringify(this.list6));
+          }
+        }));
+      },
       tabclick() {
         this.status = 0;
+        if (this.tabForShow == 1) {
+          this.getList1();
+        } else if (this.tabForShow == 2) {
+          this.getList2();
+        } else if (this.tabForShow == 3) {
+          this.getList3();
+        }
       },
-      edit(num) {
-        console.log(num, this["list" + num], this["list" + num + "Coyp"])
+      async edit(num) {
         if (this.status == 0) { //判断是否都没编辑
           this["list" + num + "Coyp"] = JSON.parse(JSON.stringify(this["list" + num]));
           this.status = num;
@@ -698,8 +836,33 @@
             });
             return;
           }
-          this["list" + num] = JSON.parse(JSON.stringify(this["list" + num + "Coyp"]));
-          this.status = 0;
+          let res = null;
+          switch (num) {
+            case 1:
+              res = await saveRoleRate(this.list1Coyp);
+              break;
+            case 2:
+              res = await saveMemberRate(this.list2Coyp);
+              break;
+            case 3:
+              res = await saveSpecialOrderRate(this.list3Coyp);
+              break;
+            case 4:
+              res = await saveOrderRate(this.list4Coyp);
+              break;
+            case 5:
+              res = await saveOrderExtRate(this.list5Coyp);
+              break;
+            case 6:
+              res = await save_mall_rate(this.list6Coyp);
+              break;
+          }
+          res = res.data;
+          if (res.mall_id) {
+            this.$message.success('保存成功');
+            this["list" + num] = JSON.parse(JSON.stringify(this["list" + num + "Coyp"]));
+            this.status = 0;
+          }
         }
       }
     }
@@ -717,27 +880,33 @@
     margin-bottom: 20px;
     width: 100%;
     text-align: left;
+
     &.border {
       border: 1px solid #E6E6E6;
       border-bottom: 0;
     }
+
     th {
       height: 40px;
       background: #F0F4F7;
       color: #62778C;
       font-weight: normal;
     }
+
     td {
       height: 50px;
       border-bottom: 1px solid #E6E6E6;
       border-right: 1px solid #E6E6E6;
+
       &:last-child {
         border-right: 0;
       }
     }
+
     th,
     td {
       padding: 0 20px;
+
       .el-input {
         width: 200px;
         max-width: 100%;
