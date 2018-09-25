@@ -168,9 +168,6 @@
 						this.list = data;
 						this.loading = false;
 					})
-					.catch(({response: {data}}) => {																								
-						this.$message.error(data.errorcmt);
-					})
 			},
 			checkDetail(index){//查看明细按钮
 				this.detailedFailVisible=true;//订单明细弹框

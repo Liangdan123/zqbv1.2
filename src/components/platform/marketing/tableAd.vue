@@ -123,18 +123,12 @@
 						this.list=data;
 						this.loading=false;
 					})
-					.catch(({response: {data}})=>{
-						this.$message.error(data.errorcmt);
-					})	
 				}else if(!this.isDistribution){
 					this.$set(this.searchCondition,"user_id",this.$store.state.user.user.zhixu_id);
 					getServerAdList(this.searchCondition)
 					.then(({data})=>{
 						this.list=data;
 						this.loading=false;
-					})
-					.catch(({response: {data}})=>{
-						this.$message.error(data.errorcmt);
 					})
 				}
 
@@ -171,17 +165,13 @@
 						deleteAdList(data)
 						.then(({data}) => {	
 							this._status(data)
-						}).catch(({response: {data}})=>{
-							this.$message.error(data.errorcmt);
 						})	
 					}else if(!this.isDistribution){
 						console.log("data:",data)						
 						deleteServerAdList(data)//批量删除服务商分配广告数据
 						.then(({data}) => {	
 							this._status(data)
-						}).catch(({response: {data}})=>{
-							this.$message.error(data.errorcmt);
-						})	
+						})
 					}
 
 				}).catch(() => {

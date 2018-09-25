@@ -210,9 +210,6 @@
 					this.list=data;
 					this.loading=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 			},
 			handleSelection(val){//选中列表
 				let arr = [];
@@ -266,17 +263,12 @@
 					//调用默认运费物流API
 					this.onlyProductMess = data;
 					this._checkIrrehint(this.checkIrreList);////调用违规提醒列表API方法
-				}).catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				});
+				})
 			},
 			_checkIrrehint(data){
 				checkIrrehint(data)//违规提醒列表
 				.then(({data})=>{
 					this.irrList=data;
-				})
-				.catch(({data:{response}})=>{
-					this.$message.error(data.errorcmt)
 				})	
 			},
 			irreHint(index){//违规提醒
@@ -305,8 +297,7 @@
 					this.$message({showClose: true, message: '提交成功', type: 'success'});                                
 				})
 				.catch(({data:{response}})=>{
-					this.txtBox="";
-					this.$message.error(data.errorcmt)
+					this.txtBox="";					
 				})
 			},
 			onlyOffPro(index){//下架商品
@@ -348,9 +339,7 @@
 						if(this.dialogVisible === true) {
 							this.dialogVisible = false
 						}
-					}).catch(({response: {data}})=>{
-						this.$message.error(data.errorcmt);
-					})	
+					})
 				}).catch(() => {
 					if(event.srcElement.innerText == "取消") {
 						return;
@@ -391,9 +380,7 @@
 						this._hint(data.status,"delete")
 						if(this.dialogVisible === true) {this.dialogVisible = false}	
 						this.searchMethod();
-					}).catch(({response: {data}})=>{
-						this.$message.error(data.errorcmt);
-					})	
+					})
 				}).catch(() => {
 					return;
 				})

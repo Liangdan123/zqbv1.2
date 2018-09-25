@@ -85,11 +85,7 @@
 			getMemberNum()
 			.then(({data})=>{
 				this.money=data;					
-			})
-			.catch(({response: {data}})=>{
-				 this.$message.error(data.errorcmt);
-			})	
-			
+			})			
 		},
 		filters:{
 			fund(value){

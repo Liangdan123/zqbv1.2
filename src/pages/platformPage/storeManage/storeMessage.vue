@@ -52,17 +52,11 @@
 						this.storeMessage.shop_logo=links.IMG
 					}
 				})
-				.catch(({response:{data}})=>{
-					this.$message.error(data.errorcmt)
-				});
 				getStoreStatistics(this.shop_id)//获取店铺统计数据
 				.then(({data})=>{
 					this.statistics=data;
 					this.loading=false
-				})
-				.catch(({response:{data}})=>{
-					this.$message.error(data.errorcmt)
-				});				
+				})			
 			};
 		},
 	}

@@ -142,13 +142,6 @@
             this.$message.success('提现申请处理成功,可在历史记录中查看相关信息 ');
             this.handleClose()
           })
-          .catch(({
-            response: {
-              data
-            }
-          }) => {
-            this.$message.error(data.errorcmt);
-          })
       },
       remittanceRejectConfirm() {
         this.$prompt(' ', '汇款失败原因', {

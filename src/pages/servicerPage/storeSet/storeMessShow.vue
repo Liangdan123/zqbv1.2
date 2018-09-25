@@ -67,9 +67,6 @@
 						this.storeMess.shop_logo=links.IMG
 					}
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 			}
 		}
 	}

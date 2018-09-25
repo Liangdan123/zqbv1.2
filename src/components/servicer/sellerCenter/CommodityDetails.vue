@@ -176,13 +176,6 @@
 							content:res
 						});
 					})
-					.catch((error)=>{
-						this.$message({
-				        	message: error,
-				        	type: 'warning',
-				        	showClose:true
-				        });
-					})
 					this.$refs.input.value="";
 				},
 				isdelet(index){			

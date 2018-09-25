@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from '@/store'
 import * as types from '@/store/mutation-types'
 import router from '@/router'
-
+import vue from "@/main.js"
 // axios 配置
 axios.defaults.timeout = 15000
 //axios.defaults.headers.common["content-type"]="multipart/form-data"
@@ -18,17 +18,18 @@ return Promise.reject(err)
 })
 
 // http response 拦截器
-axios.interceptors.response.use(
-  response => {
-    return response
-  },
+axios.interceptors.response.use( response => {return response},
+  
   err => {
     if (err && err.response) {
+	    if(err.response.data.errorcmt){//公共报错信息
+	    	vue.$message.error(err.response.data.errorcmt)
+	    }  	
       switch (err.response.status) {
         case 400:
-          err.message = '请求错误'
+          err.message = '请求错误'          
           break
-
+			
         case 401:
           err.message = '未授权，请登录'
 //           401 清除token信息并跳转到登录页面

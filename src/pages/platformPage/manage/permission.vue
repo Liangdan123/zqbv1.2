@@ -134,13 +134,6 @@
             this.lastPage = Number(data.last_page);
             this.list = data.data;
           })
-          .catch(({
-            response: {
-              data
-            }
-          }) => { //与后台交互时出现的错误信息
-            this.$message.error(data.errorcmt);
-          })
       },
       moreRemove() {
         if (this.selectArr.length == 0) {
@@ -169,12 +162,6 @@
             }
             success && this.$message.success("删除成功");
             this.searchList()
-          }).catch(({
-            response: {
-              data
-            }
-          }) => {
-            this.$message.error(data.errorcmt);
           })
         }).catch(() => {
           return;
@@ -233,35 +220,19 @@
           }
           item.is_all = item.province == 0 ? 1 : 0;
           if (this.dialogIndex == 0) {
-            addList(item).then(({
-              data
-            }) => {
+            addList(item).then(({data}) => {                          
               item.id = data.id;
               item.no = data.no;
               this.list.push(item)
               this.$message.success("添加成功");
-            }).catch(({
-              response: {
-                data
-              }
-            }) => {
-              this.$message.error(data.errorcmt);
             })
           } else { //发送修改请求
-            updateList(item).then(({
-              data
-            }) => {
+            updateList(item).then(({ data}) => {                         
               item.id = data.id;
               item.no = data.no;
               this.list.splice(this.actionIndex, 1, item)
               this.$message.success("保存成功");
               this.actionIndex = "";
-            }).catch(({
-              response: {
-                data
-              }
-            }) => {
-              this.$message.error(data.errorcmt);
             })
           }
         });

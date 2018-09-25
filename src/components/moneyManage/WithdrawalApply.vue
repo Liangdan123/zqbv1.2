@@ -192,13 +192,6 @@
               //处理完成 关闭弹窗
               this.$emit('close')
             })
-            .catch(({
-              response: {
-                data
-              }
-            }) => {
-              this.$message.error(data.errorcmt);
-            })
         });
       },
     },

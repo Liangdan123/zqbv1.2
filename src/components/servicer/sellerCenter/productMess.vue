@@ -334,9 +334,6 @@
 				.then(({data}) => {							
 //					router.push({path:"/zxh/commodityPage/sale_commodity",query:{name:"success"}})
 				})
-				.catch(({response:{data}}) => {
-					this._imgReturn(data.errorcmt,"warning")
-				})
 			},
 		}
 	}

@@ -24,6 +24,7 @@ import extractCash from '@/pages/platformPage/fund/extractCash'
 import orderIncome from '@/pages/platformPage/fund/orderIncome'
 import memberIncome from '@/pages/platformPage/fund/memberIncome'
 import roleFund from '@/pages/platformPage/fund/roleFund'
+import platformFund from '@/pages/platformPage/fund/platformFund'
 
 //平台中的商城设置
 import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo"
@@ -42,12 +43,14 @@ import specialAd from "@/pages/platformPage/marketing/specialAd"
 import storeManage from "@/pages/platformPage/storeManage/storeManage"
 import storeMessage from "@/pages/platformPage/storeManage/storeMessage"
 
-//平台中的商城设置
+//平台中的监控中心
 import platDataCenter from "@/pages/platformPage/controlCenter/platDataCenter"
 
 
 //服务商导航
 import server from "@/pages/servicerPage/servers"
+//服务商的资金管理
+import fundManage from "@/pages/servicerPage/fund/fundManage"
 //服务商的营销管理
 import serverMarketInfo from "@/pages/servicerPage/marketing/serverMarketInfo"
 import serverMemberCenter from "@/pages/servicerPage/marketing/serverMemberCenter"
@@ -230,6 +233,10 @@ const router = new Router({
 								path: 'roleFund',
 								name: 'roleFund',
 								component: roleFund,
+							},{								
+								path: 'platformFund',
+								name: 'platformFund',
+								component: platformFund,
 							}
 							
 						]
@@ -364,6 +371,11 @@ const router = new Router({
 								component: Irregularities,	
 							}
 						]
+					},
+					{					
+						path: 'fundManage',
+						name: 'fundManage',
+						component: fundManage,	
 					}
 				]
 			}

@@ -336,11 +336,7 @@
 		},
 		created(){		
 			getMallShopNum()//商城商品上架数量
-			.then(({data})=>{this.shopNum=data.product_num})
-			.catch(({response:{data}})=>{
-				this.$message.error(data.errorcmt)
-			});
-			
+			.then(({data})=>{this.shopNum=data.product_num})			
 			this.mallSetMiddle=false;
 			//获取商城对应组件列表API
 			correscomList()
@@ -351,9 +347,6 @@
 					if(item.component_key==='hbys2'&&item.data===null){item.data={title_switch:"on"};}//海报样式二时			
 				})
 			})
-			.catch(({response:{data}})=>{
-				this.$message.error(data.errorcmt)
-			});
 			//获取组件列表
 			let comListData={component_type:0}
 		},	
@@ -520,9 +513,6 @@
 				existAssembly(this.correscomList)
 				.then(({data})=>{					
 					this.$message({message: '保存成功', type: 'success',showClose:'true'});
-				})
-				.catch(({response:{data}})=>{
-					this.$message.error(data.errorcmt)
 				})
 			},
 			errorTips(name,tips,index){//错误提示(公共方法)

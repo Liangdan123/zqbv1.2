@@ -298,14 +298,8 @@
 							this.hopPage();//跳转页面
 						};
 					})
-					.catch(({response: {data}})=>{
-						 this.$message.error(data.errorcmt);
-					})	
 					
 				})
-				.catch(({response: {data}})=>{
-					 this.$message.error(data.errorcmt);
-				})	
 			},
 			isBoolean(isArrt,booleans){
 				isArrt.map(item=>this[item]=booleans)
@@ -323,9 +317,6 @@
 					this.$store.commit(types.KEEPSUCESS,true);	
 					this.hopPage();	
 				})
-				.catch(({response: {data}})=>{
-					 this.$message.error(data.errorcmt);
-				})	
 			},
 			cancelMess(){
 				this.$confirm('你是否确定放弃本次编辑', '温馨提示', {
@@ -369,9 +360,6 @@
 						this.storeMessShow=data;
 						this.whetherShow();
 						this.location();//显示地图
-					})
-					.catch(({response: {data}})=>{
-						 this.$message.error(data.errorcmt);
 					})
 				}else{
 					this.preservation=false;

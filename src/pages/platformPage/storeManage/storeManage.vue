@@ -99,9 +99,6 @@
 					this.list=data;
 					this.loading=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})
 			},
 			storeDetail(index){//点击店铺详情
 				let id=this.list.data[index].shop_id;

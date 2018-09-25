@@ -1,16 +1,31 @@
 <template>
-	<div class="orderDetailed" >		
-		<div v-show="false">{{condition}}</div>
-		<el-table
-			:data="list.data" 
-			style="width: 100%" >
-			<el-table-column prop="fws_shop_name" label="服务商">
+	<div class="platformOrderFund" @click="closeSearch">
+		<div class="clearfix">
+			<search 
+				hintMess="输入相关信息进行搜索" 
+				selectTitle="筛选条件" 
+				inputSearch="keyword"
+				:search.sync="searchCondition.search" 
+				@searchMethod="searchInput" 
+				@emptyMthod="emptyMthod" 
+				ref="closecondition" 
+				class="float-r">
+			</search>			
+		</div>
+		<el-table :data="list.data" 
+			style="width: 100%" 
+			:empty-text="emptyText" 
+			v-loading="loading"
+			class="mt-20">
+			<el-table-column prop="fws_city" label="区域">
+			</el-table-column>
+			<el-table-column prop="fws_shop_name" label="店铺名称">
 			</el-table-column>
 			<el-table-column prop="split_no" label="订单号">
-			</el-table-column>
+			</el-table-column>			
 			<el-table-column prop="order_fee_yuan" label="订单金额">
 				<template slot-scope="scope">
-					{{scope.row.give_order_yuan||0|money}}
+					{{scope.row.order_fee_yuan||0|money}}
 				</template>
 			</el-table-column>
 			<el-table-column prop="created_at" label="创建时间">
@@ -30,29 +45,15 @@
 				class="float-r">
 			</el-pagination>
 		</div>
+		
 	</div>
 </template>
 
 <script>
-	import page from "@/utils/page"
 	import {orderCommission} from "@/api/platform"
+	import page from "@/utils/page"
 	export default{
-		name:"orderDetailed",
-		props:["user_id","typeKey"],
-		data(){
-			return{
-				searchCondition: { //搜索条件
-					user_id:"",
-					search: {
-						type:"",
-					},
-					page: 1,
-					per_page: 20,
-				},
-				list:{data:[]},
-				loading:true,
-			}
-		},
+		name:"platformOrderFund",
 		filters: {
 			money(value, label = ''){
 				// 金额转换成数字和整数部分
@@ -61,19 +62,34 @@
 				return `${label}${value_int}.${value[1]}`;
 			},
 		},
-		computed:{
-			condition(){//蒋父集传过来的值赋值给searchCondition；
-				if(this.user_id){
-					this.$set(this.searchCondition,"user_id",this.user_id);
-				};
-				if(this.typeKey){
-					this.$set(this.searchCondition,"search",{type:this.typeKey})
-				};	
-				this.searchMethod();
+		data(){
+			return{
+				searchCondition:{ //搜索条件
+					search: {
+						type: 1,
+					},
+					page: 1,
+					per_page: 20,
+
+				},
+				list:{data:[]},//订单收入列表数据
+				emptyText:"暂无数据",
+				loading:true,
 			}
 		},
 		mixins: [page],
 		methods:{
+			searchInput(){
+				this.emptyText = "未搜索到相关匹配信息";
+				this.searchMethod();
+			},
+			emptyMthod(){
+				this.emptyText = "未搜索到相关匹配信息";
+				this.searchMethod();
+			},
+			closeSearch() { //关闭筛选条件
+				this.$refs.closecondition.closeSearch()
+			},
 			_doSearch(){//搜索角色列表信息
 				orderCommission(this.searchCondition)
 					.then(({data}) => {									
@@ -86,4 +102,5 @@
 </script>
 
 <style>
+
 </style>

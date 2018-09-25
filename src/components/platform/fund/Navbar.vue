@@ -13,7 +13,7 @@
 			<el-menu-item index="roleFund" :class="{active:selected=='roleFund'}">
 				角色发展收入
 			</el-menu-item>
-			<el-menu-item index="message" :class="{active:selected=='message'}">
+			<el-menu-item index="platformFund" :class="{active:selected=='platformFund'}">
 				平台收入
 			</el-menu-item>
 		</el-menu>

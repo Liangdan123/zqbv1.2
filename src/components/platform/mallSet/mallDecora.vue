@@ -200,9 +200,6 @@
 						}						
 					}
 				})
-				.catch(({response:{data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 			},
 		}
 	}

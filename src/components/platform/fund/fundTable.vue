@@ -291,9 +291,6 @@
 						this.list = data;
 						this.loading = false;
 					})
-					.catch(({response: {data}}) => {																								
-						this.$message.error(data.errorcmt);
-					})
 			},
 			searchRole() { //角色搜索
 				this.emptyText = "未搜索到相关匹配信息";
@@ -318,9 +315,6 @@
 				getFundMess({tixian_id})//获取提现信息API
 				.then(({data})=>{
 					this.fundMessage=data;
-				})
-				.catch(({response: {data}}) => {																								
-					this.$message.error(data.errorcmt);
 				})
 			},
 			fundOperation(data){//弹框里汇款成功失败
@@ -370,9 +364,6 @@
 					this.detailVisible=false;
 					this.fundFailVisible=false;
 					this.remark="";
-				})
-				.catch(({response: {data}}) => {																								
-					this.$message.error(data.errorcmt);
 				})
 			}
 		}

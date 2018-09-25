@@ -170,8 +170,6 @@
 							this.$message({showClose: true,message: '保存成功!',type: 'success'});	
 						};																																
 						this.isEdited = false;
-					}).catch(({response: {data}}) => {					
-						this.$message.error(data.errorcmt);
 					})
 			}
 		}

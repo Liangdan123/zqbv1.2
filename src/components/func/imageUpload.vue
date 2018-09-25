@@ -49,9 +49,6 @@
 						};
 						this.$emit("getImageUrl",old_new);
 					})
-					.catch(({response:{data}})=>{
-						this.$message.error(data.errorcmt);							
-					})
 					//清空值，以可以上传重复的图片
 					this.$refs.input.value="";
 				}else{

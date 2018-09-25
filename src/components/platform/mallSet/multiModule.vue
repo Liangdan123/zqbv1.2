@@ -166,8 +166,7 @@
 			getMallClassifyList()//商城分类列表
 			.then(({data})=>{
 				this.mallClassifyList=data;					
-			}).catch((error)=>{
-			})	
+			})
 		},
 		updated(){
 			this.shopRank.title_switch=this.radio1;//模块标题开关
