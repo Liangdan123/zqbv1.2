@@ -21,6 +21,9 @@ import joinRecord from '@/pages/platformPage/manage/joinRecord';
 
 //平台管理中的资金管理
 import extractCash from '@/pages/platformPage/fund/extractCash'
+import orderIncome from '@/pages/platformPage/fund/orderIncome'
+import memberIncome from '@/pages/platformPage/fund/memberIncome'
+import roleFund from '@/pages/platformPage/fund/roleFund'
 
 //平台中的商城设置
 import mallSetInfo from "@/pages/platformPage/mallSet/mallSetInfo"
@@ -215,7 +218,21 @@ const router = new Router({
 							path: 'extractCash',
 							name: 'extractCash',
 							component: extractCash,
-						}]
+							},{								
+								path: 'orderIncome',
+								name: 'orderIncome',
+								component: orderIncome,
+							},{								
+								path: 'memberIncome',
+								name: 'memberIncome',
+								component: memberIncome,
+							},{								
+								path: 'roleFund',
+								name: 'roleFund',
+								component: roleFund,
+							}
+							
+						]
 					},
 					{ //商城设置(平台管理)
 						path: 'mallSetInfo',
@@ -265,7 +282,7 @@ const router = new Router({
 						path:'storeManage',
 						name:'storeManage',
 						component: storeManage,
-					},{//店铺管理（平台）					
+					},{//店铺信息（平台）					
 						path:'storeMessage',
 						name:'storeMessage',
 						component:storeMessage,						

@@ -76,5 +76,8 @@ export const getFundMess=(data)=>axios.get("mock/fund/get_tixian",{params:data})
 
 export const fundOperation=(data)=>axios.post("mock/fund/remittance",data)//提现申请汇款操作
 
+export const orderCommission=(data)=>axios.post("mock/fund/give_order_lists",data)//获取订单佣金列表
 
+export const memberCommission=(data)=>axios.post("mock/fund/give_member_lists",data)//获取会员发展佣金列表
 
+export const roleCommission=(data)=>axios.post("mock/fund/give_join_lists",data)//获取角色加盟佣金列表

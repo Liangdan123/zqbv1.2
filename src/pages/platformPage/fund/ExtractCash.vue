@@ -98,9 +98,6 @@
                 this.$message.error(data.errorcmt);
             });
 		},
-		methods:{
-
-		}
 	}
 </script>
 
