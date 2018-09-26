@@ -29,10 +29,6 @@ axios.interceptors.response.use( response => {return response},
         case 400:
           err.message = '请求错误'          
           break
-<<<<<<< HEAD
-=======
-			
->>>>>>> dan
         case 401:
           err.message = '未授权，请登录'
 //           401 清除token信息并跳转到登录页面

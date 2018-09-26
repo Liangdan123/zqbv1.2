@@ -329,28 +329,11 @@
 						this._imgReturn(data.errorcmt, "warning");
 					})
 			},
-<<<<<<< HEAD
-			_pulish(data) {
-				createProduct(data) //发布商品API
-					.then(({
-						data
-					}) => {
-						//					router.push({path:"/zxh/commodityPage/sale_commodity",query:{name:"success"}})
-					})
-					.catch(({
-						response: {
-							data
-						}
-					}) => {
-						this._imgReturn(data.errorcmt, "warning")
-					})
-=======
 			_pulish(data){
 				createProduct(data)//发布商品API
 				.then(({data}) => {							
 //					router.push({path:"/zxh/commodityPage/sale_commodity",query:{name:"success"}})
 				})
->>>>>>> dan
 			},
 		}
 	}

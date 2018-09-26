@@ -1,22 +1,21 @@
 <template>
   <div class="login pos-r">
     <div v-show="isReset">
-      <router-link to="/" class="f14 padding-n mb-20 color-main display-b float-r"><<返回登录</router-link>
-    </div>
-    <div class="">
-      <input type="text" placeholder="请输入手机号" v-model.trim="mobile_phone" @blur="verify" class="border-b w-100" />
-      <div class="border-b">
-        <input type="text" placeholder="手机验证码" v-model.trim="verify_code" />
-        <el-button @click="sentCode" :disabled="disabled || time>0 " round plain class="sentCode disabled1 float-r">{{sentPhoneCode}}</el-button>
-      </div>
-      <input type="password" placeholder="设置密码" v-model.trim="newPassword" class="border-b  w-100" />
-      <div class="display-n" :class="{error:warn}">
-        {{msg}}
-      </div>
-      <el-button class="btn done mr-20 f14" @click="done"> 完成 </el-button>
-      {{isReset?'还没有账号？':'已有账号'}}
-      <router-link to="sfz" class="color-main f14" v-if='isReset'>立即注册</router-link>
-      <router-link to="/" class="color-main f14" v-else>返回登录</router-link>
+      <router-link to="/" class="f14 padding-n mb-20 color-main display-b float-r">
+        <<返回登录</router-link> </div> <div class="">
+          <input type="text" placeholder="请输入手机号" v-model.trim="mobile_phone" @blur="verify" class="border-b w-100" />
+          <div class="border-b">
+            <input type="text" placeholder="手机验证码" v-model.trim="verify_code" />
+            <el-button @click="sentCode" :disabled="disabled || time>0 " round plain class="sentCode disabled1 float-r">{{sentPhoneCode}}</el-button>
+          </div>
+          <input type="password" placeholder="设置密码" v-model.trim="newPassword" class="border-b  w-100" />
+          <div class="display-n" :class="{error:warn}">
+            {{msg}}
+          </div>
+          <el-button class="btn done mr-20 f14" @click="done"> 完成 </el-button>
+          {{isReset?'还没有账号？':'已有账号'}}
+          <router-link to="register" class="color-main f14 " v-if='isReset'>立即注册</router-link>
+          <router-link to="/" class="color-main f14 ml-10" v-else>返回登录</router-link>
     </div>
   </div>
   </div>
@@ -26,8 +25,9 @@
   import {
     getPhoneNum,
     getRegisterMess,
-    // getverify,
-    getPhoneAllMess
+    getRegisterCode,
+    getPhoneAllMess,
+    loginVerifyCode
   } from '@/api/login'
   import router from '@/router'
   export default {
@@ -64,43 +64,26 @@
     },
     methods: {
       verify() {
-        if (!this.isReset) {
-          return;
-        }
         this.warn = false;
         var patt1 = /^[1][3,4,5,7,8][0-9]{9}$/;
         switch (true) {
           case this.mobile_phone == "":
             this.warn = true;
             this.msg = "请输入你的手机号";
-            return;
+            return false;
             break;
           case !patt1.test(this.mobile_phone):
             this.warn = true;
             this.msg = "请输入正确的手机号";
-            return;
+            return false;
             break;
         }
-        getPhoneNum(this.mobile_phone)
-          .then(({
-            data
-          }) => {
-            if (data.status != 3) {
-              this.warn = true;
-              this.msg = "该账号未注册请返回登录页面注册";
-            }
-          })
-          .catch(({
-            response: {
-              data
-            }
-          }) => {
-            this.warn = true;
-            this.msg = data.errorcmt;
-          })
+        return true;
       },
       done() {
-        this.verify();
+        if(!this.verify()){
+          return
+        }
         switch (true) {
           case this.verify_code == "":
             this.warn = true;
@@ -125,7 +108,7 @@
         }
       },
       initReset() {
-        getRegisterMess(this.mobile_phone, this.verify_code, this.newPassword)
+        accountInfo({login_name:this.mobile_phone,password:this.newPassword,verify_code:this.verify_code})
           //与后台交成功时的操作
           .then(({
             data
@@ -158,25 +141,29 @@
             this.msg = data.errorcmt;
           })
       },
-      sentCode() {
+      async sentCode() {
+          if(!this.verify()){
+          return
+        }
         //点击发送验证码
-        this.borderOne = false;
         this.msg = "";
-        let type = this.isReset ? 2 : 1;
-        getverify(type, this.mobile_phone)
-          .then((reponse) => {
-            this.time = this.seconds;
-            this.timer();
-          })
-          .catch(({
-            response: {
-              data
-            }
-          }) => {
-            //发送验证失败
-            this.warn = true;
-            this.msg = data.errorcmt;
-          })
+        let post_data = {
+          "type": "phone",
+          "data": this.mobile_phone
+        };
+        if (this.isReset) {
+          let {
+            data
+          } = await getRegisterCode(post_data);
+        } else {
+          let {
+            data
+          } = await loginVerifyCode(post_data);
+        }
+        if (data&&data.msg == 'success') {
+          this.time = this.seconds;
+          this.timer();
+        }
       },
       timer() {
         //60s
@@ -187,15 +174,17 @@
       },
     },
   }
+
 </script>
 
 <style lang="scss" scoped>
   .error {
-    display: inline-block;
+    display: block;
     color: #FF0000;
     font-size: 14px;
     margin-bottom: 20px;
   }
+
   .sentCode {
     width: 80px;
     height: 27px;
@@ -205,28 +194,34 @@
     line-height: 27px;
     padding: 0;
   }
+
   .border-b {
     margin-bottom: 20px;
     border: 0;
     border-bottom: 1px solid #25A7FF;
     line-height: 40px;
     font-size: 14px;
+
     &:focus {
       outline: 0;
     }
+
     .forget {
       font-size: 16px;
       color: #25A7FF;
       display: inline-block;
     }
+
     input {
       border: 0;
       box-sizing: border-box;
+
       &:focus {
         outline: 0;
       }
     }
   }
+
   .btn {
     width: 140px;
     height: 40px;
@@ -234,4 +229,5 @@
     border-radius: 20px;
     color: #ffffff;
   }
+
 </style>

@@ -7,7 +7,7 @@
 <script>
 import Reset from "@/pages/loginPage/mobileReset"
 export default {
-  name: 'sfz',
+  name: 'register',
   data() {
     return {
 

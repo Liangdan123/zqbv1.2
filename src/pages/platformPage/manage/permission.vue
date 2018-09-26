@@ -215,6 +215,7 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
             }) => {
               this.list.push(data)
               this.$message.success("添加成功");
+              this.actionIndex = "";
             })
           } else { //发送修改请求
             savePermission(item).then(({

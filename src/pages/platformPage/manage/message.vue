@@ -82,16 +82,17 @@
           addMessage(this.form).then(({
             data
           }) => {
-            this.list.push(data)
+            this.list.push(data);
+             this.actionIndex = null;
           })
         } else {
           updateMessage(this.form).then(({
             data
           }) => {
-            this.list.splice(this.actionIndex, 1, data)
+            this.list.splice(this.actionIndex, 1,data)
+            this.actionIndex = null;
           })
         }
-        this.actionIndex = null;
         this.Visible = false;
       },
       cancel() {

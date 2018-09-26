@@ -95,7 +95,7 @@ const actions={
 		getArea().then(({data})=>{
 			commit(AREA,data);
 		})
-		router.replace("mallZxh/manage/join")
+		router.replace("agent/agentOrder")
 	},
 	//退出登录
 	doLogout({commit}){

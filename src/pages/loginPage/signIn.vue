@@ -18,7 +18,7 @@
 
 <script>
   import {getUserMess} from "@/api/servicer"
-  import {accountInfo, getRegisterMess} from "@/api/login";       
+  import {accountInfo} from "@/api/login";       
   import router from "@/router";
   export default {
     data() {
@@ -29,29 +29,11 @@
           402: "请输入你的密码"
         },
         msg: "",
-        disabled: false,
-        verify_code: "",
         login_name: "",
-        activeName: "2",
         password: "",
-        time: 0
       };
     },
     methods: {
-      verify() {
-        this.warn = false;
-        var patt1 = /^[1][3,4,5,7,8][0-9]{9}$/;
-        switch (true) {
-          case this.login_name == "":
-            this.warn = true;
-            this.msg = this.errmsg[401];
-            break;
-          case !patt1.test(this.login_name):
-            this.warn = true;
-            this.msg = "请输入正确的手机号";
-            break;
-        }
-      },
       login() {
         this.msg = "";
         this.warn = false;
@@ -77,24 +59,12 @@
               .then(({data}) => {                             
                 this.doLogin(data);
               })
-              .catch(({ response: {data}}) => {                                                              
+              .catch(({ response: {data}}) => {                         
                 //与后台交互时出现的错误信息
                 this.warn = true;
                 this.msg = data.errorcmt;
               });
             break;
-        }
-      },
-      sentCode() {
-        //点击发送验证码
-        this.msg = "";
-        this.warn = false;
-      },
-      timer() {
-        //60s
-        if (this.time > 0) {
-          this.time--;
-          setTimeout(this.timer, 1000);
         }
       },
       doLogin(data) {
