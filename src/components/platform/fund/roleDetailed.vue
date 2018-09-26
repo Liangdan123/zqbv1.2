@@ -104,9 +104,6 @@
 						this.list = data;
 						this.loading = false;
 					})
-					.catch(({response: {data}}) => {																								
-						this.$message.error(data.errorcmt);
-					})
 			},
 		}
 	}

@@ -129,9 +129,7 @@
 					this.list=data;
 					this.memberLoading=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
+
 			},
 			rechargeList(){//获取会员充值
 				memberRechargeList(this.searchCondition)//获取会员充值列表API
@@ -139,9 +137,6 @@
 					this.list=data;
 					this.memberLoading=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 			},
 			sortChange(column,prop,time){//创建时间的排序按钮
 				this.pay=column;//用于清空排序样式

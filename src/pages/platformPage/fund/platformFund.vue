@@ -1,5 +1,5 @@
 <template>
-	<div class="extractCash">
+	<div class="platformFund">
 		<Navbar></Navbar>
 		<!--.................收入统计................-->
 		<div class="incomeStatistics">
@@ -42,17 +42,19 @@
                 </el-col>
 			</el-row>
 		</div>
+		<!--.................表格收入................-->
 		<div class="g-content">
 			<el-tabs v-model="activeName">
-				<el-tab-pane label="待处理" name="1">
+				<el-tab-pane label="订单收入" name="order">
+					<platformOrderFund></platformOrderFund>
 			    </el-tab-pane>
-			    <el-tab-pane label="已处理" name="2,3,4">		    	
+			    <el-tab-pane label="会员发展收入" name="member">
+			    	<platformMemberFund></platformMemberFund>
+			    </el-tab-pane>
+			    <el-tab-pane label="角色发展收入" name="role">	
+			    	<platformRoleFund></platformRoleFund>			    					    	
 			    </el-tab-pane>
 			</el-tabs>
-			<fundTable
-				:activeName="activeName">
-				
-			</fundTable>
 		</div>
 	</div>
 </template>
@@ -60,10 +62,12 @@
 <script>
 	import {getFundTotalGive} from "@/api/platform"
 	export default{
-		name:"ExtractCash",
+		name:"platformFund",
 		components:{
 			"Navbar":()=>import("@/components/platform/fund/Navbar"),
-			"fundTable":()=>import("@/components/platform/fund/fundTable")
+			"platformOrderFund":()=>import("@/components/platform/fund/platformOrderFund"),
+			"platformMemberFund":()=>import("@/components/platform/fund/platformMemberFund"),
+			"platformRoleFund":()=>import("@/components/platform/fund/platformRoleFund")
 		},
 		filters:{
 			 money(value){
@@ -85,21 +89,21 @@
 				    "total_sell_order_yuan":0,
 				    "today_sell_order_yuan":0
 				},
-				activeName:'1',
+				activeName:"order"
 			}
 		},
 		created(){
-			let compute_type={compute_type:1}
+			let compute_type={compute_type:2}
 			getFundTotalGive(compute_type)//获取累计收入
 			.then(({data})=>{
 				this.mallMoneyStatistics=data
 			})
-		},
+		}
 	}
 </script>
 
 <style lang="scss">
-	.extractCash{
+	.platformFund{
 		margin-top: 120px;
 		.incomeStatistics{
 			width: 1240px;
@@ -140,6 +144,11 @@
 				    top: 21px;
 				    right: 21px;
 			    }
+			}
+		}
+		.el-tabs{
+			.el-tabs__content{
+				overflow:visible
 			}
 		}
 	}

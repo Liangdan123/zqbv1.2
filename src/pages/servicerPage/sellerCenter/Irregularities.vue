@@ -152,9 +152,6 @@
 					this.list=data;
 					this.loading=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})
 	 		},
 	 		editDoods(index){//编辑商品
 	 			let product_id=this.list.data[index].product_id;
@@ -164,9 +161,6 @@
 					this.onlyProductMess=data;
 					this.editProductPage=true;
 				})
-				.catch(({response:{data}})=>{
-					this.$message.error(data.errorcmt);
-				})
 	 		},
 	 		violation(index){//违规提醒
 	 			let illegal_id=this.list.data[index].illegal_id;				
@@ -175,9 +169,6 @@
 					this.read=data;
 					this.readModel=true
 				})
-				.catch(({response:{data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 	 		},
 	 		keepCancelPro(){//违规提醒弹窗的取消，保存（只是用于看）
 	 			this.readModel=false;
@@ -190,11 +181,7 @@
 			  	.then(({data})=>{
 			  		this.searchMethod();//重新掉列表接口
 			  		this.editProductPage=false;
-			  	})
-			  	.catch(({response:{data}})=>{
-			  		this.$message.error(data.errorcmt);
-			  	})
-	 			
+			  	})	 			
 	 		},
 	 	}
 	 }

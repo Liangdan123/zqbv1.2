@@ -91,9 +91,6 @@
 					this.list=data;
 					this.loading=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 			},
 			handleSelection(val){//选中列表
 				let arr=[];
@@ -121,11 +118,7 @@
 					this.$message({showClose: true,message: '分配成功',type: 'success'});	
 					this.searchMethod();
 					this.closeMood()
-				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
-				
+				})				
 			}
 		}
 	} 

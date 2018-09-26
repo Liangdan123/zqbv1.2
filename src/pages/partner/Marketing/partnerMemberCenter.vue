@@ -75,13 +75,6 @@
         }) => {
           this.money = data;
         })
-        .catch(({
-          response: {
-            data
-          }
-        }) => {
-          this.$message.error(data.errorcmt);
-        })
     },
     methods: {
       emptyMthod(){
@@ -95,17 +88,12 @@
           }) => {
             this.list = data.data;
             this.loading = false;
-            if (this.searchCondition.orderby !== undefined) {
+            if (this.searchCondition.orderby) {
               delete this.searchCondition.orderby
             }
           })
-          .catch(({
-            response: {
-              data
-            }
-          }) => {
-            this.$message.error(data.errorcmt);
-            if (this.searchCondition.orderby !== undefined) {
+          .catch(({response: {data } }) => {                                                         
+            if (this.searchCondition.orderby) {
               delete this.searchCondition.orderby
             }
           });

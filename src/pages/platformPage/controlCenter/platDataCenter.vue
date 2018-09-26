@@ -190,17 +190,11 @@
                 .then(({data})=>{
                     this.mallDataStatistics = data;
                 })
-                .catch(({response: {data}})=>{
-                    this.$message.error(data.errorcmt);
-                });
             // 获取待处理事件数
             getMallPendingEventNum()
                 .then(({data})=>{
                     this.pendingEvents = data;
                 })
-                .catch(({response: {data}})=>{
-                    this.$message.error(data.errorcmt);
-                });
 		},
 		methods:{
 			timeRangeChange([start_date,end_date]=[]){

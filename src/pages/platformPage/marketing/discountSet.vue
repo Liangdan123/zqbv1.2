@@ -112,9 +112,6 @@
 						}
 					]
 				})
-				.catch(({reponse: {data}}) => {																				
-					this.$message.error(data.errorcmt);
-				})
 			},
 			setFund(){//设置按钮
 				this.fundTableVis=false;				
@@ -148,9 +145,6 @@
 			        });
 					this.fundTableVis=true;
 					this.CouponConfig();
-				})
-				.catch(({reponse: {data}}) => {																				
-					this.$message.error(data.errorcmt);
 				})
 			}
 		},

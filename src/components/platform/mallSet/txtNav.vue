@@ -91,7 +91,6 @@
 			getMallClassifyList()//商城分类列表
 			.then(({data})=>{
 				this.mallClassifyList=data;					
-			}).catch((error)=>{
 			})
 		},
 		props:["banner"],

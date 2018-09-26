@@ -47,9 +47,6 @@
 			.then(({data})=>{
 				this.mallMess=data
 			})
-			.catch(({response:{data}})=>{
-				this.$message.error(data.errorcmt)
-			});
 			let hintMess=this.$store.getters.getmallMessExist;
 			if(hintMess===true){//编辑商品时的保存成功
 				this.$store.dispatch("doMallMessExist",false);

@@ -61,13 +61,6 @@
         }) => {
           this.money = data;
         })
-        .catch(({
-          response: {
-            data
-          }
-        }) => {
-          this.$message.error(data.errorcmt);
-        })
     },
     methods: {
       emptyMthod(){
@@ -90,8 +83,8 @@
               data
             }
           }) => {
-            this.$message.error(data.errorcmt);
-            if (this.searchCondition.orderby !== undefined) {
+           
+            if (this.searchCondition.orderby) {
               delete this.searchCondition.orderby
             }
           });

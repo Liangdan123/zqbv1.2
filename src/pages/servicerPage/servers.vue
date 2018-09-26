@@ -30,8 +30,8 @@
 					:class="{isActive:active=='storeSetInfo'}">
 					<i></i>店铺设置
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/fund/extractCash" 
-					:class="{isActive:active=='fund'}">
+				<el-menu-item index="/server/fundManage" 
+					:class="{isActive:active=='fundManage'}">
 					<i></i>资金管理
 				</el-menu-item>
 			</el-menu>

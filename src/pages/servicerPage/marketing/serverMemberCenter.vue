@@ -84,9 +84,6 @@
 			getRoleData(user_id)
 			.then(({data})=>{
 				this.money=data
-			})
-			.catch(({response: {data}})=>{
-				 this.$message.error(data.errorcmt);
 			})	
 		},
 		filters:{

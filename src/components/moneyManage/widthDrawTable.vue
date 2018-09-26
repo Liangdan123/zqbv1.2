@@ -120,17 +120,8 @@
         getWithdrawalDetail({
             tixian_id: id
           })
-          .then(({
-            data
-          }) => {
+          .then(({data}) => {                     
             this.detailForWithdrawal = data;
-          })
-          .catch(({
-            response: {
-              data
-            }
-          }) => {
-            this.$message.error(data.errorcmt);
           })
       },
       withdrawalConfirm(id) {
@@ -157,15 +148,7 @@
               this.$set(this.list, item_index, data_extend);
               this.handleClose()
             })
-            .catch(({
-              response: {
-                data
-              }
-            }) => {
-              this.$message.error(data.errorcmt);
-            })
-        }).catch((error) => {
-          console.log(error)
+
         })
       }
     },

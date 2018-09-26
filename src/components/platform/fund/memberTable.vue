@@ -109,7 +109,7 @@
 		},
 		components:{
 			"memberDetailed":()=>import("@/components/platform/fund/memberDetailed"),
-			"roleDetailed"	:()=>import("@/components/platform/fund/roleDetailed")
+			"roleDetailed":()=>import("@/components/platform/fund/roleDetailed"),
 		},
 		data(){
 			return{
@@ -168,9 +168,6 @@
 					.then(({data}) => {									
 						this.list = data;
 						this.loading = false;
-					})
-					.catch(({response: {data}}) => {																								
-						this.$message.error(data.errorcmt);
 					})
 			},
 			checkDetail(index){//查看明细按钮

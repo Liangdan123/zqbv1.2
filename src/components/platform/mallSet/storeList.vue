@@ -125,15 +125,13 @@
 				getMallClassifyList()//商城分类列表
 				.then(({data})=>{
 					this.mallClassifyList=data;					
-				}).catch((error)=>{
 				})
 			}
 			if(status === 2){
 				getClassifyList(shop_id)//商家分类列表
 				.then(({data})=>{
 					this.classifyList=data;
-				}).catch((error)=>{
-				})	
+				})
 			}
 		},
 		mixins: [storeClassify, commodityMethod],

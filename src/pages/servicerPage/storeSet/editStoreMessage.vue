@@ -39,8 +39,7 @@
 					.then(({data})=>{ 												
 						next();
 					})
-					.catch(({response: {data}})=>{
-						 this.$message.error(data.errorcmt);
+					.catch(({response: {data}})=>{						
 						 next(false)
 					})			     		
 		     	})

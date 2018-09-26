@@ -153,9 +153,6 @@
 								this.$message.success('店铺装修信息保存成功')
 								next();
 							})
-							.catch(({response: {data}}) => {																																
-								this.$message.error(data.errorcmt);
-							})
 					})
 					.catch(() => {// 放弃保存						
 						next()
@@ -180,17 +177,11 @@
 				this.product_num = data.statistics_shop_logs.product_num;
 				this.loading=false;
 			})
-			.catch(({response: {data}}) => {			
-				this.$message.error(data.errorcmt);
-			});
 			//获取轮播海报数据
 			getStoreBanner(shop_id)
 				.then(({data}) => {									
 					this.banner = data;					
 					this.copyBanner = JSON.stringify(this.banner);//拷贝一份用于取消编辑
-				})
-				.catch(({response: {data}}) => {																				
-					this.$message.error(data.errorcmt);
 				})
 			var newArrival = {
 				shop_id,
@@ -204,9 +195,6 @@
 				getProductList(data)
 					.then(({data}) => {											
 						this.intro = data.data;
-					})
-					.catch(({response: {data}}) => {																								
-						this.$message.error(data.errorcmt);
 					})
 			},
 			cancelItemsEdit(){//取消
@@ -244,9 +232,6 @@
 								type: 'success'
 							});
 							this.isExist=true
-						})
-						.catch(({response: {data}}) => {																												
-							this.$message.error(data.errorcmt);
 						})
 				}
 			},
