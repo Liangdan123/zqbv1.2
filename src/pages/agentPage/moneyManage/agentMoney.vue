@@ -1,8 +1,16 @@
 <template>
   <div>    
     <!-- 提现记录弹窗 -->   
-    <el-dialog  :visible.sync="visible2"  :close-on-click-modal="false" class="withdraw" title="提现记录">
-      <widthDrawTable :list='withList'></widthDrawTable>
+    <el-dialog  :visible.sync="visible2"  
+    	:close-on-click-modal="false" 
+    	class="withdraw" 
+    	title="提现记录"
+    	@close="closeModel">
+      <widthDrawTable :list='fundList.data' 
+      	:Visible="model"
+      	@checkDetail="checkDetail">
+      	
+      </widthDrawTable>
     </el-dialog>
     
     <!-- 资金管理头部 -->
@@ -34,6 +42,7 @@
 </template>
 
 <script>
+	import {getFundList} from "@/api/platform"
   import moneyHeader from "@/components/moneyManage/moneyHeader"
   import OrderIncome from "@/components/moneyManage/OrderIncome"
   import memberIncome from "@/components/moneyManage/memberIncome"
@@ -55,7 +64,9 @@
         visible:false,
         visible2:false,
         loading:false,
-        withList:[]
+//      withList:[],
+        fundList:{data:[]},//提现记录列表
+				model:true,//控制提现记录
       }
     },
     components: {
@@ -73,9 +84,19 @@
       },
       Viewlog() { //打开提现记录
         //根据身份id查提现记录传入子组件
-        this.withList=[]
-        this.visible2=true;
+				let user_id=this.$store.state.user.user.zhixu_id;
+				getFundList({user_id})//获取提现记录列表
+				.then(({data})=>{
+					this.fundList=data;
+					this.visible2=true;
+				})
       },
+      closeModel(){
+				this.model=true;
+			},
+			checkDetail(){
+				this.model=false;
+			},
       tabSwitch({name}){    
         // tab面板切换
         this.searchCondition.page = 1;
