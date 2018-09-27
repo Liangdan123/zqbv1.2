@@ -6,7 +6,7 @@
     </el-dialog>
     
     <!-- 资金管理头部 -->
-    <moneyHeader @Viewlog='Viewlog'></moneyHeader>
+    <moneyHeader @Viewlog='Viewlog' @applyFund='openApply'></moneyHeader>
     <!-- 表格部分 -->
     <div class="g_content mt-20">
       <el-tabs v-model="activeName" @tab-click="tabSwitch">
@@ -16,17 +16,10 @@
       </el-tabs>
       <!-- 会员管理表格 数据父组件提供 -->
       <div class="buttons clearfix mb-20">
-        <el-button class="store-button1 float-l" @click="openApply">
-          <i class="iconfont icon-Rectangle f12"></i>
-          <span class="font-b">申请提现</span>
-        </el-button>
-        <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选列表'
-          hintMess="输入相关信息进行搜索">
-        </search>
         <template v-loading="loading">
-          <OrderIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==1"></OrderIncome>
-          <memberIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==2"></memberIncome>
-          <roleIncome :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod" v-if="activeName==3"></roleIncome>
+		    	<orderDetailed :user_id="user_id" typeKey="2" v-if="activeName==1" :isSearch='true'></orderDetailed>
+		    	<memberDetailed :user_id="user_id" typeKey="2" v-if="activeName==2" :isSearch='true'></memberDetailed>
+		    	<roleDetailed :user_id="user_id"  v-if="activeName==3" :isSearch='true'></roleDetailed>
         </template>
       </div>
     </div>
@@ -35,9 +28,9 @@
 
 <script>
   import moneyHeader from "@/components/moneyManage/moneyHeader"
-  import OrderIncome from "@/components/moneyManage/OrderIncome"
-  import memberIncome from "@/components/moneyManage/memberIncome"
-  import roleIncome from "@/components/moneyManage/roleIncome"
+  import orderDetailed from "@/components/platform/fund/orderDetailed"
+  import roleDetailed from "@/components/platform/fund/roleDetailed"
+  import memberDetailed from "@/components/platform/fund/memberDetailed"
   import WithdrawalApply from "@/components/moneyManage/WithdrawalApply"
   import widthDrawTable from "@/components/moneyManage/widthDrawTable"
   import page from '@/utils/page'
@@ -45,29 +38,28 @@
   export default {
     data() {
       return {
-        activeName: '2',
+        activeName: '1',
         list: [],
         disabled:false,
-        searchCondition: {
-          page: 1,
-          search: {},
-          per_page: 20
-        },
         visible:false,
         visible2:false,
         loading:false,
-        withList:[]
+        withList:[],
+        user_id:null
       }
     },
     components: {
       moneyHeader,
-      OrderIncome,
-      memberIncome,
-      roleIncome,
+      orderDetailed,
       WithdrawalApply,
-      widthDrawTable
+      widthDrawTable,
+      memberDetailed,
+      roleDetailed
     },
-    mixins: [page],
+    // mixins: [page],
+    created () {
+      this.user_id=this.$store.state.user.user.zhixu_id;
+    },
     methods: {
       openApply(){
 				this.$router.push("agentMoney/WithdrawalApply")
@@ -79,13 +71,7 @@
       },
       tabSwitch({name}){    
         // tab面板切换
-        this.searchCondition.page = 1;
-        this.searchCondition.search={}
-        this.searchCondition.search.status = this.activeName;
-        this.searchMethod()
-      },
-      _doSearch() {
-
+        // this.searchMethod()
       },
     }
   }

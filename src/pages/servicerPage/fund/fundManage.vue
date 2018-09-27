@@ -103,8 +103,8 @@
 				},
 				fundBalance:{
 					"balance": 0,
-				    "balance_yuan":0,
-				    "tixian_rate": 0
+					"balance_yuan":0,
+				"tixian_rate": 0
 				},
 				loadTotal:false,
 			}

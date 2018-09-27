@@ -93,8 +93,7 @@
 			}
 		},
 		created(){
-			let compute_type={compute_type:2}
-			getFundTotalGive(compute_type)//获取累计收入
+			getFundTotalGive({compute_type:2})//获取累计收入
 			.then(({data})=>{
 				this.mallMoneyStatistics=data
 			})

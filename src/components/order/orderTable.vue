@@ -69,7 +69,7 @@
             type: "1",
             is_company: 1
           },
-          per_page: 20
+          per_page: 1
         },
         type: 2, //:1平台,2代理商,3合伙人,4服务商
         partner:[],

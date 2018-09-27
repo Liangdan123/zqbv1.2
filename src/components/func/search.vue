@@ -98,10 +98,11 @@
 			}
 		},
 		watch: {
-		    search(val){
-		        let keys=Object.keys(val)//监听搜索条件变化
-		        keys.includes('created_time')||(this.time=[]);//监听重置时间
-		        keys.includes(this.inputSearch)||(this.order_search="");
+		    search(val,aaa){
+					console.log(111111);
+					let keys=Object.keys(val)//监听搜索条件变化
+					keys.includes('created_time')||(this.time=[]);//监听重置时间
+					keys.includes(this.inputSearch)||(this.order_search="");
 		    }
 	   	},
 		methods: {

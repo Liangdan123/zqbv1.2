@@ -95,7 +95,7 @@ const actions={
 		getArea().then(({data})=>{
 			commit(AREA,data);
 		})
-		router.replace("agent/agentOrder")
+		router.replace("agent/orderTable")
 	},
 	//退出登录
 	doLogout({commit}){

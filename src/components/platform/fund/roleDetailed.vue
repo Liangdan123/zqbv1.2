@@ -1,6 +1,9 @@
 <template>
 	<div class="roleDetailed" >		
-		<div v-show="false">{{condition}}</div>
+		<!-- <div v-show="false">{{condition}}</div> -->
+		   <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选列表'
+          hintMess="输入相关信息进行搜索" class='mb-20' inputSearch='keyword' v-if="isSearch">
+        </search>
 		<el-table
 			:data="list.data" 
 			v-loading="loading"
@@ -31,9 +34,9 @@
 			</el-table-column>
 		</el-table>
 		<div class="clearfix mt-20">
-			<el-pagination :total="list.total" 
-				:current-page.sync="list.current_page" 
-				:page-size="list.per_page" 
+				<el-pagination :total="list.total"  v-if='list.total>searchCondition.per_page'
+				:current-page.sync="searchCondition.page" 
+				:page-size="searchCondition.per_page" 
 				layout="total, prev, pager, next" 
 				@current-change="handleCurrentChange" 
 				class="float-r">
@@ -47,7 +50,7 @@
 	import {roleCommission} from "@/api/platform"
 	export default{
 		name:"roleDetailed",
-		props:["user_id","typeKey"],
+		props:["user_id","typeKey",'isSearch'],
 		data(){
 			return{
 				searchCondition: { //搜索条件
@@ -88,13 +91,14 @@
 				return type
 			}
 		},
-		computed:{
-			condition(){//蒋父集传过来的值赋值给searchCondition；
-				if(this.user_id){
-					this.$set(this.searchCondition,"user_id",this.user_id);
-				};
+		watch:{
+			user_id(val){//蒋父集传过来的值赋值给searchCondition；
+				this.$set(this.searchCondition,"user_id",val);
 				this.searchMethod();
 			}
+		},
+		created () {
+			this.$set(this.searchCondition,"user_id",this.user_id);
 		},
 		mixins: [page],
 		methods:{
