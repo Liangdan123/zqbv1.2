@@ -58,7 +58,7 @@
   export default {
     props: ["money"],
     filters: {
-      fund(value) {
+      fund(value=0) {
         // 金额转换成数字和整数部分
         if(value){
          value = Number(value).toFixed(2).split('.');
