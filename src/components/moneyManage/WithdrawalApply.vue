@@ -227,8 +227,33 @@
 				}
 			},
 			submitForm(formName) {
-				this.$refs['ruleForm'].validate((valid) => {
-					console.log(valid)
+				this.submitDisable = true;
+				this.$refs[formName].validate((valid) => {
+			      if(!valid){
+                this.submitDisable = false;
+                return false;
+           };
+           let {tixian_rate} = this.accountMoneyInfo;
+           let {apply_money} = this.withdrawalApplyData;
+           // 提现金额转为分
+           apply_money = apply_money*100;
+           // 计算手续费
+            let deduct_money = apply_money*tixian_rate/100;
+            // 扣去手续费后剩余的钱
+            let money = apply_money - deduct_money;
+            let data_extend = {apply_money,tixian_rate,deduct_money,money};
+            let data_post = Object.assign({},this.withdrawalApplyData,data_extend);
+	          withdrawalApplyCommit(data_post)
+	            .then(({data})=>{
+	                this.$message({
+	                    message: '已提交提现申请，申请进度可在提现记录中查看',
+	                    type: 'success'
+	                });
+	                this.pageBack()
+	            })
+	            .catch(()=>{
+	            	this.submitDisable=false;                           
+	            })
 				})
 			}
 		}
