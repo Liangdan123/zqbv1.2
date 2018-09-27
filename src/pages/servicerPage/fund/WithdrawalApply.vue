@@ -5,7 +5,7 @@
            <i>></i>
            <span class="link-active">申请提现</span>
       </div>
-       <WithdrawalApply></WithdrawalApply>
+       <WithdrawalApply @JumpPage="JumpPage"></WithdrawalApply>
 	</div>
 </template>
 
@@ -17,6 +17,10 @@
 				// 回到上一页
 				this.$router.back()
 			},
+			JumpPage(){
+				console.log(5555555555)
+				this.pageBack();
+			}
 		}
 	}
 </script>

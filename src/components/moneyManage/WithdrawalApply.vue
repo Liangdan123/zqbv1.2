@@ -245,11 +245,11 @@
             let data_post = Object.assign({},this.withdrawalApplyData,data_extend);
 	          withdrawalApplyCommit(data_post)
 	            .then(({data})=>{
+	            		this.$emit("JumpPage");//用于跳转页面
 	                this.$message({
 	                    message: '已提交提现申请，申请进度可在提现记录中查看',
 	                    type: 'success'
-	                });
-	                this.pageBack()
+	                });								
 	            })
 	            .catch(()=>{
 	            	this.submitDisable=false;                           
