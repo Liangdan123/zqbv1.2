@@ -8,7 +8,7 @@
 			style="width: 100%" >
 			<el-table-column prop="fws_shop_name" label="服务商">
 			</el-table-column>
-			<el-table-column prop="fws_is_company" label="性质" v-if='isCompany'>
+			<el-table-column prop="fws_is_company" label="性质">
 					<template slot-scope="scope">
 					{{scope.row.fws_is_company==0?'个人':'企业'}}
 				</template>

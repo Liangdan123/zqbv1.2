@@ -1,5 +1,17 @@
 <template>
 	<div class="fundManage">
+		<!--..............提现记录弹窗...........-->
+		<el-dialog  :visible.sync="cashRecordModel"  
+			:close-on-click-modal="false" 
+			class="withdraw" 
+			title="提现记录"
+			@close="closeModel">
+	    	<widthDrawTable 
+	    		:list='list.data' 
+	    		:Visible="model"
+	    		@checkDetail="checkDetail"></widthDrawTable>
+	    </el-dialog>
+		
 		<!--................累计金额.............-->
 		<div class="count clearfix" v-loading="loadTotal">
 			<div class="plate bg-f mr-20 ">
@@ -65,20 +77,19 @@
 				</div>
 				<div>
 					<p class="color-7F f14 mt-10">
-						提现记录
+						<b @click="cashRecord" class="cashRecord">提现记录</b>
 						<el-button class="store-button1 float-r" @click="applyFund">
 							申请提现
 						</el-button>
 					</p>
 				</div>	
 			</div>
-		</div>
-		
+		</div>		
 	</div>
 </template>
 
 <script>
-	import {getFundTotalGive} from "@/api/platform"
+	import {getFundTotalGive,getFundList} from "@/api/platform"
 	import {getAccountInfo} from "@/api/servicer"
 	export default{
 		filters:{
@@ -88,6 +99,9 @@
                 let value_int = Number(value[0]).toLocaleString();// 转换成金额形式
                 return `${label} ${value_int}.${value[1]}`;
             },
+        },
+        components:{
+        	"widthDrawTable":()=>import("@/components/moneyManage/widthDrawTable")
         },
 		data(){
 			return{
@@ -107,6 +121,9 @@
 				"tixian_rate": 0
 				},
 				loadTotal:false,
+				cashRecordModel:false,
+				list:{data:[]},
+				model:true,//控制提现记录
 			}
 		},
 		created(){
@@ -116,14 +133,29 @@
 				this.total=data
 			});
 			let user_id=this.$store.state.user.user.zhixu_id;
-			getAccountInfo(user_id)
+			getAccountInfo(user_id)//获取账户信息
 			.then(({data})=>{
 				this.fundBalance=data
 			})
+
 		},
 		methods:{
 			applyFund(){//申请提现按钮
 				this.$router.push("fundManage/withdrawalapply")
+			},
+			closeModel(){
+				this.model=true;
+			},
+			checkDetail(){
+				this.model=false;
+			},
+			cashRecord(){
+				let user_id=this.$store.state.user.user.zhixu_id;
+				getFundList({user_id})//获取提现记录列表
+				.then(({data})=>{
+					this.list=data;
+					this.cashRecordModel=true
+				})
 			}
 		}
 	}
@@ -143,6 +175,10 @@
 				width: 255px;
 				height: 102px;
 				border-radius: 2px;
+				.cashRecord{
+					font-weight: normal;
+					color: #007DE3;
+				}
 			}
 		}
 	}
