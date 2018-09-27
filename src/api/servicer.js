@@ -30,3 +30,9 @@ export const checkIrregularities=(illegal_id)=>axios.post("mock/product/check_il
 export const isRead=(illegal_id)=>axios.put("mock/product/operate_illegal",{illegal_id})//处理违规提醒(商户)
 
 export const getAccountInfo=(user_id)=>axios.get("mock/fund/get_account",{params:{user_id}})//获取账户信息
+
+export const getVerifyCode = ()=>axios.get("notify/tixian_verify_code");// 申请提现发送验证码
+
+export const withdrawalApplyCommit = (data)=>axios.post("fund/commit_tixian",data);//提交提现申请
+
+export const getAccountMoney = (user_id)=>axios.get("mock/fund/get_account",{params:{user_id}});// 获取账户资金信息
