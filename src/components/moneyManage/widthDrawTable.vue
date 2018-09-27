@@ -32,15 +32,15 @@
 			</el-table>
 		</div>
 		<WithdrawDetail v-if="!Visible"
-			:tixian_id="tixian_id"></WithdrawDetail>
+			:tixian_id="tixian_id"
+			@backDetail="backDetail"
+			@sureFund="sureFund"
+			isbtn="true"></WithdrawDetail>
+		
 	</div>
 </template>
 
 <script>
-	// import {
-	//   setWithdrawalStatus,
-	//   setRemittanceStatus
-	// } from "@/api/money-management";
 	export default {
 		name: "MoneyWithdrawaklDetail",
 		components: {
@@ -96,7 +96,7 @@
 					return []
 				},
 			},
-			Visible:{
+			Visible:{// 提现详情dialog开关状态
 				required: true,
 				default:function(){
 					return true
@@ -109,16 +109,20 @@
 		data() {
 			return {
 				role: 2,
-//				Visible: false, // 提现详情dialog开关状态
 				withdrawalClickId: '',
 				tixian_id:"",
 			}
 		},
 		methods: {
 			withdrawalDetailShow(tixian_id) {
-//				this.Visible = false;
-				this.$emit("checkDetail")
+				this.$emit("checkDetail");//显示那个弹框
 				this.tixian_id=tixian_id;		
+			},
+			backDetail(){
+				this.$emit("backDetail")
+			},
+			sureFund(){//确认收款
+				this.$emit("sureFund")
 			},
 			withdrawalConfirm(id) {
 				this.withdrawalClickId = id;

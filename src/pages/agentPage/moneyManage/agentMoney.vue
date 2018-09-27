@@ -8,7 +8,10 @@
     	@close="closeModel">
       <widthDrawTable :list='fundList.data' 
       	:Visible="model"
-      	@checkDetail="checkDetail">
+      	@checkDetail="checkDetail"
+      	@backDetail="backDetail"
+      	@sureFund="sureFund">
+      	
       	
       </widthDrawTable>
     </el-dialog>
@@ -53,7 +56,6 @@
         visible:false,
         visible2:false,
         loading:false,
-//      withList:[],
         fundList:{data:[]},//提现记录列表
 				model:true,//控制提现记录
       }
@@ -76,9 +78,14 @@
       },
       Viewlog() { //打开提现记录
         //根据身份id查提现记录传入子组件
+					this._list()
+      },
+      _list(){
+        //根据身份id查提现记录传入子组件
 				let user_id=this.$store.state.user.user.zhixu_id;
 				getFundList({user_id})//获取提现记录列表
 				.then(({data})=>{
+					this.model=true;
 					this.fundList=data;
 					this.visible2=true;
 				})
@@ -88,6 +95,12 @@
 			},
 			checkDetail(){
 				this.model=false;
+			},
+			backDetail(){
+				this.model=true;
+			},
+			sureFund(){
+				this._list()
 			},
       tabSwitch({name}){    
         // tab面板切换
