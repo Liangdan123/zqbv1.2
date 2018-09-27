@@ -79,6 +79,7 @@ import agentMemberCenter from '@/pages/agentPage/Marketing/agentMemberCenter'
 import agentRoleDep from '@/pages/agentPage/Marketing/agentRoleDep'
 import agentUrl from '@/pages/agentPage/Marketing/agentUrl'
 import agentMoney from '@/pages/agentPage/moneyManage/agentMoney'
+import agentWithdrawalApply from '@/pages/agentPage/moneyManage/WithdrawalApply'
 
 //合伙人
 import partner from '@/pages/partner/partner'
@@ -87,6 +88,7 @@ import partnerMemberCenter from '@/pages/partner/Marketing/partnerMemberCenter'
 import partnerRoleDep from '@/pages/partner/Marketing/partnerRoleDep'
 import partnerUrl from '@/pages/partner/Marketing/partnerUrl'
 import partnerMoney from '@/pages/partner/moneyManage/partnerMoney'
+import partnerWithdrawalApply from '@/pages/partner/moneyManage/WithdrawalApply'
 
 Vue.use(Router);
 const router = new Router({ 
@@ -120,6 +122,11 @@ const router = new Router({
 						component: partnerMoney,
 					},
 					{
+						path: 'partnerMoney/WithdrawalApply',
+						name: 'partnerWithdrawalApply',
+						component: partnerWithdrawalApply,
+					},
+					{
 						path: 'partnerMarketInfo',
 						name: 'partnerMarketInfo',
 						component: partnerMarketInfo,
@@ -150,10 +157,16 @@ const router = new Router({
 						name: 'agentOrder',
 						component: orderTable,
 					},
+					
 					{
 						path: 'agentMoney',
 						name: 'agentMoney',
 						component: agentMoney,
+					},
+					{
+						path: 'agentMoney/WithdrawalApply',
+						name: 'agentWithdrawalApply',
+						component: agentWithdrawalApply,
 					},
 					{
 						path: 'agentMarketInfo',
