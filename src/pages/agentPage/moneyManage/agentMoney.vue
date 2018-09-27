@@ -17,9 +17,9 @@
       <!-- 会员管理表格 数据父组件提供 -->
       <div class="buttons clearfix mb-20">
         <template v-loading="loading">
-		    	<orderDetailed :user_id="user_id" typeKey="2" v-if="activeName==1" :isSearch='true'></orderDetailed>
-		    	<memberDetailed :user_id="user_id" typeKey="2" v-if="activeName==2" :isSearch='true'></memberDetailed>
-		    	<roleDetailed :user_id="user_id"  v-if="activeName==3" :isSearch='true'></roleDetailed>
+		    	<orderDetailed :user_id="user_id" typeKey="2" v-if="activeName==1" :isSearch='true' :isCompany='true'></orderDetailed>
+		    	<memberDetailed :user_id="user_id" typeKey="2" v-if="activeName==2" :isSearch='true' :isCompany='true'></memberDetailed>
+		    	<roleDetailed :user_id="user_id"  v-if="activeName==3" :isSearch='true' :isCompany='true'></roleDetailed>
         </template>
       </div>
     </div>

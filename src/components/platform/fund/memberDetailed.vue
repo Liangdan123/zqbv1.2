@@ -12,6 +12,11 @@
 			</el-table-column>
 			<el-table-column prop="cps_contact_name" label="发展商">
 			</el-table-column>
+			<el-table-column prop="cps_is_company" label="性质" v-if='isCompany'>
+					<template slot-scope="scope">
+					{{scope.row.fws_is_company==0?'个人':'企业'}}
+				</template>
+			</el-table-column>
 			<el-table-column prop="cps_type" label="身份属性">
 				<template slot-scope="scope">
 					{{scope.row.cps_type|identity}}
@@ -47,7 +52,7 @@
 	import {memberCommission} from "@/api/platform"
 	export default{
 		name:"memberDetailed",
-		props:["user_id","typeKey","isSearch"],
+		props:["user_id","typeKey","isSearch",'isCompany'],
 		data(){
 			return{
 				searchCondition: { //搜索条件

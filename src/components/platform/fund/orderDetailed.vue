@@ -45,7 +45,7 @@
 	import {orderCommission} from "@/api/platform"
 	export default{
 		name:"orderDetailed",
-		props:["user_id","typeKey","isSearch"],
+		props:["user_id","typeKey","isSearch",'isCompany'],
 		data(){
 			return{
 				searchCondition: { //搜索条件

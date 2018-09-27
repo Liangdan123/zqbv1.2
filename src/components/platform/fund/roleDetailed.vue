@@ -11,9 +11,15 @@
 
 			<el-table-column prop="join_contact_name" label="发展商姓名">
 			</el-table-column>
+			
 			<el-table-column prop="join_type" label="角色发展">
 				<template slot-scope="scope">
 					{{scope.row.cps_type|identity}}
+				</template>
+			</el-table-column>
+					<el-table-column prop="join_is_company" label="性质" v-if='isCompany'>
+					<template slot-scope="scope">
+					{{scope.row.fws_is_company==0?'个人':'企业'}}
 				</template>
 			</el-table-column>
 			<el-table-column prop="join_company_name" label="公司名称">
@@ -50,7 +56,7 @@
 	import {roleCommission} from "@/api/platform"
 	export default{
 		name:"roleDetailed",
-		props:["user_id","typeKey",'isSearch'],
+		props:["user_id","typeKey",'isSearch','isCompany'],
 		data(){
 			return{
 				searchCondition: { //搜索条件
