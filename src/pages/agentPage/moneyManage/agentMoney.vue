@@ -17,7 +17,7 @@
     <moneyHeader @Viewlog='Viewlog' @applyFund='openApply'></moneyHeader>
     <!-- 表格部分 -->
     <div class="g_content mt-20">
-      <el-tabs v-model="activeName" @tab-click="tabSwitch">
+      <el-tabs v-model="activeName" >
         <el-tab-pane label="订单收入" name="1"></el-tab-pane>
         <el-tab-pane label="会员收入" name="2"></el-tab-pane>
         <el-tab-pane label="角色收入" name="3"></el-tab-pane>
@@ -89,10 +89,6 @@
 			checkDetail(){
 				this.model=false;
 			},
-      tabSwitch({name}){    
-        // tab面板切换
-        // this.searchMethod()
-      },
     }
   }
 
