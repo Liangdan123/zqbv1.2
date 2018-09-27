@@ -39,12 +39,8 @@
 </template>
 
 <script>
-  import {
-    getMemMoney
-  } from "@/api/marketing"
-  import {
-    getMemLists
-  } from "@/api/marketing"
+  import { getRoleData } from "@/api/servicer"  
+  import {getMemberList } from "@/api/platform"  
   import vipTable from "@/components/marketing/vipTable"
   import member from "@/components/marketing/memberHeader"
   import page from '@/utils/page'

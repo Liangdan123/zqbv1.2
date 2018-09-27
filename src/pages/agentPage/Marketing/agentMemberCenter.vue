@@ -30,7 +30,8 @@
 </template>
 
 <script>
-  import { getMemMoney,getMemLists } from "@/api/marketing"  
+  import { getRoleData } from "@/api/servicer"  
+  import {getMemberList } from "@/api/platform"  
   import vipTable from "@/components/marketing/vipTable"
   import member from "@/components/marketing/memberHeader"
   import page from '@/utils/page'
@@ -54,13 +55,11 @@
     },
     created() {
       //调用获取会员统计数据API
-      var mall_id = this.$store.getters.getMall_id;
-      getMemMoney(mall_id)
-        .then(({
-          data
-        }) => {
-          this.money = data;
-        })
+      let user_id={user_id:this.$store.state.user.user.zhixu_id};
+     getRoleData(user_id)
+			.then(({data})=>{
+				this.money=data
+			})	
     },
     methods: {
       emptyMthod(){
@@ -68,7 +67,7 @@
 				this.searchMethod()
 			},
       _doSearch() {
-        getMemLists(this.searchCondition)
+        getMemberList(this.searchCondition)
           .then(({
             data
           }) => {
@@ -83,7 +82,6 @@
               data
             }
           }) => {
-           
             if (this.searchCondition.orderby) {
               delete this.searchCondition.orderby
             }
@@ -125,3 +123,10 @@
   }
 
 </style>
+
+<style>
+.memberCenter .el-tabs__content{
+  overflow:visible;
+}
+</style>
+

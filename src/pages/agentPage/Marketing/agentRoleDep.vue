@@ -11,8 +11,8 @@
       <!--.....................tab........................-->
       <el-tabs v-model="tabForShow" @tab-click="tabSwitch">
         <el-tab-pane label="申请列表" name="1"></el-tab-pane>
-        <el-tab-pane label="已通过" name="2"></el-tab-pane>
-        <el-tab-pane label="未通过" name="3"></el-tab-pane>
+        <el-tab-pane label="已通过" name="3"></el-tab-pane>
+        <el-tab-pane label="未通过" name="4"></el-tab-pane>
       </el-tabs>
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
@@ -47,40 +47,12 @@
 
 <script>
   import page from '@/utils/page'
+  import {getAppllyList,getApplication} from "@/api/platform"  
+
   export default {
     data() {
       return {
         joinMsg: {
-          "join_id": 1,
-          "join_no": "J18013110204412011155",
-          "mall_id": 1,
-          "is_company": 1,
-          "type": 3,
-          "cps_id": 0,
-          "contact_name": "小王",
-          "sex": 1,
-          "identity_num": "330702211112222222",
-          "phone": "18457922111",
-          "wx_qq": "3323312",
-          "contact_email": "cs@163.com",
-          "province": "浙江省",
-          "city": "金华市",
-          "address": "豪森智慧谷6幢",
-          "company_name": "快服科技",
-          "business_range": "1,2,3",
-          "business_range_name": "app开发,管理软件,人力资源",
-          "license_url": "uploads/1/product/3/2018-07-26-14-30-38-5b596a8e76b2a.png",
-          "identity_front_url": "uploads/1/product/3/2018-07-26-14-30-38-5b596a8e76b2a.png",
-          "identity_back_url": "uploads/1/product/3/2018-07-26-14-30-38-5b596a8e76b2a.png",
-          "pay_fee_yuan": 1000,
-          "pay_type": "weixin",
-          "audit_status": 1,
-          "pay_status": 0,
-          "commit_time": "2018-08-07 08:45:11",
-          "audit_time": "2018-08-07 08:45:11",
-          "pay_time": null,
-          "remark": null,
-          "created_at": "2018-08-07 08:45:11"
         },
         tableDataLoading: false,
         tabForShow: "1",
@@ -93,25 +65,7 @@
           per_page: 20
         },
         Visible:false,
-        list: [{
-          "join_id": 1,
-          "join_no": "J18013110204412011155",
-          "is_company": 1,
-          "type": 2,
-          "contact_name": "小王",
-          "cps_id": 0,
-          "phone": "18457922111",
-          "province": "浙江省",
-          "city": "金华市",
-          "contact_email": "cs@163.com",
-          "company_name": "快服科技",
-          "business_range": "1,2,3",
-          "business_range_name": "app开发,管理软件,人力资源",
-          "pay_fee_yuan": 1000,
-          "audit_status": 1,
-          "pay_status": 0,
-          "created_at": "2018-08-07 08:45:11"
-        }],
+        list: [],
       };
     },
     mixins: [page],
@@ -122,7 +76,10 @@
     methods: {
       check(id){
         //根据id查数据
-        this.Visible=true;
+        getApplication(id).then(({data})=>{
+          this.joinMsg=data;
+          this.Visible=true;
+        })
       },
       closeSearch() {
         this.$refs.isShow.closeSearch();
@@ -134,19 +91,19 @@
         this.searchCondition.page = 1;
         this.searchCondition.search={};
         this.searchCondition.search.status = this.tabForShow;
-        this._doSearch();
+        this.searchMethod()
       },
       _doSearch() {
         // 搜索入驻申请列表
-        // this.tableDataLoading = true;
-        // getShopApplyLists(this.searchCondition)
-        //     .then(({
-        //         data
-        //     }) => {
-        //         this.tableDataLoading = false;
-        //         this.list = data.data;
-        //         this.total = data.total;
-        //     })
+        this.tableDataLoading = true;
+        getAppllyList(this.searchCondition)
+            .then(({
+                data
+            }) => {
+                this.tableDataLoading = false;
+                this.list = data.data;
+                this.total = data.total;
+            })
       }
     }
   };
@@ -156,7 +113,7 @@
 
 <style lang="scss">
 .commodity{
-  .el-dialog--large{
+  .el-dialog{
     width: 1087px;
   }
   .el-dialog__body{

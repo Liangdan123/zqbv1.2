@@ -99,7 +99,7 @@
         this.searchCondition.page = 1;
         this.searchCondition.search={}
         this.searchCondition.search.status = this.activeName;
-        this._doSearch();
+        this.searchMethod()
       },
       emptyMthod() {
         delete this.searchCondition.search.level //删除等级条件

@@ -5,10 +5,6 @@ export const getCouponList =(data)=>axios.post("coupon/lists",data)//店铺优�
 
 export const deleteCouponList =(data)=>axios.delete("coupon/delete__batch",{data})//删除优惠券列表
 
-export const getMemMoney =(mall_id)=>axios.get("member/get_statistics",{params:{mall_id}})//获取会员统计数据
-
-export const getMemLists =(data)=>axios.post("member/lists",data)//获取会员列表
-
 export const getRechargeLists =(data)=>axios.post("member/recharge_lists",data)//获取会员充值记录列表
 
 export const RechargeDiscount =(mall_id)=>axios.get("member/give_lists",{params:{mall_id}})//获取充值优惠列表接口

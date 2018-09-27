@@ -84,7 +84,7 @@ export const memberCommission=(data)=>axios.post("mock/fund/give_member_lists",d
 
 export const roleCommission=(data)=>axios.post("mock/fund/give_join_lists",data)//获取角色加盟佣金列表
 
-export const getRoleCps=(user_id)=>axios.get("mock/platform/get_role_cps",{params:{user_id}})//获取角色cps链接
+export const getRoleCPS=(user_id)=>axios.get("mock/platform/get_role_cps",{params:{user_id}})//获取角色cps链接
 
 export const blacklist=(data)=>axios.put("mock/platform/blacklist_operate_batch",data)//批量黑名单操作
 

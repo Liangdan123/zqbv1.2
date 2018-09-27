@@ -91,7 +91,7 @@
         this.searchCondition.page = 1;
         this.searchCondition.search={};
         this.searchCondition.search.status=this.tabForShow;
-        this.searchMethod();
+        this.searchMethod()
       },
       _doSearch() {
         // 搜索入驻申请列表

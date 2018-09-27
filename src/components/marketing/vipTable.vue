@@ -2,11 +2,11 @@
   <div class="tableArrow">
     <!--...................会员管理表格..................-->
     <el-table :data="list" style="width: 100%;margin-top: 20px;" empty-text="暂无会员信息" @sort-change="sortChange">
-      <el-table-column prop="nick_name" label="会员等级">
+      <el-table-column prop="level" label="会员等级">
       </el-table-column>
       <el-table-column prop="nick_name" label="会员昵称">
       </el-table-column>
-      <el-table-column prop="tel" label="手机号">
+      <el-table-column prop="cps_phone" label="手机号">
       </el-table-column>
       <el-table-column prop="created_at" sortable="custom" label="创建时间">
       </el-table-column>
@@ -19,10 +19,6 @@
 </template>
 
 <script>
-  import {
-    getMemLists,
-    getRechargeLists
-  } from "@/api/marketing"
   export default {
     data() {
       return {
@@ -52,6 +48,7 @@
       //排序
       sortChange(column, prop, order) {
         //用于清空样式（点击搜索，清空时）
+        console.log(111);
         this.order = column;
         if (column.prop !== "created_at") {
           return;
@@ -68,6 +65,7 @@
       },
       sortCommon(data) {
         this.$set(this.searchCondition, "orderby", data);
+        console.dir(this.searchCondition);
         this.$emit("searchMethod")
       },
       handleCurrentChange(val) {

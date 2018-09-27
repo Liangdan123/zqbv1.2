@@ -53,7 +53,7 @@
   import Navbar from "@/components/platform/manage/Navbar";
   import {
     getRoleList,
-    getRoleCps,
+    getRoleCPS,
     blacklist
   } from "@/api/platform"
   import page from '@/utils/page'
@@ -88,7 +88,7 @@
     methods: {
       open(id) {
         //查询链接内容\
-        getRoleCps(id).then(({
+        getRoleCPS(id).then(({
           data
         }) => {
           this.urlArr = [{
