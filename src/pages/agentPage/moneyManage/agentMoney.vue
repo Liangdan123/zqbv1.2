@@ -27,7 +27,7 @@
           <i class="iconfont icon-Rectangle f12"></i>
           <span class="font-b">申请提现</span>
         </el-button>
-        <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='emptyMthod' ref="isShow" selectTitle='筛选列表'
+        <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选列表'
           hintMess="输入相关信息进行搜索">
         </search>
         <template v-loading="loading">
@@ -48,6 +48,7 @@
   import WithdrawalApply from "@/components/moneyManage/WithdrawalApply"
   import widthDrawTable from "@/components/moneyManage/widthDrawTable"
   import page from '@/utils/page'
+  import {orderCommission} from "@/api/platform"
   export default {
     data() {
       return {
@@ -99,10 +100,6 @@
         this.searchCondition.page = 1;
         this.searchCondition.search={}
         this.searchCondition.search.status = this.activeName;
-        this.searchMethod()
-      },
-      emptyMthod() {
-        delete this.searchCondition.search.level //删除等级条件
         this.searchMethod()
       },
       _doSearch() {

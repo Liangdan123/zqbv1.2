@@ -41,7 +41,7 @@
             </svg>
           </div>
         </el-col>
-        <el-col :span="span" v-if="type==1">
+        <el-col :span="span" >
           <div class="statisticsItem">
             <p class="itemTitle">平台累计收入</p>
             <p class="money-total">{{33.33 | money}}</p>
@@ -70,10 +70,10 @@
       //判断传进来头部有几个模块 合伙人2个 代理商3个  服务商2个  平台4个
       this.type=this.$store.getters.getType; //1平台,2代理商,3合伙人,4服务商\
       this.type=2;
-      this.span=this.type==1?6:8//是平台就6 不是就8
+      this.span=this.type==2?6:8//是平台就6 不是就8
     },
     filters: {
-      money(value) {
+      money(value=0) {
         // 金额转换成数字和整数部分
         value = Number(value).toFixed(2).split('.');
         let value_int = Number(value[0]).toLocaleString(); // 转换成金额形式

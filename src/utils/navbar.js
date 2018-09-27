@@ -8,7 +8,7 @@ export default {
     }
   },
   created(){
-    this.selected = this.$route.name;		
+   this.fetchData()	
   },
   watch: {
     '$route': 'fetchData'
@@ -30,7 +30,8 @@ export default {
       this.selected = index;
     },
     fetchData() {
-      this.selected = this.$route.name
+      let arr = this.$route.path.trim().split("/");
+      this.selected = arr[arr.length-1]
     }
   }
 }

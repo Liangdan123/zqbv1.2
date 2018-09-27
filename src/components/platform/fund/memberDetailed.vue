@@ -9,7 +9,6 @@
 			</el-table-column>
 			<el-table-column prop="cps_contact_name" label="发展商">
 			</el-table-column>
-
 			<el-table-column prop="cps_type" label="身份属性">
 				<template slot-scope="scope">
 					{{scope.row.cps_type|identity}}
@@ -20,7 +19,6 @@
 					{{scope.row.order_fee_yuan||0|money}}
 				</template>
 			</el-table-column>
-			
 			<el-table-column prop="created_at" label="创建时间">
 			</el-table-column>
 			<el-table-column prop="give_fee_yuan" label="佣金收入">

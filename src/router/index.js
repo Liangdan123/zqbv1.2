@@ -72,20 +72,16 @@ import Irregularities from "@/pages/servicerPage/sellerCenter/Irregularities"
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
+//代理商订单和合伙人营销管理通用
+import MarketInfo from '@/components/marketing/MarketInfo'
+import MemberCenter from '@/components/marketing/MemberCenter'
+import RoleDep from '@/components/marketing/RoleDep'
+import cpsUrl from '@/components/marketing/cpsUrl'
 //代理商
 import agent from '@/pages/agentPage/agent'
-import agentMarketInfo from '@/pages/agentPage/Marketing/agentMarketInfo'
-import agentMemberCenter from '@/pages/agentPage/Marketing/agentMemberCenter'
-import agentRoleDep from '@/pages/agentPage/Marketing/agentRoleDep'
-import agentUrl from '@/pages/agentPage/Marketing/agentUrl'
 import agentMoney from '@/pages/agentPage/moneyManage/agentMoney'
-
 //合伙人
 import partner from '@/pages/partner/partner'
-import partnerMarketInfo from '@/pages/partner/Marketing/partnerMarketInfo'
-import partnerMemberCenter from '@/pages/partner/Marketing/partnerMemberCenter'
-import partnerRoleDep from '@/pages/partner/Marketing/partnerRoleDep'
-import partnerUrl from '@/pages/partner/Marketing/partnerUrl'
 import partnerMoney from '@/pages/partner/moneyManage/partnerMoney'
 
 Vue.use(Router);
@@ -110,8 +106,7 @@ const router = new Router({
 				name: "partner",
 				component: partner,
 				children: [{
-						path: 'partnerOrder',
-						name: 'partnerOrder',
+						path: 'orderTable',
 						component: orderTable,
 					},
 					{
@@ -120,22 +115,18 @@ const router = new Router({
 						component: partnerMoney,
 					},
 					{
-						path: 'partnerMarketInfo',
-						name: 'partnerMarketInfo',
-						component: partnerMarketInfo,
+						path: 'MarketInfo',
+						component: MarketInfo,
 						children: [{
-								path: 'partnerMemberCenter',
-								name: 'partnerMemberCenter',
-								component: partnerMemberCenter,
+								path: 'MemberCenter',
+								component: MemberCenter,
 							}, {
-								path: 'partnerRoleDep',
-								name: 'partnerRoleDep',
-								component: partnerRoleDep,
+								path: 'RoleDep',
+								component:RoleDep,
 							},
 							{
-								path: 'partnerUrl',
-								name: 'partnerUrl',
-								component: partnerUrl,
+								path: 'cpsUrl',
+								component: cpsUrl,
 							}
 						]
 					}
@@ -146,8 +137,7 @@ const router = new Router({
 				name: "agent",
 				component: agent,
 				children: [{
-						path: 'agentOrder',
-						name: 'agentOrder',
+						path: 'orderTable',
 						component: orderTable,
 					},
 					{
@@ -156,22 +146,18 @@ const router = new Router({
 						component: agentMoney,
 					},
 					{
-						path: 'agentMarketInfo',
-						name: 'agentMarketInfo',
-						component: agentMarketInfo,
+						path: 'MarketInfo',
+						component: MarketInfo,
 						children: [{
-								path: 'agentMemberCenter',
-								name: 'agentMemberCenter',
-								component: agentMemberCenter,
+								path: 'MemberCenter',
+								component: MemberCenter,
 							}, {
-								path: 'agentRoleDep',
-								name: 'agentRoleDep',
-								component: agentRoleDep,
+								path: 'RoleDep',
+								component: RoleDep,
 							},
 							{
-								path: 'agentUrl',
-								name: 'agentUrl',
-								component: agentUrl,
+								path: 'cpsUrl',
+								component: cpsUrl,
 							}
 						]
 					}
