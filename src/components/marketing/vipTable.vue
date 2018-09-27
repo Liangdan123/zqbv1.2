@@ -48,7 +48,6 @@
       //排序
       sortChange(column, prop, order) {
         //用于清空样式（点击搜索，清空时）
-        console.log(111);
         this.order = column;
         if (column.prop !== "created_at") {
           return;

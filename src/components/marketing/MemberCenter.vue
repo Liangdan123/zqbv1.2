@@ -46,16 +46,18 @@
         money: {},
         activeName: "first",
         searchCondition: {
+          cps_id:null,
           page: 1,
           search: {},
           per_page: 20
         },
-        list: []
+        list: [],
       }
     },
     created() {
       //调用获取会员统计数据API
       let user_id={user_id:this.$store.state.user.user.zhixu_id};
+      this.searchCondition.cps_id=user_id.user_id;
      getRoleData(user_id)
 			.then(({data})=>{
 				this.money=data
