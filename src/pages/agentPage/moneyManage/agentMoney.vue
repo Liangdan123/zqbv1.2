@@ -1,17 +1,10 @@
 <template>
-  <div>
-    <!-- 提现收入弹窗 -->
-    <el-dialog  :visible.sync="visible"  :close-on-click-modal="false" class="withdraw" @close="close" >
-        <WithdrawalApply ref="widthdarw" @close="close" @repeat="disabled=false"></WithdrawalApply>
-        <div slot="footer" class="dialog-footer">
-          <el-button class="store-button1" :disabled="disabled" @click="apply">申请</el-button>
-          <el-button class="store-button2" @click="visible=false">取 消</el-button>
-        </div>
-    </el-dialog>
-    <!-- 提现记录弹窗 -->
+  <div>    
+    <!-- 提现记录弹窗 -->   
     <el-dialog  :visible.sync="visible2"  :close-on-click-modal="false" class="withdraw" title="提现记录">
       <widthDrawTable :list='withList'></widthDrawTable>
     </el-dialog>
+    
     <!-- 资金管理头部 -->
     <moneyHeader @Viewlog='Viewlog'></moneyHeader>
     <!-- 表格部分 -->
@@ -77,25 +70,14 @@
     mixins: [page],
     methods: {
       openApply(){
-        //打开申请提现的弹窗
-        this.disabled=false;
-        this.visible=true;
-      },
-      apply(){
-        this.disabled=true;
-        this.$refs.widthdarw.submitForm()//调用子组件验证方法
+				this.$router.push("agentMoney/WithdrawalApply")
       },
       Viewlog() { //打开提现记录
         //根据身份id查提现记录传入子组件
         this.withList=[]
         this.visible2=true;
       },
-      close(){
-        this.disabled=false;
-        this.visible=false;
-        this.$refs.widthdarw.cancel()//关闭弹窗回调 调用子组件的清除方法
-      },
-      tabSwitch({name }){    
+      tabSwitch({name}){    
         // tab面板切换
         this.searchCondition.page = 1;
         this.searchCondition.search={}

@@ -80,9 +80,12 @@ import cpsUrl from '@/components/marketing/cpsUrl'
 //代理商
 import agent from '@/pages/agentPage/agent'
 import agentMoney from '@/pages/agentPage/moneyManage/agentMoney'
+import agentWithdrawalApply from '@/pages/agentPage/moneyManage/WithdrawalApply'
+
 //合伙人
 import partner from '@/pages/partner/partner'
 import partnerMoney from '@/pages/partner/moneyManage/partnerMoney'
+import partnerWithdrawalApply from '@/pages/partner/moneyManage/WithdrawalApply'
 
 Vue.use(Router);
 const router = new Router({ 
@@ -114,8 +117,14 @@ const router = new Router({
 						name: 'partnerMoney',
 						component: partnerMoney,
 					},
+				{
+						path: 'partnerMoney/WithdrawalApply',
+						name: 'partnerWithdrawalApply',
+						component: partnerWithdrawalApply,
+					},
 					{
 						path: 'MarketInfo',
+						name: 'MarketInfo',
 						component: MarketInfo,
 						children: [{
 								path: 'MemberCenter',
@@ -144,6 +153,11 @@ const router = new Router({
 						path: 'agentMoney',
 						name: 'agentMoney',
 						component: agentMoney,
+					},
+					{
+						path: 'agentMoney/WithdrawalApply',
+						name: 'agentWithdrawalApply',
+						component: agentWithdrawalApply,
 					},
 					{
 						path: 'MarketInfo',

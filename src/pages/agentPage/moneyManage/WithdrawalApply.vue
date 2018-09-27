@@ -1,5 +1,5 @@
 <template>
-	<div class="withdrawalapply">
+	<div class="agentwithdrawalapply">
 		<div class="nav-bar">
            <span @click="pageBack">资金管理</span>
            <i>></i>
@@ -25,7 +25,7 @@
 </script>
 
 <style lang="scss">
-	.withdrawalapply{
+	.agentwithdrawalapply{
 		margin-top: 80px;
 		.nav-bar{
 			width: 1240px;
