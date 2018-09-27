@@ -8,9 +8,9 @@
         <img src="../../assets/image/agent.png" />
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
-        <el-menu-item index="/agent/agentOrder" :class="{isActive:active=='agentOrder'}">
+        <el-menu-item index="/agent/orderTable" :class="{isActive:active=='orderTable'}">
           <i></i>订单管理</el-menu-item>
-        <el-menu-item index="/agent/agentMarketInfo" :class="{isActive:active=='agentMarketInfo'}">
+        <el-menu-item index="/agent/MarketInfo" :class="{isActive:active=='MarketInfo'}">
           <i></i>营销管理</el-menu-item>
         <el-menu-item index="/agent/agentMoney" :class="{isActive:active=='agentMoney'}">
           <i></i>资金管理

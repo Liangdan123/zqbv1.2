@@ -70,6 +70,8 @@
     },
     mixins: [page],
     created() {
+      let user_id=this.$store.state.user.user.zhixu_id;
+      this.$set(this.searchCondition, "user_id", user_id);
       this.tabForShow = this.$route.query.tab || '1';
       this.searchCondition.search.status = this.tabForShow;
     },

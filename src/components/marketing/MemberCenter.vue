@@ -6,12 +6,7 @@
       <div class="content-con mt-20">
         <el-tabs v-model="activeName">
           <div class="buttons clearfix mb-20">
-            <search :search.sync="searchCondition.search" 
-            	@searchMethod="searchMethod" 
-            	@emptyMthod='emptyMthod'  
-            	ref="isShow" 
-            	selectTitle='筛选会员' 
-            	hintMess="输入相关信息进行搜索">
+            <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='emptyMthod'  ref="isShow" selectTitle='筛选会员' hintMess="输入相关信息进行搜索">
               <template>
                 <div class="condition clearfix mb-10">
                   <span class="float-l grade">会员等级：</span>
@@ -26,11 +21,7 @@
           </div>
           <el-tab-pane label="会员管理" name="first">
             <!-- 会员管理表格 数据父组件提供 -->
-            <vipTable 
-            	:searchCondition='searchCondition' 
-            	:list="list" 
-            	:total="total" 
-            	@searchMethod="searchMethod"></vipTable>
+            <vipTable :searchCondition='searchCondition' :list="list" :total="total" @searchMethod="searchMethod"></vipTable>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -55,22 +46,22 @@
         money: {},
         activeName: "first",
         searchCondition: {
+          cps_id:null,
           page: 1,
           search: {},
           per_page: 20
         },
-        list: []
+        list: [],
       }
     },
     created() {
       //调用获取会员统计数据API
-      var mall_id = this.$store.getters.getMall_id;
-      getMemMoney(mall_id)
-        .then(({
-          data
-        }) => {
-          this.money = data;
-        })
+      let user_id={user_id:this.$store.state.user.user.zhixu_id};
+      this.searchCondition.cps_id=user_id.user_id;
+     getRoleData(user_id)
+			.then(({data})=>{
+				this.money=data
+			})	
     },
     methods: {
       emptyMthod(){
@@ -78,7 +69,7 @@
 				this.searchMethod()
 			},
       _doSearch() {
-        getMemLists(this.searchCondition)
+        getMemberList(this.searchCondition)
           .then(({
             data
           }) => {
@@ -88,7 +79,11 @@
               delete this.searchCondition.orderby
             }
           })
-          .catch(({response: {data } }) => {                                                         
+          .catch(({
+            response: {
+              data
+            }
+          }) => {
             if (this.searchCondition.orderby) {
               delete this.searchCondition.orderby
             }
@@ -130,3 +125,10 @@
   }
 
 </style>
+
+<style>
+.memberCenter .el-tabs__content{
+  overflow:visible;
+}
+</style>
+

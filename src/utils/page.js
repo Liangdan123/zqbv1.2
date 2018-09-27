@@ -20,7 +20,7 @@ export default {
 			this.Visible = false;
 		},
 		handleCurrentChange(val) {//分页跳转
-			this.$set(this.searchCondition, "page", val);
+			this.$set(this.searchCondition,"page",val);
 			this._doSearch();
 		},
 		searchMethod() { //搜索方法

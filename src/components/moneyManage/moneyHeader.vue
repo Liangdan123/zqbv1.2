@@ -5,10 +5,9 @@
         <el-col :span="span">
           <div class="statisticsItem">
             <p class="itemTitle">订单累计收入</p>
-            <p class="money-total">{{2000 | money}}</p>
+            <p class="money-total">{{mallMoneyStatistics.total_give_order_yuan|money}}</p>
             <p class="money-history">今日收入
-              <span>{{4| money}}</span>
-              <span class="float-r u-btn" v-if="type!=1" @click="Viewlog">提现记录</span>
+              <span>{{mallMoneyStatistics.today_give_order_yuan | money}}</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#payOrder" />
@@ -18,10 +17,9 @@
         <el-col :span="span">
           <div class="statisticsItem">
             <p class="itemTitle">会员发展累计收入</p>
-            <p class="money-total">{{100 | money}}</p>
+            <p class="money-total">	{{mallMoneyStatistics.total_give_member_yuan|money}}</p>
             <p class="money-history">今日收入
-              <span>{{3| money}}</span>
-               <span class="float-r u-btn" v-if="type!=1" @click="Viewlog">提现记录</span>
+              <span>{{mallMoneyStatistics.today_give_member_yuan | money}}</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#money" />
@@ -31,26 +29,26 @@
         <el-col :span="span"  v-if="type==1||type==2">
           <div class="statisticsItem">
             <p class="itemTitle">角色发展累计收入</p>
-            <p class="money-total">{{33.33 | money}}</p>
+            <p class="money-total">{{mallMoneyStatistics.total_give_join_yuan | money}}</p>
             <p class="money-history">今日收入
-              <span>{{6| money}}</span>
-              <span class="float-r u-btn" v-if="type!=1" @click="Viewlog">提现记录</span>
+              <span>{{mallMoneyStatistics.today_give_join_yuan | money}}</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#visitNum" />
             </svg>
           </div>
         </el-col>
-        <el-col :span="span" v-if="type==1">
+        <el-col :span="span" >
           <div class="statisticsItem">
-            <p class="itemTitle">平台累计收入</p>
-            <p class="money-total">{{33.33 | money}}</p>
-            <p class="money-history">今日收入
-              <span>{{6| money}}</span>
-            </p>
-            <svg class="item-label" width="48" height="48">
-              <use xlink:href="#member" />
-            </svg>
+            <p class="itemTitle">可提现金额</p>
+            <p class="money-total">{{fundBalance.balance_yuan|money}}</p>
+            <p class="f14 mt-10 money-history">
+						<span  @click="Viewlog" class='u-btn'>提现记录</span>
+						<el-button class="store-button1 float-r" @click="applyFund">
+                <i class="iconfont icon-Rectangle f12"></i>
+							申请提现
+						</el-button>
+					</p>
           </div>
         </el-col>
       </el-row>
@@ -58,22 +56,48 @@
   </div>
 </template>
 <script>
+  import {getFundTotalGive} from "@/api/platform"
+  import {getAccountInfo} from "@/api/servicer"
   export default {
     data () {
       return {
         span:8,
-        type:null
+        type:null,
+        mallMoneyStatistics:{
+					"total_give_order_yuan": 0,
+          "total_give_member_yuan": 0,
+          "total_give_join_yuan": 0,
+          "today_give_order_yuan": 0,
+          "today_give_member_yuan": 0,
+          "today_give_join_yuan": 0,
+          "total_sell_order_yuan":0,
+          "today_sell_order_yuan":0
+        },
+        fundBalance:{
+					"balance": 0,
+					"balance_yuan":0,
+				"tixian_rate": 0
+				},
       }
     },
     props:[],
     created(){
       //判断传进来头部有几个模块 合伙人2个 代理商3个  服务商2个  平台4个
       this.type=this.$store.getters.getType; //1平台,2代理商,3合伙人,4服务商\
-      this.type=2;
-      this.span=this.type==1?6:8//是平台就6 不是就8
+      this.type=3;
+      this.span=this.type==2?6:8//是平台就6 不是就8
+			getFundTotalGive({compute_type:3})//获取累计收入
+			.then(({data})=>{
+				this.mallMoneyStatistics=data
+      })
+      	let user_id=this.$store.state.user.user.zhixu_id;
+			getAccountInfo(user_id)
+			.then(({data})=>{
+				this.fundBalance=data
+			})
     },
     filters: {
-      money(value) {
+      money(value=0) {
         // 金额转换成数字和整数部分
         value = Number(value).toFixed(2).split('.');
         let value_int = Number(value[0]).toLocaleString(); // 转换成金额形式
@@ -83,6 +107,9 @@
     methods: {
       Viewlog(){
         this.$emit('Viewlog')
+      },
+      applyFund(){
+        this.$emit('applyFund')
       }
     }
   }
@@ -122,9 +149,6 @@
       margin: 20px 0;
       font-size: $font-normal;
       color: $color-base;
-      span:first-child {
-        color: $color-light;
-      }
     }
     .item-label {
       position: absolute;
