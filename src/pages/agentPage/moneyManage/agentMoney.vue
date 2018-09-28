@@ -5,11 +5,11 @@
     	:close-on-click-modal="false" 
     	class="withdraw" 
     	title="提现记录"
-    	@close="backDetail">
+    	@close="closeModel">
       <widthDrawTable :list='fundList.data' 
       	:Visible="model"
       	@checkDetail="checkDetail"
-      	@backDetail="backDetail"
+      	@backDetail="closeModel"
       	@sureFund="sureFund">
       </widthDrawTable>
     </el-dialog>

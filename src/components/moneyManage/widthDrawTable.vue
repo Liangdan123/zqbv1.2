@@ -36,7 +36,6 @@
 			@backDetail="backDetail"
 			@sureFund="sureFund"
 			isbtn="true"></WithdrawDetail>
-		
 	</div>
 </template>
 
