@@ -98,7 +98,7 @@
 		    </el-tabs>
 		    <!-- 会员管理表格 数据父组件提供 -->
 		    <div class="buttons clearfix mb-20">
-			   	<orderConsume v-if="activeName==1" >
+			   	<orderConsume v-if="activeName==1" :user_id="user_id">
 			   		
 			   	</orderConsume>
 			   	<platformOrderFund :user_id="user_id" :isArea="false" 
