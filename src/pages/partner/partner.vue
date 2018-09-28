@@ -5,7 +5,7 @@
         <svg width="30" height="30">
           <use xlink:href="#logo" />
         </svg>
-        <img src="../../assets/image/partner.png" />
+        <img src="../../assets/image/partner.png" class='logo'/>
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
         <el-menu-item index="/partner/orderTable":class="{isActive:active=='orderTable'}">
@@ -122,3 +122,48 @@
   }
 
 </script>
+<style lang="scss" scoped>
+.logo{
+  width:50%;
+}
+  .saoma {
+    width: 757px;
+    min-height: 479px;
+    background-color: #fff;
+    border: 1px solid #F4F4F4;
+    margin: 0 auto;
+    padding: 54px 0;
+  }
+
+  .title {
+    font-size: 18px;
+    font-weight: 600;
+    color: rgba(51, 51, 51, 1);
+    line-height: 25px;
+  }
+
+  .price {
+    font-size: 30px;
+    font-weight: 600;
+    color: rgba(51, 51, 51, 1);
+    line-height: 42px;
+  }
+
+  .qrcode {
+    display: inline-block;
+  }
+
+  .btn {
+    width: 200px;
+    height: 40px;
+    background: rgba(0, 112, 201, 1);
+    border-radius: 2px;
+    cursor: pointer;
+    display: block;
+    margin: 40px auto 0;
+    line-height: 40px;
+    color:#fff;
+    font-size: 14px;
+  }
+
+</style>

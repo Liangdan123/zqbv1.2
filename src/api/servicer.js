@@ -36,3 +36,5 @@ export const getVerifyCode = ()=>axios.get("notify/tixian_verify_code");// 申�
 export const withdrawalApplyCommit = (data)=>axios.post("mock/fund/commit_tixian",data);//提交提现申请
 
 export const getAccountMoney = (user_id)=>axios.get("mock/fund/get_account",{params:{user_id}});// 获取账户资金信息
+
+export const sureReceivables = (tixian_id)=>axios.post("mock/fund/confirm",{tixian_id});// 提现申请确认收款

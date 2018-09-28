@@ -1,7 +1,8 @@
  <template>
   <div class="panel-content">
     	<div v-show="false">{{isFundMess}}</div>
-    	<p class="panel-title">提现进度</p>
+    	<div v-loading="loading">    		   	
+	    	<p class="panel-title">提现进度</p>
 				<div class="progress">
 					<el-steps :space="200" 
 						process-status="wait" 
@@ -37,35 +38,47 @@
 						</template>
 					</el-steps>
 				</div>
-    		<p class="panel-title">提现详情</p>
-				<div class="fundDetail">
-					<el-row>
-						<el-col :span="8">提现方式：</el-col>
-						<el-col :span="16">{{fundMessage.tixian_type|fundMethod}}</el-col>
-					</el-row>
-					<el-row>
-						<el-col :span="8">提现金额：</el-col>
-						<el-col :span="16">{{fundMessage.apply_money_yuan|money('￥')}}</el-col>
-					</el-row>
-					<el-row>
-						<el-col :span="8">开户姓名：</el-col>
-						<el-col :span="16">{{fundMessage.tixian_name}}</el-col>
-					</el-row>
-					<el-row>
-						<el-col :span="8">开户银行：</el-col>
-						<el-col :span="16">{{fundMessage.tixian_bank}}</el-col>
-					</el-row>
-					<el-row>
-						<el-col :span="8">银行卡号：</el-col>
-						<el-col :span="16">{{fundMessage.tixian_account}}</el-col>
-					</el-row>
-				</div>
-    		<slot></slot>
+			<p class="panel-title">提现详情</p>
+			<div class="fundDetail">
+				<el-row>
+					<el-col :span="8">提现方式：</el-col>
+					<el-col :span="16">{{fundMessage.tixian_type|fundMethod}}</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="8">提现金额：</el-col>
+					<el-col :span="16">{{fundMessage.apply_money_yuan|money('￥')}}</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="8">开户姓名：</el-col>
+					<el-col :span="16">{{fundMessage.tixian_name}}</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="8">开户银行：</el-col>
+					<el-col :span="16">{{fundMessage.tixian_bank}}</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="8">银行卡号：</el-col>
+					<el-col :span="16">{{fundMessage.tixian_account}}</el-col>
+				</el-row>
+			</div>
+			<div v-if="isbtn" class="clearfix">
+				<el-button class="store-button1 float-r ml-10" 
+					v-if="fundMessage.status!==3&&fundMessage.status!==4"
+					@click="sureFund">
+					确认收款
+				</el-button>
+				<el-button class="store-button2 float-r" @click="goBack">
+					返回
+				</el-button>
+			</div>
+			<slot></slot>
+		</div>
   </div>
 </template>
 
 <script>
 import { getFundMess} from "@/api/platform"
+import { sureReceivables} from "@/api/servicer"
 export default{
 	filters: {
 		money(value=0, label = '') {
@@ -92,27 +105,50 @@ export default{
 	},
 	data(){
 		return{
-				fundMessage:{
-					status:0,
-					apply_time:"",
-					remittance_time:"",
-					confirm_time:""
-				},//提现信息
+			fundMessage:{
+				status:0,
+				apply_time:"",
+				remittance_time:"",
+				confirm_time:""
+			},//提现信息
+			loading:true,
 		}
 	},
-	props:["tixian_id"],
+	props:{
+		tixian_id:{
+			default:function(){
+				return ""
+			}
+		},
+		isbtn:{
+			default:function(){
+				return false
+			}
+		}
+	},
 	computed:{
 		isFundMess(){
 			if(this.tixian_id){
 				let tixian_id=this.tixian_id
 				getFundMess({tixian_id})//获取提现信息API
 				.then(({data})=>{
+					this.loading=false
 					this.fundMessage=data;
 				})
 			}
-
-		}
+		},
 	},
+	methods:{
+		goBack(){
+			this.$emit("backDetail")
+		},
+		sureFund(){//确认收款
+			sureReceivables(this.tixian_id)
+			.then(()=>{
+				this.$emit("sureFund")
+			})
+		},
+	}
 }
 
 

@@ -5,7 +5,7 @@
         <svg width="30" height="30">
           <use xlink:href="#logo" />
         </svg>
-        <img src="../../assets/image/agent.png" />
+        <img src="../../assets/image/agent.png" class='logo'/>
       </div>
       <el-menu :default-active='$route.path' :router="true" mode="horizontal">
         <el-menu-item index="/agent/orderTable" :class="{isActive:active=='orderTable'}">
@@ -124,6 +124,9 @@
 </script>
 
 <style lang="scss" scoped>
+.logo{
+  width:50%;
+}
   .saoma {
     width: 757px;
     min-height: 479px;

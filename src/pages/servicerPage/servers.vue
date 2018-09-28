@@ -3,7 +3,7 @@
 		<div class="navbar">
 			<div class="navbar-left display">
 				<svg width="30" height="30"><use xlink:href="#logo" /></svg>
-				<img src="../../assets/image/weishangcheng.png" />
+				<img src="../../assets/image/facilitator.png" class="logo"/>
 			</div>
 			<el-menu 
 				:default-active='$route.path' 
@@ -84,3 +84,8 @@
 </script>
 
 
+<style scoped>
+.logo{
+	width: 50%;
+}
+</style>

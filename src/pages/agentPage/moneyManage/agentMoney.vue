@@ -5,16 +5,17 @@
     	:close-on-click-modal="false" 
     	class="withdraw" 
     	title="提现记录"
-    	@close="closeModel">
+    	@close="backDetail">
       <widthDrawTable :list='fundList.data' 
       	:Visible="model"
-      	@checkDetail="checkDetail">
-      	
+      	@checkDetail="checkDetail"
+      	@backDetail="backDetail"
+      	@sureFund="sureFund">
       </widthDrawTable>
     </el-dialog>
     
     <!-- 资金管理头部 -->
-    <moneyHeader @Viewlog='Viewlog' @applyFund='openApply'></moneyHeader>
+    <moneyHeader @Viewlog='_list' @applyFund='openApply'></moneyHeader>
     <!-- 表格部分 -->
     <div class="g_content mt-20">
       <el-tabs v-model="activeName" >
@@ -42,7 +43,6 @@
   import memberDetailed from "@/components/platform/fund/memberDetailed"
   import WithdrawalApply from "@/components/moneyManage/WithdrawalApply"
   import widthDrawTable from "@/components/moneyManage/widthDrawTable"
-  import page from '@/utils/page'
   import {orderCommission} from "@/api/platform"
   export default {
     data() {
@@ -53,7 +53,6 @@
         visible:false,
         visible2:false,
         loading:false,
-//      withList:[],
         fundList:{data:[]},//提现记录列表
 				model:true,//控制提现记录
       }
@@ -66,7 +65,6 @@
       memberDetailed,
       roleDetailed
     },
-    // mixins: [page],
     created () {
       this.user_id=this.$store.state.user.user.zhixu_id;
     },
@@ -74,11 +72,12 @@
       openApply(){
 				this.$router.push("agentMoney/WithdrawalApply")
       },
-      Viewlog() { //打开提现记录
+      _list(){
         //根据身份id查提现记录传入子组件
 				let user_id=this.$store.state.user.user.zhixu_id;
 				getFundList({user_id})//获取提现记录列表
 				.then(({data})=>{
+					this.model=true;
 					this.fundList=data;
 					this.visible2=true;
 				})
@@ -88,7 +87,10 @@
 			},
 			checkDetail(){
 				this.model=false;
-			},
+      },
+      	sureFund(){
+				this._list()
+			}
     }
   }
 

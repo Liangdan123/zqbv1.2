@@ -9,7 +9,11 @@
 	    	<widthDrawTable 
 	    		:list='list.data' 
 	    		:Visible="model"
-	    		@checkDetail="checkDetail"></widthDrawTable>
+	    		@backDetail="backDetail"
+	    		@checkDetail="checkDetail"
+	    		@sureFund="sureFund">
+	    		
+	    	</widthDrawTable>
 	    </el-dialog>
 		
 		<!--................累计金额.............-->
@@ -149,11 +153,21 @@
 			checkDetail(){
 				this.model=false;
 			},
+			backDetail(){
+				this.model=true;
+			},
+			sureFund(){
+				this._list();
+			},
 			cashRecord(){
+				this._list();
+			},
+			_list(){
 				let user_id=this.$store.state.user.user.zhixu_id;
 				getFundList({user_id})//获取提现记录列表
 				.then(({data})=>{
 					this.list=data;
+					this.model=true;
 					this.cashRecordModel=true
 				})
 			}
@@ -178,6 +192,7 @@
 				.cashRecord{
 					font-weight: normal;
 					color: #007DE3;
+					cursor: pointer;
 				}
 			}
 		}

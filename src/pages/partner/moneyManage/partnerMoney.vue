@@ -1,11 +1,18 @@
 <template>
   <div>
     <!-- 提现记录弹窗 -->
-    <el-dialog  :visible.sync="visible2"  :close-on-click-modal="false" class="withdraw" title="提现记录">
-      <widthDrawTable :list='withList'></widthDrawTable>
+    <el-dialog  :visible.sync="visible2"  :close-on-click-modal="false" class="withdraw" title="提现记录" @close="backDetail">
+      <!--<widthDrawTable :list='withList'></widthDrawTable>-->
+        <widthDrawTable 
+        :list='fundList.data' 
+      	:Visible="model"      	
+      	@checkDetail="checkDetail"
+      	@backDetail="backDetail"
+      	@sureFund="sureFund">
+      </widthDrawTable>
     </el-dialog>
     <!-- 资金管理头部 -->
-    <moneyHeader @Viewlog='Viewlog'></moneyHeader>
+    <moneyHeader @Viewlog='_list'></moneyHeader>
     <!-- 表格部分 -->
     <div class="g_content mt-20">
       <el-tabs v-model="activeName" >
@@ -39,8 +46,7 @@
         list: [],
         disabled:false,
         loading:false,
-        withList:[],
-           fundList:{data:[]},//提现记录列表
+				fundList:{data:[]},//提现记录列表
 				model:true,//控制提现记录
       }
     },
@@ -59,21 +65,25 @@
       openApply(){
 				this.$router.push("partnerMoney/WithdrawalApply")
       },
-      Viewlog() { //打开提现记录
+      _list(){//打开提现记录
         //根据身份id查提现记录传入子组件
-        let user_id=this.$store.state.user.user.zhixu_id;
+				let user_id=this.$store.state.user.user.zhixu_id;
 				getFundList({user_id})//获取提现记录列表
 				.then(({data})=>{
+					this.model=true;
 					this.fundList=data;
 					this.visible2=true;
 				})
       },
-       closeModel(){
-				this.model=true;
-			},
 			checkDetail(){
 				this.model=false;
 			},
+			backDetail(){
+				this.model=true;
+			},
+			sureFund(){
+				this._list()
+			}
     }
   }
 
