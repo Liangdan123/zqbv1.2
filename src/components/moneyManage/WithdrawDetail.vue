@@ -63,7 +63,7 @@
 			</div>
 			<div v-if="isbtn" class="clearfix">
 				<el-button class="store-button1 float-r ml-10" 
-					v-if="fundMessage.status!==3&&fundMessage.status!==4"
+					v-if="fundMessage.status===2"
 					@click="sureFund">
 					确认收款
 				</el-button>

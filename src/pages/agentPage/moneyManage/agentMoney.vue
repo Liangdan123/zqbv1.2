@@ -11,8 +11,7 @@
       	@checkDetail="checkDetail"
       	@backDetail="backDetail"
       	@sureFund="sureFund">
-      	
-      	
+      	      	      	
       </widthDrawTable>
     </el-dialog>
     
@@ -99,7 +98,7 @@
 			backDetail(){
 				this.model=true;
 			},
-			sureFund(){
+			sureFund(){//确认收款时重新拉下提现记录列表，改变状态等
 				this._list()
 			},
       tabSwitch({name}){    

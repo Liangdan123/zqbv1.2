@@ -3,6 +3,9 @@
     <!--...................会员管理表格..................-->
     <el-table :data="list" style="width: 100%;margin-top: 20px;" empty-text="暂无会员信息" @sort-change="sortChange">
       <el-table-column prop="level" label="会员等级">
+	      	<template slot-scope="scope">
+						{{scope.row.level|levelString}}
+					</template>
       </el-table-column>
       <el-table-column prop="nick_name" label="会员昵称">
       </el-table-column>
@@ -25,8 +28,13 @@
         order: null
       }
     },
+    filters:{
+			levelString(val){//会员等级
+				return val===1?"普通用户":val===2?"普通会员":val===3?"黄金会员":val===4?"钻石会员":""
+			}
+		},
     props: {
-      searchCondition: {
+      searchCondition:{
         defalut: () => {
           return {
             page: 1,

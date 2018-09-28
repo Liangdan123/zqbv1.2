@@ -58,15 +58,15 @@
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="开户银行" prop="tixian_bank" :rules="{
-                		required:true, message: '请输入开户银行', trigger: 'blur'
-                	}" v-if="withdrawalApplyData.tixian_type===3">
+				<el-form-item label="开户银行" prop="tixian_bank" :rules="{required:true, message: '请输入开户银行', trigger:'blur'}"             		
+                	 v-if="withdrawalApplyData.tixian_type===3">
 					<el-input class="radius" placeholder="例如:“中国银行”" v-model="withdrawalApplyData.tixian_bank">
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="银行卡号" :rules="{required:true, message:'请输入银行卡号',trigger:'blur' }" v-if="withdrawalApplyData.tixian_type===3" prop="tixian_account">
-					<el-input class="radius" placeholder="请填写卡号18位数" v-model.number="withdrawalApplyData.tixian_account">
+				<el-form-item label="银行卡号" prop="tixian_account" :rules="{required:true, message:'请输入银行卡号',trigger:'blur' }" 
+					v-if="withdrawalApplyData.tixian_type===3" >
+					<el-input class="radius" placeholder="请填写卡号18位数" v-model="withdrawalApplyData.tixian_account">
 					</el-input>
 				</el-form-item>
 

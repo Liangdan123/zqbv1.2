@@ -1,7 +1,8 @@
 <template>
-	<div class="orderDetailed" >		
-		<!-- <div v-show="false">{{condition}}</div> -->
-		   <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选列表'
+	<div class="orderDetailed" @click="closeSearch">		
+		<search :search.sync="searchCondition.search" 
+			@searchMethod="searchMethod" 
+			@emptyMthod='searchMethod' ref="isShow" selectTitle='筛选列表'
           hintMess="输入相关信息进行搜索" class='mb-20' inputSearch='keyword' v-if="isSearch">
         </search>
 		<el-table
@@ -10,18 +11,29 @@
 			style="width: 100%" >
 			<el-table-column prop="xcx_nick_name" label="会员">
 			</el-table-column>
-			<el-table-column prop="cps_contact_name" label="发展商">
+			
+			<el-table-column prop="member_type" label="会员等级" v-if="memberLevel">
+				<template slot-scope="scope">
+					{{scope.row.member_type==1?'黄金会员':'钻石会员'}}
+				</template>
+			</el-table-column>
+			
+			<el-table-column prop="cps_contact_name" label="发展商" v-if="isContact">
 			</el-table-column>
 			<el-table-column prop="cps_is_company" label="性质" v-if='isCompany'>
-					<template slot-scope="scope">
+				<template slot-scope="scope">
 					{{scope.row.fws_is_company==0?'个人':'企业'}}
 				</template>
 			</el-table-column>
-			<el-table-column prop="cps_type" label="身份属性">
+			<el-table-column prop="cps_type" label="身份属性" v-if="isCpsType">
 				<template slot-scope="scope">
 					{{scope.row.cps_type|identity}}
 				</template>
 			</el-table-column>
+			
+			<el-table-column prop="xcx_phone" label="手机号" v-if="isPhone">
+			</el-table-column>
+			
 			<el-table-column prop="order_fee_yuan" label="会员金额">
 				<template slot-scope="scope">
 					{{scope.row.order_fee_yuan||0|money}}
@@ -36,7 +48,7 @@
 			</el-table-column>
 		</el-table>
 		<div class="clearfix mt-20">
-					<el-pagination :total="list.total"  v-if='list.total>searchCondition.per_page'
+			<el-pagination :total="list.total"  
 				:current-page.sync="searchCondition.page" 
 				:page-size="searchCondition.per_page" 
 				layout="total, prev, pager, next" 
@@ -52,7 +64,48 @@
 	import {memberCommission} from "@/api/platform"
 	export default{
 		name:"memberDetailed",
-		props:["user_id","typeKey","isSearch",'isCompany'],
+		props:{
+			user_id:{
+				default:function(){
+					return ""
+				},
+			},
+			typeKey:{
+				default:function(){
+					return 4
+				},
+			},
+			isSearch:{
+				default:function(){
+					return false
+				},
+			},
+			isCompany:{
+				default:function(){
+					return false
+				},
+			},
+			memberLevel:{
+				default:function(){
+					return false
+				},
+			},
+			isContact:{
+				default:function(){
+					return true
+				},
+			},
+			isCpsType:{
+				default:function(){
+					return true
+				}
+			},
+			isPhone:{
+				default:function(){
+					return false
+				},
+			}
+		},
 		data(){
 			return{
 				searchCondition: { //搜索条件
@@ -116,6 +169,9 @@
 						this.loading = false;
 					})
 			},
+			closeSearch(){
+				this.$refs.isShow.closeSearch()
+			}
 		}
 	}
 </script>

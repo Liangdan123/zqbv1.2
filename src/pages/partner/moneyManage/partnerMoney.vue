@@ -14,7 +14,8 @@
       </widthDrawTable>
     </el-dialog>
     <!-- 资金管理头部 -->
-    <moneyHeader @Viewlog='Viewlog'></moneyHeader>
+   <moneyHeader @Viewlog='Viewlog' @applyFund='openApply'></moneyHeader>
+   
     <!-- 表格部分 -->
     <div class="g_content mt-20">
       <el-tabs v-model="activeName" @tab-click="tabSwitch">
@@ -22,11 +23,7 @@
         <el-tab-pane label="会员收入" name="2"></el-tab-pane>
       </el-tabs>
       <!-- 会员管理表格 数据父组件提供 -->
-      <div class="buttons clearfix mb-20">
-        <el-button class="store-button1 float-l" @click="openApply">
-          <i class="iconfont icon-Rectangle f12"></i>
-          <span class="font-b">申请提现</span>
-        </el-button>
+      <div class="buttons clearfix mb-20">        
         <search 
         	:search.sync="searchCondition.search" 
         	@searchMethod="searchMethod" 
@@ -35,6 +32,7 @@
         	selectTitle='筛选列表'
           hintMess="输入相关信息进行搜索">
         </search>
+        
         <template v-loading="loading">
           <OrderIncome 
           	:searchCondition='searchCondition' 

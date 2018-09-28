@@ -38,3 +38,5 @@ export const withdrawalApplyCommit = (data)=>axios.post("mock/fund/commit_tixian
 export const getAccountMoney = (user_id)=>axios.get("mock/fund/get_account",{params:{user_id}});// 获取账户资金信息
 
 export const sureReceivables = (tixian_id)=>axios.post("mock/fund/confirm",{tixian_id});// 提现申请确认收款
+
+export const getOrderConsumeList = (data)=>axios.post("mock/fund/sell_order_lists",data);// 获取订单消费收入列表
