@@ -2,7 +2,6 @@
   <div>
     <!-- 提现记录弹窗 -->
     <el-dialog :visible.sync="visible2" :close-on-click-modal="false" class="withdraw" title="提现记录" @close="backDetail">
-      <!--<widthDrawTable :list='withList'></widthDrawTable>-->
       <widthDrawTable :list='fundList.data' :Visible="model" @checkDetail="checkDetail" @backDetail="backDetail"
         @sureFund="sureFund">
       </widthDrawTable>
@@ -27,9 +26,7 @@
 </template>
 
 <script>
-  import {
-    getFundList
-  } from "@/api/platform"
+  import {getFundList} from "@/api/platform" 
   import moneyHeader from "@/components/moneyManage/moneyHeader"
   import orderDetailed from "@/components/platform/fund/orderDetailed"
   import roleDetailed from "@/components/platform/fund/roleDetailed"
@@ -47,6 +44,7 @@
           data: []
         }, //提现记录列表
         model: true, //控制提现记录
+        visible2:false,
       }
     },
     components: {
