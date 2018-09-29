@@ -4,6 +4,18 @@
 			<el-menu-item index="serverAllOrder" :class="{active:selected=='serverAllOrder'}">
 				全部订单
 			</el-menu-item>
+			<el-menu-item index="UnshippedOrder" :class="{active:selected=='UnshippedOrder'}">
+				未服务订单
+			</el-menu-item>
+			<el-menu-item index="PendingOrder" :class="{active:selected=='PendingOrder'}">
+				已服务订单
+			</el-menu-item>
+			<el-menu-item index="CompletedOrder" :class="{active:selected=='CompletedOrder'}">
+				已完成订单
+			</el-menu-item>
+			<el-menu-item index="refundOrder" :class="{active:selected=='refundOrder'}">
+				退款售后订单
+			</el-menu-item>
 		</el-menu>
 	</div>
 </template>

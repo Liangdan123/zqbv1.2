@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import store from '@/store'
 import login from '@/pages/login'
 import signIn from '@/pages/loginPage/signIn'
 import reset from '@/pages/loginPage/mobileReset'
@@ -76,6 +75,10 @@ import Irregularities from "@/pages/servicerPage/sellerCenter/Irregularities"
 
 //服务商的订单管理
 import serverAllOrder from "@/pages/servicerPage/order/serverAllOrder"
+import UnshippedOrder from "@/pages/servicerPage/order/UnshippedOrder"
+import PendingOrder from "@/pages/servicerPage/order/PendingOrder"
+import CompletedOrder from "@/pages/servicerPage/order/CompletedOrder"
+import refundOrder from "@/pages/servicerPage/order/refundOrder"
 
 
 //代理商订单和合伙人订单通用
@@ -400,6 +403,25 @@ const router = new Router({
 								path: 'serverAllOrder',
 								name: 'serverAllOrder',
 								component: serverAllOrder,	
+							},
+							{
+								path: 'UnshippedOrder',
+								name: 'UnshippedOrder',
+								component: UnshippedOrder,	
+							},
+							{
+								path: 'PendingOrder',
+								name: 'PendingOrder',
+								component: PendingOrder,	
+							},
+							{
+								path: 'CompletedOrder',
+								name: 'CompletedOrder',
+								component: CompletedOrder,	
+							},{
+								path: 'refundOrder',
+								name: 'refundOrder',
+								component: refundOrder,	
 							}
 						]
 					},
