@@ -5,7 +5,9 @@ export const getShopOrderList=(orderList)=>axios.post("mock/order/seller_lists",
 
 export const getOrderMess=(split_order_id)=>axios.get("mock/order/get",{params:{split_order_id}})//获取订单详情接口
 
-export const getSchedule=(ops_id)=>axios.put("mock/order/complete_schedule",{ops_id})//进度完工 规格记录id
+export const complete=(ops_id)=>axios.put("mock/order/complete_schedule",{ops_id})//进度完工 规格记录id
+
+export const getSchedule=(order_product_id)=>axios.get("mock/order/get_schedule",{order_product_id})//查看进度
 
 export const getInvoice=(split_order_id)=>axios.get("mock/order/get_invoice",{params:{split_order_id}})//查看开票信息
 
@@ -21,6 +23,5 @@ export const refundDisagree=(refund_order_id)=>axios.put("mock/refund/refuse",{r
 
 export const refundGet=(refund_order_id)=>axios.get("mock/refund/get",{params:{refund_order_id}})//获取退款订单详情
 
-// export const refundConfirm=(refund_order_id)=>axios.put("refund/confirm",{refund_order_id})//卖家确认收货接口
 
 
