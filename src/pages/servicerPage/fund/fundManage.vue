@@ -23,7 +23,7 @@
 					<div class="float-l mb-10">
 						<span class="color-7F f14">订单消费累计收入</span>
 						<p class="color-3 font-b f24 mt-10">
-							{{total.total_sell_order_yuan|money}}
+							{{total.total_sell_order_yuan||0|money}}
 						</p>
 					</div>
 					<svg width="48" height="48" class="float-r"><use xlink:href="#money"/></svg>													
@@ -31,7 +31,7 @@
 				<div>
 					<p class="color-7F f14 mt-10">
 						今日收入
-						<span class="color-3">{{total.today_sell_order_yuan|money}}</span>
+						<span class="color-3">{{total.today_sell_order_yuan||0|money}}</span>
 					</p>
 				</div>
 			</div>
@@ -39,14 +39,14 @@
 				<div class="border-b clearfix">
 					<div class="float-l mb-10">
 						<span class="color-7F f14">订单佣金累计收入</span>
-						<p class="color-3 font-b f24 mt-10">{{total.total_give_order_yuan|money}}</p>																
+						<p class="color-3 font-b f24 mt-10">{{total.total_give_order_yuan||0|money}}</p>																
 					</div>
 					<svg width="48" height="48" class="float-r"><use xlink:href="#payOrder"/></svg>													
 				</div>
 				<div>
 					<p class="color-7F f14 mt-10">
 						今日收入
-						<span class="color-3">{{total.today_give_order_yuan|money}}</span>
+						<span class="color-3">{{total.today_give_order_yuan||0|money}}</span>
 					</p>
 				</div>
 			</div>
@@ -55,7 +55,7 @@
 					<div class="float-l mb-10">
 						<span class="color-7F f14">会员发展累计收入</span>
 						<p class="color-3 font-b f24 mt-10">
-							{{total.total_give_member_yuan|money}}
+							{{total.total_give_member_yuan||0|money}}
 						</p>
 					</div>
 					<svg width="48" height="48" class="float-r"><use xlink:href="#member"/></svg>													
@@ -63,7 +63,7 @@
 				<div>
 					<p class="color-7F f14 mt-10">
 						今日收入
-						<span class="color-3">{{total.today_give_member_yuan|money}}</span>
+						<span class="color-3">{{total.today_give_member_yuan||0|money}}</span>
 					</p>
 				</div>					
 			</div>
@@ -72,7 +72,7 @@
 					<div class="float-l mb-10">
 						<span class="color-7F f14">可提现金额</span>
 						<p class="color-3 font-b f24 mt-10">	
-							{{fundBalance.balance_yuan|money}}
+							{{fundBalance.balance_yuan||0|money}}
 						</p>
 					</div>
 					<svg width="48" height="48" class="float-r">

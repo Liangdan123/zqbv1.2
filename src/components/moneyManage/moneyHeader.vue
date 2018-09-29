@@ -5,9 +5,9 @@
         <el-col :span="span">
           <div class="statisticsItem">
             <p class="itemTitle">订单累计收入</p>
-            <p class="money-total">{{mallMoneyStatistics.total_give_order_yuan|money}}</p>
+            <p class="money-total">{{mallMoneyStatistics.total_give_order_yuan||0|money}}</p>
             <p class="money-history">今日收入
-              <span>{{mallMoneyStatistics.today_give_order_yuan | money}}</span>
+              <span>{{mallMoneyStatistics.today_give_order_yuan||0 | money}}</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#payOrder" />
@@ -17,9 +17,9 @@
         <el-col :span="span">
           <div class="statisticsItem">
             <p class="itemTitle">会员发展累计收入</p>
-            <p class="money-total">	{{mallMoneyStatistics.total_give_member_yuan|money}}</p>
+            <p class="money-total">	{{mallMoneyStatistics.total_give_member_yuan||0|money}}</p>
             <p class="money-history">今日收入
-              <span>{{mallMoneyStatistics.today_give_member_yuan | money}}</span>
+              <span>{{mallMoneyStatistics.today_give_member_yuan||0 | money}}</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#money" />
@@ -29,9 +29,9 @@
         <el-col :span="span"  v-if="type==1||type==2">
           <div class="statisticsItem">
             <p class="itemTitle">角色发展累计收入</p>
-            <p class="money-total">{{mallMoneyStatistics.total_give_join_yuan | money}}</p>
+            <p class="money-total">{{mallMoneyStatistics.total_give_join_yuan||0 | money}}</p>
             <p class="money-history">今日收入
-              <span>{{mallMoneyStatistics.today_give_join_yuan | money}}</span>
+              <span>{{mallMoneyStatistics.today_give_join_yuan||0 | money}}</span>
             </p>
             <svg class="item-label" width="48" height="48">
               <use xlink:href="#visitNum" />
@@ -41,7 +41,7 @@
         <el-col :span="span" >
           <div class="statisticsItem">
             <p class="itemTitle">可提现金额</p>
-            <p class="money-total">{{fundBalance.balance_yuan|money}}</p>
+            <p class="money-total">{{fundBalance.balance_yuan||0|money}}</p>
             <p class="f14 mt-10 money-history">
 						<span  @click="Viewlog" class='u-btn'>提现记录</span>
 						<el-button class="store-button1 float-r" @click="applyFund">

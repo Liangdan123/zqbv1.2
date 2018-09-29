@@ -4,8 +4,8 @@
             <el-col :span="6">
                 <div class="statisticsItem">
                     <p class="itemTitle">总销售额</p>
-                    <p class="money-total">{{mallDataStatistics.total_sell_money_yuan | money('￥')}}</p>
-                    <p class="money-history">今日销售额 <span>{{mallDataStatistics.today_sell_money_yuan | money('￥')}}</span></p>
+                    <p class="money-total">{{mallDataStatistics.total_sell_money_yuan||0 | money('￥')}}</p>
+                    <p class="money-history">今日销售额 <span>{{mallDataStatistics.today_sell_money_yuan||0 | money('￥')}}</span></p>
                     <svg
                         class="item-label"
                         width="48"

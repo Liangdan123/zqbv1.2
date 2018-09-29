@@ -34,7 +34,7 @@
 				<el-form-item label="提现金额：" prop="apply_money">
 					<el-input class="radius" v-model.number="withdrawalApplyData.apply_money">
 					</el-input>
-					<p>最大可提现金额:{{accountMoneyInfo.balance_yuan | money}}元，提现手续费比例{{this.accountMoneyInfo.tixian_rate}}%</p>
+					<p>最大可提现金额:{{accountMoneyInfo.balance_yuan||0 | money}}元，提现手续费比例{{this.accountMoneyInfo.tixian_rate}}%</p>
 				</el-form-item>
 				<el-form-item label="提现方式：" prop="tixian_type" class="tixian_type">
 					<el-radio-group v-model="withdrawalApplyData.tixian_type">

@@ -24,7 +24,7 @@
 					<div class="float-l mb-10">
 						<span class="color-7F f14">总销售额</span>
 						<p class="color-3 font-b f24 mt-10">
-							{{total.total_sell_money_yuan|money}}
+							{{total.total_sell_money_yuan||0|money}}
 						</p>
 					</div>
 					<svg width="48" height="48" class="float-r"><use xlink:href="#money"/></svg>													
@@ -32,7 +32,7 @@
 				<div>
 					<p class="color-7F f14 mt-10">
 						今日销售额
-						<span class="color-3">{{total.today_sell_money_yuan|money}}</span>
+						<span class="color-3">{{total.today_sell_money_yuan||0|money}}</span>
 					</p>
 				</div>
 			</div>

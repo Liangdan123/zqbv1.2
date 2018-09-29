@@ -4,7 +4,7 @@
 			<el-table class="mt-10 fundList" :data="list" style="width: 100%">
 				<el-table-column label="提现金额">
 					<template slot-scope="scope">
-						<span class="font-waring">{{ scope.row.apply_money_yuan | money}}</span>
+						<span class="font-waring">{{ scope.row.apply_money_yuan||0 | money}}</span>
 					</template>
 				</el-table-column>
 				<el-table-column prop="apply_time" label="创建时间">

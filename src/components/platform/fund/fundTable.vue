@@ -77,7 +77,7 @@
 			</el-table-column>
 			<el-table-column prop="apply_money_yuan" label="提现金额">
 				<template slot-scope="scope">
-					{{scope.row.apply_money_yuan|money('￥')}}
+					{{scope.row.apply_money_yuan||0|money('￥')}}
 				</template>
 			</el-table-column>
 			<el-table-column prop="status" label="申请状态">

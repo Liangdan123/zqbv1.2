@@ -8,7 +8,7 @@
             <div class="float-l mb-10">
               <span class="color-7F f14">累计充值金额</span>
               <p class="color-3 font-b f24 mt-10">
-                {{money.total_recharge_yuan|fund}}
+                {{money.total_recharge_yuan||0|fund}}
               </p>
             </div>
             <svg width="48" height="48" class="float-r">
@@ -18,7 +18,7 @@
           <div>
             <p class="color-7F f14 mt-10">
               今日充值金额
-              <span class="color-3">{{money.today_recharge_yuan|fund}}</span>
+              <span class="color-3">{{money.today_recharge_yuan||0|fund}}</span>
             </p>
           </div>
         </div>
@@ -27,7 +27,7 @@
             <div class="float-l mb-10">
               <span class="color-7F f14">累计会员消费</span>
               <p class="color-3 font-b f24 mt-10">
-                {{money.total_consume_yuan|fund}}
+                {{money.total_consume_yuan||0|fund}}
               </p>
             </div>
             <svg width="48" height="48" class="float-r">
@@ -37,7 +37,7 @@
           <div>
             <p class="color-7F f14 mt-10">
               今日会员消费
-              <span class="color-3">{{money.today_consume_yuan|fund}}</span>
+              <span class="color-3">{{money.today_consume_yuan||0|fund}}</span>
             </p>
           </div>
         </div>
@@ -46,7 +46,7 @@
             <div class="float-l mb-10">
               <span class="color-7F f14">会员池总余额（含增额）</span>
               <p class="color-3 font-b f24 mt-10">
-                {{money.total_balance_yuan|fund}}
+                {{money.total_balance_yuan||0|fund}}
               </p>
             </div>
             <svg width="48" height="48" class="float-r">

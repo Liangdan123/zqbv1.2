@@ -46,7 +46,7 @@
 				</el-row>
 				<el-row>
 					<el-col :span="8">提现金额：</el-col>
-					<el-col :span="16">{{fundMessage.apply_money_yuan|money('￥')}}</el-col>
+					<el-col :span="16">{{fundMessage.apply_money_yuan||0|money('￥')}}</el-col>
 				</el-row>
 				<el-row>
 					<el-col :span="8">开户姓名：</el-col>
