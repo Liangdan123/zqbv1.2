@@ -8,7 +8,7 @@
       </widthDrawTable>
     </el-dialog>
     <!-- 资金管理头部 -->
-    <moneyHeader @Viewlog='_list'></moneyHeader>
+    <moneyHeader @Viewlog='_list'  @applyFund='openApply'></moneyHeader>
     <!-- 表格部分 -->
     <div class="g_content mt-20">
       <el-tabs v-model="activeName">

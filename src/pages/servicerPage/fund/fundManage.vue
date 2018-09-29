@@ -88,7 +88,31 @@
 					</p>
 				</div>	
 			</div>
-		</div>		
+		</div>	
+		<!-- 表格部分 -->
+		<div class="g-content mt-20">
+			<el-tabs v-model="activeName" @tab-click="tabSwitch">
+		        <el-tab-pane label="订单消费收入" name="1"></el-tab-pane>
+		        <el-tab-pane label="订单佣金收入" name="2"></el-tab-pane>
+		        <el-tab-pane label="会员收入" name="3"></el-tab-pane>
+		    </el-tabs>
+		    <!-- 会员管理表格 数据父组件提供 -->
+		    <div class="buttons clearfix mb-20">
+			   	<orderConsume v-if="activeName==1" :user_id="user_id">
+			   		
+			   	</orderConsume>
+			   	<platformOrderFund :user_id="user_id" :isArea="false" 
+			   		typeKey="4" :isNature="true"
+			   		v-if="activeName==2"> 
+			   					   		
+			   	</platformOrderFund>
+			    <memberDetailed :user_id="user_id" :isPhone="true"
+			    	 v-if="activeName==3" :memberLevel="true" :typeKey="4"
+			    	:isSearch='true' :isContact="false" :isCpsType="false">
+					    	
+			    </memberDetailed>
+		    </div>
+		</div>
 	</div>
 </template>
 
@@ -105,7 +129,10 @@
             },
         },
         components:{
-        	"widthDrawTable":()=>import("@/components/moneyManage/widthDrawTable")
+        	"widthDrawTable":()=>import("@/components/moneyManage/widthDrawTable"),
+			"orderConsume":()=>import("@/components/servicer/fund/orderConsume"),
+        	"platformOrderFund":()=>import("@/components/platform/fund/platformOrderFund"),
+        	"memberDetailed":()=>import("@/components/platform/fund/memberDetailed")
         },
 		data(){
 			return{
@@ -128,6 +155,8 @@
 				cashRecordModel:false,
 				list:{data:[]},
 				model:true,//控制提现记录
+				activeName: '1',
+				user_id:"",
 			}
 		},
 		created(){
@@ -136,8 +165,8 @@
 			.then(({data})=>{
 				this.total=data
 			});
-			let user_id=this.$store.state.user.user.zhixu_id;
-			getAccountInfo(user_id)//获取账户信息
+			this.user_id=this.$store.state.user.user.zhixu_id;
+			getAccountInfo( this.user_id)//获取账户信息
 			.then(({data})=>{
 				this.fundBalance=data
 			})
@@ -163,13 +192,16 @@
 				this._list();
 			},
 			_list(){
-				let user_id=this.$store.state.user.user.zhixu_id;
-				getFundList({user_id})//获取提现记录列表
+				let user_id={user_id:this.user_id}
+				getFundList(user_id)//获取提现记录列表
 				.then(({data})=>{
 					this.list=data;
 					this.model=true;
 					this.cashRecordModel=true
 				})
+			},
+			tabSwitch(){//表格切换
+				
 			}
 		}
 	}

@@ -1,7 +1,7 @@
 <template>
 	<div class="mt-10">
 		<div class="order-list-wrap" v-if="Visible">
-			<el-table class="mt-10" :data="list" style="width: 100%">
+			<el-table class="mt-10 fundList" :data="list" style="width: 100%">
 				<el-table-column label="提现金额">
 					<template slot-scope="scope">
 						<span class="font-waring">{{ scope.row.apply_money_yuan | money}}</span>
@@ -20,12 +20,13 @@
 					</template>
 				</el-table-column>
 				<el-table-column prop="address" label="操作" width="120">
-					<template slot-scope="scope">
-						<el-button v-if="scope.row.status==2&&role!='1'" 
+					<template slot-scope="scope">							 
+						<el-button 
+							v-if="scope.row.status==2" 
 							@click="withdrawalConfirm(scope.row.tixian_id)" 
-							:loading="withdrawalClickId==scope.row.tixian_id" 
-							class="store-button1" type="primary" size="mini">
-							 确认收款</el-button>
+							class="store-button1" type="primary">
+						 	确认收款</el-button>
+							 
 						<p class="u-btn" @click="withdrawalDetailShow(scope.row.tixian_id)"> 查看详情 </p>
 					</template>
 				</el-table-column>
@@ -40,6 +41,7 @@
 </template>
 
 <script>
+	import { sureReceivables} from "@/api/servicer"
 	export default {
 		name: "MoneyWithdrawaklDetail",
 		components: {
@@ -123,37 +125,44 @@
 			sureFund(){//确认收款
 				this.$emit("sureFund")
 			},
-			withdrawalConfirm(id) {
-				this.withdrawalClickId = id;
+			withdrawalConfirm(tixian_id) {
 				this.$confirm('你是否确认已收款？', {
 					confirmButtonText: '确定',
 					cancelButtonText: '取消',
 				}).then(() => {
-					setWithdrawalStatus({tixian_id: id})						
+					sureReceivables({tixian_id})						
 						.then(() => {
 							this.$message({
 								message: '确认收款成功',
 								type: 'success'
 							});
-							// 将列表中该条记录设置为已完成状态
-							let item_index = this.list.findIndex(({tixian_id}) => tixian_id == id);						
-							let data_extend = Object.assign({}, this.list[item_index], {
-								status: 4
-							});
-							this.$set(this.list, item_index, data_extend);
-							this.handleClose()
+							this.$emit("sureFund")//父集重新拉记录列表
 						})
+				})
+				.catch(()=>{
+						this.$message({
+							message: '已取消',
+							type: 'info'
+						});
 				})
 			}
 		},
 	}
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss" >
 	.order-list-wrap {
-		.font-waring {
-			font-size: $font-small;
-			color: $color-waring;
+		.el-table.fundList{			
+			.el-table__body-wrapper{
+				tr{
+					height: 70px;				
+					.store-button1{
+						height: 24px;
+						font-size: 10px;			
+						padding: 0 4px;
+					}
+				}
+			}
 		}
 	}
 </style>
