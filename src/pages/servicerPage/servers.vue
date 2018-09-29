@@ -18,8 +18,8 @@
 					:class="{isActive:active=='mallStoreMana'||active=='mallStoreMess'}">
 					<i></i>商品管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallOrder/mallAllOrder" 
-					:class="{isActive:active=='mallOrder'}">
+				<el-menu-item index="/server/serverOrder/serverAllOrder" 
+					:class="{isActive:active=='serverOrder'}">
 					<i></i>订单管理
 				</el-menu-item>
 				<el-menu-item index="/server/serverMarketInfo" 

@@ -178,7 +178,7 @@
 				this.BannerRadio=this.allBanner.title_switch;//判断商城装修时海报样式二的标题开关
 				this.bannerTitle=this.allBanner.title
 			};	
-			let status=this.$store.getters.getType
+			let status=this.$store.getters.getType;
 			if(status === 1){
 				getMallClassifyList()//商城分类列表
 				.then(({data})=>{

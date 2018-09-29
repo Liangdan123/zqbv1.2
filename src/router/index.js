@@ -69,6 +69,9 @@ import servicerCenter from "@/pages/servicerPage/sellerCenter/servicerCenter"
 import openStore from "@/pages/servicerPage/sellerCenter/openStore"
 import Irregularities from "@/pages/servicerPage/sellerCenter/Irregularities"
 
+//服务商的订单管理
+import serverAllOrder from "@/pages/servicerPage/order/serverAllOrder"
+
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/order/orderTable'
@@ -382,7 +385,19 @@ const router = new Router({
 						path: 'fundManage/withdrawalapply',
 						name: 'withdrawalapply',
 						component: withdrawalapply,		
-					}
+					},
+					{ //平台管理
+						path: 'serverOrder',
+						name: 'serverOrder',
+						component: blank,
+						children: [
+							{
+								path: 'serverAllOrder',
+								name: 'serverAllOrder',
+								component: serverAllOrder,	
+							}
+						]
+					},
 				]
 			}
 		] 
