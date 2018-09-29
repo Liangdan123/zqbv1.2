@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import navbar from "@/utils/navbar"
+ 	import navbar from "@/utils/navbar"
 	export default {
 		mixins: [navbar]
 	}

@@ -64,6 +64,11 @@ import storeMessShow from "@/pages/servicerPage/storeSet/storeMessShow"
 import editStoreMessage from "@/pages/servicerPage/storeSet/editStoreMessage"
 import storedecoration from "@/pages/servicerPage/storeSet/storedecoration"
 
+//服务商的商品管理
+import commodityInfo from "@/pages/servicerPage/commodity/commodityInfo"
+import pulishProduct from "@/pages/servicerPage/commodity/pulishProduct"
+import saleCommodity from "@/pages/servicerPage/commodity/saleCommodity"
+
 //服务商的卖家中心
 import servicerCenter from "@/pages/servicerPage/sellerCenter/servicerCenter"
 import openStore from "@/pages/servicerPage/sellerCenter/openStore"
@@ -386,7 +391,7 @@ const router = new Router({
 						name: 'withdrawalapply',
 						component: withdrawalapply,		
 					},
-					{ //平台管理
+					{ //平台管理（服务商）
 						path: 'serverOrder',
 						name: 'serverOrder',
 						component: blank,
@@ -398,6 +403,22 @@ const router = new Router({
 							}
 						]
 					},
+					{//服务商的商品管理						
+						path: 'commodityInfo',
+						name: 'commodityInfo',
+						component: commodityInfo,						
+						children: [
+							{
+								path: 'pulishProduct',
+								name: 'pulishProduct',
+								component: pulishProduct,	
+							},{
+								path: 'saleCommodity',
+								name: 'saleCommodity',
+								component: saleCommodity,	
+							}
+						]
+					}
 				]
 			}
 		] 

@@ -1,6 +1,6 @@
 <template>
 	<div class="productParam">
-		<el-table :data="params" style="width: 100%">
+		<el-table :data="params" style="width: 100%">			
 			<el-table-column label="参数名称">
 				<template slot-scope="scope">
 					<input type="text" 

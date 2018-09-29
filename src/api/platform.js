@@ -132,3 +132,6 @@ export const updateMessage=(data)=>axios.put("mock/platform/update_message",data
 
 export const getMessage=(message_id)=>axios.get("mock/platform/get_message",{param:{message_id}})//编辑消息
 
+export const keepCategoryMess=(keepMess)=>axios.put("mock/product/update",keepMess)//编辑商品
+
+export const createProduct =(data)=>axios.post("mock/product/create",data)//发布商品

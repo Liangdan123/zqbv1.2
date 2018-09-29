@@ -14,8 +14,8 @@
 					:class="{isActive:active=='sellercenter'}">
 					<i></i>卖家中心
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallStoreMana" 
-					:class="{isActive:active=='mallStoreMana'||active=='mallStoreMess'}">
+				<el-menu-item index="/server/commodityInfo" 
+					:class="{isActive:active=='commodityInfo'}">
 					<i></i>商品管理
 				</el-menu-item>
 				<el-menu-item index="/server/serverOrder/serverAllOrder" 

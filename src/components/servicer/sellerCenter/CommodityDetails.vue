@@ -166,7 +166,13 @@
 					isEdit:true,
 				}
 			},
-			props:["CommodityDetails"],
+			props:{
+				CommodityDetails:{
+					default:function(){
+						return []
+					}
+				}
+			},
 			mixins:[shareMth],
 			methods:{
 				addPic(event){

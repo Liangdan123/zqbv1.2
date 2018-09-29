@@ -40,7 +40,6 @@
 			isShow(){
 				let path=this.$route.fullPath;
 				let arr=path.trim().split("/");
-				console.log("arr.length",arr.length)
 				return arr.length===3?true:false
 			}
 		},
