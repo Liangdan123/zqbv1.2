@@ -29,17 +29,17 @@
 			<div class="commodityDetail">
 				<div class="clearfix btn">
 					<p class="title">商品信息</p>
-					<el-button class="store-button2 ml-10" @click="onlyDeletePro(index)">
+					<el-button class="store-button2 ml-10" @click="modelOnlyDeletePro">
 						<i class="iconfont icon-shanchu f12"></i>
 						<span>删除</span>
 					</el-button>
-					<el-button class="store-button2" @click="onlyOffPro(index)">
+					<el-button class="store-button2" @click="modelOnlyOffPro">
 						<svg width="12" height="13">
 							<use xlink:href="#xiajia" />
 						</svg>
 						<span>下架商品</span>
 					</el-button>
-					<el-button class="store-button2 goOut" @click="irreHint(index)">
+					<el-button class="store-button2 goOut" @click="modelIrreHint">
 						<i class="iconfont icon-Rectangle f12"></i>
 						<span>违规提醒</span>
 					</el-button>
@@ -133,19 +133,19 @@
 			<el-table-column prop="time" label="操作" width="156">
 				<template slot-scope="scope">
 					<el-button type="text" size="small"  
-						@click="checkPro(scope.$index)">
+						@click="checkPro(scope.row.id)">
 						查看商品 
 					</el-button>
 					<el-button type="text" size="small" class="pl-10" 
-						@click="irreHint(scope.$index)">
+						@click="tableIrreHint(scope.row.id)">
 						违规提醒 
 					</el-button>
 					<el-button type="text" size="small" 
-						@click="onlyOffPro(scope.$index)">
+						@click="tableOnlyOffPro(scope.row.id)">
 						下架商品 
 					</el-button>
 					<el-button type="text" size="small" class="pl-10"  
-						@click="onlyDeletePro(scope.$index)">
+						@click="tableOnlyDeletePro(scope.row.id)">
 						删除商品 
 					</el-button>
 				</template>
@@ -168,10 +168,10 @@
 <script>
 	import {getProductList,onoffBatch,deleteBatch,subIrrehint,checkIrrehint,checkProduct} from "@/api/platform"
 	import page from "@/utils/page"
+	import onOffCheck from "@/utils/onOffCheck"
 	import checkProducts from "@/components/platform/storeManage/checkProducts"
 	export default{
-		components:{checkProducts},
-		
+		components:{checkProducts},		
 		data(){
 			return{
 				searchCondition:{//搜索条件
@@ -185,10 +185,11 @@
 				emptyText:"暂无商品",
 				choiceInput:["input"],
 				order:{},//清空排序样式
-				deleteOffList:{products:[]},//下架，删除列表
+				choiceOffList:{products:[]},//下架，删除列表
 				dialogVisible:false,//商品详情弹框
 				irreHintModel:false,//违规提醒弹窗
-				irrIndex:0,//违规提醒顺序
+				product_id:0,//违规的商品ID
+				checkProductID:0,//下架的商品ID
 				txtBox:"",
 				checkIrreList:{//违规提醒API信息
 					product_id: 0,//默认值
@@ -201,7 +202,7 @@
 				onlyProductMess:{},//商品详情信息
 			}
 		},
-		mixins:[page],
+		mixins:[page,onOffCheck],
 		props:["shop_id"],
 		methods:{
 			_doSearch(){//获取商ping列表
@@ -210,13 +211,6 @@
 					this.list=data;
 					this.loading=false;
 				})
-			},
-			handleSelection(val){//选中列表
-				let arr = [];
-				for(let item of val) {
-					arr.push({product_id: item.id})					
-				}
-				this.$set(this.deleteOffList, "products", arr);	
 			},
 			sortChange(column,prop,time){//排序
 				this.order=column;
@@ -245,37 +239,17 @@
 				this.$set(this.searchCondition,"orderby",data);
 				this.searchMethod();
 			},
-			checkPro(index){//查看商品
-				this.index = index;	
-				this._checkProduct(this.index);//调用查看商品API方法					
+			modelIrreHint(){//模块里的违规提醒
+				this._irreHint(this.checkProductID);
 			},
-			_checkProduct(index){//查看商品API方法	
-				let list = this.list.data;
-				//原先的id变成了product_id
-				let product_id = list[index].id;				
-				this.checkIrreList.product_id=product_id
-								
-				checkProduct(product_id)//查看商品API
-				.then(({data}) => {				
-					if(this.dialogVisible == false){
-						this.dialogVisible = true;
-					};
-					//调用默认运费物流API
-					this.onlyProductMess = data;
-					this._checkIrrehint(this.checkIrreList);////调用违规提醒列表API方法
-				})
+			tableIrreHint(product_id){
+				this._irreHint(product_id);
 			},
-			_checkIrrehint(data){
-				checkIrrehint(data)//违规提醒列表
-				.then(({data})=>{
-					this.irrList=data;
-				})	
-			},
-			irreHint(index){//违规提醒
+			_irreHint(product_id){//违规提醒
 				this.dialogVisible=false;
-				this.irrIndex=index;
+				this.product_id=product_id;
 				this.irreHintModel=true;
-			},
+			},			
 			irreCancel(){//违规取消
 				this.irreHintModel=false;
 				this.txtBox="";
@@ -286,7 +260,7 @@
 					return
 				};
 				let hintMess={
-					product_id:this.list.data[this.irrIndex].id,
+					product_id:this.product_id,
 					illegal_content:this.txtBox
 				};
 				subIrrehint(hintMess)
@@ -298,91 +272,6 @@
 				})
 				.catch(({data:{response}})=>{
 					this.txtBox="";					
-				})
-			},
-			onlyOffPro(index){//下架商品
-				let offPro = {
-					products: [{product_id: this.list.data[index].id}],					
-					status: "off"
-				};
-				this._offBatch(offPro);
-			},
-			onlyDeletePro(index){//删除商品
-				let deletePro = {
-					products: [{product_id: this.list.data[index].id}]
-				};				
-				this._deletePro(deletePro);
-			},
-			offCommodity(){//下架按钮
-				if(this.deleteOffList.products.length===0){
-					this.$message({showClose: true,message: '请选择要下架的商品',type: 'info'});	
-					return;
-				};
-				let offList={
-					products:this.deleteOffList.products,
-					status:"off"
-				}
-				this._offBatch(offList)
-			},
-			_offBatch(data){//公共下架
-				this.$confirm('你是否确定下架此商品', '温馨提示', {
-					confirmButtonText: '确认',
-					cancelButtonText: '取消',
-					lockScroll: false,
-					customClass:"offBatch"
-				}).then(() => {
-					onoffBatch(data)
-					.then(({data}) => {					
-						this._hint(data.status,"off")
-						this.searchMethod();
-						//如果是弹框里的下架商品，成功就把弹框关掉
-						if(this.dialogVisible === true) {
-							this.dialogVisible = false
-						}
-					})
-				}).catch(() => {
-					if(event.srcElement.innerText == "取消") {
-						return;
-					}
-				})
-			},
-			_hint(status,effect){//提示信息
-				switch(status) {
-					case "part_success":
-						this.$message({
-							showClose: true,
-							message:effect==='off'?"部分商品下架失败":"部分商品删除失败",
-							type:'warning'
-						});															
-						break;
-					case "all_fail":
-						this.$message.error(effect==='off'?'下架失败':'删除失败');
-						break;								
-				}
-				this.emptyText=effect==='off'?"尚未出售任何商品":"仓库中未发现商品记录";
-			},
-			deleteProduct(){//删除按钮
-				if(this.deleteOffList.products.length===0){
-					this.$message({showClose: true,message: '请选择要删除的商品',type: 'info'});	
-					return;
-				}
-				this._deletePro(this.deleteOffList)
-			},
-			_deletePro(data){//公共删除
-				this.$confirm('你是否确定删除此商品，商品删除后将保存在历史商品记录中.历史商品记录里的商品只能查看，不能做任何编辑操作。', '温馨提示',{
-					confirmButtonText: '确认',
-					cancelButtonText: '取消',
-					lockScroll: false,
-					customClass:"offBatch"
-				}).then(() => {
-					deleteBatch(data)
-					.then(({data}) => {											
-						this._hint(data.status,"delete")
-						if(this.dialogVisible === true) {this.dialogVisible = false}	
-						this.searchMethod();
-					})
-				}).catch(() => {
-					return;
 				})
 			},
 			inputSearch(){//搜索

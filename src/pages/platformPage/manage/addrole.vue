@@ -200,9 +200,7 @@
     },
     async created() {
       //获取商城分类列表
-      let {
-        data
-      } = await getMallClassifyList();
+      let { data} = await getMallClassifyList();            
       this.options = [];
       for (let val of data) {
         this.options.push({

@@ -97,7 +97,6 @@
 				
 			}
 		},
-
 		props:{
 			checkProduct:{
 				default:function(){
