@@ -40,3 +40,7 @@ export const getAccountMoney = (user_id)=>axios.get("mock/fund/get_account",{par
 export const sureReceivables = (tixian_id)=>axios.post("mock/fund/confirm",{tixian_id});// 提现申请确认收款
 
 export const getOrderConsumeList = (data)=>axios.post("mock/fund/sell_order_lists",data);// 获取订单消费收入列表
+
+export const getAssessList = (data)=>axios.post("mock/product/comment_lists",data);//获取商品评价列表
+
+export const backAssess = (data)=>axios.post("mock/product/comment_back",data);//评价回复

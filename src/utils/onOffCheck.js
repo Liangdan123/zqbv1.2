@@ -1,9 +1,17 @@
 import { onoffBatch, checkProduct, deleteBatch,checkIrrehint } from "@/api/platform"
 export default {
 	methods: {
-		checkPro(product_id){//查看商品
-			this.checkProductID=product_id;
-			this._checkPro(product_id);//调用查看商品API方法					
+		checkPro(product_id,index){//查看商品
+			this.index = index;//查看商品的顺序				
+			if(product_id){//用于弹框中所需的下架
+				this.checkProductID=product_id;
+				this._checkPro(product_id);//调用查看商品API方法		
+			}else if(!product_id){//用于左右箭头获取商品详情API				
+				let id=this.list.data[index].id;
+				this.checkProductID=id;
+				this._checkPro(id);//调用查看商品API方法		
+			}
+						
 		},
 		closeEditor(){//编辑中的取消按钮
 			this.editProductPage=false;
@@ -20,12 +28,11 @@ export default {
 					if(this.dialogVisible == false){//详情弹框
 						this.dialogVisible = true;				
 					};
+					this._checkIrrehint(this.checkIrreList);//调用违规提醒列表API方法
 				}else if(isEdit){
 					this.editProductPage=true;//如果是点击编辑那么就会显示编辑页面
 				}
-
-				this.onlyProductMess = data;
-				this._checkIrrehint(this.checkIrreList);//调用违规提醒列表API方法
+				this.onlyProductMess = data;				
 			})
 		},
 		_checkIrrehint(data){
@@ -129,19 +136,18 @@ export default {
 				}
 			})
 		},
-
 		//点击商品名称出现的弹框，一直向右
 		nextProduct() {
-			if(this.index < this.categoryList.data.length - 1) {
+			if(this.index < this.list.data.length - 1) {
 				this.index++;
-				this.checkPro(this.index)
+				this.checkPro(undefined,this.index)
 			};
 		},
 		//点击商品名称出现的弹框，一直向左
 		prevProduct() {
 			if(this.index > 0) {
 				this.index--;
-				this.checkPro(this.index)
+				this.checkPro(undefined,this.index)
 			};
 		},
 		//商品上架API

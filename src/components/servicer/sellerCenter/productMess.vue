@@ -207,12 +207,11 @@
 					cancelButtonText: '取消',
 					type: 'info '
 				}).then(() => {
-					this.pulishForm = changeEdior;
+//					this.pulishForm = changeEdior;
 					this.$emit("closeEditor")
 					this._imgReturn("已放弃本次编辑", "success")
-				}).catch(() => {
-					this._imgReturn("已放弃本次编辑", "info");
-					this.$emit("closeEditor")
+				}).catch(() => {				
+					this._imgReturn("已保存本次编辑", "info");
 				});
 			},
 			offPro() {

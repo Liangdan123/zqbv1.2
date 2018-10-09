@@ -67,6 +67,7 @@ import storedecoration from "@/pages/servicerPage/storeSet/storedecoration"
 import commodityInfo from "@/pages/servicerPage/commodity/commodityInfo"
 import pulishProduct from "@/pages/servicerPage/commodity/pulishProduct"
 import saleCommodity from "@/pages/servicerPage/commodity/saleCommodity"
+import warehouse from "@/pages/servicerPage/commodity/warehouse"
 
 //服务商的卖家中心
 import servicerCenter from "@/pages/servicerPage/sellerCenter/servicerCenter"
@@ -438,6 +439,10 @@ const router = new Router({
 								path: 'saleCommodity',
 								name: 'saleCommodity',
 								component: saleCommodity,	
+							},{								
+								path: 'warehouse',
+								name: 'warehouse',
+								component: warehouse,	
 							}
 						]
 					}

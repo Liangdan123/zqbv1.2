@@ -51,9 +51,7 @@
 		computed: {
 			isShow() {
 				let path=this.$route.fullPath;
-				console.log("path:",path)
 				let arr=path.trim().split("/");
-				console.log("arr:",arr.length)
 				return arr.length===3?true:false
 			}
 		},

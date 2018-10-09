@@ -33,6 +33,7 @@
 </template>
 
 <script>
+	import {format}from "@/api/script"
 	export default {
 		props: {
 			applyCreate:{
@@ -118,8 +119,8 @@
 			Search(){
 				if(this.isDate){//（申请时间跟创建时间在一起）				
 					if(this.time.length && this.time[0] && this.time[1] ){
-						let min = this.format(this.time[0]);
-						let max = this.format(this.time[1]);
+						let min = format(this.time[0]);
+						let max = format(this.time[1]);
 						if(this.applyCreate==="创建时间"){
 							this._timeType(1,"created_time",min,max)
 						}else if(this.applyCreate==="申请时间"){
@@ -159,9 +160,8 @@
 						delete this.search[type]
 						break;
 				}
-			},
-			//清除时间时Time值会变成undefined；
-			change() {
+			},			
+			change() {//清除时间时Time值会变成undefined；
 				if(!this.time) {
 					this.time = [];
 				}
@@ -177,14 +177,6 @@
 				delete this.search[this.inputSearch];
 				this.$emit("emptyMthod");
 				this.closeSearch();
-			},
-			//格式化时间
-			format(data) {
-				let m = data.getMonth() + 1;
-				let d = data.getDate();
-				let n = data.getFullYear();
-				let date = data.getFullYear() + "-" + (m < 10 ? "0" + m : m) + "-" + (d < 10 ? "0" + d : d);
-				return date
 			},
 			//关闭搜索弹框
 			closeSearch() {

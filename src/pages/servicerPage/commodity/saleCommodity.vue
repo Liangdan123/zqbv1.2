@@ -1,18 +1,18 @@
 <template>
 	<div class="saleCommodity">
-			<!--...................上下按钮..............-->
-			<!--<svg width="30" height="30" class="next" @click="nextProduct">
-				<use xlink:href="#right" v-if="dialogVisible&&index!=categoryList.data.length-1" />
-			</svg>
-			<svg width="30" height="30" class="prev" @click="prevProduct">
-				<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
-			</svg>-->
-			
+		<!--...................上下按钮..............-->
+		<svg width="30" height="30" class="nextArrow" @click="nextProduct">
+			<use xlink:href="#right" v-if="dialogVisible&&index!=list.data.length-1" />
+		</svg>
+		<svg width="30" height="30" class="prevArrow" @click="prevProduct">
+			<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
+		</svg>
 		<!--.................查看商品详情弹框....................-->
 		<el-dialog :visible.sync="dialogVisible" 
 			:close-on-click-modal="false" 
 			custom-class="checkBox" 
 			:show-close="false">
+			
 			<svg width="26" height="26" 
 				class="closebox" 
 				@click="dialogVisible = false">
@@ -36,12 +36,24 @@
 				<checkProducts 
 					:checkProduct="onlyProductMess" 
 					:irrList="irrList">
-					
 				</checkProducts>				
-			</div>
-			
+			</div>			
 		</el-dialog>
 		
+		<!--.................评价详情弹框....................-->
+		<el-dialog :visible.sync="assentVisible" 
+			:close-on-click-modal="false" 
+			custom-class="checkBox" 
+			:show-close="false">
+			
+			<svg width="26" height="26" 
+				class="closebox" 
+				@click="assentVisible = false">
+				<use xlink:href="#close" />
+			</svg>
+			<assess :productId="assessId"></assess>							
+		</el-dialog>
+				
 		<div class="g-content" v-if="!editProductPage" @click="closeSearch">
 			<div class="buttons">
 				<el-button class="store-button2 sale_out mb-20" @click="offCommodity">
@@ -105,12 +117,20 @@
 				</el-table-column>
 				<el-table-column prop="product_name" label="商品名称" width="304">
 					<template slot-scope="props">
-						<div class="product_name" @click="checkPro(props.row.id)">{{props.row.product_name}}</div>
+						<div class="product_name" @click="checkPro(props.row.id,props.$index)">
+							{{props.row.product_name}}
+						</div>
 					</template>
 				</el-table-column>
-				<el-table-column prop="product_price_yuan.min" label="价格"  sortable="custom" width="150">
+				<el-table-column 
+					prop="product_price_yuan.min" 
+					label="价格"  
+					sortable="custom" 
+					width="150">
 					<template slot-scope="props">
-						<span v-if="props.row.product_price_yuan.min==props.row.product_price_yuan.max " class="product_price">
+						<span 
+							v-if="props.row.product_price_yuan.min==props.row.product_price_yuan.max " 
+							class="product_price">
 				          {{props.row.product_price_yuan.min}}
 				        </span>
 						<span v-else class="product_price">
@@ -118,8 +138,15 @@
 				       </span>
 					</template>
 				</el-table-column>
-				<el-table-column prop="statistics_product.sell_num" label="销量" sortable="custom" width="120"></el-table-column>
-				<el-table-column prop="created_at" label="创建时间"  sortable="custom" width="212"></el-table-column>			
+				<el-table-column prop="statistics_product.sell_num" 
+					label="销量" 
+					sortable="custom" 
+					width="120">
+					
+				</el-table-column>
+				<el-table-column prop="created_at" label="创建时间"  sortable="custom" width="212">
+					
+				</el-table-column>			
 				<el-table-column prop="status" label="商品状态"   width="182">
 					<template slot-scope="props">
 						<div v-if="props.row.deleted_at">商品已删除</div>
@@ -132,10 +159,12 @@
 				
 				<el-table-column prop="time" label="操作" width="116">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" class="btn-delete" @click.stop="editDoods(scope.row.id)">
+						<el-button type="text" size="small" class="btn-delete" 
+							@click.stop="editDoods(scope.row.id)">
 							编辑商品 
 						</el-button>
-						<el-button type="text" size="small" class="btn-delete" @click.stop="seeAssess(scope.$index)">
+						<el-button type="text" size="small" class="btn-delete" 
+							@click.stop="seeAssess(scope.row.id)">
 							查看评价 
 						</el-button>
 					</template>
@@ -169,7 +198,8 @@
 	export default{
 		components:{
 			"checkProducts":()=>import("@/components/platform/storeManage/checkProducts"),
-			"productMess":()=>import("@/components/servicer/sellerCenter/productMess")
+			"productMess":()=>import("@/components/servicer/sellerCenter/productMess"),
+			"assess":()=>import("@/components/servicer/commodity/assess")
 		},
 		data(){
 			return{
@@ -207,6 +237,9 @@
 				checkProductID:0,//下架的商品ID
 				editProductPage:false,//编辑页面显示不显示
 				order:{},//清空排序样式
+				index:0,//查看商品的顺序
+				assentVisible:false,
+				assessId:0,
 			}
 		},
 		mixins:[page,onOffCheck],
@@ -243,7 +276,7 @@
 			getMallClassifyList()//商城分类列表
 			.then(({data})=>{				
 				this.mallClassifyList=data;
-			})
+			});
 		},
 		methods:{
 			_doSearch(){
@@ -331,8 +364,9 @@
 				this.$set(this.searchCondition,"orderby",data);
 				this.searchMethod();
 			},
-			seeAssess(){//查看评价
-				
+			seeAssess(id){//查看评价
+				this.assessId=id;
+				this.assentVisible=true;
 			},
 
 		}
@@ -346,6 +380,7 @@
 			.storeLink_nav{
 				float: right;
 				.condition{
+					line-height: 36px;
 					.el-input.number{
 						width: 100px;						
 						.el-input__inner{
