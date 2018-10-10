@@ -45,7 +45,6 @@ import storeMessage from "@/pages/platformPage/storeManage/storeMessage"
 //平台中的监控中心
 import platDataCenter from "@/pages/platformPage/controlCenter/platDataCenter"
 
-
 //服务商导航
 import server from "@/pages/servicerPage/servers"
 //服务商的资金管理
@@ -68,6 +67,8 @@ import commodityInfo from "@/pages/servicerPage/commodity/commodityInfo"
 import pulishProduct from "@/pages/servicerPage/commodity/pulishProduct"
 import saleCommodity from "@/pages/servicerPage/commodity/saleCommodity"
 import warehouse from "@/pages/servicerPage/commodity/warehouse"
+import historyProdcut from "@/pages/servicerPage/commodity/history"
+import category from "@/pages/servicerPage/commodity/category"
 
 //服务商的卖家中心
 import servicerCenter from "@/pages/servicerPage/sellerCenter/servicerCenter"
@@ -443,6 +444,14 @@ const router = new Router({
 								path: 'warehouse',
 								name: 'warehouse',
 								component: warehouse,	
+							},{								
+								path: 'historyProdcut',
+								name: 'historyProdcut',
+								component: historyProdcut,	
+							},{
+								path: 'category',
+								name: 'category',
+								component: category,	
 							}
 						]
 					}

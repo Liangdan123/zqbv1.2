@@ -10,8 +10,7 @@ export default {
 				let id=this.list.data[index].id;
 				this.checkProductID=id;
 				this._checkPro(id);//调用查看商品API方法		
-			}
-						
+			}						
 		},
 		closeEditor(){//编辑中的取消按钮
 			this.editProductPage=false;
@@ -31,6 +30,9 @@ export default {
 					this._checkIrrehint(this.checkIrreList);//调用违规提醒列表API方法
 				}else if(isEdit){
 					this.editProductPage=true;//如果是点击编辑那么就会显示编辑页面
+					if(this.dialogVisible == true){//详情弹框
+						this.dialogVisible = false;				
+					};
 				}
 				this.onlyProductMess = data;				
 			})
@@ -45,30 +47,20 @@ export default {
 		editDoods(product_id){//编辑商品
 			this._checkPro(product_id,true);
 		},
-		tableOnlyOffPro(product_id){//表格中的下架
-			this._onlyOffPro(product_id)
+		onlyOffPro(product_id){//表格、弹框的下架（单一）
+			this._onOffdelete(product_id,"off")
 		},
-		modelOnlyOffPro(){//弹框中的下架
-			this._onlyOffPro(this.checkProductID)
+		onlyOnPro(product_id){//表格、弹框的上架架（单一）
+			this._onOffdelete(product_id,"on")
 		},
-		_onlyOffPro(product_id){//下架商品
-			let offPro = {
-				products: product_id,					
-				status: "off"
-			};
-			this._offBatch(offPro);
-		},	
-		tableOnlyDeletePro(product_id){//表格中的单一删除
-			this._onlyDeletePro(product_id)
+		onlyDeletePro(product_id){//单一删除
+			this._onOffdelete(product_id,"delete")
 		},
-		modelOnlyDeletePro(){//弹框中的删除商品
-			this._onlyDeletePro(this.checkProductID)
-		},
-		_onlyDeletePro(product_id){//删除商品
-			let deletePro = {
-				products: [{product_id}]
-			};				
-			this._deletePro(deletePro);
+		_onOffdelete(product_id,data){//上下架删除
+			let onOff=data==="on"?"on":"off";
+			let offOnDelte	
+			data==="delete"?offOnDelte={products:product_id}:offOnDelte={products:product_id,status:onOff};
+			data==="on"?this._onProduct(offOnDelte):data==="off"?this._offBatch(offOnDelte):this._deletePro(offOnDelte);
 		},
 		handleSelection(val){//选中列表
 			let arr = [];
@@ -78,23 +70,25 @@ export default {
 			this.$set(this.choiceOffList, "products", arr);	
 		},
 		offCommodity(){//下架按钮（批量）
-			if(this.choiceOffList.products.length===0){
-				this.$message({showClose: true,message: '请选择要下架的商品',type: 'info'});	
-				return;
-			};
-			let offList={
-				products:this.choiceOffList.products,
-				status:"off"
-			}
-			this._offBatch(offList)
+			this._onOfframe("off")
+		},
+		onCommodity(){//上架按钮（批量）
+			this._onOfframe("on")
 		},
 		deleteProduct(){//删除按钮（批量）
+			this._onOfframe("delete")
+		},
+		_onOfframe(data){//上架下架删除（批量）
+			let onOffInof=data==="on"?"请选择要上架的商品":data==="off"?"请选择要下架的商品":"请选择要删除的商品"
 			if(this.choiceOffList.products.length===0){
-				this.$message({showClose: true,message: '请选择要删除的商品',type: 'info'});	
+				this.$message({showClose: true,message: onOffInof,type: 'info'});	
 				return;
-			}
-			this._deletePro(this.choiceOffList)
-		},		
+			};
+			let onOff=data==="on"?"on":"off";
+			let offOnDelte	
+			data==="delete"?offOnDelte={products:this.choiceOffList.products}:offOnDelte={products:this.choiceOffList.products,status:onOff};
+			data==="on"?this._onProduct(offOnDelte):data==="off"?this._offBatch(offOnDelte):this._deletePro(offOnDelte);
+		},	
 		_offBatch(data) {//商品下架API
 			this.$confirm('你是否确定下架此商品', '温馨提示', {
 				confirmButtonText: '确认',
@@ -103,16 +97,13 @@ export default {
 			}).then(() => {
 				onoffBatch(data)
 					.then(({data}) => {		
-						console.log("data:",data)
 						switch(data.status) {
 							case "part_success":
 								this.$message({
 									showClose: true,
 									message: '部分商品下架失败',
 									type: 'warning'
-								});
-								this.emptyText = "尚未出售任何商品";
-								
+								});												
 								break;
 							case "all_fail":
 								this.$message.error('下架失败');
@@ -123,7 +114,8 @@ export default {
 									message: '下架成功！可在仓库中的商品进行查看',
 									type: 'success'
 								});
-						}
+						}						
+						this.emptyText = "尚未出售任何商品";			
 						this.searchMethod();
 						//如果是弹框里的下架商品，成功就把弹框关掉
 						if(this.dialogVisible === true) {
@@ -151,21 +143,28 @@ export default {
 			};
 		},
 		//商品上架API
-		onProduct(data) {
+		_onProduct(data) {
 			onoffBatch(data).then(({data}) => {							
-				if(data.status == "all_success") {
-					this.$message({
-						showClose: true,
-						message: '上架成功！可在出售中的商品中进行查看',
-						type: 'success'
-					});
-				} else {
-					this.$confirm('商品库存不足！请先添加库存后再次进行上架操作?', '温馨提示', {
-						confirmButtonText: '确定',
-						showCancelButton: false,
-					})
+				switch(data.status) {
+					case "part_success":
+						this.$message({
+							showClose: true,
+							message: '部分商品上架失败',
+							type: 'warning'
+						});
+									
+						break;
+					case "all_fail":
+						this.$message.error('上架失败');
+						break;
+					default:
+						this.$message({
+							showClose: true,
+							message: '上架成功！可在出售中的商品进行查看',
+							type: 'success'
+						});
 				}
-				this.emptyText = "仓库中未发现商品记录";
+				this.emptyText = "仓库中未发现商品记录";			
 				if(this.dialogVisible === true) {
 					this.dialogVisible = false
 				}
@@ -187,8 +186,7 @@ export default {
 								message: '部分商品删除失败',
 								type: 'warning'
 							});
-							this.emptyText = "仓库中未发现商品记录";
-							
+												
 							break;
 						case "all_fail":
 							this.$message.error('删除失败');
@@ -199,8 +197,8 @@ export default {
 								message: '删除成功！可在历史商品记录中进行查看',
 								type: 'success'
 							});
-							this.emptyText = "仓库中未发现商品记录";
 					}
+					this.emptyText = "仓库中未发现商品记录";		
 					if(this.dialogVisible === true) {
 						this.dialogVisible = false
 					}
@@ -210,16 +208,16 @@ export default {
 				return;
 			})
 		},
-		//编辑商品的方法
-		seeProduct(data){
-			return new Promise(function(resolve,reject){
-				checkProduct(data)
-				.then(({data}) => {					
-					resolve(data)
-				}).catch(({response:{data}}) => {
-					reject(data)
-				})
-			})
-		}
+//		//编辑商品的方法
+//		seeProduct(data){
+//			return new Promise(function(resolve,reject){
+//				checkProduct(data)
+//				.then(({data}) => {					
+//					resolve(data)
+//				}).catch(({response:{data}}) => {
+//					reject(data)
+//				})
+//			})
+//		}
 	}
 }

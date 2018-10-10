@@ -16,40 +16,42 @@
 		</el-dialog>
 		
 		<!--........................主体内容..................-->
-		<h3 class="assess_title">评价详情{{'('+list.total+')'||0}}</h3>
-		<div class="assess_con">
-			<div v-for="item in list.data" class="assess_plate">
-				<div class="assess_plate_top clearfix">
-					<div class="float-l">
-						<img :src="item.avatar_url" class="assess_plate_top-head"/>
-						<span class="assess_plate_top-name">{{item.nick_name}}</span>
-						<time class="assess_plate_top-time">{{item.created_at}}</time>
-						<div class="assess_plate_top-Stars">
-							<span class="iconfont icon-xingxing" v-for="item in item.comment_score"></span>
-							<span class="iconfont icon-wuxing" v-for="item in (5-item.comment_score)"></span>
-						</div>						
-						<span class="assess_plate_top-name">{{item.comment_score|assess}}</span>						
+		<div v-loading="loading">		
+			<h3 class="assess_title">评价详情{{'('+list.total+')'||0}}</h3>
+			<div class="assess_con">
+				<div v-for="item in list.data" class="assess_plate">
+					<div class="assess_plate_top clearfix">
+						<div class="float-l">
+							<img :src="item.avatar_url" class="assess_plate_top-head"/>
+							<span class="assess_plate_top-name">{{item.nick_name}}</span>
+							<time class="assess_plate_top-time">{{item.created_at}}</time>
+							<div class="assess_plate_top-Stars">
+								<span class="iconfont icon-xingxing" v-for="item in item.comment_score"></span>
+								<span class="iconfont icon-wuxing" v-for="item in (5-item.comment_score)"></span>
+							</div>						
+							<span class="assess_plate_top-name">{{item.comment_score|assess}}</span>						
+						</div>
+						<div class="float-r" v-if="item.is_back===0">
+							<el-button class="store-button2" @click="backCustom(item.comment_id)">回复客户</el-button>
+						</div>
+						
+					</div>				
+					<div class="assess_plate_bottom">
+						{{item.comment_content}}
 					</div>
-					<div class="float-r" v-if="item.is_back===0">
-						<el-button class="store-button2" @click="backCustom(item.comment_id)">回复客户</el-button>
-					</div>
-					
-				</div>				
-				<div class="assess_plate_bottom">
-					{{item.comment_content}}
 				</div>
+	
+			</div>				
+			<div class="clearfix mt-20">
+				<el-pagination :total="list.total"
+					:current-page.sync="list.current_page" 
+					:page-size="list.per_page"
+					layout="total, prev, pager, next"
+					@current-change="handleCurrentChange"
+					class="pagination float-r">
+					
+				</el-pagination>
 			</div>
-
-		</div>				
-		<div class="clearfix mt-20">
-			<el-pagination :total="list.total"
-				:current-page.sync="list.current_page" 
-				:page-size="list.per_page"
-				layout="total, prev, pager, next"
-				@current-change="handleCurrentChange"
-				class="pagination float-r">
-				
-			</el-pagination>
 		</div>
 	</div>
 </template>
@@ -69,6 +71,7 @@
 				backModel:false,
 				txtBox:"",
 				comment_id:0,
+				loading:true,
 			}
 		},
 		filters:{
@@ -110,6 +113,7 @@
 					page: 1,
 					per_page: 20,
 				}
+				this.loading=true;
 				this.searchMethod();
 			},			
 		},
@@ -117,7 +121,8 @@
 			_doSearch(){
 				getAssessList(this.searchCondition)
 				.then(({data})=>{
-					this.list=data
+					this.list=data;
+					this.loading=false
 				})
 			},
 			backCustom(id){//回复客户按钮

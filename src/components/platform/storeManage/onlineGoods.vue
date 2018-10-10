@@ -141,11 +141,11 @@
 						违规提醒 
 					</el-button>
 					<el-button type="text" size="small" 
-						@click="tableOnlyOffPro(scope.row.id)">
+						@click="onlyOffPro(scope.row.id)">
 						下架商品 
 					</el-button>
 					<el-button type="text" size="small" class="pl-10"  
-						@click="tableOnlyDeletePro(scope.row.id)">
+						@click="onlyDeletePro(scope.row.id)">
 						删除商品 
 					</el-button>
 				</template>

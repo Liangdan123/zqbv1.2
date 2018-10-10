@@ -10,7 +10,7 @@
     <el-menu-item index="warehouse" :class="{active:selected=='warehouse'}">
       仓库中的商品
     </el-menu-item>
-    <el-menu-item index="history" :class="{active:selected=='history'}">
+    <el-menu-item index="historyProdcut" :class="{active:selected=='historyProdcut'}">
       历史商品记录
     </el-menu-item>
     <el-menu-item index="category" :class="{active:selected=='category'}">

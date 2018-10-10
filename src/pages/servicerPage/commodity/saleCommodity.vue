@@ -1,6 +1,6 @@
 <template>
 	<div class="saleCommodity">
-		<!--...................上下按钮..............-->
+		<!--...................左右按钮..............-->
 		<svg width="30" height="30" class="nextArrow" @click="nextProduct">
 			<use xlink:href="#right" v-if="dialogVisible&&index!=list.data.length-1" />
 		</svg>
@@ -22,13 +22,13 @@
 			<div class="commodityDetail">
 				<div class="clearfix btn">
 					<p class="title">商品信息</p>
-					<el-button class="store-button2 ml-10" @click="modelOnlyOffPro">
+					<el-button class="store-button2 ml-10" @click="onlyOffPro(checkProductID)">
 						<svg width="12" height="13">
 							<use xlink:href="#xiajia" />
 						</svg>
 						<span>下架商品</span>
 					</el-button>
-					<el-button class="store-button2 goOut" >
+					<el-button class="store-button2 goOut" @click="editDoods(checkProductID)">
 						<i class="iconfont icon-Rectangle f12"></i>
 						<span>编辑商品</span>
 					</el-button>
@@ -106,7 +106,8 @@
 			<!--...................表格..........-->
 			<el-table :data="list.data" style="width: 100%" 
 				@selection-change="handleSelection" 
-				:empty-text="emptyText" 
+				:empty-text="emptyText"
+				v-loading="loading"
 				@sort-change="sortChange">
 				
 				<el-table-column type="selection" width="36"> </el-table-column>
@@ -151,8 +152,8 @@
 					<template slot-scope="props">
 						<div v-if="props.row.deleted_at">商品已删除</div>
 						<div v-else>
-							<p  v-if="props.row.status==='on'">上架</p>
-							<span  v-if="props.row.status==='off'">下架</span>
+							<p  v-if="props.row.status==='on'">商品出售中</p>
+							<span  v-if="props.row.status==='off'">仓库中</span>
 						</div>	
 					</template>
 				</el-table-column>
@@ -206,6 +207,7 @@
 				list:{data:[]},//表格全部数据
 	 			searchCondition:{//搜索条件
 					search:{
+						status:"on",
 						product_price_yuan:{
 							min:"",
 							max:"",
@@ -240,6 +242,7 @@
 				index:0,//查看商品的顺序
 				assentVisible:false,
 				assessId:0,
+				loading:true,
 			}
 		},
 		mixins:[page,onOffCheck],
@@ -283,21 +286,8 @@
 				getProductList(this.searchCondition)
 				.then(({data})=>{
 					this.list=data;
+					this.loading=false;
 				})
-			},
-			offCommodity(){//下架
-				if(this.choiceOffList.products.length == 0) {
-					this.$message({  type: 'info', message: '请选择你要下架的商品' }); 			          			           			       
-					return;
-				}
-				this._offBatch(this.choiceOffList)
-			},
-			onlyOffPro(index){//弹框中的下架
-				let offPro = {
-					products: [{product_id: this.list.data[index].id}],					
-					status: "off"
-				};
-				this._offBatch(offPro);
 			},
 			searchProduct(){//模糊搜索
 				this.emptyText = "未搜索到相关匹配信息";
@@ -314,8 +304,18 @@
 						this.$message("最高销量小于最低销量");
 						return;
 					}
-				}		
+				};
+				this._clearStoreage()
 				this.searchMethod();
+			},
+			_clearStoreage(){//清空排序样式
+				if(JSON.stringify(this.order)!=="{}"){
+					this.order.column.prop="";				
+					this.order.column.order="";
+				};
+				if(this.searchCondition.orderby){//删除排序
+					delete this.searchCondition.orderby
+				};
 			},
 			emptyMthod(){//清空
 				this.searchCondition={
@@ -332,6 +332,7 @@
 					page: 1,
 					per_page: 20,
 				}
+				this._clearStoreage()
 				this.searchMethod();
 			},
 			closeSearch() { //关闭筛选条件
@@ -395,11 +396,17 @@
 					}
 				}
 			}
+			.store-button2.sale_out{
+				span{
+					color:#B4282D;	
+				}						
+			}
 			.el-table{
 				.el-button+.el-button{
 					margin-left: 0;
 				}
 			}
+			
 		}
 		.el-dialog__wrapper{
 			.checkBox{
