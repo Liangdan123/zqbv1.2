@@ -65,7 +65,7 @@
 <script>
 	import {deletes} from '@/api/script'	
 	import {keepCategoryMess,createProduct,onoffBatch} from "@/api/platform"							
-	import {isRead} from "@/api/servicer"
+	import {isRead} from "@/api/servicer"	
 	export default {
 		components: {
 			"productParam": () =>
@@ -79,7 +79,6 @@
 			"CommodityDetails": () =>
 				import ("@/components/servicer/sellerCenter/CommodityDetails")
 		},
-
 		data() {
 			return {
 				pulishForm:{

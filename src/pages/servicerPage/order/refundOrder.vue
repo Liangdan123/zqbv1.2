@@ -102,17 +102,17 @@
 				this.tab = tab;
 				this.loading = true;
 				this.orderMess.search = {}; //切换时把条件也切换
-				switch (true) {
-					case tab.name === "1":
+				switch (tab.name) {
+					case  "1":
 						this.$set(this.orderMess.search, "type", 0);
 						break;
-					case tab.name === "2":
+					case  "2":
 						this.$set(this.orderMess.search, "type", 1);
 						break;
-					case tab.name === "3":
+					case  "3":
 						this.$set(this.orderMess.search, "type", 3);
 						break;
-					case tab.name === "4":
+					case  "4":
 						this.$set(this.orderMess.search, "type", 4);
 						break;
 				}
@@ -180,20 +180,20 @@
 			},
 			//关闭搜索弹框
 			closeSearch() {
-				switch (true) {
-					case this.tab.name === "first":
+				switch ( this.tab.name) {
+					case "first":
 						this.$refs.one.closeSearch()
 						break;
-					case this.tab.name === "second":
+					case  "second":
 						this.$refs.two.closeSearch()
 						break;
-					case this.tab.name === "third":
+					case "third":
 						this.$refs.three.closeSearch()
 						break;
-					case this.tab.name === "fourth":
+					case "fourth":
 						this.$refs.four.closeSearch()
 						break;
-					case this.tab.name === "fifth":
+					case "fifth":
 						this.$refs.five.closeSearch()
 						break;
 					default:

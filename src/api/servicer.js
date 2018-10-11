@@ -44,3 +44,7 @@ export const getOrderConsumeList = (data)=>axios.post("mock/fund/sell_order_list
 export const getAssessList = (data)=>axios.post("mock/product/comment_lists",data);//获取商品评价列表
 
 export const backAssess = (data)=>axios.post("mock/product/comment_back",data);//评价回复
+
+export const setProductsCategory =(data)=>axios.post("mock/product/save_product_mall_category_batch",data)//批量设置商品商城分类
+
+export const setOnlyProductsCategory =(data)=>axios.post("mock/product/save_product_mall_category",data)//设置商品店铺分类(单个)
