@@ -15,7 +15,7 @@ export const imageUpload =(file)=>axios.post("upload_image",file)/*上传图片�
 
 export const getArea =()=>axios.get("mock/region/get")/*地区接口*/
 
-export const loginVerifyCode =()=>axios.post("notify/login_verify_code")/*注册发送验证码*/
+export const loginVerifyCode =(data)=>axios.post("notify/login_verify_code",data)/*注册发送验证码*/
 
 
 

@@ -151,15 +151,13 @@
           "type": "phone",
           "data": this.mobile_phone
         };
+        let data="";
         if (this.isReset) {
-          let {
-            data
-          } = await getRegisterCode(post_data);
+          data = await getRegisterCode(post_data);
         } else {
-          let {
-            data
-          } = await loginVerifyCode(post_data);
+         data = await loginVerifyCode(post_data);
         }
+        data=data.data;
         if (data&&data.msg == 'success') {
           this.time = this.seconds;
           this.timer();
