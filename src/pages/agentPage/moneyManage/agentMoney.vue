@@ -88,7 +88,7 @@
 			checkDetail(){
 				this.model=false;
       },
-      	sureFund(){
+      sureFund(){
 				this._list()
 			}
     }

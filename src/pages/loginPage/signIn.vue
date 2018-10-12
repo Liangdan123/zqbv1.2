@@ -10,7 +10,7 @@
     <div>
       <el-button class=" btn mr-20 f14" @click="login"> 登 录 </el-button>
       	还没有账号？
-      <router-link to="sfz" class="color-main f14">立即注册</router-link>
+      <router-link to="register" class="color-main f14">立即注册</router-link>
       </el-row>
     </div>
   </div>
