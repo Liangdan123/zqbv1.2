@@ -163,15 +163,9 @@
         };
         let data="";
         if (this.isReset) {
-<<<<<<< HEAD
           data = await getRegisterCode(post_data);
         } else {
          data = await loginVerifyCode(post_data);
-=======
-          let {data} = await getRegisterCode(post_data);          
-        } else {
-          let {data} = await loginVerifyCode(post_data);         
->>>>>>> dan
         }
         data=data.data;
         if (data&&data.msg == 'success') {
