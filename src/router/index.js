@@ -45,7 +45,6 @@ import storeMessage from "@/pages/platformPage/storeManage/storeMessage"
 //平台中的监控中心
 import platDataCenter from "@/pages/platformPage/controlCenter/platDataCenter"
 
-
 //服务商导航
 import server from "@/pages/servicerPage/servers"
 //服务商的资金管理
@@ -67,13 +66,16 @@ import storedecoration from "@/pages/servicerPage/storeSet/storedecoration"
 import commodityInfo from "@/pages/servicerPage/commodity/commodityInfo"
 import pulishProduct from "@/pages/servicerPage/commodity/pulishProduct"
 import saleCommodity from "@/pages/servicerPage/commodity/saleCommodity"
+import warehouse from "@/pages/servicerPage/commodity/warehouse"
+import historyProdcut from "@/pages/servicerPage/commodity/history"
+import category from "@/pages/servicerPage/commodity/category"
 
 //服务商的卖家中心
 import servicerCenter from "@/pages/servicerPage/sellerCenter/servicerCenter"
 import openStore from "@/pages/servicerPage/sellerCenter/openStore"
 import Irregularities from "@/pages/servicerPage/sellerCenter/Irregularities"
 
-//服务商的订单管理
+//服务商的订单管理(平台)
 import serverAllOrder from "@/pages/servicerPage/order/serverAllOrder"
 import UnshippedOrder from "@/pages/servicerPage/order/UnshippedOrder"
 import PendingOrder from "@/pages/servicerPage/order/PendingOrder"
@@ -82,7 +84,7 @@ import refundOrder from "@/pages/servicerPage/order/refundOrder"
 
 
 //代理商订单和合伙人订单通用
-import orderTable from '@/components/order/orderTable'
+import orderTable from '@/components/servicer/order/orderTable'
 //代理商订单和合伙人营销管理通用
 import MarketInfo from '@/components/marketing/MarketInfo'
 import MemberCenter from '@/components/marketing/MemberCenter'
@@ -306,7 +308,7 @@ const router = new Router({
 						name:'storeMessage',
 						component:storeMessage,						
 					},
-					{
+					{//监控中心（平台）
 						path:'controlCenter',	
 						name: 'controlCenter',
 						component:blank,
@@ -315,6 +317,18 @@ const router = new Router({
 								path: 'platDataCenter',
 								name: 'platDataCenter',
 								component: platDataCenter,	
+							},
+						]
+					},
+					{//订单管理（平台）
+						path: 'platformOrder',
+						name: 'platformOrder',
+						component: blank,
+						children:[
+							{
+								path: 'serverAllOrder',
+								name: 'serverAllOrder',
+								component: serverAllOrder,	
 							},
 						]
 					}
@@ -394,7 +408,7 @@ const router = new Router({
 						name: 'withdrawalapply',
 						component: withdrawalapply,		
 					},
-					{ //平台管理（服务商）
+					{ //订单管理（服务商）
 						path: 'serverOrder',
 						name: 'serverOrder',
 						component: blank,
@@ -438,6 +452,18 @@ const router = new Router({
 								path: 'saleCommodity',
 								name: 'saleCommodity',
 								component: saleCommodity,	
+							},{								
+								path: 'warehouse',
+								name: 'warehouse',
+								component: warehouse,	
+							},{								
+								path: 'historyProdcut',
+								name: 'historyProdcut',
+								component: historyProdcut,	
+							},{
+								path: 'category',
+								name: 'category',
+								component: category,	
 							}
 						]
 					}

@@ -118,14 +118,14 @@
 			},
 			existFund(){//保存按钮
 				this.donation.forEach((item)=>{
-					switch(true){
-						case item.name==="订单消费":
+					switch(item.name){
+						case "订单消费":
 							this.order_bei={order_bei:item.num}
 							break;
-						case item.name==="购买钻石会员":
+						case "购买钻石会员":
 							this.diamond_bei={diamond_bei:item.num}
 							break;
-						case item.name==="购买黄金会员":
+						case "购买黄金会员":
 							this.gold_bei={gold_bei:item.num}
 							break;
 					}

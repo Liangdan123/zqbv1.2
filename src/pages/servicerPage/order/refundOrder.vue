@@ -4,11 +4,11 @@
 		<!--............弹框左右按钮............-->
 		<div v-if="activeName!=='first'">
 			<svg width="30" height="30" class="next" @click="nextProduct">
-					<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
-				</svg>
+				<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
+			</svg>
 			<svg width="30" height="30" class="prev" @click="prevProduct">
-					<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
-				</svg>
+				<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
+			</svg>
 		</div>
 		<!--..............查看退款详情..................-->
 		<el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" :show-close="false" class="order">
@@ -22,41 +22,65 @@
 		<div class="g-content">
 			<el-tabs v-model="activeName" @tab-click="handleClick">
 				<el-tab-pane label="全部订单" name="1">
-					<refundeBought :orderData="orderData" :orderMess="orderMess" @showOrder="showOrder" :orderLists="orderLists" v-loading="loading" @searchMthod="searchMethods"    ref="one" >
+					<refundeBought :orderData="orderData" 
+						:orderMess="orderMess" 
+						@showOrder="showOrder" 
+						:orderLists="orderLists" 
+						v-loading="loading"
+						 @searchMthod="searchMethods"   
+						  ref="one" >
 					</refundeBought>
 				</el-tab-pane>
 				<el-tab-pane label="退款申请" name="2">
-					<refundeBought :orderData="orderData" :orderMess="orderMess" @showOrder="showOrder" @searchMthod="searchMethods" v-loading="loading"   ref="two" :orderLists="orderLists">
+					<refundeBought :orderData="orderData" 
+						:orderMess="orderMess" 
+						@showOrder="showOrder"
+						 @searchMthod="searchMethods"
+						  v-loading="loading"  
+						  ref="two" :orderLists="orderLists">
 					</refundeBought>
 				</el-tab-pane>
 				<el-tab-pane label="已退款" name="3">
-					<refundeBought :orderData="orderData" :orderMess="orderMess" @showOrder="showOrder" @searchMthod="searchMethods" v-loading="loading"   ref="four" :orderLists="orderLists">
+					<refundeBought :orderData="orderData" 
+						:orderMess="orderMess" @showOrder="showOrder" 
+						@searchMthod="searchMethods" 
+						v-loading="loading"   
+						ref="four" 
+						:orderLists="orderLists">
 					</refundeBought>
 				</el-tab-pane>
 				<el-tab-pane label="已拒绝" name="4">
-					<refundeBought :orderData="orderData" :orderMess="orderMess" @showOrder="showOrder" @searchMthod="searchMethods" v-loading="loading"   ref="five"  :orderLists="orderLists">
+					<refundeBought 
+						:orderData="orderData"						
+						:orderMess="orderMess" 
+						@showOrder="showOrder"
+						@searchMthod="searchMethods"
+						v-loading="loading"   
+						ref="five"  
+						:orderLists="orderLists">
+						
 					</refundeBought>
 				</el-tab-pane>
 			</el-tabs>
 			<!--...............分页...................-->
-		 <el-pagination :total="orderData.total" :current-page.sync="orderMess.page" :page-size="orderMess.per_page" v-if='orderData.total>orderMess.per_page'
-      class="mt-20" @current-change="handleCurrent" layout="total, prev, pager, next">
-    </el-pagination>
+			 <el-pagination :total="orderData.total" 
+			 	:current-page.sync="orderMess.page" 
+			 	:page-size="orderMess.per_page" 
+			 	v-if='orderData.total>orderMess.per_page'
+	      		class="mt-20" 
+	      		@current-change="handleCurrent" 
+	      		layout="total, prev, pager, next">
+	    	</el-pagination>
 		</div>
 	</div>
 </template>
 
 <script>
-  import Navbar from "@/components/servicer/order/Navbar";
-	import {
-		refundList,
-		refundGet
-	} from "@/api/order"
-	import refundeBought from "@/components/order/refundeBought"
-	import orderRefund from "@/components/order/orderRefund"
-	import {
-		refundLogMess
-	} from "@/api/order"
+  	import Navbar from "@/components/servicer/order/Navbar";
+	import {refundList,refundGet} from "@/api/order"					
+	import refundeBought from "@/components/servicer/order/refundeBought"
+	import orderRefund from "@/components/servicer/order/orderRefund"
+	import {refundLogMess} from "@/api/order"			
 	export default {
 		data() {
 			return {
@@ -91,28 +115,24 @@
 			};
 			this.searchMethods();
 		},
-		components: {
-			Navbar,
-			refundeBought,
-			orderRefund
-		},
+		components: {Navbar,refundeBought,orderRefund},											
 		methods: {
 			//切换列表
 			handleClick(tab, event) {
 				this.tab = tab;
 				this.loading = true;
 				this.orderMess.search = {}; //切换时把条件也切换
-				switch (true) {
-					case tab.name === "1":
+				switch (tab.name) {
+					case  "1":
 						this.$set(this.orderMess.search, "type", 0);
 						break;
-					case tab.name === "2":
+					case  "2":
 						this.$set(this.orderMess.search, "type", 1);
 						break;
-					case tab.name === "3":
+					case  "3":
 						this.$set(this.orderMess.search, "type", 3);
 						break;
-					case tab.name === "4":
+					case  "4":
 						this.$set(this.orderMess.search, "type", 4);
 						break;
 				}
@@ -180,20 +200,20 @@
 			},
 			//关闭搜索弹框
 			closeSearch() {
-				switch (true) {
-					case this.tab.name === "first":
+				switch ( this.tab.name) {
+					case "first":
 						this.$refs.one.closeSearch()
 						break;
-					case this.tab.name === "second":
+					case  "second":
 						this.$refs.two.closeSearch()
 						break;
-					case this.tab.name === "third":
+					case "third":
 						this.$refs.three.closeSearch()
 						break;
-					case this.tab.name === "fourth":
+					case "fourth":
 						this.$refs.four.closeSearch()
 						break;
-					case this.tab.name === "fifth":
+					case "fifth":
 						this.$refs.five.closeSearch()
 						break;
 					default:

@@ -8,16 +8,18 @@
       <div class="small_plate">
         <span class="color-7F f14 display-in">订单状态：</span>
         <em class="color-3 f14 display em">
-          {{checkOrder.status===1?"未付款":checkOrder.status===2?"未服务":checkOrder.status===3?"已发货":checkOrder.status===4?
-          "交易完成":checkOrder.status===5?"交易已取消":checkOrder.status===6?"交易已关闭":"交易已删除"}}
+          {{checkOrder.status|tradeStatus}}
+        </em>
+      </div>     
+      <div class="small_plate " 
+      	:class="!([1,5,6].includes(checkOrder.status))?'mb-20':''">
+        <span class="color-7F f14 display-in">创建时间：</span>
+        <em class="color-3 f14 display em">
+        	{{checkOrder.created_at}}
         </em>
       </div>
-      <div class="small_plate " :class="checkOrder.status!==1&&checkOrder.status!==5&&checkOrder.status!==6?'mb-20':''">
-        <span class="color-7F f14 display-in">创建时间：</span>
-        <em class="color-3 f14 display em">{{checkOrder.created_at}}</em>
-      </div>
       <!--.............未付款时不显示..............-->
-      <div class="small_plate  mb-20" v-if="checkOrder.status===1||checkOrder.status===5||checkOrder.status===6?false:true">
+      <div class="small_plate  mb-20" v-if=" [1,5,6].includes(checkOrder.status)?false:true">
         <span class="color-7F f14 display-in">付款方式：</span>
         <em class="color-3 f14 display em">
           {{pay_info.pay_type==="weixin"?"微信支付":"余额支付"}}
@@ -26,25 +28,19 @@
       <div class="small_plate">
         <span class="color-7F f14 display-in">商品合计：</span>
         <em class="color-3 f14 display em">
-          {{(pay_info.total_product_fee_yuan||0).toFixed(2)}}
-        </em>
-      </div>
-      <div class="small_plate">
-        <span class="color-7F f14 display-in">运费合计：</span>
-        <em class="color-3 f14 display em">
-          {{(pay_info.total_shipping_fee_yuan||0).toFixed(2)}}
+          {{pay_info.total_product_fee_yuan||0|money}}
         </em>
       </div>
       <div class="small_plate">
         <span class="color-7F f14 display-in">优惠券：</span>
         <em class="color-3 f14 display em">
-          {{(pay_info.total_coupon_yuan||0).toFixed(2)}}
+          {{pay_info.total_coupon_yuan||0|money}}
         </em>
       </div>
       <div class="small_plate">
         <span class="color-7F f14 display-in">订单合计：</span>
         <em class="color-3 f14 display em">
-          {{(pay_info.pay_fee_yuan||0).toFixed(2)}}
+          {{pay_info.pay_fee_yuan||0|money}}
         </em>
       </div>
     </div>
@@ -65,51 +61,57 @@
         <div class="progress_sec float-l mr_fu_12">
           <p class="circleLine ml-20">
             <span class="circle bg-b"></span>
-            <b class="line" :class="checkOrder.status===1?'bg-9e':'bg-b'" v-if="checkOrder.status!==5&&checkOrder.status!==6"></b>
+            <b class="line" :class="checkOrder.status===1?'bg-9e':'bg-b'" 
+            	v-if="!([5,6].includes(checkOrder.status))"></b>
           </p>
           <div class="progress_txt color-b mr_fu_12">
-            <span class="f14">
-              {{checkOrder.status===5?"买家取消订单":checkOrder.status===6?"买家未付款订单自动取消":"等待买家付款"}}
+            <span class="f14">            
+              {{checkOrder.status|checkStatus}}
             </span><br>
             <span class="f14" v-if="checkOrder.status===1?false:true">
               {{checkOrder.status===5?checkOrder.cancel_time:checkOrder.status===6?checkOrder.close_time:checkOrder.pay_time}}
             </span><br>
           </div>
         </div>
-        <div class="progress_sec float-l mr_fu_12" v-if="checkOrder.status!==5&&checkOrder.status!==6">
+        <div class="progress_sec float-l mr_fu_12" v-if="!([5,6].includes(checkOrder.status))">
           <p class="circleLine ml-20">
             <span class="circle" :class="checkOrder.status===1?'bg-9e':'bg-b'"></span>
-            <b class="line" :class="checkOrder.status!==1&&checkOrder.status!==2?'bg-b':'bg-9e'"></b>
+            <b class="line" :class="!([1,2].includes(checkOrder.status))?'bg-b':'bg-9e'">
+            	
+            </b>
           </p>
           <div class="progress_txt mr_fu_12">
             <span class="f14" :class="checkOrder.status===1?'color-6':'color-b'">
-              等待卖家服务
+              	等待卖家服务
             </span><br>
-            <span class="f14 color-b " v-if="checkOrder.status!==1&&checkOrder.status!==2">
+            <span class="f14 color-b " v-if="!([1,2].includes(checkOrder.status))">
               {{checkOrder.shipping_time}}
             </span><br>
           </div>
         </div>
-        <div class="progress_sec float-l mr_fu_12" v-if="checkOrder.status!==5&&checkOrder.status!==6">
+        <div class="progress_sec float-l mr_fu_12" v-if="!([5,6].includes(checkOrder.status))">
           <p class="circleLine ml-20">
-            <span class="circle" :class="checkOrder.status!==1&&checkOrder.status!==2?'bg-b':'bg-9e'"></span>
+            <span class="circle" :class="!([1,2].includes(checkOrder.status))?'bg-b':'bg-9e'">
+            	
+            </span>
             <b class="line" :class="checkOrder.status===4?'bg-b':'bg-9e'"></b>
           </p>
           <div class="progress_txt mr_fu_12">
-            <span class="f14" :class="checkOrder.status!==1&&checkOrder.status!==2?'color-b':'color-6'">
-              等待买家验收
+            <span class="f14" :class="!([1,2].includes(checkOrder.status))?'color-b':'color-6'">
+              	等待买家验收
             </span><br>
             <span class="f14 color-b" v-if="checkOrder.status===4">
               {{checkOrder.confirm_time}}
             </span><br>
           </div>
         </div>
-        <div class="progress_sec float-l mr_fu_12" v-if="checkOrder.status!==5&&checkOrder.status!==6">
+        <div class="progress_sec float-l mr_fu_12" v-if="!([5,6].includes(checkOrder.status))">
           <p class="circleLine ml-20">
             <span class="circle" :class="checkOrder.status===4?'bg-b':'bg-9e'"></span>
           </p>
           <div class="progress_txt mr_fu_12">
-            <span class="f14" :class="checkOrder.status===4?'color-b':'color-6'">完成订单</span><br>
+            <span class="f14" :class="checkOrder.status===4?'color-b':'color-6'">
+            	完成订单</span><br>
             <span class="f14 color-b" v-if="checkOrder.status===4">
               {{checkOrder.confirm_time}}
             </span><br>
@@ -143,8 +145,12 @@
     <!--.................商品信息模块（订单详情，发货）.................-->
     <div class="plate mb-40">
       <p class="color-3 f16 font-b mb-20">商品信息</p>
-      <productTable :productMess="checkOrder.order_products" :type='type' @select='handleSelectionChange' :status='checkOrder.status'
-        @progress='progress' @closeProgress='closeProgress'></productTable>
+      <productTable 
+      	:productMess="checkOrder.order_products" 
+      	:type='type' @select='handleSelectionChange' 
+      	:status='checkOrder.status'
+        @progress='progress' @closeProgress='closeProgress'>
+      </productTable>
       <div class="float-r btn mt-20" v-if="type==='订单服务'&&checkOrder.status==2">
         <el-button class="store-button1" @click="sureSetPro">开始服务</el-button>
         <el-button class="store-button2" @click="cancelPro">取消</el-button>
@@ -160,7 +166,10 @@
           <div class='pro_text'>
             <span :class='{complete:item.is_complete==1}'>{{item.spec_name}}</span>
             <span v-if='item.is_complete==1' class='float-r'>服务完成</span>
-            <el-button v-else class='float-r store-button3' @click='finish(item.ops_id,item.order_product_id)'>已完成</el-button>
+            <el-button v-else class='float-r store-button3' 
+            	@click='finish(item.ops_id,item.order_product_id)'>
+            	已完成
+            </el-button>
           </div>
         </div>
       </div>
@@ -169,12 +178,52 @@
 </template>
 
 <script>
-  import {
-    complete,
-    getSchedule
-  } from "@/api/order"
-  import productTable from "@/components/order/productTable"
+  import { complete, getSchedule} from "@/api/order"        
+  import productTable from "@/components/servicer/order/productTable"
   export default {
+  	filters:{
+  		tradeStatus(num){
+				let status={
+					1:function(){
+						return "未付款"
+					},
+					2:function(){
+						return "未服务"
+					},
+					3:function(){
+						return "服务中"
+					},
+					4:function(){
+						return "交易完成"
+					},
+					5:function(){
+						return "交易已取消"
+					},
+					6:function(){
+						return "交易已关闭"
+					},
+					"default":function(){
+						return "交易已删除"
+					}
+				}
+  			return (status[num]||status["default"])()
+  		},
+		 	money(value){
+        // 金额转换成数字和整数部分
+        value = Number(value).toFixed(2).split('.');
+        let value_int = value[0].toLocaleString();//转换成金额形式
+        return `￥ ${value_int}.${value[1]}`;
+	    },
+	    checkStatus(status){
+	    	 let statusAll={
+	    	 		5:"买家取消订单",
+	    	 		6:"买家未付款订单自动取消",
+	    	 		"default":"等待买家付款"
+	    	 };
+	    	 return statusAll[status]||statusAll["default"]
+	    },
+  	},
+  	components: { productTable},   
     data() {
       return {
         expressMess: [],
@@ -185,14 +234,14 @@
       }
     },
     props: {
-      //			订单信息
+      //订单信息
       checkOrder: {
         type: Object,
         default: function () {
           return {}
         }
       },
-      //			判断是发货还是订单详情弹框
+      //判断是订单服务还是订单详情弹框
       type: {
         type: String,
         default: function () {
@@ -212,9 +261,7 @@
         }
       }
     },
-    components: {
-      productTable
-    },
+    
     methods: {
       //发货表单
       handleSelectionChange(val) {
@@ -254,9 +301,7 @@
         };
         //卖家发货API
         setProduct(setProMess)
-          .then(({
-            data
-          }) => {
+          .then(({ data }) => {        
             this.$message.success("发货成功")
             this.$emit("closeBox", true)
           }).catch(() => {

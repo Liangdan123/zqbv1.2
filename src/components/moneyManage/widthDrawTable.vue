@@ -56,37 +56,35 @@
 			},
 			type(val) { //角色转换
 				let num=+val
-				let role
-				switch(num) {
-					case 1:
-						role = "支付宝"
-						break;
-					case 2:
-						role = "微信"
-						break;
-					case 3:
-						role = "银行卡"
-						break;
+				let roleChange={
+					1:function(){
+						return  "支付宝"
+					},
+					2:function(){
+						return  "微信"
+					},
+					3:function(){
+						return "银行卡"
+					}
 				}
-				return role
+				return roleChange[num]()
 			},
 			withdrawalStatus(status) {
-				let status_text;
-				switch(status) {
-					case 1:
-						status_text = '等待平台汇款';
-						break;
-					case 2:
-						status_text = '等待商家确认收款';
-						break;
-					case 3:
-						status_text = '提现失败';
-						break;
-					case 4:
-						status_text = '提现完成';
-						break;
-				}
-				return status_text
+				let status_text={
+					1:function(){
+						return '等待平台汇款'
+					},
+					2:function(){
+						return '等待商家确认收款'
+					},
+					3:function(){
+						return '提现失败'
+					},
+					4:function(){
+						return '提现完成'
+					},
+				};
+				return status_text[status]()
 			},
 		},
 		props: {

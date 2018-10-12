@@ -51,10 +51,7 @@
 </template>
 
 <script>
-  import {
-    dlsLists,
-    hhrLists
-  } from "@/api/agent"
+  import { dlsLists,hhrLists } from "@/api/agent"     
   import page from "@/utils/page"
   export default {
     name: "allOrder",

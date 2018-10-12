@@ -40,3 +40,11 @@ export const getAccountMoney = (user_id)=>axios.get("mock/fund/get_account",{par
 export const sureReceivables = (tixian_id)=>axios.post("mock/fund/confirm",{tixian_id});// 提现申请确认收款
 
 export const getOrderConsumeList = (data)=>axios.post("mock/fund/sell_order_lists",data);// 获取订单消费收入列表
+
+export const getAssessList = (data)=>axios.post("mock/product/comment_lists",data);//获取商品评价列表
+
+export const backAssess = (data)=>axios.post("mock/product/comment_back",data);//评价回复
+
+export const setProductsCategory =(data)=>axios.post("mock/product/save_product_mall_category_batch",data)//批量设置商品商城分类
+
+export const setOnlyProductsCategory =(data)=>axios.post("mock/product/save_product_mall_category",data)//设置商品店铺分类(单个)

@@ -2,39 +2,59 @@
   <div class="allOrder commodity" @click="closeSearch">
     <Navbar></Navbar>
     <!--..............订单详情弹框..................-->
-    <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" :show-close="false" class="order" :title="type">
-      <svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
+    <el-dialog :visible.sync="dialogVisible" 
+    	:close-on-click-modal="false" 
+    	:show-close="false" 
+    	class="order" 
+    	:title="type">
+      <svg width="26" height="26"
+      	class="closebox cursor" 
+      	@click="dialogVisible = false">
           <use xlink:href="#close" />
         </svg>
-      <el-button class="productSet" v-if="type==='订单详情'&&orderLists[index].status===2" @click="setPro"><i class="iconfont icon-kaishifuwu f12"></i> 开始服务</el-button>
+      <el-button class="productSet"
+      	 v-if="type==='订单详情'&&orderLists[index].status===2" 
+      	 @click="setPro">
+      	 <i class="iconfont icon-kaishifuwu f12">  </i>    	 	
+      	 开始服务
+      </el-button>
       <!--.................主体内容....................-->
-      <orderDetail :checkOrder="onlyOrderMess" :pay_info="pay_info" :shipping_info="shipping_info" :type="type" @closeBox="closeBox">
+      <orderDetail 
+      	:checkOrder="onlyOrderMess" 
+      	:pay_info="pay_info" 
+      	:shipping_info="shipping_info"
+      	:type="type" 
+      	@closeBox="closeBox">
+      	
       </orderDetail>
     </el-dialog>
-        <!-- 发票申请 -->
-      <el-dialog :visible.sync="InvoiceVisible" :close-on-click-modal="false"  class="order" title="发票申请">
-         <el-form  label-width="150px" class='Invoice'>
-          <el-form-item label="发票性质：">{{InvoiceData.type==1?'专票':'普票'}}</el-form-item>
-          <template v-if='InvoiceData.type==1'>
-           <el-form-item label="开户名：">{{InvoiceData.kaihu_name}}</el-form-item>
-            <el-form-item label="开户行：">{{InvoiceData.kaihu_bank}}</el-form-item>
-            <el-form-item label="电话：">{{InvoiceData.kaihu_phone}}</el-form-item>
-            <el-form-item label="账号：">{{InvoiceData.kaihu_account}}</el-form-item>
-            <el-form-item label="纳税人识别地址：">{{InvoiceData.kaihu_address}}</el-form-item>
-          </template>
-          <template v-else>
-           <el-form-item label="公司名称：">{{InvoiceData.company_name}}</el-form-item>
-            <el-form-item label="税号：">{{InvoiceData.tax_num}}</el-form-item>
-          </template>
-        </el-form>
-      </el-dialog>
+    <!-- 发票申请 -->
+	  <el-dialog 
+	  	:visible.sync="InvoiceVisible" 
+	  	:close-on-click-modal="false"  
+	  	class="order" 
+	  	title="发票申请">
+	    <InvoiceApply :InvoiceData="InvoiceData">	    	
+	    </InvoiceApply>
+	  </el-dialog>
+	  
     <div class="g-content">
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
-        <search :search.sync="orderMess.search" @searchMethod="searchMethods" @emptyMthod='searchMethods' ref="isShow" inputSearch='order_search'></search>
+        <search :search.sync="orderMess.search" 
+        	@searchMethod="searchMethods" 
+        	@emptyMthod='searchMethods' ref="isShow" 
+        	inputSearch='order_search'>
+        </search>
       </div>
       <!--........................表格...............-->
-      <bought :orderData="orderData" :orderMess="orderMess" @handleCurrent="handleCurrent" :orderLists="orderLists" @showOrder="showOrder"  @showSetOrder="showSetOrder" @Invoice='Invoice' v-loading="loading">
+      <bought :orderData="orderData" :orderMess="orderMess" 
+      	@handleCurrent="handleCurrent" :orderLists="orderLists" 
+      	@showOrder="showOrder"  
+      	@showSetOrder="showSetOrder" 
+      	@Invoice='Invoice' 
+      	v-loading="loading">
+      	
       </bought>
     </div>
   </div>
@@ -42,20 +62,21 @@
 
 <script>
   import Navbar from "@/components/servicer/order/Navbar";
-  import bought from "@/components/order/bought"
+  import bought from "@/components/servicer/order/bought"
   import order from "@/utils/order"
-  import orderDetail from "@/components/order/orderDetail"
-  	import {getInvoice} from "@/api/order"
+  import orderDetail from "@/components/servicer/order/orderDetail"
+  import InvoiceApply from "@/components/servicer/order/InvoiceApply"
+  import {getInvoice} from "@/api/order"
   export default {
     name: "serverAllOrder",
     data() {
       return {
-        orderMess: {
+        orderMess:{
           page: 1,
           search: {
             type: 0,
           },
-          per_page: 1,
+          per_page:20,
         },
         orderData: {}, //订单全部数据（包括页码）
         orderLists: [{
@@ -68,15 +89,11 @@
         pay_info: {},
         shipping_info: {},
         loading: true,
-         InvoiceData:{},
+        InvoiceData:{},
         InvoiceVisible:false
       }
     },
-    components: {
-      Navbar,
-      bought,
-      orderDetail
-    },
+    components: { Navbar, bought,orderDetail,InvoiceApply},                   
     mixins: [order],
     created() {
       let shop_id = this.$store.getters.getShop_id;
@@ -104,7 +121,7 @@
       setPro() {
         this.type = "订单服务"
       },
-         Invoice(id){
+      Invoice(id){
         getInvoice(id).then(({data})=>{
           this.InvoiceData=data;
           this.InvoiceVisible=true;

@@ -23,7 +23,7 @@
 				</div>
 				<p><i class="iconfont icon-cangku"></i></p>
 			</router-link>
-			<router-link :to="{name:'history'}" class="item-4 item-list fl">
+			<router-link :to="{name:'historyProdcut'}" class="item-4 item-list fl">
 				<div>
 					<i class="iconfont icon-lishishangpin"></i>
 					<span>历史商品记录</span>
@@ -51,9 +51,7 @@
 		computed: {
 			isShow() {
 				let path=this.$route.fullPath;
-				console.log("path:",path)
 				let arr=path.trim().split("/");
-				console.log("arr:",arr.length)
 				return arr.length===3?true:false
 			}
 		},

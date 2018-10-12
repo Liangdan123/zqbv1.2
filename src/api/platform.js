@@ -14,7 +14,7 @@ export const getcomponentList=(data)=>axios.post("mall/component_lists",data)//�
 
 export const existMallClassified =(data)=>axios.post("product/save_mall_category",data)//保存商城分类信息
 
-export const getMallClassifyList =()=>axios.get("product/mall_category_lists")//获取商城分类列表
+export const getMallClassifyList =()=>axios.get("mock/product/mall_category_lists")//获取商城分类列表
 
 export const getClassifyList=(shop_id)=>axios.get("product/shop_category_lists",{params:{shop_id}})//获取店铺分类列表
 

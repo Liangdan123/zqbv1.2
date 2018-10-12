@@ -3,28 +3,50 @@
 		<Navbar></Navbar>
 		<!--............弹框左右按钮............-->
 		<svg width="30" height="30" class="next" @click="nextProduct">
-				<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
-			</svg>
+			<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
+		</svg>
 		<svg width="30" height="30" class="prev" @click="prevProduct">
-				<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
-			</svg>
+			<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
+		</svg>
 		<!--..............订单详情弹框..................-->
-	  <el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" :show-close="false" class="order" :title="type">
-      <svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
-          <use xlink:href="#close" />
-        </svg>
-      <el-button class="productSet" v-if="type==='订单详情'&&orderLists[index].status===2" @click="setPro"><i class="iconfont icon-kaishifuwu f12"></i> 开始服务</el-button>
-      <!--.................主体内容....................-->
-      <orderDetail :checkOrder="onlyOrderMess" :pay_info="pay_info" :shipping_info="shipping_info" :type="type" @closeBox="closeBox">
-      </orderDetail>
-    </el-dialog>
+		<el-dialog :visible.sync="dialogVisible" 
+		  	:close-on-click-modal="false" 
+		  	:show-close="false" class="order" 
+		  	:title="type">
+		    <svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
+		          <use xlink:href="#close" />
+		    </svg>
+		    <el-button class="productSet" 
+		    	v-if="type==='订单详情'&&orderLists[index].status===2" 
+		    	@click="setPro">
+		    	<i class="iconfont icon-kaishifuwu f12"></i> 开始服务		    				    	
+		    </el-button>
+		      <!--.................主体内容....................-->
+		    <orderDetail :checkOrder="onlyOrderMess" 
+		    	:pay_info="pay_info" 
+		    	:shipping_info="shipping_info" 
+		    	:type="type" 
+		    	@closeBox="closeBox">
+		    </orderDetail>
+	    </el-dialog>
     <div class="g-content">
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
-        <search :search.sync="orderMess.search" @searchMethod="searchMethods" @emptyMthod='searchMethods' ref="isShow" inputSearch='order_search'></search>
+        <search :search.sync="orderMess.search" 
+        	@searchMethod="searchMethods"
+        	 @emptyMthod='searchMethods' ref="isShow" 
+        	 inputSearch='order_search'>
+        </search>
       </div>
       <!--........................表格...............-->
-      <bought :orderData="orderData" :orderMess="orderMess" @handleCurrent="handleCurrent" :orderLists="orderLists" @showOrder="showOrder"  @showSetOrder="showSetOrder" v-loading="loading">
+      <bought :orderData="orderData" 
+      	:orderMess="orderMess" 
+      	@handleCurrent="handleCurrent" 
+      	:orderLists="orderLists" 
+      	@showOrder="showOrder"  
+      	@showSetOrder="showSetOrder" 
+      	v-loading="loading">
+      	
       </bought>
     </div>
   </div>
@@ -32,9 +54,9 @@
 
 <script>
   import Navbar from "@/components/servicer/order/Navbar";
-  import bought from "@/components/order/bought"
+  import bought from "@/components/servicer/order/bought"
   import order from "@/utils/order"
-  import orderDetail from "@/components/order/orderDetail"
+  import orderDetail from "@/components/servicer/order/orderDetail"
   export default {
     name: "UnshippedOrder",
     data() {

@@ -65,7 +65,7 @@
 <script>
 	import {deletes} from '@/api/script'	
 	import {keepCategoryMess,createProduct,onoffBatch} from "@/api/platform"							
-	import {isRead} from "@/api/servicer"
+	import {isRead} from "@/api/servicer"	
 	export default {
 		components: {
 			"productParam": () =>
@@ -79,7 +79,6 @@
 			"CommodityDetails": () =>
 				import ("@/components/servicer/sellerCenter/CommodityDetails")
 		},
-
 		data() {
 			return {
 				pulishForm:{
@@ -207,12 +206,11 @@
 					cancelButtonText: '取消',
 					type: 'info '
 				}).then(() => {
-					this.pulishForm = changeEdior;
+//					this.pulishForm = changeEdior;
 					this.$emit("closeEditor")
 					this._imgReturn("已放弃本次编辑", "success")
-				}).catch(() => {
-					this._imgReturn("已放弃本次编辑", "info");
-					this.$emit("closeEditor")
+				}).catch(() => {				
+					this._imgReturn("已保存本次编辑", "info");
 				});
 			},
 			offPro() {

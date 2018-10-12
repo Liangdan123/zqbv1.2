@@ -10,7 +10,11 @@
       </div>
     </el-dialog>
     <!--...................搜素...........-->
-		<search :search.sync="orderMess.search" @searchMethod="searchMthod" @emptyMthod='searchMthod' ref="isShow" inputSearch='order_search'></search>
+		<search :search.sync="orderMess.search" 
+			@searchMethod="searchMthod"
+			 @emptyMthod='searchMthod' 
+			 ref="isShow" inputSearch='order_search'>
+		</search>
     <ul class="table_title mt-20">
       <li>商品信息</li>
       <li></li>
@@ -56,18 +60,17 @@
             </li>
             <li>
               <div class="v_center">
-                仅退款
+               		仅退款
               </div>
             </li>
             <li>
-              <div class="v_center text-c" >
-                {{item.refund_status===1?"等待商家确认":item.refund_status===2?"买家撤销退款":item.refund_status===3?
-                "商家已拒绝":item.refund_status===4?"等待退款":item.refund_status===5?"已退款":"退款失败"}}
+              <div class="v_center text-c" >                
+                {{item.refund_status|refundStatus}}
               </div>
             </li>
             <li>
               <div class="v_center">
-                <span style="color: #B4282D;">￥{{item.refund_fee_yuan}}</span><br>
+                <span style="color: #B4282D;">{{item.refund_fee_yuan||0|money}}</span><br>
               </div>
             </li>
             <li>
@@ -86,21 +89,35 @@
     </div>
     <!--.................没有订单的时候..............-->
     <div v-if="orderLists.length?false:true" class="color-3 f14 text-c non_order">
-      未发现相关的订单
+     	 未发现相关的订单
     </div>
 
   </div>
 </template>
 
 <script>
-  import {
-    refundAgree,
-    refundDisagree,
-  } from "@/api/order"
-  import {
-    setUnion
-  } from "@/api/script"
+  import { refundAgree,refundDisagree} from "@/api/order"         
+  import {setUnion} from "@/api/script"     
   export default {
+  	filters:{
+  		refundStatus(status){
+  			let statusAll={
+  				1:"等待商家确认",
+  				2:"买家撤销退款",
+  				3:"商家已拒绝",
+  				4:"等待退款",
+  				5:"已退款",
+  				"defalut":"退款失败",
+  			};
+  			return statusAll[status]||statusAll["defalut"]
+  		},
+  		money(value){
+        // 金额转换成数字和整数部分
+        value = Number(value).toFixed(2).split('.');
+        let value_int = value[0].toLocaleString();//转换成金额形式
+        return `￥ ${value_int}.${value[1]}`;
+	    },
+  	},
     data() {
       return {
         dialogDisagree: false,

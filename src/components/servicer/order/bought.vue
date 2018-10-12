@@ -13,7 +13,11 @@
         <div class="boughtHead clearfix">
           <div class="float-l" v-if="isShopName">{{item.shop_name}}</div>
           <div class="float-r">
-            订单号：<span class="orderNumber">{{item.order_no}}</span> 创建时间：
+          	 订单号：
+            <span class="orderNumber">
+            	{{item.order_no}}
+            </span> 
+            	创建时间：
             <span>{{item.created_at}}</span>
           </div>
         </div>
@@ -26,15 +30,18 @@
             </li>
             <li class="item-2" :class="i===(item.order_products.length-1)?'':'border-b'">
               <div class="v_center">
-                <span class='red' v-if='child.already_refund!=0'>【退款】</span>{{child.product_name}}<br>
-                <span v-for="i in  child.spec_name.split(';')">
+                <span class='red' v-if='child.already_refund!=0'>
+                	【退款】
+                </span>
+                {{child.product_name}}<br>
+                <span v-for="i in child.spec_name.split(';')">
                   {{i}}
                 </span>
               </div>
             </li>
             <li :class="i===(item.order_products.length-1)?'':'border-b'" class='item-3'>
               <div class="v_center">
-                {{child.total_spec_price_yuan}}
+                {{child.total_spec_price_yuan||0|money}}
               </div>
             </li>
           </ul>
@@ -42,8 +49,7 @@
           <ul class="clearfix pos-a ul_right">
             <li>
               <div class="v_center">
-                {{item.status===1?"未付款":item.status===2?"未服务":item.status===3?"已服务":item.status===4?"交易完成"
-                :item.status===5?"交易已取消":item.status===6?"交易已关闭":"交易已删除"}}
+                {{item.status|tradeStatus}}
               </div>
             </li>
             <li>
@@ -53,15 +59,22 @@
             </li>
             <li>
               <div class="v_center text-c">
-                ￥{{item.pay_info.pay_fee_yuan}}<br>
-                <span class="color-7F">(优惠券:- ￥{{item.pay_info. total_coupon_yuan}})</span>
+                	{{item.pay_info.pay_fee_yuan||0|money}}<br>
+                	<span class="color-7F">
+                		(优惠券:{{item.pay_info.total_coupon_yuan||0|money}})
+                	</span>
               </div>
             </li>
             <li>
               <div class="v_center">
-                <el-button class="store-button3 " v-if="item.status===2" @click="setPro(index)">开始服务 </el-button>
+                <el-button class="store-button3 " v-if="item.status===2" @click="setPro(index)">
+                	开始服务 
+                </el-button>
                 <div class="color-b cursor text-c" @click="checkOrder(index)">查看订单</div>
-                <div class="color-b cursor text-c" @click="Invoice(item.split_order_id)" v-if='item.status==4&&item.is_invoice==1'>发票申请</div>
+                <div class="color-b cursor text-c" 
+                	@click="Invoice(item.split_order_id)" v-if='item.status==4&&item.is_invoice==1'>
+                	发票申请
+                </div>
               </div>
             </li>
           </ul>
@@ -69,20 +82,59 @@
       </div>
     </div>
     <!--.................没有订单的时候..............-->
-    <div v-if="orderLists.length?false:true" class="color-3 f14 text-c non_order">
-      未发现相关的订单
+    <div v-if="orderLists.length?false:true" 
+    	class="color-3 f14 text-c non_order">
+     	未发现相关的订单
     </div>
-    <el-pagination :total="orderData.total" :current-page.sync="orderMess.page" :page-size="orderMess.per_page" v-if='orderData.total>orderMess.per_page'
-      class="mt-20" @current-change="handleCurrent" layout="total, prev, pager, next">
+    <el-pagination 
+    	:total="orderData.total" 
+    	:current-page.sync="orderMess.page" 
+    	:page-size="orderMess.per_page" 
+    	v-if='orderData.total>orderMess.per_page'
+      class="mt-20" 
+      @current-change="handleCurrent" 
+      layout="total, prev, pager, next">
     </el-pagination>
   </div>
 </template>
 
 <script>
-  import {
-    complete
-  } from "@/api/order"
+  import {  complete } from "@/api/order"   
   export default {
+  	filters:{
+  		tradeStatus(num){
+				let status={
+					1:function(){
+						return "未付款"
+					},
+					2:function(){
+						return "未服务"
+					},
+					3:function(){
+						return "服务中"
+					},
+					4:function(){
+						return "交易完成"
+					},
+					5:function(){
+						return "交易已取消"
+					},
+					6:function(){
+						return "交易已关闭"
+					},
+					"default":function(){
+						return "交易已删除"
+					}
+				}
+  			return (status[num]||status["default"])()
+  		},
+		 	money(value){
+        // 金额转换成数字和整数部分
+        value = Number(value).toFixed(2).split('.');
+        let value_int = value[0].toLocaleString();//转换成金额形式
+        return `￥ ${value_int}.${value[1]}`;
+	    },
+  	},
     data() {
       return {
         split_order_id: "",
@@ -125,7 +177,7 @@
       checkOrder(data) {
         this.$emit("showOrder", data);
       },
-      //发货
+      //开始服务
       setPro(data) {
         this.$emit("showSetOrder", data)
       },
@@ -148,7 +200,7 @@
 
     >li {
       float: left;
-      width: 100px;
+      width: 110px;
       height: 40px;
       line-height: 40px;
       padding-left: 20px;
@@ -160,7 +212,7 @@
       }
 
       &:nth-child(2) {
-        width: 290px;
+        width: 250px;
       }
     }
   }
@@ -168,7 +220,6 @@
   .bought {
     box-shadow: 0px -1px 0px 0px #e9eef2, -1px 0px 0px 0px #e9eef2, 1px 0px 0px 0px #e9eef2;
     border-bottom: 1px solid #E9EEF2;
-
     .boughtHead {
       height: 32px;
       background: #EEF6FD;
@@ -178,7 +229,6 @@
       padding-left: 20px;
       padding-right: 20px;
       text-align: right;
-
       .orderNumber {
         margin-right: 40px;
       }
@@ -189,7 +239,7 @@
 
       >li {
         float: left;
-        width: 100px;
+        width: 110px;
         padding-left: 20px;
         height: 86px;
         position: relative;
@@ -209,7 +259,7 @@
       }
 
       >.item-3 {
-        width: 290px;
+        width: 250px;
       }
     }
   }
@@ -229,12 +279,12 @@
   }
 
   .bought ul.top {
-    width: 700px;
+    width: 660px;
   }
 
   .bought .ul_right {
     top: 0;
-    left: 700px;
+    left: 660px;
   }
 
   .red {
