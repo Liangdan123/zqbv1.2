@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import productTable from "@/components/order/productTable";
+  import productTable from "@/components/servicer/order/productTable";
   import {
     refundAgree,
     refundDisagree

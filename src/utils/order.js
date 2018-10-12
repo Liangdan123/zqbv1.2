@@ -10,7 +10,7 @@ export default{
 			    //页面在第一页搜索手动调接口获取数据列表
 			    this.orderList(this.orderMess);
 			} else {
-			    //页面在第一页搜索列表就让他回到第一页然后触发handleCurrentChange（）方法（页面更改设置触发）
+			    //页面在第一页搜索列表就让他回到第一页然后触发handleCurrentChange()方法（页面更改设置触发）
 			    this.orderMess.page = 1;
 			}				
 	    },
