@@ -85,6 +85,7 @@ import refundOrder from "@/pages/servicerPage/order/refundOrder"
 
 //代理商订单和合伙人订单通用
 import orderTable from '@/components/servicer/order/orderTable'
+
 //代理商订单和合伙人营销管理通用
 import MarketInfo from '@/components/marketing/MarketInfo'
 import MemberCenter from '@/components/marketing/MemberCenter'
@@ -327,7 +328,6 @@ const router = new Router({
 						children:[
 							{
 								path: 'serverAllOrder',
-								name: 'serverAllOrder',
 								component: serverAllOrder,	
 							},
 						]
@@ -415,26 +415,21 @@ const router = new Router({
 						children: [
 							{
 								path: 'serverAllOrder',
-								name: 'serverAllOrder',
 								component: serverAllOrder,	
 							},
 							{
 								path: 'UnshippedOrder',
-								name: 'UnshippedOrder',
 								component: UnshippedOrder,	
 							},
 							{
 								path: 'PendingOrder',
-								name: 'PendingOrder',
 								component: PendingOrder,	
 							},
 							{
 								path: 'CompletedOrder',
-								name: 'CompletedOrder',
 								component: CompletedOrder,	
 							},{
 								path: 'refundOrder',
-								name: 'refundOrder',
 								component: refundOrder,	
 							}
 						]
