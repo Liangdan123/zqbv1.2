@@ -95,7 +95,8 @@
     },
     components: { Navbar, bought,orderDetail,InvoiceApply},                   
     mixins: [order],
-    created() {
+    created() {//TODO(服务商与平台所调接口不一致，通过登录时所获取的TYPE不同来区分)目前打算平台与服务商的订单写在一起（共用页面）
+    	
       let shop_id = this.$store.getters.getShop_id;
       this.orderMess.search = Object.assign({}, this.orderMess.search, {
         shop_id: shop_id

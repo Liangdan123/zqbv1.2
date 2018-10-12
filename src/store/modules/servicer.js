@@ -47,9 +47,6 @@ const actions={
 				commit(types.GETSHOPID, shop_id);
 			};
 		})
-		.catch((error)=>{
-			console.log("error:",error)
-		})
 	},
 	doCloseStore({commit},data){//改变开店店铺信息头部
 		commit(types.CLOSESTORE, data);	
