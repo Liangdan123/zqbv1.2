@@ -12,7 +12,7 @@
 				<el-menu-item index="/mallZxh/storeManage" :class="{isActive:active=='storeManage'||active=='storeMessage'}">
 					<i></i>店铺管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallOrder/mallAllOrder" :class="{isActive:active=='mallOrder'}">
+				<el-menu-item index="/mallZxh/platformOrder/serverAllOrder" :class="{isActive:active=='platformOrder'}">
 					<i></i>订单管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/marketingInfo" :class="{isActive:active=='marketingInfo'}">

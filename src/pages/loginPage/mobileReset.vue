@@ -2,20 +2,30 @@
   <div class="login pos-r">
     <div v-show="isReset">
       <router-link to="/" class="f14 padding-n mb-20 color-main display-b float-r">
-        <<返回登录</router-link> </div> <div class="">
-          <input type="text" placeholder="请输入手机号" v-model.trim="mobile_phone" @blur="verify" class="border-b w-100" />
-          <div class="border-b">
-            <input type="text" placeholder="手机验证码" v-model.trim="verify_code" />
-            <el-button @click="sentCode" :disabled="disabled || time>0 " round plain class="sentCode disabled1 float-r">{{sentPhoneCode}}</el-button>
-          </div>
-          <input type="password" placeholder="设置密码" v-model.trim="newPassword" class="border-b  w-100" />
-          <div class="display-n" :class="{error:warn}">
-            {{msg}}
-          </div>
-          <el-button class="btn done mr-20 f14" @click="done"> 完成 </el-button>
-          {{isReset?'还没有账号？':'已有账号'}}
-          <router-link to="register" class="color-main f14 " v-if='isReset'>立即注册</router-link>
-          <router-link to="/" class="color-main f14 ml-10" v-else>返回登录</router-link>
+        <<返回登录
+      </router-link> 
+    </div>	 
+    <div class="">
+      <input type="text" placeholder="请输入手机号" 
+      	v-model.trim="mobile_phone"
+      	 @blur="verify" class="border-b w-100" />
+      <div class="border-b">
+        <input type="text" placeholder="手机验证码" v-model.trim="verify_code" />
+        <el-button @click="sentCode" :disabled="disabled || time>0 " 
+        	round plain class="sentCode disabled1 float-r">
+        	{{sentPhoneCode}}
+        </el-button>
+      </div>
+      <input type="password" placeholder="设置密码" 
+      	v-model.trim="newPassword" class="border-b  
+      	w-100" />
+      <div class="display-n" :class="{error:warn}">
+        {{msg}}
+      </div>
+      <el-button class="btn done mr-20 f14" @click="done"> 完成 </el-button>
+      {{isReset?'还没有账号？':'已有账号'}}
+      <router-link to="register" class="color-main f14 " v-if='isReset'>立即注册</router-link>
+      <router-link to="/" class="color-main f14 ml-10" v-else>返回登录</router-link>
     </div>
   </div>
   </div>
@@ -143,8 +153,8 @@
       },
       async sentCode() {
           if(!this.verify()){
-          return
-        }
+          	return
+        	}
         //点击发送验证码
         this.msg = "";
         let post_data = {
@@ -153,9 +163,15 @@
         };
         let data="";
         if (this.isReset) {
+<<<<<<< HEAD
           data = await getRegisterCode(post_data);
         } else {
          data = await loginVerifyCode(post_data);
+=======
+          let {data} = await getRegisterCode(post_data);          
+        } else {
+          let {data} = await loginVerifyCode(post_data);         
+>>>>>>> dan
         }
         data=data.data;
         if (data&&data.msg == 'success') {
@@ -163,8 +179,7 @@
           this.timer();
         }
       },
-      timer() {
-        //60s
+      timer() {//60s      
         if (this.time > 0) {
           this.time--;
           setTimeout(this.timer, 1000)
