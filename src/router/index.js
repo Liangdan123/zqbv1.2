@@ -45,6 +45,9 @@ import storeMessage from "@/pages/platformPage/storeManage/storeMessage"
 //平台中的监控中心
 import platDataCenter from "@/pages/platformPage/controlCenter/platDataCenter"
 
+//平台中的订单管理
+import nonPayment from "@/pages/platformPage/order/nonPayment"
+
 //服务商导航
 import server from "@/pages/servicerPage/servers"
 //服务商的资金管理
@@ -330,6 +333,18 @@ const router = new Router({
 								path: 'serverAllOrder',
 								component: serverAllOrder,	
 							},
+							{
+								path: 'UnshippedOrder',
+								component: UnshippedOrder,	
+							},
+							{
+								path: 'PendingOrder',
+								component: PendingOrder,	
+							},
+							{								
+								path: 'nonPayment',
+								component: nonPayment,
+							}
 						]
 					}
 				]

@@ -1,8 +1,6 @@
 <template>
-  <el-table :data="productMess" style="width: 100%" @selection-change="handleSelectionChange">
-  	
-    <el-table-column type="selection" width="55" v-if='type=="订单服务"&&status==2'>
-    	
+  <el-table :data="productMess" style="width: 100%" @selection-change="handleSelectionChange">  	
+    <el-table-column type="selection" width="55" v-if='type=="订单服务"&&status==2'>   	
     </el-table-column>
     <el-table-column label="商品" width='420'>
       <template slot-scope="scope">
@@ -22,8 +20,10 @@
         </div>
       </template>
     </el-table-column>
-    <el-table-column label="单价" prop="total_spec_fee_yuan" v-if='!isRefund'></el-table-column>
-    <el-table-column label="单价" prop="refund_spec_fee_yuan" v-else></el-table-column>
+    <el-table-column label="单价" prop="total_spec_fee_yuan" v-if='!isRefund'>   	
+    </el-table-column>
+    <el-table-column label="单价" prop="refund_spec_fee_yuan" v-else>    	
+    </el-table-column>
     <el-table-column label="查看进度" v-if='(status==3||status==4)'>
       <template slot-scope="scope" v-if='scope.row.already_refund==0'>
         <span class="u-btn" v-if='activeIndex!==scope.$index' 
@@ -64,8 +64,9 @@
       handleSelectionChange(val) {
         this.$emit('select', val)
       },
-      checkProgress(id,index){
-        getSchedule(id).then(({data})=>{
+      checkProgress(order_product_id,index){
+        getSchedule(order_product_id)
+        . then(({data})=>{      
           this.$emit('progress', data);
           this.activeIndex=index;
         })

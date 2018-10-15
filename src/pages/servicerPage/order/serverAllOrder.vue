@@ -1,6 +1,14 @@
 <template>
   <div class="allOrder commodity" @click="closeSearch">
-    <Navbar></Navbar>
+    <Navbar v-if="this.typeChoice===4"></Navbar>
+    <platformNavbar v-if="this.typeChoice===1"></platformNavbar>
+		<!--............弹框左右按钮............-->
+		<svg width="30" height="30" class="next" @click="nextProduct">
+			<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
+		</svg>
+		<svg width="30" height="30" class="prev" @click="prevProduct">
+			<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
+		</svg>
     <!--..............订单详情弹框..................-->
     <el-dialog :visible.sync="dialogVisible" 
     	:close-on-click-modal="false" 
@@ -61,7 +69,8 @@
 </template>
 
 <script>
-  import Navbar from "@/components/servicer/order/Navbar";
+  import Navbar from "@/components/servicer/order/Navbar"
+  import platformNavbar from "@/components/platform/order/Navbar"
   import bought from "@/components/servicer/order/bought"
   import order from "@/utils/order"
   import orderDetail from "@/components/servicer/order/orderDetail"
@@ -70,6 +79,7 @@
   export default {
     name: "serverAllOrder",
     data() {
+    	let type=this.$store.state.user.user.type				
       return {
         orderMess:{
           page: 1,
@@ -90,17 +100,19 @@
         shipping_info: {},
         loading: true,
         InvoiceData:{},
-        InvoiceVisible:false
+        InvoiceVisible:false,
+        typeChoice:type,//登录的是服务商还是平台
       }
     },
-    components: { Navbar, bought,orderDetail,InvoiceApply},                   
+    components: { Navbar, bought,orderDetail,InvoiceApply,platformNavbar},                   
     mixins: [order],
-    created() {//TODO(服务商与平台所调接口不一致，通过登录时所获取的TYPE不同来区分)目前打算平台与服务商的订单写在一起（共用页面）
-    	
-      let shop_id = this.$store.getters.getShop_id;
-      this.orderMess.search = Object.assign({}, this.orderMess.search, {
-        shop_id: shop_id
-      })
+    created() {
+			if(this.typeChoice===4){//服务商时的列表（平台是不需要）
+				let shop_id = this.$store.getters.getShop_id;
+	      this.orderMess.search = Object.assign({}, this.orderMess.search, {
+	        shop_id: shop_id
+	      })
+			}
       this.searchMethods(this.orderMess)
     },
     methods: {

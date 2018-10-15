@@ -1,7 +1,10 @@
 <template>
   <div class="orderTable commodity" @click="closeSearch">
     <!--..............订单详情弹框..................-->
-    <el-dialog title="合伙人列表" :visible.sync="Visible" size="tiny" :close-on-click-modal="false" v-if='type==2'>
+    <el-dialog title="合伙人列表" 
+    	:visible.sync="Visible" size="tiny" 
+    	:close-on-click-modal="false" 
+    	v-if='type==2'>
       <el-table class="table mt-20" :data="partner" style="width: 100%">
           <el-table-column prop="is_company" label="性质">
                <template slot-scope="scope">
@@ -11,7 +14,14 @@
           <el-table-column prop="contact_name" label="姓名"></el-table-column>
           <el-table-column prop="phone" label="联系方式"></el-table-column>
         </el-table>
-        <el-pagination class="pagination mt-20" v-if="dialogtotal>dialogsearch.per_page" @current-change="handleChange"  :current-page.sync="dialogsearch.page" :page-size="dialogsearch.per_page" layout="total, prev, pager, next" :total="dialogtotal"> </el-pagination>
+        <el-pagination class="pagination mt-20" 
+        	v-if="dialogtotal>dialogsearch.per_page" 
+        	@current-change="handleChange"  
+        	:current-page.sync="dialogsearch.page" 
+        	:page-size="dialogsearch.per_page" 
+        	layout="total, prev, pager, next" 
+        	:total="dialogtotal"> 
+        </el-pagination>
     </el-dialog>
     <div class="g-content">
       <!--.....................tab........................-->
@@ -21,9 +31,16 @@
       </el-tabs>
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
-        <searchRole :search.sync="searchCondition.search" :inputType="['is_company', 'business_range']" @searchMethod="searchMethod"></searchRole>
-        <search :search.sync="searchCondition.search" inputSearch='order_search' @searchMethod="searchMethod"
-          @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
+        <searchRole :search.sync="searchCondition.search" 
+        	:inputType="['is_company', 'business_range']" 
+        	@searchMethod="searchMethod">
+        </searchRole>
+        <search :search.sync="searchCondition.search" 
+        	inputSearch='order_search' 
+        	@searchMethod="searchMethod"
+          @emptyMthod='searchMethod' 
+          ref="isShow" selectTitle='筛选条件' 
+          hintMess="输入相关信息进行搜索">
         </search>
         <!-- 表格 -->
         <el-table class="table mt-20" v-loading="tableDataLoading" :data="list" style="width: 100%">
@@ -38,11 +55,18 @@
             </template>
           </el-table-column>
           <el-table-column width="120" label="操作" v-if='type==2'>
-            <span slot-scope="scope" class="u-btn" @click="check(scope.row.split_order_id)">查看合伙人</span>
+            <span slot-scope="scope" class="u-btn" 
+            	@click="check(scope.row.split_order_id)">
+            	查看合伙人
+            </span>
           </el-table-column>
         </el-table>
-        <el-pagination class="pagination mt-20" v-if="total>searchCondition.per_page" @current-change="handleCurrentChange"
-          :current-page.sync="searchCondition.page" :page-size="searchCondition.per_page" layout="total, prev, pager, next"
+        <el-pagination class="pagination mt-20" 
+        	v-if="total>searchCondition.per_page" 
+        	@current-change="handleCurrentChange"
+          :current-page.sync="searchCondition.page" 
+          :page-size="searchCondition.per_page" 
+          layout="total, prev, pager, next"
           :total="total">
         </el-pagination>
       </div>

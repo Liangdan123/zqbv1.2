@@ -69,7 +69,8 @@
               {{checkOrder.status|checkStatus}}
             </span><br>
             <span class="f14" v-if="checkOrder.status===1?false:true">
-              {{checkOrder.status===5?checkOrder.cancel_time:checkOrder.status===6?checkOrder.close_time:checkOrder.pay_time}}
+              {{checkOrder.status===5?checkOrder.cancel_time:checkOrder.status===6?
+              	checkOrder.close_time:checkOrder.pay_time}}
             </span><br>
           </div>
         </div>
@@ -273,9 +274,8 @@
           type: type,
           showClose: true
         });
-      },
-      //确定发货
-      sureSetPro() {
+      },    
+      sureSetPro() { //开始服务
         //点击时候订单的长度
         let choiceLen = this.order_products.length;
         if (choiceLen.length == 0) {
@@ -299,14 +299,14 @@
           split_order_id: this.checkOrder.split_order_id,
           order_products
         };
-        //卖家发货API
-        setProduct(setProMess)
-          .then(({ data }) => {        
-            this.$message.success("发货成功")
-            this.$emit("closeBox", true)
-          }).catch(() => {
-            this.$emit("closeBox", false);
-          })
+        //卖家发货API //TODO(开始服务接口)
+//      setProduct(setProMess)
+//        .then(({ data }) => {        
+//          this.$message.success("发货成功")
+//          this.$emit("closeBox", true)
+//        }).catch(() => {
+//          this.$emit("closeBox", false);
+//        })
       },
       cancelPro() {
         this.$emit("closeBox", false)
@@ -320,9 +320,7 @@
       },
       finish(id, order_id) {
         complete(id).then(() => {
-          getSchedule(order_id).then(({
-            data
-          }) => {
+          getSchedule(order_id).then(({data}) => {          
             this.progressList = data;
           })
         })

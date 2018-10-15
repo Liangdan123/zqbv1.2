@@ -95,7 +95,7 @@ const actions={
 		getArea().then(({data})=>{
 			commit(AREA,data);
 		})
-		router.replace("/server/serverOrder/serverAllOrder")
+		router.replace("mallZxh/platformOrder/serverAllOrder")
 	},
 	//退出登录
 	doLogout({commit}){

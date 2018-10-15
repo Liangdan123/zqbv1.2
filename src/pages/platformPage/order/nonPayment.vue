@@ -1,10 +1,9 @@
 <template>
 	<div class="allOrder commodity" @click="closeSearch">
-		<Navbar v-if="this.typeChoice===4"></Navbar>
-    	<platformNavbar v-if="this.typeChoice===1"></platformNavbar>
+    	<platformNavbar ></platformNavbar>
 		<!--............弹框左右按钮............-->
 		<svg width="30" height="30" class="next" @click="nextProduct">
-			<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
+			<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1"/>
 		</svg>
 		<svg width="30" height="30" class="prev" @click="prevProduct">
 			<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
@@ -44,7 +43,6 @@
       	:orderMess="orderMess" 
       	@handleCurrent="handleCurrent" 
       	:orderLists="orderLists" 
-      	@showSetOrder="showSetOrder" 
       	@showOrder="showOrder"  
       	v-loading="loading">
       	
@@ -54,7 +52,6 @@
 </template>
 
 <script>
-  import Navbar from "@/components/servicer/order/Navbar";
   import platformNavbar from "@/components/platform/order/Navbar"
   import bought from "@/components/servicer/order/bought"
   import order from "@/utils/order"
@@ -67,7 +64,7 @@
 	        orderMess: {
 	          page: 1,
 	          search: {
-	            type: 2,
+	            type: 1,
 	          },
 	          per_page: 1,
 	        },
@@ -85,7 +82,7 @@
 	        typeChoice:type,//登录的是服务商还是平台
 	    }
     },
-    components: {Navbar,bought,orderDetail,platformNavbar},     
+    components: {bought,orderDetail,platformNavbar},     
     mixins: [order],
     created() {     
       	if(this.typeChoice===4){//服务商时的列表（平台是不需要）

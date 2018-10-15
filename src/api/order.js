@@ -7,7 +7,7 @@ export const getOrderMess=(split_order_id)=>axios.get("mock/order/get",{params:{
 
 export const complete=(ops_id)=>axios.put("mock/order/complete_schedule",{ops_id})//进度完工 规格记录id
 
-export const getSchedule=(order_product_id)=>axios.get("mock/order/get_schedule",{order_product_id})//查看进度
+export const getSchedule=(order_product_id)=>axios.get("mock/order/get_schedule",{params:{order_product_id}})//查看进度
 
 export const getInvoice=(split_order_id)=>axios.get("mock/order/get_invoice",{params:{split_order_id}})//查看开票信息
 

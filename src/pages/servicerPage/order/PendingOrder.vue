@@ -1,6 +1,7 @@
 <template>
 	<div class="allOrder commodity" @click="closeSearch">
-		<Navbar></Navbar>
+		<Navbar  v-if="this.typeChoice===4"></Navbar>
+		<platformNavbar v-if="this.typeChoice===1"></platformNavbar>
 		<!--............弹框左右按钮............-->
 		<svg width="30" height="30" class="next" @click="nextProduct">
 			<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
@@ -42,7 +43,7 @@
 		      	:orderMess="orderMess" 
 		      	@handleCurrent="handleCurrent" 
 		      	:orderLists="orderLists" 
-		      	@showOrder="showOrder" 
+		      	@showOrder="showOrder" 		      	
 		      	v-loading="loading">
 		      	
 		    </bought>
@@ -51,38 +52,42 @@
 </template>
 
 <script>
-  import Navbar from "@/components/servicer/order/Navbar";
+  import Navbar from "@/components/servicer/order/Navbar"
+  import platformNavbar from "@/components/platform/order/Navbar"
   import bought from "@/components/servicer/order/bought"
   import order from "@/utils/order"
   import orderDetail from "@/components/servicer/order/orderDetail"
-  export default {
+  export default {  		
     name: "PendingOrder",
     data() {
-      return {
-        orderMess: {
-          page: 1,
-          search: {
-            type: 3,
-          },
-          per_page: 1,
-        },
-        orderData: {}, //订单全部数据（包括页码）
-        orderLists: [{
-          status: ""
-        }], //订单列表数据
-        dialogVisible: false, //弹框显示
-        index: 0,
-        onlyOrderMess: {}, //订单详情信息
-        type: "", //传到子集的标题
-        pay_info: {},
-        shipping_info: {},
-        loading: true,
-      }
+    	let type=this.$store.state.user.user.type	
+	    return {
+	        orderMess: {
+	          page: 1,
+	          search: {
+	            type: 3,
+	          },
+	          per_page: 1,
+	        },
+	        orderData: {}, //订单全部数据（包括页码）
+	        orderLists: [{
+	          status: ""
+	        }], //订单列表数据
+	        dialogVisible: false, //弹框显示
+	        index: 0,
+	        onlyOrderMess: {}, //订单详情信息
+	        type: "", //传到子集的标题
+	        pay_info: {},
+	        shipping_info: {},
+	        loading: true,
+	        typeChoice:type,//登录的是服务商还是平台
+	    }
     },
     components: {
       Navbar,
       bought,
-      orderDetail
+      orderDetail,
+      platformNavbar
     },
     mixins: [order],
     created() {
