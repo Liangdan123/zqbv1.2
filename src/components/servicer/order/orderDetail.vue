@@ -19,7 +19,7 @@
         </em>
       </div>
       <!--.............未付款时不显示..............-->
-      <div class="small_plate  mb-20" v-if=" [1,5,6].includes(checkOrder.status)?false:true">
+      <div class="small_plate  mb-20" v-if="[1,5,6].includes(checkOrder.status)?false:true">
         <span class="color-7F f14 display-in">付款方式：</span>
         <em class="color-3 f14 display em">
           {{pay_info.pay_type==="weixin"?"微信支付":"余额支付"}}
@@ -146,15 +146,25 @@
     <!--.................商品信息模块（订单详情，发货）.................-->
     <div class="plate mb-40">
       <p class="color-3 f16 font-b mb-20">商品信息</p>
+      <div v-show="false">{{productRefund}}</div>
       <productTable 
-      	:productMess="checkOrder.order_products" 
-      	:type='type' @select='handleSelectionChange' 
+      	:productMess="checkOrder.order_products"
+      	:productRefundList="productRefundList"
+      	:type='type' 
+      	@select='handleSelectionChange' 
       	:status='checkOrder.status'
-        @progress='progress' @closeProgress='closeProgress'>
+        @progress='progress' 
+        @closeProgress='closeProgress'>
+        
       </productTable>
-      <div class="float-r btn mt-20" v-if="type==='订单服务'&&checkOrder.status==2">
-        <el-button class="store-button1" @click="sureSetPro">开始服务</el-button>
-        <el-button class="store-button2" @click="cancelPro">取消</el-button>
+      <div class="float-r btn mt-20" 
+      	v-if="type==='订单服务'&&checkOrder.status==2">
+        <el-button class="store-button1" @click="sureSetPro">
+        	开始服务
+        </el-button>
+        <el-button class="store-button2" @click="cancelPro">
+        	取消
+        </el-button>
       </div>
     </div>
     <!--.................服务进度(已经发货,已经完成).................-->
@@ -179,7 +189,7 @@
 </template>
 
 <script>
-  import { complete, getSchedule,setProduct} from "@/api/order"     
+  import { complete, getSchedule,setProduct,refundPartlists} from "@/api/order"     
   import productTable from "@/components/servicer/order/productTable"
   export default {
   	filters:{
@@ -231,7 +241,9 @@
         express_code: "",
         order_products: [],
         progressShow: false,
-        progressList: []
+        progressList: [],
+        refundInfo: [],
+				productRefundList:[]
       }
     },
     props: {
@@ -260,10 +272,31 @@
         default: function () {
           return {}
         }
+      },
+      split_order_id:{//用于退款
+      	default: function () {
+          return ""
+        }
       }
     },
-    
+    computed:{
+    	productRefund(){
+    		if(this.type==="退款"){
+    			refundPartlists(this.split_order_id)
+					.then(({data})=>{
+						this.productRefundList=data.products
+					})
+    		}
+    	},
+    },
     methods: {
+    	isRefundDetail(message){
+    		if(this.type!=="退款"){
+					if(message){
+    				return message
+    			}		
+    		}	
+    	},   	
       //发货表单
       handleSelectionChange(val) {
         this.order_products = val;

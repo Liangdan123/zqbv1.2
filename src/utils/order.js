@@ -47,17 +47,17 @@ export default{
 			};
 		},
 		//查看订单详情显示弹框
-	    showOrder(data){
+	    showOrder(data,title){
 	    	this.index=data;//data是列表下标
 			this.dialogVisible=true;
-			//判断需要传到子集的字符串是什么
-			this.type="订单详情";
+			//判断需要传到子集的字符串是什么			
+			title?this.type="退款":this.type="订单详情";
 			this.seeOrder(data);
 		},
 		//查看订单API(订单详情)
-		seeOrder(index){					
-			let split_order_id=this.orderLists[index].split_order_id;							
-			getOrderMess(split_order_id)
+		seeOrder(index){			
+			this.split_order_id=this.orderLists[index].split_order_id;							
+			getOrderMess(this.split_order_id)
 			.then(({data})=>{
 				this.onlyOrderMess = data;//订单详情
 				this.pay_info=data.pay_info;

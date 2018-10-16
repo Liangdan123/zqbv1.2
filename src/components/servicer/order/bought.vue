@@ -67,12 +67,21 @@
             </li>
             <li>
               <div class="v_center">
-                <el-button class="store-button3 " v-if="item.status===2" @click="setPro(index)">
+                <el-button class="store-button3 " v-if="item.status===2" 
+                	@click="setPro(index)">
                 	开始服务 
                 </el-button>
-                <div class="color-b cursor text-c" @click="checkOrder(index)">查看订单</div>
+                <div class="color-b cursor text-c" @click="checkOrder(index)">
+                	查看订单
+                </div>
                 <div class="color-b cursor text-c" 
-                	@click="Invoice(item.split_order_id)" v-if='item.status==4&&item.is_invoice==1'>
+                	v-if="item.all_refund===0&&item.finish_status===0&&([2,3,4].includes(item.status))"
+                	@click="checkOrder(index,'退款')">
+                	退款
+                </div>
+                <div class="color-b cursor text-c" 
+                	@click="Invoice(item.split_order_id)" 
+                	v-if='item.status==4&&item.is_invoice==1'>
                 	发票申请
                 </div>
               </div>
@@ -174,8 +183,8 @@
         this.$emit("handleCurrent", val)
       },
       //查看订单
-      checkOrder(data) {
-        this.$emit("showOrder", data);
+      checkOrder(data,title) {
+        this.$emit("showOrder",data,title);
       },
       //开始服务
       setPro(data) {        

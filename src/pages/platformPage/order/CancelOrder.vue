@@ -25,7 +25,8 @@
 	      	:pay_info="pay_info" 
 	      	:shipping_info="shipping_info" 
 	      	:type="type" 
-	      	@closeBox="closeBox">
+	      	@closeBox="closeBox"
+	      	:split_order_id="split_order_id">
 	      </orderDetail>
 	    </el-dialog>
     	<!-- 发票申请 -->
@@ -63,7 +64,7 @@
  	import Navbar from "@/components/servicer/order/Navbar"
  	import platformNavbar from "@/components/platform/order/Navbar"
   	import bought from "@/components/servicer/order/bought"
-  	import order from "@/utils/order"
+  	import order from "@/utils/order"  
   	import orderDetail from "@/components/servicer/order/orderDetail"
   	import InvoiceApply from "@/components/servicer/order/InvoiceApply"
 	import {getInvoice} from "@/api/order"
@@ -94,6 +95,7 @@ export default {
 	        InvoiceData:{},
 	        InvoiceVisible:false,
 	        typeChoice:type,//登录的是服务商还是平台
+	        split_order_id:""
 	    }
     },
     components: {Navbar,bought,orderDetail, InvoiceApply,platformNavbar},                         

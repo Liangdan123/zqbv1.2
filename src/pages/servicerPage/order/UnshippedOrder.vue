@@ -27,7 +27,8 @@
 		    	:pay_info="pay_info" 
 		    	:shipping_info="shipping_info" 
 		    	:type="type" 
-		    	@closeBox="closeBox">
+		    	@closeBox="closeBox"
+		    	:split_order_id="split_order_id">
 		    </orderDetail>
 	    </el-dialog>
     <div class="g-content">
@@ -83,6 +84,7 @@
 	        shipping_info: {},
 	        loading: true,
 	        typeChoice:type,//登录的是服务商还是平台
+	        split_order_id:""
 	    }
     },
     components: {Navbar,bought,orderDetail,platformNavbar},     

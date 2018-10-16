@@ -1,18 +1,23 @@
 <template>
   <div class="orderRefund">
     <!--.................退货退款或仅退款标题.................-->
-    <div class="orderTitle clearfix bg-fo">
-      <div :class="[checkOrder.refund_status===3?'width_50':'width_33']">
-        <a>1.买家申请退款</a><span><em></em></span>
+    <div class="orderTitle clearfix bg-fo">   	   	
+      <div :class="[([2,3].includes(checkOrder.refund_status))?'width_50':'width_33']">
+        <a>1.买家申请退款</a>
+      </div>
+      <div v-if="checkOrder.refund_status===2" class="bg-color width_50 ">
+        <a>2.</a>
       </div>
       <div v-if="checkOrder.refund_status===3" class="bg-color width_50 ">
-        <a>2.商家已拒绝</a>
+        <a>2.用户撤销退款</a>
       </div>
-      <template v-else>
-        <div :class="[checkOrder.refund_status===1?'bg-color':'']" class='width_33'>
-          <a>2.卖家处理退款申请</a><span><em></em></span>
+      <template v-else>     	
+        <div :class="[([1,4].includes(checkOrder.refund_status))?'bg-color':'']" class='width_33'>
+          <a>2.卖家处理退款申请</a>
         </div>
-        <div class="width_33" :class="(checkOrder.refund_status===5||checkOrder.refund_status===4)?'bg-color':''">
+        
+        <div class="width_33" 
+        	:class="checkOrder.refund_status===5?'bg-color':''">
           <a>3.退款完成</a>
         </div>
       </template>
@@ -144,7 +149,6 @@
     line-height: 40px;
 
     >div {
-      margin-left: -35px;
       float: left;
       height: 100%;
 
