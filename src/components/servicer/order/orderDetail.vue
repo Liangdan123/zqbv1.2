@@ -179,7 +179,7 @@
 </template>
 
 <script>
-  import { complete, getSchedule} from "@/api/order"        
+  import { complete, getSchedule,setProduct} from "@/api/order"     
   import productTable from "@/components/servicer/order/productTable"
   export default {
   	filters:{
@@ -299,14 +299,14 @@
           split_order_id: this.checkOrder.split_order_id,
           order_products
         };
-        //卖家发货API //TODO(开始服务接口)
-//      setProduct(setProMess)
-//        .then(({ data }) => {        
-//          this.$message.success("发货成功")
-//          this.$emit("closeBox", true)
-//        }).catch(() => {
-//          this.$emit("closeBox", false);
-//        })
+        //开始服务接口 
+        setProduct(setProMess)
+          .then(({ data }) => {        
+            this.$message.success("发货成功")
+            this.$emit("closeBox", true)
+          }).catch(() => {
+            this.$emit("closeBox", false);
+          })
       },
       cancelPro() {
         this.$emit("closeBox", false)

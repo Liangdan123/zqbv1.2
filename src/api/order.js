@@ -11,7 +11,7 @@ export const getSchedule=(order_product_id)=>axios.get("mock/order/get_schedule"
 
 export const getInvoice=(split_order_id)=>axios.get("mock/order/get_invoice",{params:{split_order_id}})//查看开票信息
 
-export const setProduct=(data)=>axios.post("mock/order/delivery",data)//卖家发货接口
+export const setProduct=(data)=>axios.post("mock/order/delivery",data)//卖家发货接口(就是开始服务接口)
 
 export const refundPartlists=(split_order_id)=>axios.get("mock/refund/part_product_lists",{params:{split_order_id}})//获取部分退款商品列表
 

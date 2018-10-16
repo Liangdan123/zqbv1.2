@@ -21,10 +21,10 @@
           <use xlink:href="#close" />
         </svg>
       <el-button class="productSet"
-      	 v-if="type==='订单详情'&&orderLists[index].status===2" 
-      	 @click="setPro">
-      	 <i class="iconfont icon-kaishifuwu f12">  </i>    	 	
-      	 开始服务
+      	v-if="type==='订单详情'&&orderLists[index].status===2" 
+      	@click="setPro">
+      	<i class="iconfont icon-kaishifuwu f12"></i>    	 	
+      	 	开始服务
       </el-button>
       <!--.................主体内容....................-->
       <orderDetail 

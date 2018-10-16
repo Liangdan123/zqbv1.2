@@ -1,6 +1,7 @@
 <template>
 	<div class="refundOrder commodity" @click="closeSearch">
-		<Navbar></Navbar>
+		<Navbar v-if="this.typeChoice===4"></Navbar>
+    	<platformNavbar v-if="this.typeChoice===1"></platformNavbar>
 		<!--............弹框左右按钮............-->
 		<div v-if="activeName!=='first'">
 			<svg width="30" height="30" class="next" @click="nextProduct">
@@ -27,17 +28,17 @@
 						@showOrder="showOrder" 
 						:orderLists="orderLists" 
 						v-loading="loading"
-						 @searchMthod="searchMethods"   
-						  ref="one" >
+						@searchMthod="searchMethods"   
+						ref="one">
 					</refundeBought>
 				</el-tab-pane>
 				<el-tab-pane label="退款申请" name="2">
 					<refundeBought :orderData="orderData" 
 						:orderMess="orderMess" 
 						@showOrder="showOrder"
-						 @searchMthod="searchMethods"
-						  v-loading="loading"  
-						  ref="two" :orderLists="orderLists">
+						@searchMthod="searchMethods"
+						v-loading="loading"  
+						ref="two" :orderLists="orderLists">
 					</refundeBought>
 				</el-tab-pane>
 				<el-tab-pane label="已退款" name="3">
@@ -76,18 +77,18 @@
 </template>
 
 <script>
-  	import Navbar from "@/components/servicer/order/Navbar";
+  	import Navbar from "@/components/servicer/order/Navbar"
+  	import platformNavbar from "@/components/platform/order/Navbar"
 	import {refundList,refundGet} from "@/api/order"					
 	import refundeBought from "@/components/servicer/order/refundeBought"
 	import orderRefund from "@/components/servicer/order/orderRefund"
 	import {refundLogMess} from "@/api/order"			
 	export default {
 		data() {
+			let type=this.$store.state.user.user.type;
 			return {
 				activeName: "1",
 				orderMess: {
-					mall_id: "",
-					shop_id: "",
 					search: {
 						type: 0,
 					},
@@ -102,20 +103,21 @@
 				onlyOrderMess: {}, //退款订单详情
 				refundInfo: {},
 				loading: true,
+				typeChoice:type,//登录的是服务商还是平台
 			}
 		},
 		created() {
-			let mall_id = this.$store.getters.getMall_id;
-			this.$set(this.orderMess, "mall_id", mall_id);
-			let shop_id = this.$store.getters.getShop_id;
-			this.$set(this.orderMess, "shop_id", shop_id);
+			if(this.typeChoice===4){//服务商时的列表（平台是不需要）
+				let shop_id = this.$store.getters.getShop_id;
+				this.$set(this.orderMess, "shop_id", shop_id);
+			};						
 			//查询参数处理		
 			if (JSON.stringify(this.$route.query) !== "{}") {
 				this.activeName = "1";
 			};
 			this.searchMethods();
 		},
-		components: {Navbar,refundeBought,orderRefund},											
+		components: {Navbar,refundeBought,orderRefund,platformNavbar},											
 		methods: {
 			//切换列表
 			handleClick(tab, event) {
@@ -149,16 +151,14 @@
 					//页面在第一页搜索手动调接口获取数据列表
 					this.orderList(this.orderMess);
 				} else {
-					//页面在第一页搜索列表就让他回到第一页然后触发handleCurrentChange（）方法（页面更改设置触发）
+					//页面在第一页搜索列表就让他回到第一页然后触发handleCurrentChange()方法（页面更改设置触发）
 					this.orderMess.page = 1;
 				}
 			},
 			//获取退款订单列表
 			orderList(data) {
 				refundList(data)
-					.then(({
-						data
-					}) => {
+					.then(({data}) => {											
 						this.orderData = data; //获取退款订单列表的全部数据；
 						this.orderLists = data.data; //退款订单列表中的列表；
 						this.loading = false;
@@ -192,9 +192,7 @@
 			seeOrder(index) {
 				let refund_order_id = this.orderLists[index].refund_order_id;
 				refundGet(refund_order_id)
-					.then(({
-						data
-					}) => {
+					.then(({data}) => {											
 						this.onlyOrderMess = data; //退款订单详情
 					})
 			},

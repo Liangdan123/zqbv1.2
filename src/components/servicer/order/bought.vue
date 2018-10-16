@@ -178,8 +178,8 @@
         this.$emit("showOrder", data);
       },
       //开始服务
-      setPro(data) {
-        this.$emit("showSetOrder", data)
+      setPro(data) {        
+      	this.$emit("showSetOrder", data)
       },
       Invoice(id) {
         this.$emit("Invoice", id)

@@ -160,11 +160,9 @@
       //同意退款
       agree(data) {
         let refund_order_id = data.refund_order_id
-        //调用同意退款接口(接口未好)
+        //调用同意退款接口
         refundAgree(refund_order_id)
-          .then(({
-            data
-          }) => {
+          .then(({data}) => {
             this.$emit("againList")
           })
       },
@@ -182,9 +180,7 @@
         let refund_order_id = this.refund_order_id
         //调用拒绝退款接口(接口未好)
         refundDisagree(refund_order_id)
-          .then(({
-            data
-          }) => {
+          .then(({data}) => {                    
             this.dialogDisagree = false;
             this.$emit("searchMthod")
           })

@@ -35,8 +35,8 @@
       <div class="buttons clearfix mb-20">
         <search :search.sync="orderMess.search" 
         	@searchMethod="searchMethods"
-        	 @emptyMthod='searchMethods' ref="isShow" 
-        	 inputSearch='order_search'>
+        	@emptyMthod='searchMethods' ref="isShow" 
+        	inputSearch='order_search'>
         </search>
       </div>
       <!--........................表格...............-->

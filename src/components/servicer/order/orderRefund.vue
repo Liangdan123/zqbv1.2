@@ -12,9 +12,9 @@
         <div :class="[checkOrder.refund_status===1?'bg-color':'']" class='width_33'>
           <a>2.卖家处理退款申请</a><span><em></em></span>
         </div>
-        <div class="width_33" :class="(checkOrder.refund_status===5&&checkOrder.refund_status===4)?'bg-color':''">
+        <div class="width_33" :class="(checkOrder.refund_status===5||checkOrder.refund_status===4)?'bg-color':''">
           <a>3.退款完成</a>
-        </div>checkOrder.refund_status===5
+        </div>
       </template>
     </div>
     <div class="orderCon">
@@ -39,14 +39,13 @@
         </div>
         <div class="small_plate">
           <span class="color-7F f14 display-in">退款状态：</span>
-          <em class="color-3 f14 display em" >
-            {{checkOrder.refund_status===1?"等待商家同意":checkOrder.refund_status===2?"买家撤销退款":checkOrder.refund_status===3?
-            "商家已拒绝":checkOrder.refund_status===4?"等待退款到账":checkOrder.refund_status===5?"已退款":"退款失败"}}
+          <em class="color-3 f14 display em" >           
+            {{checkOrder.refund_status|refundStatus}}
           </em>
         </div>
         <div class="small_plate">
           <span class="color-7F f14 display-in">退款金额：</span>
-          <em class="color-3 f14 display em">{{checkOrder.refund_fee_yuan}}</em>
+          <em class="color-3 f14 display em">{{checkOrder.refund_fee_yuan|money}}</em>
         </div>
       </div>
       <!--.................退款商品.................-->
@@ -71,16 +70,32 @@
 
 <script>
   import productTable from "@/components/servicer/order/productTable";
-  import {
-    refundAgree,
-    refundDisagree
-  } from "@/api/order";
+  import {refundAgree,refundDisagree } from "@/api/order" 
   export default {
+  	filters:{
+  		refundStatus(status){  			 			
+  			let statusAll={
+  				1:"等待商家确认",
+  				2:"买家撤销退款",
+  				3:"商家已拒绝",
+  				4:"等待退款到账",
+  				5:"已退款",
+  				"defalut":"退款失败",
+  			};
+  			return statusAll[status]||statusAll["defalut"]
+  		},
+  		money(value){
+        // 金额转换成数字和整数部分
+        value = Number(value).toFixed(2).split('.');
+        let value_int = value[0].toLocaleString();//转换成金额形式
+        return `￥ ${value_int}.${value[1]}`;
+	    },
+  	},
     data() {
       return {};
     },
     props: {
-      //			退款订单信息
+      //退款订单信息
       checkOrder: {
         type: Object,
         default: function () {

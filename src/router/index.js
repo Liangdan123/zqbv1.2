@@ -47,12 +47,13 @@ import platDataCenter from "@/pages/platformPage/controlCenter/platDataCenter"
 
 //平台中的订单管理
 import nonPayment from "@/pages/platformPage/order/nonPayment"
-
+import CancelOrder from "@/pages/platformPage/order/CancelOrder"
 //服务商导航
 import server from "@/pages/servicerPage/servers"
 //服务商的资金管理
 import fundManage from "@/pages/servicerPage/fund/fundManage"
 import withdrawalapply from "@/pages/servicerPage/fund/withdrawalapply"
+
 //服务商的营销管理
 import serverMarketInfo from "@/pages/servicerPage/marketing/serverMarketInfo"
 import serverMemberCenter from "@/pages/servicerPage/marketing/serverMemberCenter"
@@ -337,14 +338,27 @@ const router = new Router({
 								path: 'UnshippedOrder',
 								component: UnshippedOrder,	
 							},
+							{								
+								path: 'nonPayment',
+								component: nonPayment,
+							},
 							{
 								path: 'PendingOrder',
 								component: PendingOrder,	
 							},
-							{								
-								path: 'nonPayment',
-								component: nonPayment,
+							{
+								path: 'CompletedOrder',
+								component: CompletedOrder,		
+							},
+							{
+								path: 'CancelOrder',
+								component: CancelOrder,		
+							},
+							{
+								path: 'refundOrder',
+								component: refundOrder,	
 							}
+							
 						]
 					}
 				]

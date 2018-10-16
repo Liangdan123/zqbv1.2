@@ -1,10 +1,11 @@
 <template>
-	<div class="CompletedOrder commodity" @click="closeSearch">
+	<div class="CancelOrder commodity" @click="closeSearch">
 		<Navbar v-if="this.typeChoice===4"></Navbar>
     	<platformNavbar v-if="this.typeChoice===1"></platformNavbar>
 		<!--............弹框左右按钮............-->
 		<svg width="30" height="30" class="next" @click="nextProduct">
-			<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
+			<use xlink:href="#right" 
+				v-if="dialogVisible&&index!=orderLists.length-1" />
 		</svg>
 		<svg width="30" height="30" class="prev" @click="prevProduct">
 			<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
@@ -14,7 +15,8 @@
 	  		:close-on-click-modal="false" 
 	  		:show-close="false" class="order" 
 	  		:title="type">
-	      	<svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
+	      	<svg width="26" height="26" class="closebox cursor" 
+	      		@click="dialogVisible = false">
 	          <use xlink:href="#close" />
 	        </svg>
 	      <!--.................主体内容....................-->
@@ -74,7 +76,7 @@ export default {
 	        orderMess: {
 	          page: 1,
 	          search: {
-	            type: 4,
+	            type: 5,
 	          },
 	          per_page: 1,
 	        },
