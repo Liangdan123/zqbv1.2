@@ -90,7 +90,8 @@
             </span><br>
           </div>
         </div>
-        <div class="progress_sec float-l mr_fu_12" v-if="!([5,6].includes(checkOrder.status))">
+        <div class="progress_sec float-l mr_fu_12" 
+        	v-if="!([5,6].includes(checkOrder.status))">
           <p class="circleLine ml-20">
             <span class="circle" :class="!([1,2].includes(checkOrder.status))?'bg-b':'bg-9e'">
             	
@@ -98,21 +99,26 @@
             <b class="line" :class="checkOrder.status===4?'bg-b':'bg-9e'"></b>
           </p>
           <div class="progress_txt mr_fu_12">
-            <span class="f14" :class="!([1,2].includes(checkOrder.status))?'color-b':'color-6'">
+            <span class="f14" 
+            	:class="!([1,2].includes(checkOrder.status))?'color-b':'color-6'">
               	等待买家验收
             </span><br>
-            <span class="f14 color-b" v-if="checkOrder.status===4">
+            <span class="f14 color-b" 
+            	v-if="checkOrder.status===4">
               {{checkOrder.confirm_time}}
             </span><br>
           </div>
         </div>
-        <div class="progress_sec float-l mr_fu_12" v-if="!([5,6].includes(checkOrder.status))">
+        <div class="progress_sec float-l mr_fu_12" 
+        	v-if="!([5,6].includes(checkOrder.status))">
           <p class="circleLine ml-20">
             <span class="circle" :class="checkOrder.status===4?'bg-b':'bg-9e'"></span>
           </p>
           <div class="progress_txt mr_fu_12">
-            <span class="f14" :class="checkOrder.status===4?'color-b':'color-6'">
-            	完成订单</span><br>
+            <span class="f14" 
+            	:class="checkOrder.status===4?'color-b':'color-6'">
+            	完成订单
+            </span><br>
             <span class="f14 color-b" v-if="checkOrder.status===4">
               {{checkOrder.confirm_time}}
             </span><br>
@@ -135,8 +141,11 @@
           {{shipping_info.contact_phone}}
         </em>
       </div>
-      <div class="small_plate" v-if="checkOrder.distribute_type==='self'?false:true">
-        <span class="color-7F f14 display-in">买家地址：</span>
+      <div class="small_plate" 
+      	v-if="checkOrder.distribute_type==='self'?false:true">
+        <span class="color-7F f14 display-in">
+        	买家地址：
+        </span>
         <em class="color-3 f14 display em">
           {{shipping_info.province}}&#12288;{{shipping_info.city}}&#12288;{{shipping_info.area}}
           &#12288;{{shipping_info.address}}
@@ -144,7 +153,7 @@
       </div>
     </div>
     <!--.................商品信息模块（订单详情，发货）.................-->
-    <div class="plate mb-40">
+    <div class="plate">
       <p class="color-3 f16 font-b mb-20">商品信息</p>
       <div v-show="false">{{productRefund}}</div>
       <productTable 
@@ -154,7 +163,9 @@
       	@select='handleSelectionChange' 
       	:status='checkOrder.status'
         @progress='progress' 
-        @closeProgress='closeProgress'>
+        @closeProgress='closeProgress'
+        :clearChoice="clearChoice"
+        @InitRefundChoice="InitRefundChoice">
         
       </productTable>
       <div class="float-r btn mt-20" 
@@ -167,17 +178,37 @@
         </el-button>
       </div>
     </div>
+    <!--.................请输入退款金额.................-->
+    <div class="plate mt-20" v-if="type==='退款'">
+    	<p class="color-3 f16 font-b mb-20">请选择退款商品</p>
+    	<el-input v-model="refund" class="refundMoney" @change="refundChange">
+    		
+    	</el-input>
+    	<span class="color-7F f12">退款金额不能大于支付金额</span>
+    </div>
     <!--.................服务进度(已经发货,已经完成).................-->
-    <div class="plate mb-40" v-if='progressShow'>
+    <div class="plate mb-40 mt-20" v-if='progressShow'>
       <p class="color-3 f16 font-b mb-20">服务进度</p>
-      <div v-for='(item,index) in progressList' :key='item.ops_id' class=' color-7F mb-30 clearfix'>
-        <div class='float-l pro_Index' :class='{complete:item.is_complete==1}'>{{index+1}}</div>
+      <div v-for='(item,index) in progressList' 
+      	:key='item.ops_id' 
+      	class=' color-7F mb-30 clearfix'>
+        <div class='float-l pro_Index' 
+        	:class='{complete:item.is_complete==1}'>
+        	{{index+1}}
+        </div>
         <div>
-          <div v-if='item.complete_time'>{{item.complete_time}}</div>
+          <div v-if='item.complete_time'>
+          	{{item.complete_time}}
+          </div>
           <div class='pro_text'>
-            <span :class='{complete:item.is_complete==1}'>{{item.spec_name}}</span>
-            <span v-if='item.is_complete==1' class='float-r'>服务完成</span>
-            <el-button v-else class='float-r store-button3' 
+            <span :class='{complete:item.is_complete==1}'>
+            	{{item.spec_name}}
+            </span>
+            <span v-if='item.is_complete==1' class='float-r'>
+            	服务完成
+            </span>
+            <el-button v-else 
+            	class='float-r store-button3' 
             	@click='finish(item.ops_id,item.order_product_id)'>
             	已完成
             </el-button>
@@ -185,11 +216,20 @@
         </div>
       </div>
     </div>
+    <!--.................退款按钮.................-->
+    <div v-if="type==='退款'" class="mt-40 clearfix">
+    	<el-button 	class='float-r store-button2 ml-20' @click="cancelRefund">                       
+        	取消
+      </el-button>
+    	<el-button 	class='float-r store-button1' @click="partRefund">                       
+        	退款
+      </el-button>
+    </div>
   </div>
 </template>
 
 <script>
-  import { complete, getSchedule,setProduct,refundPartlists} from "@/api/order"     
+  import { complete, getSchedule,setProduct,refundPartlists,applyRefundPart} from "@/api/order"     
   import productTable from "@/components/servicer/order/productTable"
   export default {
   	filters:{
@@ -243,7 +283,11 @@
         progressShow: false,
         progressList: [],
         refundInfo: [],
-				productRefundList:[]
+				productRefundList:[],//退款列表
+				refund:0,//退款金额
+				copyRefund:"",//拷贝一份退款金额，用于判断选择的退款金额与填写金额的大小
+				clearChoice:false,//清空退款选项
+				isRefund:true,//是否可以退款（当填写金额大于选择的金额时）
       }
     },
     props: {
@@ -282,14 +326,17 @@
     computed:{
     	productRefund(){
     		if(this.type==="退款"){
-    			refundPartlists(this.split_order_id)
-					.then(({data})=>{
-						this.productRefundList=data.products
-					})
+					this._refundPartlists();
     		}
     	},
     },
     methods: {
+    	_refundPartlists(){//退款列表
+			 	refundPartlists(this.split_order_id)
+					.then(({data})=>{
+						this.productRefundList=data.products
+					})
+    	},
     	isRefundDetail(message){
     		if(this.type!=="退款"){
 					if(message){
@@ -297,9 +344,60 @@
     			}		
     		}	
     	},   	
-      //发货表单
+      //开始服务和退款
       handleSelectionChange(val) {
         this.order_products = val;
+        if(val.length!==0){
+        	let refundArray=val.map((item)=>item.refund_spec_fee_yuan);	
+					this.refund=refundArray.reduce(this._getRefundTotal);
+					this.copyRefund=JSON.parse(JSON.stringify(this.refund))
+        }else{
+        	this.refund=0;
+        }
+      },
+      _getRefundTotal(total,num){
+      	return total+num
+      },
+      refundChange(){//退款金额
+      	if(this.refund>this.copyRefund){
+      		this.isRefund=false;
+      		this.PromptMess("退款金额不能大于支付金额","warning");
+      	}
+      },
+      cancelRefund(){//取消退款按钮
+      	this.refund=0;//退款金额初始化
+      	this.$emit("closeBox");//关闭弹窗
+      	this.clearChoice=true;//控制子集清空退款选择
+      },
+      InitRefundChoice(){//重置退款中的取消按钮（选择的时候）
+      	this.clearChoice=false;
+      },
+      partRefund(){//退款按钮（部分退款）
+      	if(this.refund===0){
+      		this.PromptMess("请选择退款商品","warning");
+      		return
+      	};
+      	if(this.isRefund===false){
+      		this.PromptMess("退款金额不能大于支付金额","warning");
+      		return
+      	};
+      	this.isRefund=true;
+      	let productsArray=this.order_products.map((item)=>
+      		({order_product_id:item.order_product_id})
+      	);//退款商品数组
+      	let refundInfo={
+      		split_order_id:this.split_order_id,
+      		products:productsArray,
+					refund_money:this.refund*100
+      	};
+      	this._APIRefundPart(refundInfo)
+      },
+      _APIRefundPart(message){//提交部分退款申请API
+      	applyRefundPart(message)
+      	.then(({data})=>{
+      		this.$emit("closeBox", false);
+      		this._refundPartlists();//退款列表   		
+      	})
       },
       PromptMess(data, type) {
         this.$message({
@@ -493,6 +591,9 @@
     padding-right: 0;
     padding-left: 0;
     width: 72px;
+  }
+  .orderDetai .refundMoney.el-input {
+  	width: 440px;
   }
 
 </style>

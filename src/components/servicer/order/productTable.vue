@@ -1,7 +1,10 @@
 <template>
-  <el-table :data="type==='退款'?productRefundList:productMess" style="width: 100%" 
-  	@selection-change="handleSelectionChange">  	
-    <el-table-column type="selection" width="55" v-if='type=="订单服务"&&status==2'>   	
+  <el-table :data="type==='退款'?productRefundList:productMess" 
+  	style="width: 100%" 
+  	@selection-change="handleSelectionChange"
+  	ref="multipleTable">  	
+    <el-table-column type="selection" width="55" 
+    	v-if="(type=='订单服务'&&status==2)||type==='退款'">   	
     </el-table-column>
     <el-table-column label="商品" width='420'>
       <template slot-scope="scope">
@@ -28,14 +31,16 @@
     <el-table-column label="单价" prop="total_spec_fee_yuan" v-if='!isRefund'>   	
     </el-table-column>
     <el-table-column label="单价" prop="refund_spec_fee_yuan" v-else>    	
-    </el-table-column>
-    <el-table-column label="查看进度" v-if='(status==3||status==4)'>
+    </el-table-column>							
+    <el-table-column label="查看进度" v-if="(status==3||status==4)">
       <template slot-scope="scope" v-if='scope.row.already_refund==0'>
         <span class="u-btn" v-if='activeIndex!==scope.$index' 
         	@click='checkProgress(scope.row.order_product_id,scope.$index)'>
         	查看进度
         </span>
-        <span class="u-btn" v-else @click='closeProgress'>隐藏进度</span>
+        <span class="u-btn" v-else @click='closeProgress'>       	 
+        	隐藏进度
+        </span>
       </template>
     </el-table-column>
   </el-table>
@@ -52,22 +57,43 @@
     },
     props: {
       productMess: {
-        default: function () {
+        default: function () {//开始服务
           return  []          
         }
       },
-      productRefundList:{
+      productRefundList:{//退款
       	default: function () {
           return  []          
         }
       },
       type: {
-        default:''
+        default:function(){
+        	return ""
+        }
 			},
 			status:{
-				default: null
+				default: function(){
+					return null
+				}
       },
-      isRefund:false
+      clearChoice:{
+      	default:function(){
+      		return false
+      	}
+      },
+      isRefund:{
+      	default:function(){
+      		return false
+      	}
+      }
+    },
+    watch:{
+    	clearChoice(val){
+    		if(val){  			
+      		this.$refs.multipleTable.clearSelection();
+      		this.$emit("InitRefundChoice")
+    		}
+    	},
     },
     methods: {
       handleSelectionChange(val) {

@@ -23,5 +23,7 @@ export const refundDisagree=(refund_order_id)=>axios.put("mock/refund/refuse",{r
 
 export const refundGet=(refund_order_id)=>axios.get("mock/refund/get",{params:{refund_order_id}})//获取退款订单详情
 
+export const applyRefundPart=(data)=>axios.post("mock/refund/part_create",data)//提交部分退款申请
+
 
 

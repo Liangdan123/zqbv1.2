@@ -57,8 +57,10 @@
         </search>
       </div>
       <!--........................表格...............-->
-      <bought :orderData="orderData" :orderMess="orderMess" 
-      	@handleCurrent="handleCurrent" :orderLists="orderLists" 
+      <bought :orderData="orderData" 
+      	:orderMess="orderMess" 
+      	@handleCurrent="handleCurrent" 
+      	:orderLists="orderLists" 
       	@showOrder="showOrder"  
       	@showSetOrder="showSetOrder" 
       	@Invoice='Invoice' 

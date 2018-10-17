@@ -76,7 +76,7 @@
                 </div>
                 <div class="color-b cursor text-c" 
                 	v-if="item.all_refund===0&&item.finish_status===0&&([2,3,4].includes(item.status))"
-                	@click="checkOrder(index,'退款')">
+                	@click="setPro(index,'退款')">
                 	退款
                 </div>
                 <div class="color-b cursor text-c" 
@@ -183,12 +183,12 @@
         this.$emit("handleCurrent", val)
       },
       //查看订单
-      checkOrder(data,title) {
-        this.$emit("showOrder",data,title);
+      checkOrder(data) {
+        this.$emit("showOrder",data);
       },
       //开始服务
-      setPro(data) {        
-      	this.$emit("showSetOrder", data)
+      setPro(data,title) {        
+      	this.$emit("showSetOrder",data,title);
       },
       Invoice(id) {
         this.$emit("Invoice", id)

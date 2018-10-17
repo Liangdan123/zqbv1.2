@@ -45,7 +45,8 @@
 		      	:orderMess="orderMess" 
 		      	@handleCurrent="handleCurrent" 
 		      	:orderLists="orderLists" 
-		      	@showOrder="showOrder" 		      	
+		      	@showOrder="showOrder" 
+		      	@showSetOrder="showSetOrder" 
 		      	v-loading="loading">
 		      	
 		    </bought>
@@ -83,7 +84,7 @@
 	        shipping_info: {},
 	        loading: true,
 	        typeChoice:type,//登录的是服务商还是平台
-	        split_order_id:""
+	        split_order_id:"",
 	    }
     },
     components: {
@@ -94,11 +95,13 @@
     },
     mixins: [order],
     created() {
-      let shop_id = this.$store.getters.getShop_id;
-      this.orderMess.search = Object.assign({}, this.orderMess.search, {
-        shop_id: shop_id
-      })
-      this.searchMethods(this.orderMess)
+	  	if(this.typeChoice===4){//服务商时的列表（平台是不需要）
+		  	let shop_id = this.$store.getters.getShop_id;
+		    this.orderMess.search = Object.assign({}, this.orderMess.search, {
+		        shop_id: shop_id
+		    })
+	  	};
+    	this.searchMethods(this.orderMess)
     },
     methods: {
       //分页传过来的事件（每次改变页面调用接口,子集的子集）

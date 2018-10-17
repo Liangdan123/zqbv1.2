@@ -51,7 +51,8 @@
       		@handleCurrent="handleCurrent" 
       		:orderLists="orderLists" 
       		@Invoice='Invoice' 
-      		@showOrder="showOrder" 
+      		@showOrder="showOrder"
+      		@showSetOrder="showSetOrder" 
       		v-loading="loading">
       	</bought>
     </div>
