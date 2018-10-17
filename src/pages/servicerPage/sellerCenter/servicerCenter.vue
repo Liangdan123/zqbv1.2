@@ -125,15 +125,15 @@
 			<!--.....................待处理事件..............-->
 			<div class="event float-r" v-loading="loadUntreated">
 				<h3 class="color-3 f14 shopTitle">待处理事件</h3>
-				<div class="clearfix lh cursor" @click="expressJump('express')">
+				<div class="clearfix lh cursor" @click="jumpPage('待服务订单')">
 					<span class="float-l color-3 f14">待服务订单</span>
 					<div class="float-r btn">{{getNum.need_delivery}}</div>
 				</div>
-				<div class="clearfix lh cursor" @click="expressJump('shop')">
+				<div class="clearfix lh cursor" @click="jumpPage('服务中订单待操作')">
 					<span class="float-l color-3 f14">服务中订单待操作</span>
 					<div class="float-r btn">{{getNum.need_complete}}</div>
 				</div>
-				<div class=" clearfix lh cursor" @click="expressJump('self')">
+				<div class=" clearfix lh cursor" @click="jumpPage('退款申请')">
 					<span class="float-l color-3 f14">退款申请</span>
 					<div class="float-r btn">{{getNum.need_refund}}</div>
 				</div>
@@ -229,8 +229,18 @@
 					this.$message.error(data.errorcmt);
 				})	
 			},
-			expressJump(){//点击待处理事件的列表
-				
+			jumpPage(val){//点击待处理事件的列表
+				switch(val){
+					case "待服务订单":
+						this.$router.push("/server/serverOrder/UnshippedOrder");
+						break;
+					case "服务中订单待操作":
+						this.$router.push("/server/serverOrder/PendingOrder");
+						break;
+					case "退款申请":
+						this.$router.push({path:"/server/serverOrder/refundOrder",query:{name:"refund"}})
+						break;
+				}
 			},
 			Irregularities(){//违规提醒
 				this.$router.push("/server/sellercenter/Irregularities")

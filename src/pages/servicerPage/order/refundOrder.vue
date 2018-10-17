@@ -113,7 +113,7 @@
 			};						
 			//查询参数处理		
 			if (JSON.stringify(this.$route.query) !== "{}") {
-				this.activeName = "1";
+				this.activeName = "2";
 			};
 			this.searchMethods();
 		},
