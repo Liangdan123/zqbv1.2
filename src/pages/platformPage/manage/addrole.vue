@@ -212,10 +212,6 @@
     methods: {
       add(formName) {
         this.$refs[formName].validate((valid) => {
-        	if(this.form.business_range.length===0){
-        		delete this.form.business_range
-        	};
-        	console.log("this.form：",this.form)
           if (valid) {
             let post_data = Object.assign({}, this.form, {
               type: this.type,
@@ -227,10 +223,9 @@
               post_data.business_range = post_data.business_range.join(",");
             } else if (post_data.type == 4) {
               post_data.business_range = post_data.business_range1;
-            }
-            
-            console.log("post_data:",post_data);
-            
+            }else if(post_data.business_range){
+      	      		delete post_data.business_range
+            }   
             delete post_data.business_range1;
             applyRole(post_data).then((data) => {
                 this.$message.success("提交成功");

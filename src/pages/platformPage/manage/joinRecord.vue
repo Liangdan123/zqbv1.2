@@ -3,7 +3,7 @@
     <div class="g-content">
       <div class="header">详情信息																								
         <el-button class="store-button2 edit mb-10 float-r" @click="edit" 
-        	v-if="([1,2].includes(tab))&&path=='join'&&!isEdit&&list.audit_status===0">
+        	v-if="(![1,2].includes(tab))&&path=='join'&&!isEdit&&list.audit_status===0">
           <i class="iconfont icon-Rectangle f12"></i>
           <span class="font-b">编辑信息</span>
         </el-button>
@@ -166,7 +166,7 @@
             updateApplication(this.form).then(({data})=>{
              if(data.join_id){
                this.$message.success('信息修改成功')
-               this.isEdit = false;
+               this.isEdit = false;              
              }
             })
           } else {
@@ -181,7 +181,7 @@
           "sex": this.list.sex,
           "identity_num": this.list.identity_num,
           "contact_email": this.list.contact_email,
-          "address": this.list.address,
+          "address": this.list.address||"",
           "license_url": this.list.license_url,
           "identity_front_url": this.list.identity_front_url,
           "identity_back_url": this.list.identity_back_url
