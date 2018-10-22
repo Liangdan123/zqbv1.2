@@ -14,7 +14,7 @@
       <!--.....................tab........................-->
       <el-tabs v-model="tabForShow" @tab-click="tabSwitch">
         <el-tab-pane label="申请列表" name="1"></el-tab-pane>
-        <el-tab-pane label="未付款" name="2"></el-tab-pane>
+      	<!--<el-tab-pane label="未付款" name="2"></el-tab-pane>-->
         <el-tab-pane label="已完成" name="3"></el-tab-pane>
         <el-tab-pane label="已拒绝" name="4"></el-tab-pane>
       </el-tabs>
