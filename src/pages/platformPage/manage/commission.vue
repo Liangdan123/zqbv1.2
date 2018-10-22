@@ -26,41 +26,46 @@
               <td width='322'>100%</td>
             </tr>
             <tr>
-              <td rowspan="4">合伙人</td>                     
-              <td rowspan="2">平台(总额等于100%)</td>
+              <td rowspan="4">合伙人</td>
+              <td rowspan="2">平台
+                <p class="color-7F">总额等于100%</p>
+              </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list1[1].rate'>
-                  <span v-if="status!=1">{{list1[1].rate}}</span>
-                  <el-input v-else size="samll" v-model="list1Coyp[1].rate"></el-input>%
+                <span v-if="status!=1">{{list1[1].rate&&list1[1].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list1Coyp[1].rate"></el-input>%
+                </template>
+              </td>
+            </tr>
+            <tr>
+              <td>代理商
+              </td>
+              <td width='322'>
+                <span v-if="status!=1">{{list1[2].rate&&list1[2].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list1Coyp[2].rate"></el-input>%
+                </template>
+              </td>
+            </tr>
+            <tr>
+              <td rowspan="2">代理商
+                <p class="color-7F">总额等于100%</p>
+              </td>
+              <td>平台</td>
+              <td width='322'>
+                <span v-if="status!=1">{{list1[3].rate&&list1[3].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list1Coyp[3].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list1[2].rate'>
-                  <span v-if="status!=1">{{list1[2].rate}}</span>
-                  <el-input v-else size="samll" v-model="list1Coyp[2].rate"></el-input>%
-                </template>
-              </td>
-            </tr>
-            <tr>
-              <td rowspan="2">代理商(总额等于100%)</td>
-              <td>平台</td>
-              <td width='322'>
-                <template v-if='list1[3].rate'>
-                  <span v-if="status!=1">{{list1[3].rate}}</span>
-                  <el-input v-else size="samll" v-model="list1Coyp[3].rate"></el-input>%
-                </template>
-              </td>
-            </tr>
-            <tr>
-              <td>代理商</td>
-              <td width='322'>
-                <template v-if='list1[4].rate'>
-                  <span v-if="status!=1">{{list1[4].rate}}</span>
-                  <el-input v-else size="samll" v-model="list1Coyp[4].rate"></el-input>%
+                <span v-if="status!=1">{{list1[4].rate&&list1[4].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list1Coyp[4].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -91,18 +96,18 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list2[1].rate'>
-                  <span v-if="status!=2">{{list2[1].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[1].rate"></el-input>%
+                <span v-if="status!=2">{{list2[1].rate&&list2[1].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[1].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list2[2].rate'>
-                  <span v-if="status!=2">{{list2[2].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[2].rate"></el-input>%
+                <span v-if="status!=2">{{list2[2].rate&&list2[2].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[2].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -112,27 +117,27 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list2[3].rate'>
-                  <span v-if="status!=2">{{list2[3].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[3].rate"></el-input>%
+                <span v-if="status!=2">{{list2[3].rate&&list2[3].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[3].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list2[4].rate'>
-                  <span v-if="status!=2">{{list2[4].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[4].rate"></el-input>%
+                <span v-if="status!=2">{{list2[4].rate&&list2[4].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[4].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <template v-if='list2[5].rate'>
-                  <span v-if="status!=2">{{list2[5].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[5].rate"></el-input>%
+                <span v-if="status!=2">{{list2[5].rate&&list2[5].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[5].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -144,36 +149,36 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list2[6].rate'>
-                  <span v-if="status!=2">{{list2[6].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[6].rate"></el-input>%
+                <span v-if="status!=2">{{list2[6].rate&&list2[6].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[6].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list2[7].rate'>
-                  <span v-if="status!=2">{{list2[7].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[7].rate"></el-input>%
+                <span v-if="status!=2">{{list2[7].rate&&list2[7].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[7].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <template v-if='list2[8].rate'>
-                  <span v-if="status!=2">{{list2[8].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[8].rate"></el-input>%
+                <span v-if="status!=2">{{list2[8].rate&&list2[8].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[8].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>服务商</td>
               <td width='322'>
-                <template v-if='list2[9].rate'>
-                  <span v-if="status!=2">{{list2[9].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[9].rate"></el-input>%
+                <span v-if="status!=2">{{list2[9].rate&&list2[9].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[9].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -185,27 +190,27 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list2[10].rate'>
-                  <span v-if="status!=2">{{list2[10].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[10].rate"></el-input>%
+                <span v-if="status!=2">{{list2[10].rate&&list2[10].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[10].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list2[11].rate'>
-                  <span v-if="status!=2">{{list2[11].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[11].rate"></el-input>%
+                <span v-if="status!=2">{{list2[11].rate&&list2[11].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[11].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>服务商</td>
               <td width='322'>
-                <template v-if='list2[12].rate'>
-                  <span v-if="status!=2">{{list2[12].rate}}</span>
-                  <el-input v-else size="samll" v-model="list2Coyp[12].rate"></el-input>%
+                <span v-if="status!=2">{{list2[12].rate&&list2[12].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list2Coyp[12].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -233,18 +238,18 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list3[0].rate'>
-                <span v-if="status!=3">{{list3[0].rate}}</span>
-                <el-input v-else size="samll" v-model="list3Coyp[0].rate"></el-input>%
+                <span v-if="status!=3">{{list3[0].rate&&list3[0].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list3Coyp[0].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list3[1].rate'>
-                <span v-if="status!=3">{{list3[1].rate}}</span>
-                <el-input v-else size="samll" v-model="list3Coyp[1].rate"></el-input>%
+                <span v-if="status!=3">{{list3[1].rate&&list3[1].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list3Coyp[1].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -254,18 +259,18 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list3[2].rate'>
-                <span v-if="status!=3">{{list3[2].rate}}</span>
-                <el-input v-else size="samll" v-model="list3Coyp[2].rate"></el-input>%
+                <span v-if="status!=3">{{list3[2].rate&&list3[2].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list3Coyp[2].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list3[3].rate'>
-                <span v-if="status!=3">{{list3[3].rate}}</span>
-                <el-input v-else size="samll" v-model="list3Coyp[3].rate"></el-input>%
+                <span v-if="status!=3">{{list3[3].rate&&list3[3].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list3Coyp[3].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -275,27 +280,27 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list3[4].rate'>
-                <span v-if="status!=3">{{list3[4].rate}}</span>
-                <el-input v-else size="samll" v-model="list3Coyp[4].rate"></el-input>%
+                <span v-if="status!=3">{{list3[4].rate&&list3[4].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list3Coyp[4].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list3[5].rate'>
-                <span v-if="status!=3">{{list3[5].rate}}</span>
-                <el-input v-else size="samll" v-model="list3Coyp[5].rate"></el-input>%
+                <span v-if="status!=3">{{list3[5].rate&&list3[5].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list3Coyp[5].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <template v-if='list3[6].rate'>
-                <span v-if="status!=3">{{list3[6].rate}}</span>
-                <el-input v-else size="samll" v-model="list3Coyp[6].rate"></el-input>%
+                <span v-if="status!=3">{{list3[6].rate&&list3[6].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list3Coyp[6].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -308,7 +313,7 @@
           <h3 class="mb-10 clearfix">1.会员来源于平台则分成如下表1
             <el-button class='store-button1 float-r' @click="edit(4)">
               <i class="iconfont icon-baocun f12"></i>
-              <span v-if="status!=2">修改比例</span>
+              <span v-if="status!=4">修改比例</span>
               <span v-else>保存</span>
             </el-button>
           </h3>
@@ -324,18 +329,18 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list4[0].rate'>
-                <span v-if="status!=4">{{list4[0].rate}}</span>
-                <el-input v-else size="samll" v-model="list4Coyp[0].rate"></el-input>%
+                <span v-if="status!=4">{{list4[0].rate&&list4[0].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list4Coyp[0].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list4[1].rate'>
-                <span v-if="status!=4">{{list4[1].rate}}</span>
-                <el-input v-else size="samll" v-model="list4Coyp[1].rate"></el-input>%
+                <span v-if="status!=4">{{list4[1].rate&&list4[1].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list4Coyp[1].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -345,18 +350,18 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list4[2].rate'>
-                <span v-if="status!=4">{{list4[2].rate}}</span>
-                <el-input v-else size="samll" v-model="list4Coyp[2].rate"></el-input>%
+                <span v-if="status!=4">{{list4[2].rate&&list4[2].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list4Coyp[2].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list4[3].rate'>
-                <span v-if="status!=4">{{list4[3].rate}}</span>
-                <el-input v-else size="samll" v-model="list4Coyp[3].rate"></el-input>%
+                <span v-if="status!=4">{{list4[3].rate&&list4[3].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list4Coyp[3].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -366,27 +371,27 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <template v-if='list4[4].rate'>
-                <span v-if="status!=4">{{list4[4].rate}}</span>
-                <el-input v-else size="samll" v-model="list4Coyp[4].rate"></el-input>%
+                <span v-if="status!=4">{{list4[4].rate&&list4[4].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list4Coyp[4].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <template v-if='list4[5].rate'>
-                <span v-if="status!=4">{{list4[5].rate}}</span>
-                <el-input v-else size="samll" v-model="list4Coyp[5].rate"></el-input>%
+                <span v-if="status!=4">{{list4[5].rate&&list4[5].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list4Coyp[5].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <template v-if='list4[6].rate'>
-                <span v-if="status!=4">{{list4[6].rate}}</span>
-                <el-input v-else size="samll" v-model="list4Coyp[6].rate"></el-input>%
+                <span v-if="status!=4">{{list4[6].rate&&list4[6].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list4Coyp[6].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -405,9 +410,9 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <template v-if='list5[0].rate'>
-                <span v-if="status!=5">{{list5[0].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[0].rate"></el-input>%
+                <span v-if="status!=5">{{list5[0].rate&&list5[0].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[0].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -421,18 +426,18 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <template v-if='list5[1].rate'>
-                <span v-if="status!=5">{{list5[1].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[1].rate"></el-input>%
+                <span v-if="status!=5">{{list5[1].rate&&list5[1].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[1].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td width="336">合伙人</td>
               <td>
-                <template v-if='list5[2].rate'>
-                <span v-if="status!=5">{{list5[2].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[2].rate"></el-input>%
+                <span v-if="status!=5">{{list5[2].rate&&list5[2].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[2].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -446,27 +451,27 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <template v-if='list5[3].rate'>
-                <span v-if="status!=5">{{list5[3].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[3].rate"></el-input>%
+                <span v-if="status!=5">{{list5[3].rate&&list5[3].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[3].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td width="336">合伙人</td>
               <td>
-                <template v-if='list5[4].rate'>
-                <span v-if="status!=5">{{list5[4].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[4].rate"></el-input>%
+                <span v-if="status!=5">{{list5[4].rate&&list5[4].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[4].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td width="336">服务商</td>
               <td>
-                <template v-if='list5[5].rate'>
-                <span v-if="status!=5">{{list5[5].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[5].rate"></el-input>%
+                <span v-if="status!=5">{{list5[5].rate&&list5[5].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[5].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -480,18 +485,18 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <template v-if='list5[6].rate'>
-                <span v-if="status!=5">{{list5[6].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[6].rate"></el-input>%
+                <span v-if="status!=5">{{list5[6].rate&&list5[6].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[6].rate"></el-input>%
                 </template>
               </td>
             </tr>
             <tr>
               <td width="336">服务商</td>
               <td>
-                <template v-if='list5[7].rate'>
-                <span v-if="status!=5">{{list5[7].rate}}</span>
-                <el-input v-else size="samll" v-model="list5Coyp[7].rate"></el-input>%
+                <span v-if="status!=5">{{list5[7].rate&&list5[7].rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list5Coyp[7].rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -507,9 +512,9 @@
             <tr>
               <td width="336">佣金比例</td>
               <td>
-                <template v-if='list6.order_rate'>
-                <span v-if="status!=6">{{list6.order_rate}}</span>
-                <el-input v-else size="samll" v-model="list6Coyp.order_rate"></el-input>%
+                <span v-if="status!=6">{{list6.order_rate&&list6.order_rate+'%'}}</span>
+                <template v-else>
+                  <el-input size="samll" v-model="list6Coyp.order_rate"></el-input>%
                 </template>
               </td>
             </tr>
@@ -540,13 +545,13 @@
   export default {
     data() {
       return {
-        tabForShow: "1",
+        tabForShow: "3",
         status: 0, //0保存 1修改角色 2修改会员 3修改订单
         list1: [{
             "join_role": 2,
             "yx_from": 1,
             "give_role": 1,
-            "rate": null
+            "rate": 100
           },
           {
             "join_role": 3,
@@ -582,7 +587,7 @@
         list2: [{
             "yx_from": 1,
             "give_role": 1,
-            "rate": null
+            "rate": 100
           },
           {
             "yx_from": 2,
@@ -768,48 +773,48 @@
     },
     created() {
       //请求接口获取所有分佣
-      this.getList1();
+      this.tabclick()
     },
     methods: {
       getList1() { //获取角色分佣
         getRoleRate().then(({
           data
         }) => {
-          this.list1 = data;
-          if (Object.keys(this.list1).length > 0) {
-            this.list1Coyp = JSON.parse(JSON.stringify(this.list1));
+          if (data.length > 0) {
+            this.list1 = data;
           }
+          this.list1Coyp = JSON.parse(JSON.stringify(this.list1));
         })
       },
       getList2() { //获取会员分佣
         getMemberRate().then(({
           data
         }) => {
-          this.list2 = data;
-          if (Object.keys(this.list2).length > 0) {
-            this.list2Coyp = JSON.parse(JSON.stringify(this.list2));
+          if (data.length > 0) {
+            this.list2 = data;
           }
+          this.list2Coyp = JSON.parse(JSON.stringify(this.list2));
         })
       },
       getList3() { //获取订单分佣
         axios.all([getSpecialOrderRate(), getOrderRate(), getOrderExtRate(), get_mall_rate()]).then(axios.spread((data1,
           data2, data3, data4) => {
-          this.list3 = data1.data;
-          if (Object.keys(this.list3).length > 0) {
-            this.list3Coyp = JSON.parse(JSON.stringify(this.list3));
+          if (data1.data.length > 0) {
+            this.list3 = data1.data;
           }
-          this.list4 = data2.data;
-          if (Object.keys(this.list3).length > 0) {
-            this.list4Coyp = JSON.parse(JSON.stringify(this.list4));
+          this.list3Coyp = JSON.parse(JSON.stringify(this.list3));
+          if (data2.data.length > 0) {
+            this.list4 = data2.data;
           }
-          this.list5 = data3.data;
-          if (Object.keys(this.list5).length > 0) {
-            this.list5Coyp = JSON.parse(JSON.stringify(this.list5));
+          this.list4Coyp = JSON.parse(JSON.stringify(this.list4));
+          if (data3.data.length > 0) {
+            this.list5 = data3.data;
           }
-          // this.list6 = data4.data;
-          // if (this.list6.order_rate) {
-          //   this.list6Coyp = JSON.parse(JSON.stringify(this.list6));
-          // }
+          this.list5Coyp = JSON.parse(JSON.stringify(this.list5));
+          if (data4.data.order_rate) {
+            this.list6 = data4.data;
+          }
+          this.list6Coyp = JSON.parse(JSON.stringify(this.list6));
         }));
       },
       tabclick() {
@@ -820,6 +825,30 @@
           this.getList2();
         } else if (this.tabForShow == 3) {
           this.getList3();
+        }
+      },
+      vail(data) {
+        if (Array.isArray(data)) {
+          for (let val of data) {
+            if (!val.rate) {
+              this.$message({
+                message: '请完成填写后保存',
+                type: 'warning'
+              });
+              return false
+            }
+          }
+          return true
+        } else {
+          if (!data.order_rate) {
+            this.$message({
+              message: '请完成填写后保存',
+              type: 'warning'
+            });
+            return false
+          } else {
+            return true
+          }
         }
       },
       async edit(num) {
@@ -837,29 +866,43 @@
           let res = null;
           switch (num) {
             case 1:
-              res = await saveRoleRate(this.list1Coyp);
+              if (this.vail(this.list1Coyp)) {
+                res = await saveRoleRate(this.list1Coyp);
+              }
               break;
             case 2:
-              res = await saveMemberRate(this.list2Coyp);
+              if (this.vail(this.list2Coyp)) {
+                res = await saveMemberRate(this.list2Coyp);
+              }
               break;
             case 3:
-              res = await saveSpecialOrderRate(this.list3Coyp);
+              if (this.vail(this.list3Coyp)) {
+                res = await saveSpecialOrderRate(this.list3Coyp);
+              }
               break;
             case 4:
-              res = await saveOrderRate(this.list4Coyp);
+              if (this.vail(this.list4Coyp)) {
+                res = await saveOrderRate(this.list4Coyp);
+              }
               break;
             case 5:
-              res = await saveOrderExtRate(this.list5Coyp);
+              if (this.vail(this.list5Coyp)) {
+                res = await saveOrderExtRate(this.list5Coyp);
+              }
               break;
             case 6:
-              res = await save_mall_rate(this.list6Coyp);
+              if (this.vail(this.list6Coyp)) {
+                res = await save_mall_rate(this.list6Coyp);
+              }
               break;
           }
-          res = res.data;
-          if (res.mall_id) {
-            this.$message.success('保存成功');
-            this["list" + num] = JSON.parse(JSON.stringify(this["list" + num + "Coyp"]));
-            this.status = 0;
+          if (res) {
+            res = res.data;
+            if (res.mall_id) {
+              this.$message.success('保存成功');
+              this["list" + num] = JSON.parse(JSON.stringify(this["list" + num + "Coyp"]));
+              this.status = 0;
+            }
           }
         }
       }
