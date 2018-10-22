@@ -36,7 +36,7 @@
                  class="u-btn">查看详情</router-link>
             </p>
             <span class="u-btn" v-if="tabForShow==1" @click="open(scope.row.user_id)">CPS链接</span>
-            <span class="u-btn" v-if="tabForShow==1" @click='black(scope.row.user_id,1)'>加入黑名单</span>
+            <span class="u-btn" v-if="tabForShow==1&&scope.row.is_blacklist==0" @click='black(scope.row.user_id,1)'>加入黑名单</span>
             <span class="u-btn" v-else @click='black(scope.row.user_id,0)'>移除黑名单</span>
           </template>
         </el-table-column>
@@ -67,8 +67,8 @@
         searchCondition: {
           page: 1,
           search: {
-            status: "1",
-            is_company: 1
+            is_company: 1,
+            is_blacklist:0
           },
           per_page: 20
         },
@@ -83,7 +83,11 @@
     },
     created() {
       this.tabForShow = this.$route.query.tab || '1';
-      this.searchCondition.search.status = this.tabForShow;
+      if(this.tabForShow==1){
+        this.$set(this.searchCondition,"search",{is_company: 1})
+      }else{
+        this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:1})
+      }
     },
     methods: {
       open(id) {
@@ -112,7 +116,8 @@
         }
         blacklist(data).then(({data})=>{
           if(data.status=='all_success'){
-            this.$message.success("操作成功")
+            this.$message.success("操作成功");
+            this.searchMethod();
           }else{
             this.$message.error(data.errorcmt)
           }
@@ -124,7 +129,11 @@
         // tab面板切换
         this.searchCondition.page = 1;
         this.searchCondition.search = {};
-        this.searchCondition.search.status = this.tabForShow;
+        if(this.tabForShow==1){
+        this.$set(this.searchCondition,"search",{is_company: 1})
+      }else{
+        this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:1})
+      }
         this.searchMethod();
       },
       _doSearch() {

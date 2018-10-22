@@ -138,7 +138,7 @@
         };
         if (this.inputType.includes('business_range')) {  
           if (this.business_range) {
-            this.search.business_range = this.business_range
+            this.search.business_range = this.business_range.toString()
           } else {
             delete this.search.business_range
           }
