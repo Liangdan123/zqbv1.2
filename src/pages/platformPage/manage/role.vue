@@ -32,7 +32,7 @@
         <el-table-column width="150" label="操作">
           <template slot-scope="scope">
             <p>
-              <router-link :to="{path:'joinRecord',query:{'id':scope.row.join_id,'path':'role','tab':tabForShow}}"
+              <router-link :to="{path:'joinRecord',query:{'id':scope.row.user_id,'path':'role','tab':tabForShow}}"
                  class="u-btn">查看详情</router-link>
             </p>
             <span class="u-btn" v-if="tabForShow==1" @click="open(scope.row.user_id)">CPS链接</span>
