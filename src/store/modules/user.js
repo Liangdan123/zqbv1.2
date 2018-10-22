@@ -92,6 +92,9 @@ const actions={
 			case 1://登录的是平台跳转
 				router.replace("/mallZxh/controlCenter/platDataCenter");
 				break;
+			case 4:
+				router.replace("/server/sellercenter/servicerCenter");
+				break;
 		}
 		
 	},
@@ -103,8 +106,6 @@ const actions={
 		.then(({data})=>{
 			commit(types.LOGOUT);
 			router.replace('/');			
-		})
-		.catch(({response: {status, data}})=>{
 		})
 	},
 	//重置密码成功（手机和邮箱）

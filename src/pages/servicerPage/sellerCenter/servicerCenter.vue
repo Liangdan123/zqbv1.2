@@ -18,7 +18,7 @@
 		</el-dialog>
 	
 		<!--................累计金额.............-->
-		<div class="count clearfix" v-loading="loadTotal">
+		<div class="count clearfix" >
 			<div class="plate bg-f mr-20 ">
 				<div class="border-b clearfix">
 					<div class="float-l mb-10">
@@ -93,7 +93,7 @@
 			<!--.....................店铺动态..............-->
 			<div class="dynamic float-l">
 				<h3 class="color-3 f14 shopTitle">店铺动态</h3>
-				<div v-loading="loadDynamic">		
+				<div>		
 					<div v-if="DynamicList.length>0"> 											
 						<div class="dynamicLists" 
 							v-for="item in DynamicList"> 						
@@ -123,7 +123,7 @@
 				</div>
 			</div>		
 			<!--.....................待处理事件..............-->
-			<div class="event float-r" v-loading="loadUntreated">
+			<div class="event float-r">
 				<h3 class="color-3 f14 shopTitle">待处理事件</h3>
 				<div class="clearfix lh cursor" @click="jumpPage('待服务订单')">
 					<span class="float-l color-3 f14">待服务订单</span>
@@ -190,10 +190,18 @@
 				loadDynamic:true,
 				loadUntreated:true,
 				loadTotal:true,
+				shopId:"",
+				shopLength:"",
 			}
 		},
 		created(){
-			this.getUser();//获取服务商店铺
+			this.shopLength=this.$store.getters.getMessLength;
+			if(this.shopLength===0){//没有店铺弹出弹框让其开店
+				this.dialogVisible=true
+				return 
+			}
+			this._shopId();			
+			setTimeout(this.getUser(),5000)//获取服务商店铺
 		},
 		beforeRouteLeave(to, from, next){
 			clearInterval(this.clearNumTime);
@@ -215,9 +223,6 @@
 					this.DynamicList=data;
 					this.loadDynamic=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 			},
 			_DynamicsNumAPI(data){//待处理事件				
 				getDynamicsNum(data)//获取店铺待处理事件数量API
@@ -225,9 +230,6 @@
 					this.getNum=data;
 					this.loadUntreated=false;
 				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})	
 			},
 			jumpPage(val){//点击待处理事件的列表
 				switch(val){
@@ -246,27 +248,24 @@
 				this.$router.push("/server/sellercenter/Irregularities")
 			},
 			getUser(){
+				console.log("this.shopId:",this.shopId)
+				let shop_id=this.shopId;
+				this.getServicerMess({shop_id})//获取店铺统计数据
+				let setDynamic={
+					shop_id, 
+					page: 1,
+					per_page: 5
+				};
+				this._shopDynamicsAPI(setDynamic);//店铺动态
+//				this.clearDynamicTime=setInterval(()=>{this._shopDynamicsAPI(setDynamic)},10000);																		
+				this._DynamicsNumAPI({shop_id})//待处理事件						
+//				this.clearNumTime=setInterval(()=>{this._DynamicsNumAPI({shop_id})},10000);
+			},
+			_shopId(){
 				getUserMess()//获取服务商店铺
-				.then(({data})=>{
-					if(data.length===0){//没有店铺弹出弹框让其开店
-						this.dialogVisible=true
-					}else if(data.length>0){//有店铺时获取店铺数据（卖家中心的数据）
-						let shop_id = data[0].shop_id;	
-						this.getServicerMess({shop_id})//获取店铺统计数据
-						let setDynamic={
-							shop_id, 
-							page: 1,
-							per_page: 5
-						};
-						this._shopDynamicsAPI(setDynamic);//店铺动态
-			//			this.clearDynamicTime=setInterval(()=>{this._shopDynamicsAPI(setDynamic)},10000);
-						this._DynamicsNumAPI({shop_id})//待处理事件
-			//			this.clearNumTime=setInterval(()=>{this._DynamicsNumAPI({shop_id})},10000);
-					}
-				})
-				.catch(({response: {data}})=>{
-					this.$message.error(data.errorcmt);
-				})
+				.then(({data})=>{	
+					this.shopId=data[0].shop_id;	
+				})				
 			},
 			getServicerMess(data){//获取店铺统计数据
 				getStoreStatistics(data)
@@ -285,15 +284,16 @@
 			loginOut(){//退出按钮
 				this.$store.dispatch('doLogout');
 			},
-			timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口
-				let shop_id=this.$store.state.servicer.shop_id;
-				let condition_search={
-					shop_id,start_date,end_date
-				};
-				getStoreData(condition_search)
-				    .then(({data:{data}})=>{
-                        this.statisticsData = data;
-                    })
+			timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口				
+//				if(!this.shopLength||this.shopLength==0){return}
+//				let shop_id=this.$store.state.servicer.shop_id;
+//				let condition_search={
+//					shop_id,start_date,end_date
+//				};
+//				getStoreData(condition_search)
+//				    .then(({data:{data}})=>{
+//                      this.statisticsData = data;
+//                  })
 			},
 		}
 	}

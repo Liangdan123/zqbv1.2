@@ -77,7 +77,7 @@
 						<el-button class="store-button2" @click="cancelMess">取 消</el-button>
 					</div>
 				</div>
-				<el-form-item class="addStore" v-if="preservation===false">
+				<el-form-item class="addStore" v-if="!preservation">
 					<el-button class="store-button1" @click="createMess('addMessForm')">添加</el-button>
 				</el-form-item>
 			</el-form>
@@ -290,7 +290,8 @@
 					getUserMess()//获取服务商店铺
 					.then(({data})=>{		
 						this.$store.commit(types.ADDSUCESS,true);//提示添加成功
-						let len=data.length;//没有数据时长度为0;
+						commit(types.MESSLENGTH,len);//添加时长度为0，添加成功长度改变不为0
+						let len=data.length;//没有数据时长度为0;						
 						this.$store.dispatch("doCloseStore",true);//导航能够看见
 						if(len > 0) {
 							let shop_id = data[0].shop_id;	
@@ -352,9 +353,10 @@
 				}	
 			},
 			getStoreMessage(){//有没有店铺信息			
-				var shop_id=this.$store.getters.getShop_id;
-				if(shop_id){
+				let len=this.$store.getters.getMessLength;				
+				if(len>0){
 					this.preservation=true;
+					let shop_id=this.$store.getters.getShop_id;
 					getStoreMessage({shop_id})
 					.then(({data})=>{	
 						this.storeMessShow=data;
