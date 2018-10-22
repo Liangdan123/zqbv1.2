@@ -26,10 +26,8 @@
               <td width='322'>100%</td>
             </tr>
             <tr>
-              <td rowspan="4">合伙人
-                <p class="color-7F">总额等于100%</p>
-              </td>
-              <td rowspan="2">平台</td>
+              <td rowspan="4">合伙人</td>                     
+              <td rowspan="2">平台(总额等于100%)</td>
               <td>平台</td>
               <td width='322'>
                 <template v-if='list1[1].rate'>
@@ -48,7 +46,7 @@
               </td>
             </tr>
             <tr>
-              <td rowspan="2">代理商</td>
+              <td rowspan="2">代理商(总额等于100%)</td>
               <td>平台</td>
               <td width='322'>
                 <template v-if='list1[3].rate'>
