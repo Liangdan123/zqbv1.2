@@ -15,7 +15,7 @@
 			<el-form-item label="客服名称" prop="kefu_name">
 				<el-input v-model="mallMess.kefu_name" class="login-input2 mt-10"></el-input>	    			    		
 			</el-form-item>
-			<el-form-item label="客服名称" prop="客服电话">
+			<el-form-item label="客服电话" prop="kefu_phone">
 				<el-input v-model="mallMess.kefu_phone" class="login-input2 mt-10"></el-input>	    			    		
 			</el-form-item>
 		</el-form>
