@@ -43,7 +43,7 @@
           <template slot-scope="scope">
             <span v-if="scope.row.permission.length==7||scope.row.is_admin==1">全部权限</span>
             <span v-for="(item,index) in scope.row.permission" v-else>
-              {{index!=scope.row.permission.length-1?permission[item]+",":permission[item]}}
+              {{index!=scope.row.permission.length-1?permission[item-1]+",":permission[item-1]}}
             </span>
           </template>
         </el-table-column>
@@ -70,7 +70,7 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
         list: [],
         searchCondition: {
           page: 1,
-          per_page: 20
+          per_page: 20,
         },
         permission: ['监控中心', '店铺管理', '订单管理', '营销管理', '商城设置', '资金管理', '平台管理'],
         Visible: false,
@@ -174,7 +174,7 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
           arr = JSON.parse(JSON.stringify(this.permission));
         } else {
           for (let val of list.permission) {
-            arr.push(this.permission[val])
+            arr.push(this.permission[val-1])
           }
         }
         this.form = {
@@ -203,7 +203,7 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
         this.Visible = false;
         let item = JSON.parse(JSON.stringify(this.form))
         item.permission = item.permission.map((val) => {
-          return this.permission.indexOf(val)
+          return this.permission.indexOf(val)+1
         })
         this.$refs[formName].validate((valid) => {
           if (!valid) {
@@ -213,6 +213,7 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
             addPlatform(item).then(({
               data
             }) => {
+              data.permission=data.permission.split(",");
               this.list.push(data)
               this.$message.success("添加成功");
               this.actionIndex = "";
@@ -221,6 +222,7 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
             savePermission(item).then(({
               data
             }) => {
+              data.permission=data.permission.split(",");
               this.list.splice(this.actionIndex, 1, data)
               this.$message.success("保存成功");
               this.actionIndex = "";

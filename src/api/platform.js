@@ -122,9 +122,9 @@ export const savePermission=(data)=>axios.put("platform/save_permission",data)//
 
 export const getPlatform=(user_id)=>axios.get("platform/get_platform",{param:{user_id}})//获取平台用户信息
 
-export const deletePlatform=(data)=>axios.delete("platform/delete_platform_batch",{param:data})//批量删除平台用户
+export const deletePlatform=(data)=>axios.delete("platform/delete_platform_batch",{data})//批量删除平台用户
 
-export const deleteMessage=(data)=>axios.delete("platform/delete_message_batch",{param:data})//批量删除平台用户
+export const deleteMessage=(data)=>axios.delete("platform/delete_message_batch",{data})//批量删除平台用户
 
 export const message_lists=(data)=>axios.post("platform/message_lists",data)//获取消息列表
 
