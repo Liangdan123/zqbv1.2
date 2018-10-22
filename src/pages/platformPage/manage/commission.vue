@@ -808,10 +808,10 @@
           if (Object.keys(this.list5).length > 0) {
             this.list5Coyp = JSON.parse(JSON.stringify(this.list5));
           }
-          this.list6 = data4.data;
-          if (this.list6.order_rate) {
-            this.list6Coyp = JSON.parse(JSON.stringify(this.list6));
-          }
+          // this.list6 = data4.data;
+          // if (this.list6.order_rate) {
+          //   this.list6Coyp = JSON.parse(JSON.stringify(this.list6));
+          // }
         }));
       },
       tabclick() {
