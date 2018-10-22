@@ -69,7 +69,7 @@
 </template>
 
 <script>
-	import {getApplication,updateApplication,auditApplication} from "@/api/platform"
+	import {getApplication,updateApplication,auditApplication,getRole} from "@/api/platform"
   import router from '@/router'
   export default {
     data() {
@@ -155,9 +155,17 @@
       this.path = this.$route.query.path;
       this.tab = this.$route.query.tab || null;
       //根据id查记录
-      getApplication(this.join_id).then(({data})=>{
+      if(this.path=='join'){
+  getApplication(this.join_id).then(({data})=>{
           this.list=data;
       })
+      }else{
+   getRole(this.join_id).then(({data})=>{
+          this.list=data;
+      })
+      }
+    
+   
     },
     methods: {
       save() {

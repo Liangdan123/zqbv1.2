@@ -42,6 +42,8 @@ export const deleteAdList=(data)=>axios.delete("ad_data/delete_batch",{data})//�
 
 export const getRoleList=(data)=>axios.post("platform/role_lists",data)//获取角色列表（例如：服务商）
 
+export const getRole=(user_id)=>axios.get("platform/get_role",{params:{user_id}})//获取角色信息
+
 export const getAppllyList=(data)=>axios.post("platform/application_lists",data)//获取角色申请列表
 
 export const applyRole=(data)=>axios.post("platform/add_application",data)//角色申请
