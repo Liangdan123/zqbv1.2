@@ -19,9 +19,7 @@ export default {
   data() {
     return {};
   },
-  components: {
-    register
-  }
+  components:{register}
 };
 </script>
 

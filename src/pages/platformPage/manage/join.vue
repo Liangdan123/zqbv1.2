@@ -20,24 +20,43 @@
       </el-tabs>
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
-        <searchRole :search.sync="searchCondition.search"  @searchMethod="searchMethod"></searchRole>
-        <search :search.sync="searchCondition.search" inputSearch='order_search' @searchMethod="searchMethod"  @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选条件' hintMess="输入相关信息进行搜索">
+        <searchRole :search.sync="searchCondition.search"  
+        	@searchMethod="searchMethod">
+        	
+        </searchRole>
+        <search :search.sync="searchCondition.search" 
+        	inputSearch='order_search' 
+        	@searchMethod="searchMethod"  
+        	@emptyMthod='searchMethod' 
+        	ref="isShow" selectTitle='筛选条件' 
+        	hintMess="输入相关信息进行搜索">
         </search>
       </div>
       <!--........................表格...............-->
       <el-table class="table" v-loading="tableDataLoading" :data="list" style="width: 100%">
         <el-table-column label="所属区域" prop="city"></el-table-column>
         <el-table-column prop="type" label="角色">
-          <div slot-scope="scope">{{scope.row.type==2?"代理商":scope.row.type==3?"合伙人":"服务商"}}</div>
+          <div slot-scope="scope">
+          	{{scope.row.type==2?"代理商":scope.row.type==3?"合伙人":"服务商"}}
+          </div>
         </el-table-column>
-        <el-table-column prop="contact_name" label="姓名"></el-table-column>
-        <el-table-column prop="phone" label="手机号"></el-table-column>
-        <el-table-column prop="company_name" label="公司名称" v-if="searchCondition.search.is_company==1"></el-table-column>
+        <el-table-column prop="contact_name" label="姓名">
+        	
+        </el-table-column>
+        <el-table-column prop="phone" label="手机号">
+        	
+        </el-table-column>
+        <el-table-column prop="company_name" label="公司名称" v-if="searchCondition.search.is_company==1">
+        	
+        </el-table-column>
         <el-table-column prop="contact_email" label="常用邮箱" v-else></el-table-column>
         <el-table-column prop="created_at" label="创建时间"></el-table-column>
         <el-table-column width="120" label="操作">
-          <router-link :to="{path:'joinRecord',query:{'id':scope.row.join_id,'tab':tabForShow,'path':'join'}}" slot-scope="scope"
-            class="u-btn">查看记录</router-link>
+          <router-link :to="{path:'joinRecord',query:{'id':scope.row.join_id,'tab':tabForShow,'path':'join'}}" 
+          	slot-scope="scope"
+            class="u-btn">
+            	查看记录
+          </router-link>
         </el-table-column>
       </el-table>
       <el-pagination
@@ -86,20 +105,19 @@
       closeSearch() {
         this.$refs.isShow.closeSearch();
       },
-      tabSwitch({name}) {              
-        // tab面板切换
+      tabSwitch({name}) {// tab面板切换                
         this.searchCondition.page = 1;
-        this.searchCondition.search={};
-        this.searchCondition.search.status=this.tabForShow;
+        this.searchCondition.search={
+        	is_company:1,
+        	status:this.tabForShow
+        };
         this.searchMethod()
       },
       _doSearch() {
         // 搜索入驻申请列表
         this.tableDataLoading = true;
         getAppllyList(this.searchCondition)
-            .then(({
-                data
-            }) => {
+            .then(({data }) => {                          
                 this.tableDataLoading = false;
                 this.list = data.data;
                 this.total = data.total;

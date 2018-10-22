@@ -32,13 +32,7 @@
 </template>
 
 <script>
-  import {
-    getPhoneNum,
-    getRegisterMess,
-    getRegisterCode,
-    getPhoneAllMess,
-    loginVerifyCode
-  } from '@/api/login'
+  import {getPhoneNum, getRegisterMess,getRegisterCode,getPhoneAllMess,loginVerifyCode,accountInfo} from '@/api/login'                    
   import router from '@/router'
   export default {
     name: 'forgetMess',
@@ -110,43 +104,31 @@
             this.msg = "密码至少6位数";
             return;
             break;
-        }
-        if (this.isReset) {
-          this.resetMess() //点击重置密码
-        } else {
-          this.initReset() //初始密码设置
-        }
+        };
+											//点击重置密码//初始密码设置
+				this.isReset? this.resetMess() :this.initReset()
       },
       initReset() {
-        accountInfo({login_name:this.mobile_phone,password:this.newPassword,verify_code:this.verify_code})
-          //与后台交成功时的操作
-          .then(({
-            data
-          }) => {
-            console.log("绑定");
+      	let message={
+      		login_name:this.mobile_phone,
+      		password:this.newPassword,
+      		verify_code:this.verify_code
+      	};
+        accountInfo(message) //与后台交成功时的操作      
+          .then(({data}) => {                                
             this.$store.dispatch("doLogin", data);
           })
-          .catch(({
-            response: {
-              data
-            }
-          }) => { //与后台交互时出现的错误信息
+          .catch(({response: {data } }) => { //与后台交互时出现的错误信息                                             
             this.msg = data.errorcmt;
           })
       },
       resetMess() {
         getPhoneAllMess(this.mobile_phone, this.verify_code, this.newPassword)
-          .then(({
-            data
-          }) => {
+          .then(({data}) => {                      
             this.warn = true;
             this.msg = "重置成功,请返回登录";
           })
-          .catch(({
-            response: {
-              data
-            }
-          }) => { //发送验证失败
+          .catch(({response: {data} }) => { //发送验证失败                                             
             this.warn = true;
             this.msg = data.errorcmt;
           })

@@ -19,7 +19,8 @@
         <searchRole 
         	:search.sync="searchCondition.search" 
         	@searchMethod="searchMethod" 
-        	:inputType="['is_company']"></searchRole>
+        	:inputType="['is_company']">
+        </searchRole>
         <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选条件'
           hintMess="输入相关信息进行搜索">
         </search>

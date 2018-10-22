@@ -89,15 +89,15 @@
           },
           {
             value: "2",
-            label: "服务商"
-          },
-          {
-            value: "3",
             label: "代理商"
           },
           {
-            value: "4",
+            value: "3",
             label: "合伙人"
+          },
+          {
+            value: "4",
+            label: "服务商"
           }
         ],
         business_range:null,
@@ -143,7 +143,6 @@
             delete this.search.business_range
           }
         };
-        console.log(this.is_company,this.type,this.business_range);
         this.$emit("searchMethod")      
       }
     }

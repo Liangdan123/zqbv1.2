@@ -39,11 +39,11 @@
       </div>
       <div class="">
         <div>法人身份证（正面）</div>
-        <img :src="list.license_url" class="imageUpload" />
+        <img :src="list.identity_front_url" class="imageUpload" />
       </div>
       <div class="">
         <div>法人身份证（反面）</div>
-        <img :src="list.license_url" class="imageUpload" />
+        <img :src="list.identity_back_url" class="imageUpload" />
       </div>
     </div>
   </div>

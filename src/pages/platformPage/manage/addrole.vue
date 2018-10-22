@@ -223,7 +223,9 @@
               post_data.business_range = post_data.business_range.join(",");
             } else if (post_data.type == 4) {
               post_data.business_range = post_data.business_range1;
-            }
+            }else if(post_data.business_range){
+      	      		delete post_data.business_range
+            }   
             delete post_data.business_range1;
             applyRole(post_data).then((data) => {
                 this.$message.success("提交成功");

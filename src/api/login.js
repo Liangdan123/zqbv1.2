@@ -3,7 +3,7 @@ import axios from "axios"
 
 export const getMallInfo =()=>axios.get("mall_info")
 
-export const accountInfo=(data)=>axios.post("mock/user/login",data)
+export const accountInfo=(data)=>axios.post("user/login",data)//后台用户登陆
 
 export const getPhoneAllMess=(phone,verify_code,new_password)=>axios.post("user/pwd_reset_phone",{phone,verify_code,new_password})
 
