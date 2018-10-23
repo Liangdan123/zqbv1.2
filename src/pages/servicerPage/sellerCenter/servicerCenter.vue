@@ -202,10 +202,6 @@
 					setInterval(this._shopId(),1000)
 				}else{					
 					clearInterval(time);
-					if(this.shopLength===0){//没有店铺弹出弹框让其开店
-						this.dialogVisible=true
-						return 
-					}
 					this.getUser();
 				}					
 			}
@@ -275,7 +271,10 @@
 					if(this.shopLength > 0) {
 						this.shopId = data[0].shop_id;	
 						this.$store.commit(types.GETSHOPID,this.shopId);
-					};	
+					}else{//没有店铺弹出弹框让其开店
+						this.dialogVisible=true
+						return 
+					}
 				})				
 			},
 			getServicerMess(data){//获取店铺统计数据

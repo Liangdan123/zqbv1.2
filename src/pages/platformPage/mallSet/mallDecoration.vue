@@ -33,12 +33,6 @@
 						</el-carousel>
 					</div>
 					<mallDecora :mallPlate='item' v-if="index_plate===index"></mallDecora>
-					<!--......................上移下移删除箭头......................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.hbys1&&index===errorIndex)" 
-						:index="index" 
-						:mallDecor="correscomList" 
-						:isError="errorPlate.hbys1&&index===errorIndex">						
-					</arrow>					-->
 				</div>
 				<!--..................图片导航....................-->
 				<div v-if="item.component_key==='tpdh'" 
@@ -47,7 +41,7 @@
 					:class="index_plate===index?'border_b':errorPlate.tpdh && index===errorIndex?'border-red':''">
 					
 					<!--..................当有数据时执行这里....................-->
-					<div v-if="item.data!==null && txtImgSelect===false" 
+					<div v-if="item.data && txtImgSelect===false" 
 						class="clearfix imgNavCon"> 
 						<div  v-for="(itemImg,i) in item.data.banners" class="float-l">
 							<div class="imageTxtcon">
@@ -57,7 +51,7 @@
 						</div>
 					</div>
 					<!--..................当没有数据时执行这里....................-->
-					<div v-if="item.data===null || txtImgSelect===true" class="clearfix imgNavCon">
+					<div v-if="!item.data||txtImgSelect===true" class="clearfix imgNavCon">
 						<div  v-for="(itemImg,i) in imageNav" class="float-l"> 
 							<div class="imageTxtcon">
 								<b class="imageTxt"></b>
@@ -71,16 +65,9 @@
 						@changeNum="changeNum" 
 						@controlImg="controlImg">						
 					</mallDecora>
-					<!--......................上移下移删除箭头......................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.tpdh&&index===errorIndex)" 
-						:index="index" 
-						:mallDecor="correscomList"
-						:isError="errorPlate.tpdh && index===errorIndex">
-						
-					</arrow>-->
-				</div>
+				</div>				
 				<!--..................商品单列....................-->
-				<div  v-if="item.component_key==='splb1'&&shopNum!==0" 
+				<!--<div  v-if="item.component_key==='splb1'" 
 					class="cursor pos-r mt-10 splb1"  
 					@click="isShowPlate(index)"
 					:class="index_plate===index?'border_b': errorPlate.splb1 && index===errorIndex?'border-red':''">	
@@ -88,10 +75,10 @@
 					<h2 class="f16 color-3 text-c font-n line" 
 						v-if="item.data.title_switch==='on'">
 						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
-					</h2>
+					</h2>-->
 					
 					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
-					<div v-if="item.list.length!==0">
+					<!--<div v-if="item.list.length!==0">
 						<div v-for="(single,index) in item.list" class="px-15 mb-20">
 							<img :src="single.images[0].image_url" 
 								width="345" height="345" 
@@ -110,9 +97,9 @@
 								</p>
 							</div>
 						</div>	
-					</div>
+					</div>-->
 					<!--...................没有搜索出来数据....................-->
-					<div v-if="item.list.length===0">
+					<!--<div v-if="item.list.length===0">
 						<div  class="px-15">
 							<b class="mt-15 display-b" style="height: 345px; width: 345px; background-color: #E5F5FF;"></b>
 							<div class="color-3 f14 mt-10 product_name">产品名称</div>
@@ -121,9 +108,9 @@
 								<p class="float-r color-7F f12">销量：<span>888</span></p>							
 							</div>
 						</div>
-					</div>					
+					</div>					-->
 					<!--....................右边.................-->
-					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
+<!--					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>-->
 					<!--....................上下删除箭头.................-->
 					<!--<arrow v-if="index_plate===index||(errorPlate.splb1&&index===errorIndex)" 
 						:index="index" 
@@ -131,15 +118,17 @@
 						:isError="errorPlate.splb1&&index===errorIndex">
 						
 					</arrow>-->
-				</div>
+<!--				</div>-->
+
+
 				<!--..................商品双列....................-->
-				<div  v-if="item.component_key==='splb2'&&shopNum!==0" class="cursor pos-r mt-10 splb2" 
+				<div  v-if="item.component_key==='splb2'" class="cursor pos-r mt-10 splb2" 
 					@click="isShowPlate(index)"
-					:class="index_plate===index?'border_b': errorPlate.splb2 && index===errorIndex?'border-red':''" >
-					
+					:class="index_plate===index?'border_b':errorPlate.splb2 && index===errorIndex?'border-red':''" >					
 					<h2 class="f16 color-3 text-c font-n line" 
 						v-if="item.data.title_switch==='on'">
-						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
+						<i class="verticalLine"></i>
+						{{item.data.title===null?"模块标题":item.data.title}}											
 					</h2>
 					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
 					<div v-if="item.list.length!==0" class="clearfix">
@@ -177,16 +166,12 @@
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum">
 					</mallDecora>
-					<!--....................上下删除箭头.................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.splb2&&index===errorIndex)" 
-						:index="index" 
-						:mallDecor="correscomList"
-						:isError="errorPlate.splb2&&index===errorIndex">
-					</arrow>-->
 				</div>
 				<!--..................商品三列....................-->
-				<div  v-if="item.component_key==='splb3'&&shopNum!==0" class="cursor pos-r mt-10 splb3" @click="isShowPlate(index)"
-				:class="index_plate===index?'border_b': errorPlate.splb3 && index===errorIndex?'border-red':''"	>
+				<div  v-if="item.component_key==='splb3'&&shopNum!==0" 
+					class="cursor pos-r mt-10 splb3" 
+					@click="isShowPlate(index)"
+					:class="index_plate===index?'border_b':errorPlate.splb3 && index===errorIndex?'border-red':''"	>
 					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
 						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
 					</h2>
@@ -219,11 +204,6 @@
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
 					<!--....................上下删除箭头.................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.splb3&&index===errorIndex)" 
-						:index="index" :mallDecor="correscomList"
-						:isError="errorPlate.splb3&&index===errorIndex" >
-						
-					</arrow>-->
 				</div>
 				<!--..................轮播海报二....................-->
 				<div v-if="item.component_key==='hbys2'" class="cursor pos-r bg-f mt-10 hbys2"  @click="isShowPlate(index)"
@@ -248,19 +228,15 @@
 						</el-carousel>
 					</div>
 					<mallDecora :mallPlate='item' v-if="index_plate===index"></mallDecora>
-					<!--......................上移下移删除箭头......................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.hbys2&&index===errorIndex)"  
-						:index="index" 
-						:mallDecor="correscomList"
-						:isError="errorPlate.hbys2&&index===errorIndex">		
-					</arrow>-->
 				</div>
 				<!--..................商品列表....................-->
-				<div v-if="item.component_key==='splb4'" class="cursor pos-r bg-f mt-10 splb4" @click="isShowPlate(index)"
-					:class="index_plate===index?'border_b': errorPlate.splb4 && index===errorIndex?'border-red':''">
-					
+				<div v-if="item.component_key==='splb1'" 
+					class="cursor pos-r bg-f mt-10 splb4" 
+					@click="isShowPlate(index)"
+					:class="index_plate===index?'border_b':errorPlate.splb4 && index===errorIndex?'border-red':''">					
 					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
-						<i class="verticalLine"></i>{{item.data.title===null||item.data.title===undefined?"模块标题":item.data.title}}											
+						<i class="verticalLine"></i>
+						{{!item.data.title?"模块标题":item.data.title}}											
 					</h2>
 					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
 					<div v-if="item.list.length!==0" class="pb-20">
@@ -294,11 +270,6 @@
 					</div>					
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
-					<!--....................上下删除箭头.................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.splb4&&index===errorIndex)" 
-						:index="index" :mallDecor="correscomList"
-						:isError="errorPlate.splb4&&index===errorIndex">
-					</arrow>						-->
 				</div>
 				<!--..................文字导航....................-->
 				<div v-if="item.component_key==='wzdh'" class="cursor pos-r bg-f mt-10 wzdh"  @click="isShowPlate(index)"
@@ -313,7 +284,7 @@
 							</div>
 						</div>
 					</div>
-					<div v-if="item.data===undefined||item.data===null" class="px-15">
+					<div v-if="!item.data" class="px-15">
 						<div v-for="(item,txtSort) in txtTitle" class="py-18" :class="(txtSort+1)!==txtTitle.length?'border-e9-b':''">
 							<div class="clearfix">
 								<span class="float-l color-3 f14">导航名字</span>
@@ -323,12 +294,6 @@
 					</div>
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
-					<!--....................上下删除箭头.................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.wzdh&&index===errorIndex)" 
-						:index="index" 
-						:mallDecor="correscomList"
-						:isError="errorPlate.wzdh && index===errorIndex">
-					</arrow>-->
 				</div>
 			</div>
 		</div>
@@ -366,7 +331,6 @@
 				errorPlate:{
 					hbys1:false,
 					tpdh:false,
-					splb1:false,
 					splb2:false,
 					splb3:false,
 					hbys2:false,
@@ -387,64 +351,29 @@
 			.then(({data})=>{
 				this.correscomList=data;
 				this.mallSetMiddle=false;
-				this.correscomList.forEach(item=>{					
-					if(item.component_key==='hbys2'&&item.data===null){item.data={title_switch:"on"};}//海报样式二时			
+				this.correscomList.forEach(item=>{//海报样式二时					
+					if(item.component_key==='hbys2'&&!item.data){
+						item.data={title_switch:"on"};
+					}
 				})
 			})
 			//获取组件列表
 			let comListData={component_type:0}
 		},	
 		methods:{
-			addPlate(data){//自定义添加模块
-				let attrs=["component_thumb_url","component_name","remark","component_form"];
-				let editData=JSON.parse(JSON.stringify(data));//改变内存地址
-				deletes(attrs, editData);//删除多余对象
-				editData.sort=this.correscomList.length;//顺序	
-				switch(true){//开始时的展示数量
-					case data.component_key==="splb1":
-						var num=1;break;						
-					case data.component_key==="splb2":
-						var num=2;break;						
-					case data.component_key==="splb3":
-						var num=3;break;						
-					case data.component_key==="splb4":
-						var num=6;break;						
-				};
-				if(data.component_key==="splb1"||data.component_key==="splb2"||
-					data.component_key==="splb3"||data.component_key==="splb4"){
-					editData.data={
-						mall_category_id:0,
-						product_ids:null,
-						product_num:num,
-						product_orderby:1,
-						select_product_type:1,
-						title:null,
-						title_click_id:null,
-						title_click_name:null,
-						title_click_type:null,
-						title_switch:"on",					
-					}
-					editData.list=[];
-				}else if(data.component_key==="hbys2"){
-					editData.data={title_switch:"on"}
-				} else{
-					editData.data=null;
-				};				
-				this.correscomList.push(editData);//向中间模块添加			
-			},
 			isShowPlate(index){//是否显示上下箭头，border,右边版块
 				this.index_plate=index;
-				let arr1=["hbys1","tpdh","splb1","splb2","splb3","hbys2","splb4","wzdh"];
+				let arr1=["hbys1","tpdh","splb2","splb3","hbys2"];
 				this.isBoolean(arr1,false)
 			},
 			preserveDecore(){//保存装修
 				for(let [index,item] of this.correscomList.entries()){//保存装修错误验证
 					switch(true){
 						case item.component_key==='hbys1':
-							if(item.data===null){//当没有修改轮播图时
+							if(!item.data){//当没有修改轮播图时
 								this.errorTips("hbys1","请设置海报样式",index);
 								return
-							}else if(item.data!==null){
+							}else if(item.data){
 								for(let bannerIndex of item.data.banners.values()){
 									if(bannerIndex.image_url===undefined){//当忘记上传图片地址时
 										this.errorTips("hbys1","请上传海报图片",index);
@@ -454,48 +383,40 @@
 							};
 							break
 						case item.component_key==='tpdh':
-							if(item.data===null){//当没有修改图片导航时
+							if(!item.data){//当没有修改图片导航时
 								this.errorTips("tpdh","请设置图片导航",index);
 								return
-							}else if(item.data!==null){
-								if(item.data.banners===undefined){
-									this.errorTips("tpdh","请添加导航",index);
-									return
-								}else if(item.data.banners!==undefined){
-									for(let bannerIndex of item.data.banners.values()){
-										switch(true){
-											case bannerIndex.name===undefined:
-												this.errorTips("tpdh","请填写导航名称",index);
-												return
-												break;
-											case bannerIndex.click_name===undefined:
-												this.errorTips("tpdh","请添加导航链接",index);
-												return
-												break;
-											case bannerIndex.image_url===undefined:
-												this.errorTips("tpdh","请上传导航图片",index);
-												return
-												break;
-											case item.data.banners.length!==item.data.num:
-												this.errorTips("tpdh","导航数量不匹配",index);
-												return
-												break;											
-										}
-									}
-								}								
-							}
-							break;	
-						case item.component_key==='splb1':
-							if(item.data.title_switch==='on'){
-								if(item.data.title===null||item.data.title===''||item.data.title===undefined){
-									this.errorTips("splb1","请输入模块标题",index);
-									return
-								}								
 							};
-							break;
+							if(!item.data.banners){
+								this.errorTips("tpdh","请添加导航",index);
+								return
+							};
+							if(item.data.banners){
+								for(let bannerIndex of item.data.banners.values()){
+									switch(true){
+										case !bannerIndex.name:
+											this.errorTips("tpdh","请填写导航名称",index);
+											return
+											break;
+										case !bannerIndex.click_name:
+											this.errorTips("tpdh","请添加导航链接",index);
+											return
+											break;
+										case !bannerIndex.image_url:
+											this.errorTips("tpdh","请上传导航图片",index);
+											return
+											break;
+										case item.data.banners.length!==item.data.num:
+											this.errorTips("tpdh","导航数量不匹配",index);
+											return
+											break;											
+									}
+								}
+							};							
+							break;	
 						case item.component_key==='splb2':
 							if(item.data.title_switch==='on'){
-								if(item.data.title===null||item.data.title===''||item.data.title===undefined){								
+								if(!item.data.title){								
 									this.errorTips("splb2","请输入模块标题",index);
 									return
 								}								
@@ -503,7 +424,7 @@
 							break;
 						case item.component_key==='splb3':
 							if(item.data.title_switch==='on'){
-								if(item.data.title===null||item.data.title===''||item.data.title===undefined){
+								if(!item.data.title){
 									this.errorTips("splb3","请输入模块标题",index);
 									return
 								};								
@@ -511,12 +432,15 @@
 							break;
 						case item.component_key==='hbys2':
 							if(item.data.title_switch==='on'){
-								if(item.data.title===null||item.data.title===''||item.data.title===undefined){								
+								if(!item.data.title){								
 									this.errorTips("hbys2","请输入模块标题",index);
 									return
 								}	
 							};
-							if(item.data.banners.length===0){this.errorTips("hbys2","请添加海报",index);return}
+							if(item.data.banners.length===0){
+								this.errorTips("hbys2","请添加海报",index);
+								return
+							}
 							if(item.data.banners.length!==0){
 								for(let bannerIndex of item.data.banners.values()){
 									if(bannerIndex.image_url===undefined){//当忘记上传图片地址时
@@ -533,24 +457,6 @@
 								};								
 							};
 							break
-						case item.component_key==='wzdh':
-							if(item.data===null){
-								this.errorTips("wzdh","请设置文字导航",index);
-								return
-							}else if(item.data!==null){
-								if(item.data.banners!==undefined){
-									for(let bannerIndex of item.data.banners.values()){
-										if(bannerIndex.name===undefined){
-											this.errorTips("wzdh","请填写导航名称",index);
-											return
-										}else if(bannerIndex.click_name===undefined){
-											this.errorTips("wzdh","请添加导航链接",index);
-											return
-										}
-									}
-								}	
-							}
-							break;
 					};
 				};
 				//保存装修接口
@@ -571,19 +477,28 @@
 				this.txtImgSelect=false;
 			},
 			changeNum(val,index){//图片导航的图片数量改变
+				let correscomList=this.correscomList[index];
 				if(val==='选项1'){
-					this.imageNav=[{img:"",title:"导航一"},{img:"",title:"导航二"},{img:"",title:"导航三"},{img:"",title:"导航四"}];
-					if(this.correscomList[index].data===null){//当为null时也把num值加上
-						this.correscomList[index].data={};
-						this.correscomList[index].data.num=4;
+					this.imageNav.splice(4)
+					if(!correscomList.data){//当为null时也把num值加上
+						correscomList.data={};
+						correscomList.data.num=4;
 						this.txtImgSelect=true
 					}					
 				}else if(val==='选项2'){
-					this.imageNav=[{img:"",title:"导航一"},{img:"",title:"导航二"},{img:"",title:"导航三"},{img:"",title:"导航四"},
-					{img:"",title:"导航五"},{img:"",title:"导航六"},{img:"",title:"导航七"},{img:"",title:"导航八"}];
-					if(this.correscomList[index].data===null){//当为null时也把num值加上
-						this.correscomList[index].data={};
-						this.correscomList[index].data.num=8;
+					this.imageNav=[
+						{img:"",title:"导航一"},
+						{img:"",title:"导航二"},
+						{img:"",title:"导航三"},
+						{img:"",title:"导航四"},
+						{img:"",title:"导航五"},
+						{img:"",title:"导航六"},
+						{img:"",title:"导航七"},
+						{img:"",title:"导航八"}
+					];
+					if(!correscomList.data){//当为null时也把num值加上
+						correscomList.data={};
+						correscomList.data.num=8;
 						this.txtImgSelect=true;
 					}
 				}
