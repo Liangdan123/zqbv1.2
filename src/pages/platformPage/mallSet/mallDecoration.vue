@@ -4,36 +4,51 @@
 			<img src="../../../assets/image/top.jpg" class="w-100"/>
 			<div class="mallPlate" v-for="(item,index) in correscomList" :key="index">
 				<!--..................轮播海报一....................-->
-				<div v-if="item.component_key==='hbys1'" class="cursor pos-r bg-f mt-10" @click="isShowPlate(index)"
+				<div v-if="item.component_key==='hbys1'" 
+					class="cursor pos-r bg-f mt-10" 
+					@click="isShowPlate(index)"
 					:class="index_plate===index?'border_b':errorPlate.hbys1 && index===errorIndex?'border-red':''" >	
 					<!--..................当有数据时执行这里....................-->
 					<div v-if="item.data!==null">	
 						<el-carousel arrow="never" :interval="4000" height="210px" width="375px"> 		
-							<el-carousel-item v-for="(imgNum,i) in item.data.banners" :key="i" style="display: block!important;">
+							<el-carousel-item v-for="(imgNum,i) in item.data.banners" 
+								:key="i" 
+								style="display: block!important;">
 								<img :src="imgNum.image_url" height="100%" width="100%">				
 							</el-carousel-item>
 						</el-carousel>
 					</div>
 					<!--..................当没有数据时执行这里....................-->
 					<div v-if="item.data===null">
-						<el-carousel arrow="never" :interval="4000" height="210px" width="375px">
-							<el-carousel-item v-for="(img,n) in banner1" :key="n" style="display: block!important;" >								
+						<el-carousel arrow="never" 
+							:interval="4000" 
+							height="210px" 
+							width="375px">
+							<el-carousel-item 
+								v-for="(img,n) in banner1" 
+								:key="n" 
+								style="display: block!important;" >								
 								<b class="bg_banner1"></b>
 							</el-carousel-item>
 						</el-carousel>
 					</div>
 					<mallDecora :mallPlate='item' v-if="index_plate===index"></mallDecora>
 					<!--......................上移下移删除箭头......................-->
-					<arrow v-if="index_plate===index||(errorPlate.hbys1&&index===errorIndex)" :index="index" :mallDecor="correscomList" 
+					<!--<arrow v-if="index_plate===index||(errorPlate.hbys1&&index===errorIndex)" 
+						:index="index" 
+						:mallDecor="correscomList" 
 						:isError="errorPlate.hbys1&&index===errorIndex">						
-					</arrow>					
+					</arrow>					-->
 				</div>
 				<!--..................图片导航....................-->
-				<div v-if="item.component_key==='tpdh'" class="cursor pos-r mt-10 tpdh"  @click="isShowPlate(index)"
+				<div v-if="item.component_key==='tpdh'" 
+					class="cursor pos-r mt-10 tpdh"  
+					@click="isShowPlate(index)"
 					:class="index_plate===index?'border_b':errorPlate.tpdh && index===errorIndex?'border-red':''">
 					
 					<!--..................当有数据时执行这里....................-->
-					<div v-if="item.data!==null && txtImgSelect===false" class="clearfix imgNavCon"> 
+					<div v-if="item.data!==null && txtImgSelect===false" 
+						class="clearfix imgNavCon"> 
 						<div  v-for="(itemImg,i) in item.data.banners" class="float-l">
 							<div class="imageTxtcon">
 								<img :src="itemImg.image_url" class="imageTxt"/>
@@ -50,24 +65,37 @@
 							</div>
 						</div>
 					</div>	
-					<mallDecora  v-if="index_plate===index" :mallPlate='item' :index="index" @changeNum="changeNum" @controlImg="controlImg">						
+					<mallDecora  v-if="index_plate===index" 
+						:mallPlate='item' 
+						:index="index" 
+						@changeNum="changeNum" 
+						@controlImg="controlImg">						
 					</mallDecora>
 					<!--......................上移下移删除箭头......................-->
-					<arrow v-if="index_plate===index||(errorPlate.tpdh&&index===errorIndex)" :index="index" :mallDecor="correscomList"
+					<!--<arrow v-if="index_plate===index||(errorPlate.tpdh&&index===errorIndex)" 
+						:index="index" 
+						:mallDecor="correscomList"
 						:isError="errorPlate.tpdh && index===errorIndex">
 						
-					</arrow>
+					</arrow>-->
 				</div>
 				<!--..................商品单列....................-->
-				<div  v-if="item.component_key==='splb1'&&shopNum!==0" class="cursor pos-r mt-10 splb1"  @click="isShowPlate(index)"
+				<div  v-if="item.component_key==='splb1'&&shopNum!==0" 
+					class="cursor pos-r mt-10 splb1"  
+					@click="isShowPlate(index)"
 					:class="index_plate===index?'border_b': errorPlate.splb1 && index===errorIndex?'border-red':''">	
-					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
+					
+					<h2 class="f16 color-3 text-c font-n line" 
+						v-if="item.data.title_switch==='on'">
 						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
 					</h2>
+					
 					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
 					<div v-if="item.list.length!==0">
 						<div v-for="(single,index) in item.list" class="px-15 mb-20">
-							<img :src="single.images[0].image_url" width="345" height="345" class="mt-15 display-b"/>
+							<img :src="single.images[0].image_url" 
+								width="345" height="345" 
+								class="mt-15 display-b"/>
 							<div class="color-3 f14 mt-10 product_name">{{single.product_name}}</div>
 							<div class="clearfix mt-10">
 								<p class="float-l f16 color-red clearfix">
@@ -97,21 +125,29 @@
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
 					<!--....................上下删除箭头.................-->
-					<arrow v-if="index_plate===index||(errorPlate.splb1&&index===errorIndex)" :index="index" :mallDecor="correscomList"
+					<!--<arrow v-if="index_plate===index||(errorPlate.splb1&&index===errorIndex)" 
+						:index="index" 
+						:mallDecor="correscomList"
 						:isError="errorPlate.splb1&&index===errorIndex">
 						
-					</arrow>
+					</arrow>-->
 				</div>
 				<!--..................商品双列....................-->
-				<div  v-if="item.component_key==='splb2'&&shopNum!==0" class="cursor pos-r mt-10 splb2" @click="isShowPlate(index)"
-					:class="index_plate===index?'border_b': errorPlate.splb2 && index===errorIndex?'border-red':''" >			
-					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
+				<div  v-if="item.component_key==='splb2'&&shopNum!==0" class="cursor pos-r mt-10 splb2" 
+					@click="isShowPlate(index)"
+					:class="index_plate===index?'border_b': errorPlate.splb2 && index===errorIndex?'border-red':''" >
+					
+					<h2 class="f16 color-3 text-c font-n line" 
+						v-if="item.data.title_switch==='on'">
 						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
 					</h2>
 					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
 					<div v-if="item.list.length!==0" class="clearfix">
-						<div v-for="(single,index) in item.list" class="mb-20 item float-l pl-15">
-							<img :src="single.images[0].image_url"  width="165" height="165" class="mt-15 display-b"/>
+						<div v-for="(single,index) in item.list" 
+							class="mb-20 item float-l pl-15">
+							<img :src="single.images[0].image_url"  
+								width="165" height="165" 
+								class="mt-15 display-b"/>
 							<div class="color-3 f14 mt-10 product_name_two">{{single.product_name}}</div>
 							<div class="clearfix mt-10 line-21">
 								<p class="float-l f16 color-red clearfix">
@@ -142,9 +178,11 @@
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum">
 					</mallDecora>
 					<!--....................上下删除箭头.................-->
-					<arrow v-if="index_plate===index||(errorPlate.splb2&&index===errorIndex)" :index="index" :mallDecor="correscomList"
-					:isError="errorPlate.splb2&&index===errorIndex">
-					</arrow>
+					<!--<arrow v-if="index_plate===index||(errorPlate.splb2&&index===errorIndex)" 
+						:index="index" 
+						:mallDecor="correscomList"
+						:isError="errorPlate.splb2&&index===errorIndex">
+					</arrow>-->
 				</div>
 				<!--..................商品三列....................-->
 				<div  v-if="item.component_key==='splb3'&&shopNum!==0" class="cursor pos-r mt-10 splb3" @click="isShowPlate(index)"
@@ -181,10 +219,11 @@
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
 					<!--....................上下删除箭头.................-->
-					<arrow v-if="index_plate===index||(errorPlate.splb3&&index===errorIndex)" :index="index" :mallDecor="correscomList"
-					:isError="errorPlate.splb3&&index===errorIndex" >
+					<!--<arrow v-if="index_plate===index||(errorPlate.splb3&&index===errorIndex)" 
+						:index="index" :mallDecor="correscomList"
+						:isError="errorPlate.splb3&&index===errorIndex" >
 						
-					</arrow>
+					</arrow>-->
 				</div>
 				<!--..................轮播海报二....................-->
 				<div v-if="item.component_key==='hbys2'" class="cursor pos-r bg-f mt-10 hbys2"  @click="isShowPlate(index)"
@@ -210,9 +249,11 @@
 					</div>
 					<mallDecora :mallPlate='item' v-if="index_plate===index"></mallDecora>
 					<!--......................上移下移删除箭头......................-->
-					<arrow v-if="index_plate===index||(errorPlate.hbys2&&index===errorIndex)"  :index="index" :mallDecor="correscomList"
-					:isError="errorPlate.hbys2&&index===errorIndex">		
-					</arrow>
+					<!--<arrow v-if="index_plate===index||(errorPlate.hbys2&&index===errorIndex)"  
+						:index="index" 
+						:mallDecor="correscomList"
+						:isError="errorPlate.hbys2&&index===errorIndex">		
+					</arrow>-->
 				</div>
 				<!--..................商品列表....................-->
 				<div v-if="item.component_key==='splb4'" class="cursor pos-r bg-f mt-10 splb4" @click="isShowPlate(index)"
@@ -254,9 +295,10 @@
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
 					<!--....................上下删除箭头.................-->
-					<arrow v-if="index_plate===index||(errorPlate.splb4&&index===errorIndex)" :index="index" :mallDecor="correscomList"
+					<!--<arrow v-if="index_plate===index||(errorPlate.splb4&&index===errorIndex)" 
+						:index="index" :mallDecor="correscomList"
 						:isError="errorPlate.splb4&&index===errorIndex">
-					</arrow>						
+					</arrow>						-->
 				</div>
 				<!--..................文字导航....................-->
 				<div v-if="item.component_key==='wzdh'" class="cursor pos-r bg-f mt-10 wzdh"  @click="isShowPlate(index)"
@@ -282,9 +324,11 @@
 					<!--....................右边.................-->
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
 					<!--....................上下删除箭头.................-->
-					<arrow v-if="index_plate===index||(errorPlate.wzdh&&index===errorIndex)" :index="index" :mallDecor="correscomList"
+					<!--<arrow v-if="index_plate===index||(errorPlate.wzdh&&index===errorIndex)" 
+						:index="index" 
+						:mallDecor="correscomList"
 						:isError="errorPlate.wzdh && index===errorIndex">
-					</arrow>
+					</arrow>-->
 				</div>
 			</div>
 		</div>

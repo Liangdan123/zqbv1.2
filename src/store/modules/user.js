@@ -94,6 +94,9 @@ const actions={
 				break;
 			case 2:
 			router.replace("/agent/orderTable");
+			case 4:
+			router.replace("/server/sellercenter/servicerCenter");
+			break;
 		}
 		
 	},
@@ -105,8 +108,6 @@ const actions={
 		.then(({data})=>{
 			commit(types.LOGOUT);
 			router.replace('/');			
-		})
-		.catch(({response: {status, data}})=>{
 		})
 	},
 	//重置密码成功（手机和邮箱）

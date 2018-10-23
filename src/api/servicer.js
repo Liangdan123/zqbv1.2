@@ -16,7 +16,7 @@ export const createStoreMess=(storeMess)=>axios.post("shop/create",storeMess)//�
 
 export const getStoreBanner=(shop_id)=>axios.get("shop/get_banner",{params:{shop_id}})//获取店铺轮播图
 													
-export const getStoreData =(shop_id)=>axios.get("seller/get_shop_statistics",{params:{shop_id}})//获取店铺统计图表(服务商)
+export const getStoreData =(shop_id)=>axios.post("seller/get_shop_statistics_chart",shop_id)//获取店铺统计图表(服务商)
 
 export const getshopDynamics=(data)=>axios.post("seller/operate_log_lists",data)//获取店铺动态列表(卖家中心)
 
