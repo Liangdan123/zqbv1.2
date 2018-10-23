@@ -69,10 +69,7 @@
       },
       doLogin(data) {
         //登陆成功时执行的函
-        this.$store.dispatch("doLogin", data); 
-        if(data.type===4){//服务商时才需要获取服务商店铺
-        	 this.$store.dispatch("doGetUserMess");
-        }              
+        this.$store.dispatch("doLogin", data);            
       }
     },
     computed: {

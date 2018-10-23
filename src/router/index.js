@@ -135,7 +135,7 @@ const router = new Router({
 						name: 'partnerMoney',
 						component: partnerMoney,
 					},
-				{
+					{
 						path: 'partnerMoney/WithdrawalApply',
 						name: 'partnerWithdrawalApply',
 						component: partnerWithdrawalApply,

@@ -50,7 +50,6 @@ const actions={
 			//没有数据时长度为0
 			let len=data.length;
 			commit(types.MESSLENGTH,len);
-			console.log("data.length:",data.length)
 			if(len > 0) {
 				let shop_id = data[0].shop_id;	
 				console.log("shop_id:",shop_id)

@@ -143,6 +143,7 @@
 				</div>
 			</div>			
 		</div>
+		<div v-show="false">{{getMessage}}</div>
 		<!--.....................四个表格..............-->
 		<ECharts
 			:chart-data="statisticsData"
@@ -162,6 +163,7 @@
 	import * as links from "@/links/index"
 	import {getUserMess,getStoreData,getshopDynamics,getDynamicsNum} from "@/api/servicer"
 	import {getStoreStatistics} from "@/api/platform"
+	import * as types from "@/store/mutation-types"
 	import router from "@/router"
 	export default{
 		name:"servicerCenter",
@@ -182,7 +184,6 @@
 					{index:""},				
 					{index:""},			
 					{index:""},	
-					{index:""}
 				],
 				clearNumTime:"",
 				clearDynamicTime:"",
@@ -190,18 +191,24 @@
 				loadDynamic:true,
 				loadUntreated:true,
 				loadTotal:true,
-				shopId:"",
 				shopLength:"",
+				shopId:"",
 			}
 		},
-		created(){
-			this.shopLength=this.$store.getters.getMessLength;
-			if(this.shopLength===0){//没有店铺弹出弹框让其开店
-				this.dialogVisible=true
-				return 
+		computed:{
+			getMessage(){
+				let time
+				if(!this.shopLength){//setInterval解决异步问题
+					setInterval(this._shopId(),1000)
+				}else{					
+					clearInterval(time);
+					if(this.shopLength===0){//没有店铺弹出弹框让其开店
+						this.dialogVisible=true
+						return 
+					}
+					this.getUser();
+				}					
 			}
-			this._shopId();			
-			setTimeout(this.getUser(),5000)//获取服务商店铺
 		},
 		beforeRouteLeave(to, from, next){
 			clearInterval(this.clearNumTime);
@@ -248,7 +255,6 @@
 				this.$router.push("/server/sellercenter/Irregularities")
 			},
 			getUser(){
-				console.log("this.shopId:",this.shopId)
 				let shop_id=this.shopId;
 				this.getServicerMess({shop_id})//获取店铺统计数据
 				let setDynamic={
@@ -264,7 +270,12 @@
 			_shopId(){
 				getUserMess()//获取服务商店铺
 				.then(({data})=>{	
-					this.shopId=data[0].shop_id;	
+					this.shopLength=data.length;
+					this.$store.commit(types.MESSLENGTH,this.shopLength);
+					if(this.shopLength > 0) {
+						this.shopId = data[0].shop_id;	
+						this.$store.commit(types.GETSHOPID,this.shopId);
+					};	
 				})				
 			},
 			getServicerMess(data){//获取店铺统计数据
@@ -285,15 +296,15 @@
 				this.$store.dispatch('doLogout');
 			},
 			timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口				
-//				if(!this.shopLength||this.shopLength==0){return}
-//				let shop_id=this.$store.state.servicer.shop_id;
-//				let condition_search={
-//					shop_id,start_date,end_date
-//				};
-//				getStoreData(condition_search)
-//				    .then(({data:{data}})=>{
-//                      this.statisticsData = data;
-//                  })
+				if(!this.shopLength||this.shopLength==0){return}
+				let shop_id=this.shopId;
+				let condition_search={
+					shop_id,start_date,end_date
+				};
+				getStoreData(condition_search)
+				    .then(({data:{data}})=>{
+                        this.statisticsData = data;
+                    })
 			},
 		}
 	}
@@ -354,6 +365,7 @@
 		    	padding-top:11px;
 		    	padding-bottom: 11px;
     			border-bottom: 1px solid #F0F4F7;
+    			min-height: 32px;
     			&:hover{
     				background-color:#F8FAFC ;
     			}

@@ -95,6 +95,8 @@ const actions={
 			case 4:
 				router.replace("/server/sellercenter/servicerCenter");
 				break;
+			case 3:
+				router.replace("/partner/partnerMoney");
 		}
 		
 	},
