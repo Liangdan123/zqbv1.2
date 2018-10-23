@@ -7,9 +7,9 @@
 				<div v-if="item.component_key==='hbys1'" 
 					class="cursor pos-r bg-f mt-10" 
 					@click="isShowPlate(index)"
-					:class="index_plate===index?'border_b':errorPlate.hbys1 && index===errorIndex?'border-red':''" >	
+					:class="index_plate===index?'border_b':errorPlate.hbys1 && index===errorIndex?'border-red':''" >
 					<!--..................当有数据时执行这里....................-->
-					<div v-if="item.data!==null">	
+					<div v-if="item.data">	
 						<el-carousel arrow="never" :interval="4000" height="210px" width="375px"> 		
 							<el-carousel-item v-for="(imgNum,i) in item.data.banners" 
 								:key="i" 
@@ -19,7 +19,7 @@
 						</el-carousel>
 					</div>
 					<!--..................当没有数据时执行这里....................-->
-					<div v-if="item.data===null">
+					<div v-if="!item.data">
 						<el-carousel arrow="never" 
 							:interval="4000" 
 							height="210px" 
@@ -65,62 +65,49 @@
 						@changeNum="changeNum" 
 						@controlImg="controlImg">						
 					</mallDecora>
-				</div>				
-				<!--..................商品单列....................-->
-				<!--<div  v-if="item.component_key==='splb1'" 
-					class="cursor pos-r mt-10 splb1"  
+				</div>	
+				<!--..................商品列表....................-->
+				<div v-if="item.component_key==='splb1'" 
+					class="cursor pos-r bg-f mt-10 splb4" 
 					@click="isShowPlate(index)"
-					:class="index_plate===index?'border_b': errorPlate.splb1 && index===errorIndex?'border-red':''">	
-					
-					<h2 class="f16 color-3 text-c font-n line" 
-						v-if="item.data.title_switch==='on'">
-						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
-					</h2>-->
-					
+					:class="index_plate===index?'border_b':errorPlate.splb1&&index===errorIndex?'border-red':''">	
+					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
+						<i class="verticalLine"></i>
+						{{!item.data.title?"模块标题":item.data.title}}											
+					</h2>
 					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
-					<!--<div v-if="item.list.length!==0">
-						<div v-for="(single,index) in item.list" class="px-15 mb-20">
-							<img :src="single.images[0].image_url" 
-								width="345" height="345" 
-								class="mt-15 display-b"/>
-							<div class="color-3 f14 mt-10 product_name">{{single.product_name}}</div>
-							<div class="clearfix mt-10">
-								<p class="float-l f16 color-red clearfix">
+					<div v-if="item.list.length!==0" class="pb-20">
+						<div v-for="(single,index) in item.list" class="mx-15 mt-20 item clearfix">
+							<img :src="single.images[0].image_url" width="134" height="134" class="float-r"/>						
+							<div class="clearfix mt-10 item-left float-l">
+								<div class="color-3 f14 mt-10 product_name_four">{{single.product_name}}</div>
+								<p class="float-l f16 color-red clearfix mt-10">
 									<b>￥</b>
 									<b v-if="single.product_price_yuan.min==single.product_price_yuan.max">														
 										{{single.product_price_yuan.min}}
 									</b>
 									<b v-else>{{single.product_price_yuan.min}} - {{single.product_price_yuan.max}}</b>
 								</p>
-								<p class="float-r color-7F f12">
+								<p class="float-r color-7F f12 mt-10">
 									销量：<span>{{single.statistics_product.sell_num}}</span>
 								</p>
-							</div>
+							</div>							
 						</div>	
-					</div>-->
+					</div>
 					<!--...................没有搜索出来数据....................-->
-					<!--<div v-if="item.list.length===0">
-						<div  class="px-15">
-							<b class="mt-15 display-b" style="height: 345px; width: 345px; background-color: #E5F5FF;"></b>
-							<div class="color-3 f14 mt-10 product_name">产品名称</div>
-							<div class="clearfix mt-10">
+					<div v-if="item.list.length===0" class="pb-20">
+						<div v-for="item in mulitRow" class="mx-15 mt-20 item clearfix">
+							<b  style="height: 134px; width: 134px; background-color: #E5F5FF;float:right"></b>							
+							<div class="clearfix item-left float-l mt-10">
+								<div class="color-3 f14 mt-10 product_name_four">产品名称</div>
 								<p class="float-l f16 color-red clearfix"><b>￥</b><b >888</b></p>																																						
 								<p class="float-r color-7F f12">销量：<span>888</span></p>							
 							</div>
 						</div>
-					</div>					-->
+					</div>					
 					<!--....................右边.................-->
-<!--					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>-->
-					<!--....................上下删除箭头.................-->
-					<!--<arrow v-if="index_plate===index||(errorPlate.splb1&&index===errorIndex)" 
-						:index="index" 
-						:mallDecor="correscomList"
-						:isError="errorPlate.splb1&&index===errorIndex">
-						
-					</arrow>-->
-<!--				</div>-->
-
-
+					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
+				</div>
 				<!--..................商品双列....................-->
 				<div  v-if="item.component_key==='splb2'" class="cursor pos-r mt-10 splb2" 
 					@click="isShowPlate(index)"
@@ -128,7 +115,7 @@
 					<h2 class="f16 color-3 text-c font-n line" 
 						v-if="item.data.title_switch==='on'">
 						<i class="verticalLine"></i>
-						{{item.data.title===null?"模块标题":item.data.title}}											
+						{{!item.data.title?"模块标题":item.data.title}}											
 					</h2>
 					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
 					<div v-if="item.list.length!==0" class="clearfix">
@@ -167,54 +154,19 @@
 					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum">
 					</mallDecora>
 				</div>
-				<!--..................商品三列....................-->
-				<div  v-if="item.component_key==='splb3'&&shopNum!==0" 
-					class="cursor pos-r mt-10 splb3" 
-					@click="isShowPlate(index)"
-					:class="index_plate===index?'border_b':errorPlate.splb3 && index===errorIndex?'border-red':''"	>
-					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
-						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
-					</h2>
-					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
-					<div v-if="item.list.length!==0" class="clearfix">
-						<div v-for="(single,index) in item.list" class="mb-20 item float-l pl-15">
-							<img :src="single.images[0].image_url"  width="105" height="105" class="mt-15 display-b"/>
-							<div class="color-3 f14 mt-10 product_name_two">{{single.product_name}}</div>
-							<div class="clearfix mt-10 line-21">
-								<p class="float-l f16 color-red clearfix">
-									<b>￥</b>
-									<b v-if="single.product_price_yuan.min==single.product_price_yuan.max">														
-										{{single.product_price_yuan.min}}
-									</b>
-									<b v-else>{{single.product_price_yuan.min}}-{{single.product_price_yuan.max}}</b>
-								</p>
-							</div>
-						</div>	
-					</div>
-					<!--...................没有搜索出来数据....................-->
-					<div v-if="item.list.length===0" class="clearfix">
-						<div v-for="item in threeRow" class="float-l pl-15">
-							<b class="mt-15 display-b" style="height: 105px; width: 105px; background-color: #E5F5FF;"></b>
-							<div class="color-3 f14 mt-10 product_name_three">产品名称</div>
-							<div class="clearfix mt-10 line-21">
-								<p class="float-l f16 color-red clearfix"><b>￥</b><b >888</b></p>													
-							</div>
-						</div>
-					</div>		
-					<!--....................右边.................-->
-					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
-					<!--....................上下删除箭头.................-->
-				</div>
 				<!--..................轮播海报二....................-->
-				<div v-if="item.component_key==='hbys2'" class="cursor pos-r bg-f mt-10 hbys2"  @click="isShowPlate(index)"
-					 :class="index_plate===index?'border_b': errorPlate.hbys2 && index===errorIndex?'border-red':''">
+				<div v-if="item.component_key==='hbys2'" 
+					class="cursor pos-r bg-f mt-10 hbys2"  
+					@click="isShowPlate(index)"
+					:class="index_plate===index?'border_b': errorPlate.hbys2 && index===errorIndex?'border-red':''">
 					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
 						<i class="verticalLine"></i>{{item.data.title===undefined?"模块标题":item.data.title}}											
 					</h2>
 					<!--..................当有数据时执行这里....................-->
 					<div v-if="item.data.banners!==undefined" class="mt-10">	
 						<el-carousel arrow="never" :interval="4000" height="179px" width="320px" type="card"> 		
-							<el-carousel-item v-for="(imgNum,i) in item.data.banners" :key="i" style="display: block!important;">
+							<el-carousel-item v-for="(imgNum,i) in item.data.banners" :key="i" 
+								style="display: block!important;">
 								<img :src="imgNum.image_url" height="100%" width="100%">				
 							</el-carousel-item>
 						</el-carousel>
@@ -229,78 +181,18 @@
 					</div>
 					<mallDecora :mallPlate='item' v-if="index_plate===index"></mallDecora>
 				</div>
-				<!--..................商品列表....................-->
-				<div v-if="item.component_key==='splb1'" 
-					class="cursor pos-r bg-f mt-10 splb4" 
-					@click="isShowPlate(index)"
-					:class="index_plate===index?'border_b':errorPlate.splb4 && index===errorIndex?'border-red':''">					
-					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
-						<i class="verticalLine"></i>
-						{{!item.data.title?"模块标题":item.data.title}}											
-					</h2>
-					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
-					<div v-if="item.list.length!==0" class="pb-20">
-						<div v-for="(single,index) in item.list" class="mx-15 mt-20 item clearfix">
-							<img :src="single.images[0].image_url" width="134" height="134" class="float-r"/>						
-							<div class="clearfix mt-10 item-left float-l">
-								<div class="color-3 f14 mt-10 product_name_four">{{single.product_name}}</div>
-								<p class="float-l f16 color-red clearfix mt-10">
-									<b>￥</b>
-									<b v-if="single.product_price_yuan.min==single.product_price_yuan.max">														
-										{{single.product_price_yuan.min}}
-									</b>
-									<b v-else>{{single.product_price_yuan.min}} - {{single.product_price_yuan.max}}</b>
-								</p>
-								<p class="float-r color-7F f12 mt-10">
-									销量：<span>{{single.statistics_product.sell_num}}</span>
-								</p>
-							</div>							
-						</div>	
-					</div>
-					<!--...................没有搜索出来数据....................-->
-					<div v-if="item.list.length===0" class="pb-20">
-						<div v-for="item in mulitRow" class="mx-15 mt-20 item clearfix">
-							<b  style="height: 134px; width: 134px; background-color: #E5F5FF;float:right"></b>							
-							<div class="clearfix item-left float-l mt-10">
-								<div class="color-3 f14 mt-10 product_name_four">产品名称</div>
-								<p class="float-l f16 color-red clearfix"><b>￥</b><b >888</b></p>																																						
-								<p class="float-r color-7F f12">销量：<span>888</span></p>							
-							</div>
-						</div>
-					</div>					
-					<!--....................右边.................-->
-					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
-				</div>
-				<!--..................文字导航....................-->
-				<div v-if="item.component_key==='wzdh'" class="cursor pos-r bg-f mt-10 wzdh"  @click="isShowPlate(index)"
-					:class="index_plate===index?'border_b': errorPlate.wzdh && index===errorIndex?'border-red':''">
-					<!--..................当有数据时执行这里....................-->
-					<div v-if="item.data!==null" class="px-15">
-						<div v-for="(itemTxt,txtSort) in item.data.banners" class="py-18" 
-							:class="(txtSort+1)!==item.data.banners.length?'border-e9-b':''">
-							<div class="clearfix">
-								<span class="float-l">{{itemTxt.name}}</span>
-								<i class="iconfont icon-shangyi1 color-7F float-r"></i>
-							</div>
-						</div>
-					</div>
-					<div v-if="!item.data" class="px-15">
-						<div v-for="(item,txtSort) in txtTitle" class="py-18" :class="(txtSort+1)!==txtTitle.length?'border-e9-b':''">
-							<div class="clearfix">
-								<span class="float-l color-3 f14">导航名字</span>
-								<div class="float-r"><i class="iconfont icon-shangyi1 color-7F"></i></div>								
-							</div>
-						</div>
-					</div>
-					<!--....................右边.................-->
-					<mallDecora v-if="index_plate===index" :mallPlate='item' :shopNum="shopNum"></mallDecora>
+				<!--..................店铺列表....................-->
+				<div>
+					
 				</div>
 			</div>
 		</div>
 		<!--.........................保存装修按钮......................-->
 		<div class="fixed-frame">
 			<div class="btn middle">
-				<el-button class="store-button1 float-l px-30" @click="preserveDecore">保存装修</el-button>
+				<el-button class="store-button1 float-l px-30" @click="preserveDecore">
+					保存装修
+				</el-button>
 			</div>			
 		</div>
 	</div>
@@ -332,9 +224,7 @@
 					hbys1:false,
 					tpdh:false,
 					splb2:false,
-					splb3:false,
-					hbys2:false,
-					splb4:false,
+					hbys2:false,					
 					wzdh:false
 				},
 				errorIndex:0,//验证错误的顺序（有两种相同样式时有用）
@@ -363,26 +253,25 @@
 		methods:{
 			isShowPlate(index){//是否显示上下箭头，border,右边版块
 				this.index_plate=index;
-				let arr1=["hbys1","tpdh","splb2","splb3","hbys2"];
+				let arr1=["hbys1","tpdh","splb2","hbys2"];
 				this.isBoolean(arr1,false)
 			},
 			preserveDecore(){//保存装修
 				for(let [index,item] of this.correscomList.entries()){//保存装修错误验证
-					switch(true){
-						case item.component_key==='hbys1':
+					switch(item.component_key){
+						case 'hbys1':
 							if(!item.data){//当没有修改轮播图时
 								this.errorTips("hbys1","请设置海报样式",index);
 								return
-							}else if(item.data){
-								for(let bannerIndex of item.data.banners.values()){
-									if(bannerIndex.image_url===undefined){//当忘记上传图片地址时
-										this.errorTips("hbys1","请上传海报图片",index);
-										return
-									}
+							}	
+							for(let bannerIndex of item.data.banners.values()){
+								if(!bannerIndex.image_url){//当忘记上传图片地址时
+									this.errorTips("hbys1","请上传海报图片",index);
+									return
 								}
-							};
+							}
 							break
-						case item.component_key==='tpdh':
+						case 'tpdh':
 							if(!item.data){//当没有修改图片导航时
 								this.errorTips("tpdh","请设置图片导航",index);
 								return
@@ -413,8 +302,17 @@
 									}
 								}
 							};							
-							break;	
-						case item.component_key==='splb2':
+							break;
+						case 'splb1':
+							console.log(333333333333)
+							if(item.data.title_switch==='on'){
+								if(!item.data.title){
+									this.errorTips("splb1","请输入模块标题",index);
+									return
+								};								
+							};
+							break
+						case 'splb2':
 							if(item.data.title_switch==='on'){
 								if(!item.data.title){								
 									this.errorTips("splb2","请输入模块标题",index);
@@ -422,15 +320,7 @@
 								}								
 							};
 							break;
-						case item.component_key==='splb3':
-							if(item.data.title_switch==='on'){
-								if(!item.data.title){
-									this.errorTips("splb3","请输入模块标题",index);
-									return
-								};								
-							};
-							break;
-						case item.component_key==='hbys2':
+						case 'hbys2':
 							if(item.data.title_switch==='on'){
 								if(!item.data.title){								
 									this.errorTips("hbys2","请输入模块标题",index);
@@ -443,29 +333,29 @@
 							}
 							if(item.data.banners.length!==0){
 								for(let bannerIndex of item.data.banners.values()){
-									if(bannerIndex.image_url===undefined){//当忘记上传图片地址时
-										this.errorTips("hbys2","请上传海报图片",index);return										
+									if(!bannerIndex.image_url){//当忘记上传图片地址时
+										this.errorTips("hbys2","请上传海报图片",index);
+										return
 									}
 								}
 							}																
 							break;
-						case item.component_key==='splb4':
-							if(item.data.title_switch==='on'){
-								if(item.data.title===null||item.data.title===''||item.data.title===undefined){
-									this.errorTips("splb4","请输入模块标题",index);
-									return
-								};								
-							};
-							break
+
 					};
 				};
 				//保存装修接口
 				existAssembly(this.correscomList)
 				.then(({data})=>{					
-					this.$message({message: '保存成功', type: 'success',showClose:'true'});
+					this.$message({
+						message: '保存成功',
+						type: 'success',
+						showClose:'true'
+					});
 				})
 			},
 			errorTips(name,tips,index){//错误提示(公共方法)
+				console.log("name:",name);
+				console.log("index:",index)
 				this.errorPlate[name]=true;
 				this.$message.error(tips);
 				this.errorIndex=index;

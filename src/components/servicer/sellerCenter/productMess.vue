@@ -295,11 +295,8 @@
 								return
 							}
 						};
-						if (this.title === "编辑商品") {//根据名字不同调的接口不同
-							this._edit(this.pulishForm)
-						} else if (this.title === "发布商品") {
-							this._pulish(this.pulishForm)
-						}
+						//根据名字不同调的接口不同
+						this.title === "编辑商品"?this._edit(this.pulishForm):this._pulish(this.pulishForm)
 					} else {
 						return false
 					}

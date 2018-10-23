@@ -233,6 +233,11 @@
 		mixins:[page,storeClassify],
 		methods:{
 			_doSearch(){
+				let type=this.$store.getters.getType;
+				let shop_id=this.$store.getters.getShop_id
+				if(type===4){
+					this.searchCondition=Object.assign({},this.searchCondition,{shop_id})
+				};
 				getProductList(this.searchCondition)
 				.then(({data})=>{
 					this.list=data;
