@@ -160,10 +160,10 @@
 					@click="isShowPlate(index)"
 					:class="index_plate===index?'border_b': errorPlate.hbys2 && index===errorIndex?'border-red':''">
 					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
-						<i class="verticalLine"></i>{{item.data.title===undefined?"模块标题":item.data.title}}											
+						<i class="verticalLine"></i>{{!item.data.title?"模块标题":item.data.title}}											
 					</h2>
 					<!--..................当有数据时执行这里....................-->
-					<div v-if="item.data.banners!==undefined" class="mt-10">	
+					<div v-if="item.data.banners" class="mt-10">	
 						<el-carousel arrow="never" :interval="4000" height="179px" width="320px" type="card"> 		
 							<el-carousel-item v-for="(imgNum,i) in item.data.banners" :key="i" 
 								style="display: block!important;">
@@ -172,7 +172,7 @@
 						</el-carousel>
 					</div>
 					<!--..................当没有数据时执行这里....................-->
-					<div v-if="item.data.banners===undefined" class="mt-10">
+					<div v-if="!item.data.banners" class="mt-10">
 						<el-carousel arrow="never" :interval="4000" height="179px" width="320px" type="card" >
 							<el-carousel-item v-for="(img,n) in banner2" :key="n" style="display: block!important;" >								
 								<b class="bg_banner1"></b>
@@ -181,9 +181,46 @@
 					</div>
 					<mallDecora :mallPlate='item' v-if="index_plate===index"></mallDecora>
 				</div>
-				<!--..................店铺列表....................-->
-				<div>
-					
+				
+				<!--..................店铺列表....................-->				
+				<div v-if="item.component_key==='dplb1'" 
+					class="cursor pos-r bg-f mt-10 dplb1"
+					@click="isShowPlate(index)"
+					:class="index_plate===index?'border_b': errorPlate.dplb1 && index===errorIndex?'border-red':''">
+					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
+						<i class="verticalLine"></i>
+						{{!item.data.title?"模块标题":item.data.title}}											
+					</h2>
+					<!--..................没有店铺列表时....................-->	
+					<div v-if="item.shop_list.length===0" >
+						<div class="dplb1_plate" v-for="item in 3">
+							<div class="dplb1_top clearfix">
+								<div class="dplb1_top-left float-l">
+									
+								</div>
+								<div class="dplb1_top-right float-l">
+									<h2 >店铺名称</h2>
+									<div class="dplb1_top-mess">
+										<span>商品200</span>
+										<span>收藏200</span>
+										<span>服务9.5分</span>
+									</div>
+								</div>
+							</div>
+							<div class="clearfix dplb1_bottom-con">
+								<div class="dplb1_bottom " v-for="item in 4">
+									
+								</div>
+							</div>
+						</div>
+					</div>
+					<!--.................有店铺列表时TODO....................-->	
+					<div v-if="item.shop_list.length!==0">
+						
+					</div>										
+					<mallDecora :mallPlate='item' v-if="index_plate===index">
+						
+					</mallDecora>
 				</div>
 			</div>
 		</div>
@@ -225,7 +262,7 @@
 					tpdh:false,
 					splb2:false,
 					hbys2:false,					
-					wzdh:false
+					dplb1:false
 				},
 				errorIndex:0,//验证错误的顺序（有两种相同样式时有用）
 				mallSetMiddle:true,
@@ -304,7 +341,6 @@
 							};							
 							break;
 						case 'splb1':
-							console.log(333333333333)
 							if(item.data.title_switch==='on'){
 								if(!item.data.title){
 									this.errorTips("splb1","请输入模块标题",index);
@@ -354,8 +390,6 @@
 				})
 			},
 			errorTips(name,tips,index){//错误提示(公共方法)
-				console.log("name:",name);
-				console.log("index:",index)
 				this.errorPlate[name]=true;
 				this.$message.error(tips);
 				this.errorIndex=index;
@@ -531,14 +565,51 @@
 	.line-21{
 		line-height: 21px;
 	}
-	.splb3{
+	.dplb1{
 		padding-top: 15px;
 		padding-bottom: 15px;
 		background-color: #fff;
 	}
-	.splb3 .item{
-		width: 105px;
-		min-height: 210px;
+	.dplb1_plate{
+		margin-left: 15px;
+		margin-right: 15px;
+		padding-bottom:15px;
+		border-bottom: 1px solid  #D9D9D9;
+	}
+	.dplb1_top {
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.dplb1_top .dplb1_top-left{
+		height: 50px;
+		width: 50px;
+		background-color:#E5F5FF;
+		border-radius: 50%;
+		margin-right:10px; 
+	}
+	.dplb1_top .dplb1_top-right h2{
+		font-size: 16px;
+		color: #333;
+		font-weight: normal;
+	}
+	.dplb1_top-mess{
+		color: #7F7F7F;
+		font-size: 12px;
+		margin-top: 6px;
+	}
+	.dplb1_top-mess span{
+		padding-right:10px;
+	}
+	.dplb1_bottom-con{
+		margin-left: -9px;
+	}
+	.dplb1_bottom{
+		height:80px;
+		width: 80px;
+		float: left;
+		border-radius: 2px;
+		margin-left: 8px;
+		background-color:#E5F5FF;
 	}
 	.hbys2{
 		padding-top: 15px;
@@ -556,9 +627,6 @@
 		margin-top: 25px;
 		padding-left: 15px;
 		padding-right: 15px;
-	}
-	.wzdh{
-		min-height: 98px;
 	}
 	.py-18{
 		padding-top: 18px;

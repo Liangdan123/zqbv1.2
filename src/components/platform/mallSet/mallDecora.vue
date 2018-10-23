@@ -21,7 +21,7 @@
 		</div>
 		<!--..................商品单列....................-->
 		<div v-if="mallPlate.component_key==='splb1'">
-			<h2 class="mt-20 pb-20 f20 color-3">商品单列</h2>	
+			<h2 class="mt-20 pb-20 f20 color-3">商品展示</h2>	
 			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品单列'
 			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
 			</multiModule>
@@ -38,21 +38,22 @@
 			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
 			</multiModule>
 		</div>
-		<!--..................轮播海报er....................-->
+		<!--..................轮播海报....................-->
 		<div v-if="mallPlate.component_key==='hbys2'">
 			<h2 class="mt-20 pb-20 f20 color-3">轮播海报</h2>
 			<BannerEditor :banner="banner" :allBanner="mallPlate.data" choicePlate="mall" @passBanner="passBanner" title="hbys2">					
 			</BannerEditor>
 		</div>
-		<div v-if="mallPlate.component_key==='splb4'">
-			<h2 class="mt-20 pb-20 f20 color-3">商品列表</h2>
-			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品列表'
-			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
-			</multiModule>
-		</div>
-		<div v-if="mallPlate.component_key==='wzdh'">
-			<h2 class="mt-20 pb-20 f20 color-3 border-e9-b">文字导航</h2>
-			<txtNav :banner=banner @passtxtNav="passtxtNav"  @addNav="addNav"></txtNav>
+		<!--..................店铺列表....................-->
+		<div v-if="mallPlate.component_key==='dplb1'">
+			<h2 class="mt-20 pb-20 f20 color-3">店铺列表</h2>
+			<!--<multiModule :shopRank="mallPlate.data" 
+				:shopList="mallPlate.list"  
+				@showProNum="showProNum" 
+				title='店铺展示'
+			 	@manual="manual" @classifyMethods="classifyMethods" 
+			 	@mallorderby="mallorderby">							
+			</multiModule>-->
 		</div>
 	</div>
 </template>

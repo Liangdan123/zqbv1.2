@@ -1,15 +1,23 @@
 <template>
 	<div class="multiModule">		
 		<!--.........................添加标题弹框.....................-->
-		<el-dialog title="跳转链接" :visible.sync="dialogFormVisible" :close-on-click-modal="false"
-			:modal-append-to-body="false" :lock-scroll="false"  style="text-align: left;">
+		<el-dialog title="跳转链接" 
+			:visible.sync="dialogFormVisible" 
+			:close-on-click-modal="false"
+			:modal-append-to-body="false" 
+			:lock-scroll="false"  
+			style="text-align: left;">
 			<el-tabs v-model="activeName">
 				<el-tab-pane label="商品链接" name="first">
-					<storeList  @productName="classifyCnt" @shop_hidden="shop_hidden" :productChecked="productChecked">						 
+					<storeList  @productName="classifyCnt" 
+						@shop_hidden="shop_hidden" 
+						:productChecked="productChecked">						 
 					</storeList>
 				</el-tab-pane>
 				<el-tab-pane label="商品分类" name="second" >
-					<productClassify   @categorys="categorys" :type="classifyType" :Classify="mallClassify" choiceRole="mall">						
+					<productClassify   @categorys="categorys" 
+						:type="classifyType" :Classify="mallClassify" 
+						choiceRole="mall">						
 						<div class="btn clearfix pt-20 pb-20 border-t">
 							<el-button class="store-button2 float-r" @click="cancel">
 								取消
@@ -23,9 +31,13 @@
 			</el-tabs>
 		</el-dialog>
 		<!--.........................添加商品.....................-->
-		<el-dialog title="添加商品"  :visible.sync="productVisible" :close-on-click-modal="false" :modal-append-to-body="false" 
+		<el-dialog title="添加商品"  :visible.sync="productVisible" 
+			:close-on-click-modal="false" :modal-append-to-body="false" 
 			:lock-scroll="false" style="text-align: left;">
-				<storeList @productName="addProductList" :productChecked="productChecked" @shop_hidden="shop_hidden" @onlyProduct="onlyProduct">						 
+				<storeList @productName="addProductList" 
+					:productChecked="productChecked" 
+					@shop_hidden="shop_hidden" 
+					@onlyProduct="onlyProduct">						 
 				</storeList>
 		</el-dialog>
 		<!--.........................模块标题部分.....................-->
@@ -36,7 +48,10 @@
 		</el-radio-group>
 		<!--.........................添加标题链接部分.....................-->
 		<div class="mt-10 border-e9-b pb-20" v-if="radio1==='on'">
-			<el-input type="text" v-model="shopRank.title"  placeholder="请输入模块标题(必填)" class="login-input2" @change="changeTitle"></el-input>
+			<el-input type="text" v-model="shopRank.title"  
+				placeholder="请输入模块标题(必填)" class="login-input2" 
+				@change="changeTitle">
+			</el-input>
 			<p class="jump mt-10 color-3">添加标题链接</p>
 			<div class="link">
 				 <span>
@@ -52,14 +67,24 @@
 			</div>
 		</div>
 		<!--.........................商品展示数量.....................-->
-		<h3 class="color-3 f14 mt-20 font-n">商品展示数量</h3>
-		<el-select  v-model="value" placeholder="请选择" @change="changeNum" class="changeNum mt-10">
-			<el-option  v-for="item in options" :key="item.value" :label="item.label" :value="item.value">                     
+		<h3 class="color-3 f14 mt-20 font-n">
+			商品展示数量
+		</h3>
+		<el-select  v-model="value" 
+			placeholder="请选择" 
+			@change="changeNum" 
+			class="changeNum mt-10">
+			<el-option  v-for="item in options" 
+				:key="item.value" 
+				:label="item.label" 
+				:value="item.value">                     
 			</el-option>
 		</el-select>
 		<!--.........................选择商品.....................-->
 		<h3 class="color-3 f14 mt-20 font-n">选择商品</h3>
-		<el-radio-group v-model="radio2" class="mt-10  mb-20" @change="isAuto">
+		<el-radio-group v-model="radio2" 
+			class="mt-10  mb-20" 
+			@change="isAuto">
 			<el-radio label="1">自动选择</el-radio>
 			<el-radio label="2">手动添加</el-radio>
 		</el-radio-group>	
@@ -70,23 +95,44 @@
 					<span class="ml-10 float-l color-3">{{item.click_name}}</span>
 				</div>
 			</div>
-			<button class="w-100 btn-add" @click="addProduct" v-if="disabled">
+			<button class="w-100 btn-add"
+				 @click="addProduct" 
+				 v-if="disabled">
 				<b>+</b>添加商品
 				<span>[{{addProductLists.length}}/{{value}}]</span>
 			</button>
 		</div>
-		<h3 class="color-3 f14 mt-20 font-n mb-20" v-if="radio2==='2'">商品自动填充</h3>
+		<h3 class="color-3 f14 mt-20 font-n mb-20" v-if="radio2==='2'">
+			商品自动填充
+		</h3>
 		
-		<h3 class="color-3 f14 font-n">{{radio2==='1'?"选择商品分类":"选择填充商品分类"}}</h3>
+		<h3 class="color-3 f14 font-n">
+			{{radio2==='1'?"选择商品分类":"选择填充商品分类"}}
+		</h3>
 		
-		<el-select  v-model="mall_category_id" placeholder="所有商品" @change="changemallClassify" class="changeNum mt-10">
-			<el-option  v-for="item in mallClassify" :key="item.id" :label="item.mall_category_name" :value="item.id" :class="item.level===1?'color':''">                     
+		<el-select  v-model="mall_category_id" 
+			placeholder="所有商品" 
+			@change="changemallClassify" 
+			class="changeNum mt-10">
+			<el-option  v-for="item in mallClassify" 
+				:key="item.id" 
+				:label="item.mall_category_name" 
+				:value="item.id" 
+				:class="item.level===1?'color':''">                     
 			</el-option>
-		</el-select>
-		
-		<h3 class="color-3 f14 mt-20 font-n">{{radio2==='1'?"商品排序规则":"填充商品排序规则"}}</h3>
-		<el-select  v-model="shopRank.product_orderby" placeholder="所有商品" @change="changemallorderby" class="changeNum mt-10">
-			<el-option  v-for="item in commodityOrdery" :key="item.orderby" :label="item.name" :value="item.orderby">                     
+		</el-select>		
+		<h3 class="color-3 f14 mt-20 font-n">
+			{{radio2==='1'?"商品排序规则":"填充商品排序规则"}}
+		</h3>
+		<el-select  v-model="shopRank.product_orderby" 
+			placeholder="所有商品" 
+			@change="changemallorderby" 
+			class="changeNum mt-10">
+			<el-option  v-for="item in commodityOrdery" 
+			:key="item.orderby" 
+			:label="item.name" 
+			:value="item.orderby">   
+			
 			</el-option>
 		</el-select>
 	</div>
