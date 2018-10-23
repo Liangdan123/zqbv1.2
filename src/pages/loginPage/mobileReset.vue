@@ -99,7 +99,7 @@
             this.msg = "请输入新密码";
             return;
             break;
-          case this.newPassword.length < 6:
+          case this.newPassword.length < 8:
             this.warn = true;
             this.msg = "密码至少6位数";
             return;
@@ -115,7 +115,8 @@
       		verify_code:this.verify_code
       	};
         accountInfo(message) //与后台交成功时的操作      
-          .then(({data}) => {                                
+          .then(({data}) => {     
+            this.$message.success("注册成功,稍后自动登录");                           
             this.$store.dispatch("doLogin", data);
           })
           .catch(({response: {data } }) => { //与后台交互时出现的错误信息                                             
@@ -175,7 +176,7 @@
   }
 
   .sentCode {
-    width: 80px;
+    min-width: 80px;
     height: 27px;
     border-radius: 14px;
     border: 1px solid #0299FF;

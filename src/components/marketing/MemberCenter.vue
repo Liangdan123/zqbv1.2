@@ -14,9 +14,9 @@
                 <div class="condition clearfix mb-10">
                   <span class="float-l grade">会员等级：</span>
                     <el-radio-group v-model="searchCondition.search.level" class="float-l">
-                      <el-radio :label="2" class="display-b">普通会员</el-radio>
-                      <el-radio :label="3" class="display-b">黄金会员</el-radio>
-                      <el-radio :label="4" class="display-b">钻石会员</el-radio>
+                      <el-radio label="2" class="display-b">普通会员</el-radio>
+                      <el-radio label="3" class="display-b">黄金会员</el-radio>
+                      <el-radio label="4" class="display-b">钻石会员</el-radio>
                     </el-radio-group>
                 </div>
               </template>
@@ -25,8 +25,7 @@
           <el-tab-pane label="会员管理" name="first">
             <!-- 会员管理表格 数据父组件提供 -->
             <vipTable :searchCondition='searchCondition' :list="list" 
-            	:total="total" @searchMethod="searchMethod">
-            	
+            	:total="total" @searchMethod="searchMethod"> 	
             </vipTable>
           </el-tab-pane>
         </el-tabs>
@@ -52,9 +51,10 @@
         money: {},
         activeName: "first",
         searchCondition: {
-          cps_id:null,
           page: 1,
-          search: {},
+          search: {
+           cps_id:null,
+          },
           per_page: 20
         },
         list: [],
@@ -63,7 +63,7 @@
     created() {
       //调用获取会员统计数据API
       let user_id={user_id:this.$store.state.user.user.zhixu_id};
-      this.searchCondition.cps_id=user_id.user_id;
+      this.searchCondition.search.cps_id=user_id.user_id;
      getRoleData(user_id)
 			.then(({data})=>{
 				this.money=data

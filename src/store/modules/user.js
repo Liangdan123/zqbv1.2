@@ -92,6 +92,8 @@ const actions={
 			case 1://登录的是平台跳转
 				router.replace("/mallZxh/controlCenter/platDataCenter");
 				break;
+			case 2:
+			router.replace("/agent/orderTable");
 		}
 		
 	},

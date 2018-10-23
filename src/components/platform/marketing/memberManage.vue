@@ -11,10 +11,10 @@
 				<div class="condition clearfix mb-10">
 	      	<span class="float-l grade">会员等级：</span>
 	        <el-radio-group v-model="searchCondition.search.level" class="float-l">
-	        	<el-radio :label="4" class="display-b">钻石会员</el-radio>
-	        	<el-radio :label="3" class="display-b">黄金会员</el-radio>
-	        	<el-radio :label="2" class="display-b">普通会员</el-radio>
-	        	<el-radio :label="1" class="display-b" v-if="isRole">普通用户</el-radio>                      
+	        	<el-radio label="1" class="display-b" v-if="isRole">普通用户</el-radio>                      
+	        	<el-radio label="2" class="display-b">普通会员</el-radio>
+	        	<el-radio label="3" class="display-b">黄金会员</el-radio>
+	        	<el-radio label="4" class="display-b">钻石会员</el-radio>
 	        </el-radio-group>
         </div>
 			</template>

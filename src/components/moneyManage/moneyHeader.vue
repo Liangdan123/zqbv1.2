@@ -97,8 +97,8 @@
 			})
     },
     filters: {
-      money(value=0) {
-        // 金额转换成数字和整数部分
+       money(value=0) {
+        // 金额转换成数字和整数部分\
         value = Number(value).toFixed(2).split('.');
         let value_int = Number(value[0]).toLocaleString(); // 转换成金额形式
         return `￥ ${value_int}.${value[1]}`;

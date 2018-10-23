@@ -9,7 +9,7 @@
       </el-table-column>
       <el-table-column prop="nick_name" label="会员昵称">
       </el-table-column>
-      <el-table-column prop="cps_phone" label="手机号">
+      <el-table-column prop="phone" label="手机号">
       </el-table-column>
       <el-table-column prop="created_at" sortable="custom" label="创建时间">
       </el-table-column>
