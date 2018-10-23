@@ -4,12 +4,9 @@
 			:close-on-click-modal="false"
 			:visible.sync="detailedFailVisible"
 			:title="name">
-			
 			<orderDetailed :user_id="user_id" 
 				:typeKey="+activeName">
-								
 			</orderDetailed>
-			
 		</el-dialog>
 		<div class="clearfix">
 			<searchRole @searchMethod="searchRole" 
@@ -38,13 +35,10 @@
 			</el-table-column>
 			<el-table-column prop="contact_name" label="姓名">
 			</el-table-column>
-			
 			<el-table-column prop="shop_name" label="店铺名称" v-if="+activeName===4">
 			</el-table-column>
-			
 			<el-table-column prop="company_name" label="公司名称" 
 				v-if="+searchCondition.search.is_company===1">
-				
 			</el-table-column>
 			<el-table-column prop="give_order_yuan" label="佣金收入">
 				<template slot-scope="scope">

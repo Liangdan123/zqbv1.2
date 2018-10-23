@@ -18,8 +18,7 @@
       }
     },
   created(){
-      let user_id={user_id:this.$store.state.user.user.zhixu_id};
-			getRoleCPS(user_id)
+			getRoleCPS(this.$store.state.user.user.zhixu_id)
 			.then(({data})=>{
 				  this.urlArr = [{
           "type": "角色发展链接",

@@ -32,7 +32,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[1].rate&&list1[1].rate+'%'}}</span>
+                <span v-if="status!=1">{{list1[1].rate>=0&&list1[1].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list1Coyp[1].rate"></el-input>%
                 </template>
@@ -42,7 +42,7 @@
               <td>代理商
               </td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[2].rate&&list1[2].rate+'%'}}</span>
+                <span v-if="status!=1">{{list1[2].rate>=0&&list1[2].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list1Coyp[2].rate"></el-input>%
                 </template>
@@ -54,7 +54,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[3].rate&&list1[3].rate+'%'}}</span>
+                <span v-if="status!=1">{{list1[3].rate>=0&&list1[3].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list1Coyp[3].rate"></el-input>%
                 </template>
@@ -63,7 +63,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=1">{{list1[4].rate&&list1[4].rate+'%'}}</span>
+                <span v-if="status!=1">{{list1[4].rate>=0&&list1[4].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list1Coyp[4].rate"></el-input>%
                 </template>
@@ -96,7 +96,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[1].rate&&list2[1].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[1].rate>=0&&list2[1].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[1].rate"></el-input>%
                 </template>
@@ -105,7 +105,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[2].rate&&list2[2].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[2].rate>=0&&list2[2].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[2].rate"></el-input>%
                 </template>
@@ -117,7 +117,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[3].rate&&list2[3].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[3].rate>=0&&list2[3].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[3].rate"></el-input>%
                 </template>
@@ -126,7 +126,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[4].rate&&list2[4].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[4].rate>=0&&list2[4].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[4].rate"></el-input>%
                 </template>
@@ -135,7 +135,7 @@
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[5].rate&&list2[5].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[5].rate>=0&&list2[5].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[5].rate"></el-input>%
                 </template>
@@ -149,7 +149,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[6].rate&&list2[6].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[6].rate>=0&&list2[6].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[6].rate"></el-input>%
                 </template>
@@ -158,7 +158,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[7].rate&&list2[7].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[7].rate>=0&&list2[7].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[7].rate"></el-input>%
                 </template>
@@ -167,7 +167,7 @@
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[8].rate&&list2[8].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[8].rate>=0&&list2[8].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[8].rate"></el-input>%
                 </template>
@@ -176,7 +176,7 @@
             <tr>
               <td>服务商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[9].rate&&list2[9].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[9].rate>=0&&list2[9].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[9].rate"></el-input>%
                 </template>
@@ -190,7 +190,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[10].rate&&list2[10].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[10].rate>=0&&list2[10].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[10].rate"></el-input>%
                 </template>
@@ -199,7 +199,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[11].rate&&list2[11].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[11].rate>=0&&list2[11].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[11].rate"></el-input>%
                 </template>
@@ -208,7 +208,7 @@
             <tr>
               <td>服务商</td>
               <td width='322'>
-                <span v-if="status!=2">{{list2[12].rate&&list2[12].rate+'%'}}</span>
+                <span v-if="status!=2">{{list2[12].rate>=0&&list2[12].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list2Coyp[12].rate"></el-input>%
                 </template>
@@ -238,7 +238,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=3">{{list3[0].rate&&list3[0].rate+'%'}}</span>
+                <span v-if="status!=3">{{list3[0].rate>=0&&list3[0].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list3Coyp[0].rate"></el-input>%
                 </template>
@@ -247,7 +247,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=3">{{list3[1].rate&&list3[1].rate+'%'}}</span>
+                <span v-if="status!=3">{{list3[1].rate>=0&&list3[1].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list3Coyp[1].rate"></el-input>%
                 </template>
@@ -259,7 +259,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=3">{{list3[2].rate&&list3[2].rate+'%'}}</span>
+                <span v-if="status!=3">{{list3[2].rate>=0&&list3[2].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list3Coyp[2].rate"></el-input>%
                 </template>
@@ -268,7 +268,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=3">{{list3[3].rate&&list3[3].rate+'%'}}</span>
+                <span v-if="status!=3">{{list3[3].rate>=0&&list3[3].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list3Coyp[3].rate"></el-input>%
                 </template>
@@ -280,7 +280,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=3">{{list3[4].rate&&list3[4].rate+'%'}}</span>
+                <span v-if="status!=3">{{list3[4].rate>=0&&list3[4].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list3Coyp[4].rate"></el-input>%
                 </template>
@@ -289,7 +289,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=3">{{list3[5].rate&&list3[5].rate+'%'}}</span>
+                <span v-if="status!=3">{{list3[5].rate>=0&&list3[5].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list3Coyp[5].rate"></el-input>%
                 </template>
@@ -298,7 +298,7 @@
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <span v-if="status!=3">{{list3[6].rate&&list3[6].rate+'%'}}</span>
+                <span v-if="status!=3">{{list3[6].rate>=0&&list3[6].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list3Coyp[6].rate"></el-input>%
                 </template>
@@ -329,7 +329,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=4">{{list4[0].rate&&list4[0].rate+'%'}}</span>
+                <span v-if="status!=4">{{list4[0].rate>=0&&list4[0].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list4Coyp[0].rate"></el-input>%
                 </template>
@@ -338,7 +338,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=4">{{list4[1].rate&&list4[1].rate+'%'}}</span>
+                <span v-if="status!=4">{{list4[1].rate>=0&&list4[1].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list4Coyp[1].rate"></el-input>%
                 </template>
@@ -350,7 +350,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=4">{{list4[2].rate&&list4[2].rate+'%'}}</span>
+                <span v-if="status!=4">{{list4[2].rate>=0&&list4[2].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list4Coyp[2].rate"></el-input>%
                 </template>
@@ -359,7 +359,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=4">{{list4[3].rate&&list4[3].rate+'%'}}</span>
+                <span v-if="status!=4">{{list4[3].rate>=0&&list4[3].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list4Coyp[3].rate"></el-input>%
                 </template>
@@ -371,7 +371,7 @@
               </td>
               <td>平台</td>
               <td width='322'>
-                <span v-if="status!=4">{{list4[4].rate&&list4[4].rate+'%'}}</span>
+                <span v-if="status!=4">{{list4[4].rate>=0&&list4[4].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list4Coyp[4].rate"></el-input>%
                 </template>
@@ -380,7 +380,7 @@
             <tr>
               <td>代理商</td>
               <td width='322'>
-                <span v-if="status!=4">{{list4[5].rate&&list4[5].rate+'%'}}</span>
+                <span v-if="status!=4">{{list4[5].rate>=0&&list4[5].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list4Coyp[5].rate"></el-input>%
                 </template>
@@ -389,7 +389,7 @@
             <tr>
               <td>合伙人</td>
               <td width='322'>
-                <span v-if="status!=4">{{list4[6].rate&&list4[6].rate+'%'}}</span>
+                <span v-if="status!=4">{{list4[6].rate>=0&&list4[6].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list4Coyp[6].rate"></el-input>%
                 </template>
@@ -410,7 +410,7 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=5">{{list5[0].rate&&list5[0].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[0].rate>=0&&list5[0].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[0].rate"></el-input>%
                 </template>
@@ -426,7 +426,7 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=5">{{list5[1].rate&&list5[1].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[1].rate>=0&&list5[1].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[1].rate"></el-input>%
                 </template>
@@ -435,7 +435,7 @@
             <tr>
               <td width="336">合伙人</td>
               <td>
-                <span v-if="status!=5">{{list5[2].rate&&list5[2].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[2].rate>=0&&list5[2].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[2].rate"></el-input>%
                 </template>
@@ -451,7 +451,7 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=5">{{list5[3].rate&&list5[3].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[3].rate>=0&&list5[3].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[3].rate"></el-input>%
                 </template>
@@ -460,7 +460,7 @@
             <tr>
               <td width="336">合伙人</td>
               <td>
-                <span v-if="status!=5">{{list5[4].rate&&list5[4].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[4].rate>=0&&list5[4].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[4].rate"></el-input>%
                 </template>
@@ -469,7 +469,7 @@
             <tr>
               <td width="336">服务商</td>
               <td>
-                <span v-if="status!=5">{{list5[5].rate&&list5[5].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[5].rate>=0&&list5[5].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[5].rate"></el-input>%
                 </template>
@@ -485,7 +485,7 @@
             <tr>
               <td width="336">代理商</td>
               <td>
-                <span v-if="status!=5">{{list5[6].rate&&list5[6].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[6].rate>=0&&list5[6].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[6].rate"></el-input>%
                 </template>
@@ -494,7 +494,7 @@
             <tr>
               <td width="336">服务商</td>
               <td>
-                <span v-if="status!=5">{{list5[7].rate&&list5[7].rate+'%'}}</span>
+                <span v-if="status!=5">{{list5[7].rate>=0&&list5[7].rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list5Coyp[7].rate"></el-input>%
                 </template>
@@ -512,7 +512,7 @@
             <tr>
               <td width="336">佣金比例</td>
               <td>
-                <span v-if="status!=6">{{list6.order_rate&&list6.order_rate+'%'}}</span>
+                <span v-if="status!=6">{{list6.order_rate>=0&&list6.order_rate+'%'}}</span>
                 <template v-else>
                   <el-input size="samll" v-model="list6Coyp.order_rate"></el-input>%
                 </template>

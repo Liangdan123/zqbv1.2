@@ -60,7 +60,7 @@
 						type:"",
 					},
 					page: 1,
-					per_page: 2,
+					per_page: 20,
 				},
 				list:{data:[]},
 				loading:true,
@@ -101,5 +101,3 @@
 	}
 </script>
 
-<style>
-</style>

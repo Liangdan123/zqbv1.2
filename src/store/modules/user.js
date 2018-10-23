@@ -92,11 +92,16 @@ const actions={
 			case 1://登录的是平台跳转
 				router.replace("/mallZxh/controlCenter/platDataCenter");
 				break;
+			case 2:
+				router.replace("/agent/orderTable");
+				break;
 			case 4:
 				router.replace("/server/sellercenter/servicerCenter");
 				break;
 			case 3:
 				router.replace("/partner/partnerMoney");
+			break;
+
 		}
 		
 	},
