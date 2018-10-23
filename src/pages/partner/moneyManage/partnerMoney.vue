@@ -1,10 +1,11 @@
 <template>
   <div>
     <!-- 提现记录弹窗 -->
-    <el-dialog :visible.sync="visible2" :close-on-click-modal="false" class="withdraw" title="提现记录" @close="backDetail">
-      <widthDrawTable :list='fundList.data' :Visible="model" @checkDetail="checkDetail" @backDetail="backDetail"
+    <el-dialog :visible.sync="visible" :close-on-click-modal="false" class="withdraw" title="提现记录" @close="backDetail">
+      <!-- <widthDrawTable :list='fundList.data' :Visible="model" @checkDetail="checkDetail" @backDetail="backDetail"
         @sureFund="sureFund">
-      </widthDrawTable>
+      </widthDrawTable> -->
+      <widthDrawTable :user_id="user_id" typeKey="3" ref='tixian'></widthDrawTable>
     </el-dialog>
     <!-- 资金管理头部 -->
     <moneyHeader @Viewlog='_list'  @applyFund='openApply'></moneyHeader>
@@ -26,7 +27,7 @@
 </template>
 
 <script>
-  import {getFundList} from "@/api/platform" 
+  // import {getFundList} from "@/api/platform" 
   import moneyHeader from "@/components/moneyManage/moneyHeader"
   import orderDetailed from "@/components/platform/fund/orderDetailed"
   import roleDetailed from "@/components/platform/fund/roleDetailed"
@@ -37,14 +38,14 @@
     data() {
       return {
         activeName: '2',
-        list: [],
         disabled: false,
         loading: false,
-        fundList: {
-          data: []
-        }, //提现记录列表
-        model: true, //控制提现记录
-        visible2:false,
+        visible: false,
+      // fundList: {
+      //   data: []
+        // }, //提现记录列表
+        // model: true, //控制提现记录
+        // visible2:false,
       }
     },
     components: {
@@ -58,32 +59,38 @@
       this.user_id = this.$store.state.user.user.zhixu_id;
     },
     methods: {
-      openApply() {
+       openApply() {
         this.$router.push("partnerMoney/WithdrawalApply")
       },
-      _list() { //打开提现记录
-        //根据身份id查提现记录传入子组件
-        let user_id = this.$store.state.user.user.zhixu_id;
-        getFundList({
-            user_id
-          }) //获取提现记录列表
-          .then(({
-            data
-          }) => {
-            this.model = true;
-            this.fundList = data;
-            this.visible2 = true;
-          })
+      _list() {
+        this.visible = true;
       },
-      checkDetail() {
-        this.model = false;
+      closeModel() {
+        this.$refs.tixian.init()
       },
-      backDetail() {
-        this.model = true;
-      },
-      sureFund() {
-        this._list()
-      }
+      // _list() { //打开提现记录
+      //   //根据身份id查提现记录传入子组件
+      //   let user_id = this.$store.state.user.user.zhixu_id;
+      //   getFundList({
+      //       user_id
+      //     }) //获取提现记录列表
+      //     .then(({
+      //       data
+      //     }) => {
+      //       this.model = true;
+      //       this.fundList = data;
+      //       this.visible2 = true;
+      //     })
+      // },
+      // checkDetail() {
+      //   this.model = false;
+      // },
+      // backDetail() {
+      //   this.model = true;
+      // },
+      // sureFund() {
+      //   this._list()
+      // }
     }
   }
 

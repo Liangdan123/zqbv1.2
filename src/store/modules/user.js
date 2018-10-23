@@ -94,6 +94,7 @@ const actions={
 				break;
 			case 2:
 			router.replace("/agent/orderTable");
+			break;
 			case 4:
 			router.replace("/server/sellercenter/servicerCenter");
 			break;
