@@ -101,15 +101,13 @@
 				<b>+</b>添加商品
 				<span>[{{addProductLists.length}}/{{value}}]</span>
 			</button>
-		</div>
-		<h3 class="color-3 f14 mt-20 font-n mb-20" v-if="radio2==='2'">
-			商品自动填充
-		</h3>
-		
+			<h3 class="color-3 f14 mt-20 font-n mb-20">
+				商品自动填充
+			</h3>
+		</div>	
 		<h3 class="color-3 f14 font-n">
 			{{radio2==='1'?"选择商品分类":"选择填充商品分类"}}
-		</h3>
-		
+		</h3>		
 		<el-select  v-model="mall_category_id" 
 			placeholder="所有商品" 
 			@change="changemallClassify" 
@@ -195,7 +193,7 @@
 		created(){
 			this.radio1=this.shopRank.title_switch;//开始模块标题有没有选中
 			this.radio2=this.shopRank.select_product_type.toString();//开始选择商品有没有选中
-			if(this.shopRank.product_ids!==null){//手动添加的列表（显示之前被保存过的列表）
+			if(this.shopRank.product_ids){//手动添加的列表（显示之前被保存过的列表）
 				let manualList=this.shopRank.product_ids.split(',');
 				this.shopList.forEach((item)=>{
 					if(manualList.includes(item.product_id)){
@@ -218,8 +216,8 @@
 			this.shopRank.title_switch=this.radio1;//模块标题开关
 		},
 		computed:{
-			options(){//根据不同的单双列显示不同的商品数量
-				if(this.title==='商品单列'||this.title==='商品列表'){
+			options(){//根据不同的单双列显示不同的商品数量				
+				if(["商品单列","商品列表"].includes(this.title)){
 					return [{value:1,label:1}, { value:2,label:2}, {value:3,label:3},{value:4,label:4},{value:5,label:5}, 
 					{value:6,label:6}, {value:7,label:7}, {value:8,label:8},{value:9,label:9},{value:10,label:10}]
 				}else if(this.title==='商品双列'){
@@ -261,18 +259,16 @@
 				};
 				if(this.value!==0){//当数量为0时不去搜
 					this.$emit("showProNum",this.value,this.existAddProduct);//商品展示数量		
-				}
-				
+				}			
 			},
 			changeTitle(){//保存标题开关的改变
 				this.onMess.title=JSON.parse(JSON.stringify(this.shopRank.title));
 			},
 			isOnOff(){//模块标题开关
-				if(this.radio1==="on"){
-					let arr=["title","title_click_type","title_click_id","title_click_name"];
-					arr.map(item=>this.shopRank[item]=this.onMess[item]);
+				let arr=["title","title_click_type","title_click_id","title_click_name"];
+				if(this.radio1==="on"){				
+					arr.map(item=>this.shopRank[item]=[item]);
 				}else if(this.radio1==="off"){
-					let arr=["title","title_click_type","title_click_id","title_click_name"];
 					arr.map(item=>this.shopRank[item]=null);
 				}
 			},
@@ -290,7 +286,10 @@
 				this.dialogFormVisible=true;
 				this.initStoreClassify("mallClassify");
 				if(this.shopRank.title_click_type==="mall_category"){//商品分类中是否选中
-					this.classifyName={click_name:this.classifyName.click_name,click_id:this.classifyName.click_id};	
+					this.classifyName={
+						click_name:this.classifyName.click_name,
+						click_id:this.classifyName.click_id
+					};
 					this.isChecked(this.classifyName)//传到子集时判断是否事先被选中
 				};	
 				this.$set(this.productChecked,"id",{});//开始点击弹框时让他都不选择
@@ -302,13 +301,13 @@
 				this.shopRank.title_click_id=data.click_id;
 				this.shopRank.title_click_name=data.click_name;
 				this.shopRank.title_click_type=data.click_type;				
-				//模块标题凯时保存上次编辑信息
+				//模块标题时保存上次编辑信息
 				let classifyMess={
 					title_click_id:data.click_id,
 					title_click_name:data.click_name,
 					title_click_type:data.click_type
-				};
-				Object.assign(this.onMess,classifyMess)				
+				};	
+				this.onMess=Object.assign({},this.onMess,classifyMess)
 			},
 			shop_hidden(data){//弹框关闭
 				this.dialogFormVisible=data;
@@ -366,7 +365,7 @@
 				}
 				this.addProductLists.push(data);//添加商品后的展示图片
 			},
-			onlyProduct(data){//模块标题
+			onlyProduct(data){//模块标题(手动添加选择商品)
 				if(this.isShow){
 					this.isShow=false;
 					return

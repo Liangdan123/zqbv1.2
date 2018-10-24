@@ -1,29 +1,51 @@
 <template>
 	<div class="storeLink commodity" @click="closeSearch">
-		<search @searchMethod="search" v-on:emptyMthod="empty" v-on:searchCondition="searchCondition" ref="isShow" :isDate="false">
+		<search @searchMethod="search" 
+			v-on:emptyMthod="empty" 
+			v-on:searchCondition="searchCondition" 
+			ref="isShow" 
+			:isDate="false">
 			<template>
 				<div class="condition">
 					<span class="f12 color-3">商品价格:</span>
-					<input type="number" v-model.number="searchMess.minPrice" /> 到 <input type="number" v-model.number="searchMess.maxPrice" />
+					<input type="number" v-model.number="searchMess.minPrice" /> 
+					到 
+					<input type="number" v-model.number="searchMess.maxPrice" />
 				</div>
 				<div class="classify">
-					<span class="f12 color-3">{{choiceRole==='mall'?'商城中分类':'店铺中分类:'}}</span>
+					<span class="f12 color-3">
+						{{choiceRole==='mall'?'商城中分类':'店铺中分类:'}}
+					</span>
 					<el-select v-model="searchMess.classifyId" filterable placeholder="请选择">
 						<!--...................我的店铺.......................-->
 						<div v-if="choiceRole==='store'">
-							<el-option v-for="(item,index) in storeClassify" :key="index" :value="item.id" :label="item.shop_category_name" :class="item.level===1?'color':''"></el-option>
+							<el-option v-for="(item,index) in storeClassify" 
+								:key="index" 
+								:value="item.id" 
+								:label="item.shop_category_name" 
+								:class="item.level===1?'color':''">
+							</el-option>
 						</div>
 						<!--.....................商城..............-->
 						<div v-if="choiceRole==='mall'">
-							<el-option v-for="(item,index) in mallClassify" :key="index" :value="item.id" :label="item.mall_category_name" :class="item.level===1?'color':''"></el-option>
+							<el-option v-for="(item,index) in mallClassify" 
+								:key="index" :value="item.id" 
+								:label="item.mall_category_name" 
+								:class="item.level===1?'color':''">
+							</el-option>
 						</div>-
 					</el-select>
 				</div>
 			</template>
 		</search>
+		
 		<div class="store_list">
-			<div v-if="this.list.length!=0">
-				<label class="display-b store_label" v-for="(item,index) in list" :key="index" @click="checkedIndex(index)">
+			<div v-if="list.length!=0">
+				<label class="display-b store_label" 
+					v-for="(item,index) in list" 
+					:key="index" 
+					@click="checkedIndex(index)">
+					
 					<input type="radio" name="one" :checked="isChecked[index]"/>
 					<em></em>
 					<b v-if="item.images.length">
@@ -35,24 +57,32 @@
 						{{item.product_price_yuan.min}}
 					</b>
 					<b v-else>{{item.product_price_yuan.min}} - {{item.product_price_yuan.max}}</b>
-			</label>
+				</label>
 			</div>
-			<div v-if="this.list.length===0&&isSearchEmpty===false" class="color-6 f18" style="text-align: center;line-height: 380px;">
-				未发布任何商品
-			</div>
-			<div v-if="this.list.length===0&&isSearchEmpty===true" class="color-6 f18" style="text-align: center;line-height: 380px;">
-				未搜索到任何相关商品
+			<div v-if="list.length===0" 
+				class="color-6 f18" 
+				style="text-align: center;line-height: 380px;">				
+				{{isSearchEmpty?"未搜索到任何相关商品":"未发布任何商品"}}
 			</div>
 		</div>
 		<div class="pagination clearfix">
 			<div class="pagination-l clearfix float-l">
-				<el-pagination background layout="total, prev, pager, next" :total=total :page-size=perPage @current-change="handleCurrentChange" 
-					:current-page.sync="shopMess.page" class="float-l">
+				<el-pagination background 
+					layout="total, prev, pager, next" 
+					:total="total" 
+					:page-size="perPage" 
+					@current-change="handleCurrentChange" 
+					:current-page.sync="shopMess.page" 
+					class="float-l">
 				</el-pagination>
 			</div>
 			<div class="pagination-r clearfix float-r">
-				<el-button class="store-button2 float-r" @click="cancleShop">取消</el-button>
-				<el-button class="store-button1 float-r mr-10" @click="sureShop">确定</el-button>
+				<el-button class="store-button2 float-r" @click="cancleShop">
+					取消
+				</el-button>
+				<el-button class="store-button1 float-r mr-10" @click="sureShop">
+					确定
+				</el-button>
 			</div>
 		</div>
 	</div>
@@ -228,9 +258,18 @@
 				this.isSearchEmpty=false;
 				this.$emit("shop_hidden", false);
 				if(this.choiceRole==="store"){//我的店铺
-					var productCnt = {banner_click_type: "product",banner_click_name: this.produce_name,banner_click_id: this.banner_click_id};																							
+					var productCnt = {
+						banner_click_type: "product",
+						banner_click_name: this.produce_name,
+						banner_click_id: this.banner_click_id
+					};
 				}else if(this.choiceRole==="mall"){//商城
-					var productCnt = {click_type:"product",click_name:this.produce_name,click_id:this.banner_click_id,click_image:this.banner_url};			
+					var productCnt = {
+						click_type:"product",
+						click_name:this.produce_name,
+						click_id:this.banner_click_id,
+						click_image:this.banner_url
+					};
 				}
 				if(this.produce_name) {
 					this.$emit("productName", productCnt);
@@ -241,11 +280,11 @@
 				this.isSearchEmpty=false;
 				this.$emit("shop_hidden", false);
 			},
-			checkedIndex(index){
+			checkedIndex(index){//选择商品(商品确认时所需要的值)
 				this.banner_click_id = this.list[index].id;
 				this.produce_name = this.list[index].product_name;
 				this.banner_url=this.list[index].images[0].image_url;//商品图片链接
-				this.onlyProduct=this.list[index];//整个商品信息传过去
+				this.onlyProduct=this.list[index];//整个商品信息传过去（用于手动添加商品）
 			}
 		}
 	}

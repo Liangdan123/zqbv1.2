@@ -16,44 +16,62 @@
 					</el-option>
 				</el-select>
 			</div>
-			<imgNav :banner="banner" :length="length" @passimgNav="passimgNav" @addNav="addNav"></imgNav>
+			<imgNav :banner="banner" :length="length" @passimgNav="passimgNav" @addNav="addNav">
+				
+			</imgNav>
 			<div v-show="false">{{isChecked}}</div>
 		</div>
 		<!--..................商品单列....................-->
 		<div v-if="mallPlate.component_key==='splb1'">
 			<h2 class="mt-20 pb-20 f20 color-3">商品展示</h2>	
-			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品单列'
-			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
+			<multiModule 
+				:shopRank="mallPlate.data" 
+				:shopList="mallPlate.list" 
+				 @showProNum="showProNum" title='商品单列'
+			 	@manual="manual" 
+			 	@classifyMethods="classifyMethods" 
+			 	@mallorderby="mallorderby">
+			 	
 			</multiModule>
 		</div>
 		<div v-if="mallPlate.component_key==='splb2'">
 			<h2 class="mt-20 pb-20 f20 color-3">商品双列</h2>	
-			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品双列'
-			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
+			<multiModule :shopRank="mallPlate.data" 
+				:shopList="mallPlate.list"  
+				@showProNum="showProNum" 
+				title='商品双列'
+			 	@manual="manual" 
+			 	@classifyMethods="classifyMethods" 
+			 	@mallorderby="mallorderby">		
+			 	
 			</multiModule>
 		</div>
 		<div v-if="mallPlate.component_key==='splb3'">
 			<h2 class="mt-20 pb-20 f20 color-3">商品三列</h2>	
-			<multiModule :shopRank="mallPlate.data" :shopList="mallPlate.list"  @showProNum="showProNum" title='商品三列'
-			 @manual="manual" @classifyMethods="classifyMethods" @mallorderby="mallorderby">							
+			<multiModule :shopRank="mallPlate.data" 
+				:shopList="mallPlate.list"  
+				@showProNum="showProNum" title='商品三列'
+			 	@manual="manual" 
+			 	@classifyMethods="classifyMethods"
+			  	@mallorderby="mallorderby">	
+			  	
 			</multiModule>
 		</div>
 		<!--..................轮播海报....................-->
 		<div v-if="mallPlate.component_key==='hbys2'">
 			<h2 class="mt-20 pb-20 f20 color-3">轮播海报</h2>
-			<BannerEditor :banner="banner" :allBanner="mallPlate.data" choicePlate="mall" @passBanner="passBanner" title="hbys2">					
+			<BannerEditor :banner="banner" 
+				:allBanner="mallPlate.data" 
+				choicePlate="mall" 
+				@passBanner="passBanner" 
+				title="hbys2">	
+				
 			</BannerEditor>
 		</div>
 		<!--..................店铺列表....................-->
 		<div v-if="mallPlate.component_key==='dplb1'">
 			<h2 class="mt-20 pb-20 f20 color-3">店铺列表</h2>
-			<!--<multiModule :shopRank="mallPlate.data" 
-				:shopList="mallPlate.list"  
-				@showProNum="showProNum" 
-				title='店铺展示'
-			 	@manual="manual" @classifyMethods="classifyMethods" 
-			 	@mallorderby="mallorderby">							
-			</multiModule>-->
+			<shopList :shopRank="mallPlate.data"></shopList>
 		</div>
 	</div>
 </template>
@@ -63,6 +81,7 @@
 	import imgNav  from "@/components/platform/mallset/imgNav"
 	import txtNav  from "@/components/platform/mallset/txtNav"
 	import multiModule  from "@/components/platform/mallset/multiModule"
+	import shopList from "@/components/platform/mallset/shopList"
 	import {getProductList} from "@/api/platform"
 	export default{
 		data(){
@@ -124,7 +143,7 @@
 				this.orderdy();
 			};			
 		},
-		components:{BannerEditor,imgNav,multiModule,txtNav},
+		components:{BannerEditor,imgNav,multiModule,txtNav,shopList},
 		methods:{
 			passBanner(data){//轮播海报一
 				this.mallPlate.data=data;															
@@ -185,7 +204,6 @@
 				};
 			},
 			productList(data,existAddProduct) {//商城列表搜索API
-				console.log(5555555555555)
 				getProductList(data)
 				.then(({data}) => {
 					if(data.data.length<this.needNum){//上架商品数量小于要展示的商品数量
