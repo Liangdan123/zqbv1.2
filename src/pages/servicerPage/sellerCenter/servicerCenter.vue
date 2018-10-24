@@ -294,7 +294,7 @@
 			loginOut(){//退出按钮
 				this.$store.dispatch('doLogout');
 			},
-			timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口				
+			timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口			
 				if(!this.shopLength||this.shopLength==0){return}
 				let shop_id=this.shopId;
 				let condition_search={

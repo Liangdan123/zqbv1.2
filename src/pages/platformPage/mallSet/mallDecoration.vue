@@ -214,9 +214,21 @@
 							</div>
 						</div>
 					</div>
-					<!--.................有店铺列表时TODO....................-->	
+					<!--.................有店铺列表时....................-->	
 					<div v-if="item.shop_list.length!==0">
-						
+						<div class="dplb1_plate"  v-for="shop in item.shop_list">
+							<div class="dplb1_top clearfix">								
+								<img :src="shop.shop_logo" class="dplb1_top-left float-l"/>
+								<div class="dplb1_top-right float-l">
+									<h2 >店铺名称</h2>
+									<div class="dplb1_top-mess">
+										<span>商品200</span>
+										<span>收藏200</span>
+										<span>服务9.5分</span>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>										
 					<mallDecora :mallPlate='item' v-if="index_plate===index">
 						
@@ -239,6 +251,7 @@
 	import {correscomList,existAssembly,getMallShopNum,getcomponentList} from "@/api/platform"
 	import mallDecora from "@/components/platform/mallSet/mallDecora"
 	import arrow from "@/components/platform/mallSet/arrow"
+	import * as links from "@/links/index"
 	import {deletes} from "@/api/script"
 	export default{
 		components:{mallDecora,arrow},
