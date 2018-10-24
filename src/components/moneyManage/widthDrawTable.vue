@@ -61,18 +61,17 @@
       },
       type(val) { //角色转换
         let num = +val
-        let roleChange = {
-          1: function () {
-            return "支付宝"
-          },
-          2: function () {
-            return "微信"
-          },
-          3: function () {
-            return "银行卡"
-          }
+        switch (num) {
+          case 1:
+             return "支付宝"
+            break;
+          case 2:
+             return "微信"
+            break;
+           case 3:
+             return "银行卡"
+            break;
         }
-        return roleChange[num]()
       },
       withdrawalStatus(status) {
         let status_text = {

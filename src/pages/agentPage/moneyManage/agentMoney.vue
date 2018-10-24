@@ -56,7 +56,6 @@
     },
     created() {
       this.user_id = this.$store.state.user.user.zhixu_id;
-        console.log(this.$refs,this.$refs.tixian);
     },
     methods: {
       openApply() {

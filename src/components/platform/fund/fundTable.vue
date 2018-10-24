@@ -127,13 +127,13 @@
 			role(val) { //角色转换
 				let role
 				switch(val) {
-					case 2:
+					case "2":
 						role = "代理商"
 						break;
-					case 3:
+					case "3":
 						role = "合伙人"
 						break;
-					case 4:
+					case "4":
 						role = "服务商"
 						break;
 				}
@@ -283,6 +283,7 @@
 					this.detailVisible=false;
 					this.fundFailVisible=false;
 					this.remark="";
+					this._doSearch()
 				})
 			}
 		}
