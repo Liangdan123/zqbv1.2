@@ -49,15 +49,15 @@
 					<el-col :span="16">{{fundMessage.apply_money_yuan||0|money('￥')}}</el-col>
 				</el-row>
 				<el-row>
-					<el-col :span="8">开户姓名：</el-col>
+					<el-col :span="8">申请人：</el-col>
 					<el-col :span="16">{{fundMessage.tixian_name}}</el-col>
 				</el-row>
 				<el-row>
-					<el-col :span="8">开户银行：</el-col>
+					<el-col :span="8" v-if='fundMessage.tixian_type==3'>开户银行：</el-col>
 					<el-col :span="16">{{fundMessage.tixian_bank}}</el-col>
 				</el-row>
 				<el-row>
-					<el-col :span="8">银行卡号：</el-col>
+					<el-col :span="8">{{fundMessage.tixian_type==1?'支付宝账号：':fundMessage.tixian_type==3?'银行卡号：':'微信号：'}}</el-col>
 					<el-col :span="16">{{fundMessage.tixian_account}}</el-col>
 				</el-row>
 			</div>
@@ -87,21 +87,20 @@ export default{
 			let value_int = Number(value[0]).toLocaleString(); // 转换成金额形式
 			return `${label}${value_int}.${value[1]}`;
 		},
-		fundMethod(num){
-			let fundMethod
-				switch(num) {
-				case 1:
-					fundMethod = "支付宝"
-					break;
-				case 2:
-					fundMethod = "微信"
-					break;
-				case 3:
-					fundMethod = "银行卡"
-					break;
-			}
-			return fundMethod
-		}
+	   fundMethod(val) { //角色转换
+        let num = +val
+        switch (num) {
+          case 1:
+             return "支付宝"
+            break;
+          case 2:
+             return "微信"
+            break;
+           case 3:
+             return "银行卡"
+            break;
+        }
+      },
 	},
 	data(){
 		return{
