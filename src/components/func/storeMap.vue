@@ -39,7 +39,6 @@
 				//调用地址解析类
 				this.geocoder=new qq.maps.Geocoder({
 		 	        complete:function(result){
-		 	        	console.log("result:",result)
 			            that.storeMap.setCenter(result.detail.location);
 			            var marker = new qq.maps.Marker({
 			                map:that.storeMap,

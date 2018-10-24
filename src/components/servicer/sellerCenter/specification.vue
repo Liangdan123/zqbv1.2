@@ -80,9 +80,9 @@
 				return this.spec[index].enable_refund===1?true:false
 			},
 			isRefund(index){//点击退款时()
-				if(event.target.checked===true){//当退款选中时改变选中enable_refund状态，并传给父集
+				if(event.target.checked){//当退款选中时改变选中enable_refund状态，并传给父集
 					this.spec[index].enable_refund=1
-				}else if(event.target.checked===false){
+				}else if(!event.target.checked){
 					this.spec[index].enable_refund=0
 				}
 			},
@@ -90,7 +90,6 @@
 				this.spec.splice(index,1);
 			},
 			addSpec(){	
-				console.log(8888888);
 				console.log(this.spec.length)
 				this.spec.push({
 		            spec_name:"",
@@ -98,7 +97,6 @@
 		            spec_price_yuan:"",
 		            enable_refund:0
 				});
-				console.log(this.spec.length)
 			}
 		}
 	}

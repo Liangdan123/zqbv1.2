@@ -101,7 +101,6 @@ const actions={
 			case 3:
 				router.replace("/partner/partnerMoney");
 			break;
-
 		}
 		
 	},
