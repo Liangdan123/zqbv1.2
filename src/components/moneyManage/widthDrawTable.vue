@@ -159,9 +159,7 @@
             confirmButtonText: '确定',
             cancelButtonText: '取消',
           }).then(() => {
-            sureReceivables({
-                tixian_id
-              })
+            sureReceivables(tixian_id)
               .then(() => {
                 this.$message({
                   message: '确认收款成功',
