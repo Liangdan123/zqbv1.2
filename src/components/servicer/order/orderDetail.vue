@@ -200,8 +200,8 @@
           <div v-if='item.complete_time'>
           	{{item.complete_time}}
           </div>
-          <div class='pro_text'>
-            <span :class='{complete:item.is_complete==1}'>
+          <div class='pro_text clearfix'>
+            <span :class='{complete:item.is_complete==1}' class="vertical">
             	{{item.spec_name}}
             </span>
             <span v-if='item.is_complete==1' class='float-r'>
@@ -551,6 +551,9 @@
   .pro_text {
     >span.complete {
       color: #333;
+    }
+    .vertical{
+      vertical-align: -webkit-baseline-middle;
     }
   }
 

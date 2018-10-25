@@ -36,7 +36,7 @@
 				<el-table-column prop="statistics_shop.product_num" label="在售商品(件)"></el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" class="btn-delete" @click="storeDetail(scope.$index)">
+						<el-button type="text" size="small" class="btn-delete" @click="storeDetail(scope.row.shop_id)">
 							店铺详情
 						</el-button>
 					</template>
@@ -100,9 +100,8 @@
 					this.loading=false;
 				})
 			},
-			storeDetail(index){//点击店铺详情
-				let id=this.list.data[index].shop_id;
-				router.push({path:"/mallZxh/storeMessage",query:{shop_id:id}})
+			storeDetail(shop_id){//点击店铺详情
+				router.push({path:"/mallZxh/storeMessage",query:{shop_id:shop_id}})
 			},
 			searchRole(){//搜索角色
 				this.emptyText="未搜索到相关匹配信息";

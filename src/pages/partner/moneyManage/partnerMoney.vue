@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- 提现记录弹窗 -->
-    <el-dialog :visible.sync="visible" :close-on-click-modal="false" class="withdraw" title="提现记录" @close="backDetail">
+    <el-dialog :visible.sync="visible" :close-on-click-modal="false" class="withdraw" title="提现记录"  @close="closeModel">
       <!-- <widthDrawTable :list='fundList.data' :Visible="model" @checkDetail="checkDetail" @backDetail="backDetail"
         @sureFund="sureFund">
       </widthDrawTable> -->
@@ -37,7 +37,7 @@
   export default {
     data() {
       return {
-        activeName: '2',
+        activeName: '1',
         disabled: false,
         loading: false,
         visible: false,
