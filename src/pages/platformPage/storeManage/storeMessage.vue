@@ -17,7 +17,7 @@
 	  					</storeMessageSub>
 	  				</el-tab-pane>
 	  				<el-tab-pane label="在售商品" name="sellgoods"> 
-	  					<onlineGoods :shop_id="shop_id"></onlineGoods>
+	  					<onlineGoods :shop_id="shop_id.shop_id"></onlineGoods>
 	  				</el-tab-pane>
 	  			</el-tabs>
 	  		</div>
@@ -44,6 +44,7 @@
 		created(){
 			if(JSON.stringify(this.$route.query)!=="{}"){
 				this.shop_id=this.$route.query;
+				this.shop_id.shop_id=Number(this.shop_id.shop_id)
 				getStoreMessage(this.shop_id)//获取店铺信息
 				.then(({data})=>{
 					this.storeMessage=data;

@@ -6,10 +6,10 @@
         <a>1.买家申请退款</a>
       </div>
       <div v-if="checkOrder.refund_status===2" class="bg-color width_50 ">
-        <a>2.</a>
+        <a>2.用户撤销退款</a>
       </div>
       <div v-if="checkOrder.refund_status===3" class="bg-color width_50 ">
-        <a>2.用户撤销退款</a>
+        <a>2.商家确认不通过</a>
       </div>
       <template v-else>     	
         <div :class="[([1,4].includes(checkOrder.refund_status))?'bg-color':'']" class='width_33'>

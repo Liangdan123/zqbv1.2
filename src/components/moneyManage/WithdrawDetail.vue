@@ -144,6 +144,10 @@ export default{
 		sureFund(){//确认收款
 			sureReceivables(this.tixian_id)
 			.then(()=>{
+				  this.$message({
+						message: '确认收款成功',
+						type: 'success'
+					});
 				this.$emit("sureFund")
 			})
 		},
