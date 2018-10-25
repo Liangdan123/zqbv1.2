@@ -6,25 +6,32 @@
 				<img src="../../assets/image/weishangcheng.png" class='logo' />
 			</div>
 			<el-menu :default-active='$route.path' :router="true" mode="horizontal">
-				<el-menu-item index="/mallZxh/controlCenter/platDataCenter" :class="{isActive:active=='controlCenter'}">
+				<el-menu-item index="/mallZxh/controlCenter/platDataCenter" 
+					:class="{isActive:active=='controlCenter'}">
 					<i></i>监控中心
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/storeManage" :class="{isActive:active=='storeManage'||active=='storeMessage'}">
+				<el-menu-item index="/mallZxh/storeManage" 
+					:class="{isActive:active=='storeManage'||active=='storeMessage'}">
 					<i></i>店铺管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/platformOrder/serverAllOrder" :class="{isActive:active=='platformOrder'}">
+				<el-menu-item index="/mallZxh/platformOrder/serverAllOrder" 
+					:class="{isActive:active=='platformOrder'}">
 					<i></i>订单管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/marketingInfo" :class="{isActive:active=='marketingInfo'}">
+				<el-menu-item index="/mallZxh/marketingInfo" 
+					:class="{isActive:active=='marketingInfo'}">
 					<i></i>营销管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/mallSetInfo" :class="{isActive:active=='mallSetInfo'}">
+				<el-menu-item index="/mallZxh/mallSetInfo" 
+					:class="{isActive:active=='mallSetInfo'}">
 					<i></i>商城设置
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/fund/extractCash" :class="{isActive:active=='fund'}">
+				<el-menu-item index="/mallZxh/fund/extractCash" 
+					:class="{isActive:active=='fund'}">
 					<i></i>资金管理
 				</el-menu-item>
-				<el-menu-item index="/mallZxh/manage/join" :class="{isActive:active=='manage'}">
+				<el-menu-item index="/mallZxh/manage/join" 
+					:class="{isActive:active=='manage'}">
 					<i></i>平台管理
 				</el-menu-item>
 			</el-menu>

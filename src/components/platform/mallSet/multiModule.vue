@@ -9,7 +9,7 @@
 			style="text-align: left;">
 			<el-tabs v-model="activeName">
 				<el-tab-pane label="商品链接" name="first">
-					<storeList  @productName="classifyCnt" 
+					<storeList @productName="classifyCnt"
 						@shop_hidden="shop_hidden" 
 						:productChecked="productChecked">						 
 					</storeList>
@@ -164,7 +164,7 @@
 					{orderby:5,name:"价格降序"},
 				
 				],
-				isShow:false,
+				isShow:false,//商品是否已经添加过
 				mallClassifyList:[],
 			}
 		},
@@ -193,24 +193,24 @@
 		created(){
 			this.radio1=this.shopRank.title_switch;//开始模块标题有没有选中
 			this.radio2=this.shopRank.select_product_type.toString();//开始选择商品有没有选中
-			if(this.shopRank.product_ids){//手动添加的列表（显示之前被保存过的列表）
-				let manualList=this.shopRank.product_ids.split(',');
-				this.shopList.forEach((item)=>{
-					if(manualList.includes(item.product_id)){
-						this.addProductLists.push({
-							click_id:item.product_id,
-							click_image:item.images[0].image_url,
-							click_name:item.product_name,
-							click_type:"product"
-						});
-						this.existAddProduct.push(item)
-					}					
-				})
-			};
 			getMallClassifyList()//商城分类列表
 			.then(({data})=>{
 				this.mallClassifyList=data;					
 			})
+			if(!this.shopRank.product_ids){return}
+			//手动添加的列表（显示之前被保存过的列表）
+			let manualList=this.shopRank.product_ids.split(',');
+			this.shopList.forEach((item)=>{
+				if(manualList.includes(item.product_id)){
+					this.addProductLists.push({
+						click_id:item.product_id,
+						click_image:item.images[0].image_url,
+						click_name:item.product_name,
+						click_type:"product"
+					});
+					this.existAddProduct.push(item)
+				}					
+			})		
 		},
 		updated(){
 			this.shopRank.title_switch=this.radio1;//模块标题开关
@@ -377,13 +377,14 @@
 				this.productVisible=true;
 			},
 			addProductList(data){//添加商品弹框的确定按钮事件
-				if(this.addProductLists.length!==0){//判断是否之前有添加此类商品
+				if(this.addProductLists.length!==0){									
 					let judgeCom=this.addProductLists.map(item=>item.click_id);
+					//判断是否之前有添加此类商品
 					if(judgeCom.includes(data.click_id)){
 						this.$message({message:"商品已经添加过",showClose: true,});
 						this.isShow=true
 						return
-					};				
+					};	
 				}
 				this.addProductLists.push(data);//添加商品后的展示图片
 			},

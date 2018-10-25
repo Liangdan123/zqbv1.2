@@ -10,7 +10,9 @@
 			
 				<shopLink @shop_hidden="shop_hidden" 
 					@shopName="shopName"
-					:isTitleShop="isTitleShop">					
+					:isTitleShop="isTitleShop"
+					@addshopName="addshopName"
+					@onlyShop="onlyShop">					
 											 
 				</shopLink>
 				
@@ -63,9 +65,9 @@
 			<el-radio label="2">手动添加</el-radio>
 		</el-radio-group>	
 		<div v-if="radio2==='2'">
-			<div v-for="(item,index) in addshopLists">
+			<div v-for="(item,index) in addShopLists">
 				<div class="addProductItem clearfix">
-					<img :src="item.click_image" width="60" height="60" class="float-l"/>
+					<img :src="item.click_image||shopLogoNull" width="60" height="60" class="float-l"/>
 					<span class="ml-10 float-l color-3">{{item.click_name}}</span>
 				</div>
 			</div>
@@ -73,7 +75,7 @@
 				 @click="addshop" 
 				 v-if="disabled">
 				<b>+</b>添加店铺
-				<span>[{{addshopLists.length}}/{{value}}]</span>
+				<span>[{{addShopLists.length}}/{{value}}]</span>
 			</button>
 		</div>
 		<h3 class="color-3 f14 font-n">
@@ -93,7 +95,7 @@
 		<h3 class="color-3 f14 mt-20 font-n">
 			店铺排序规则
 		</h3>
-		<el-select  v-model="shopRank.product_orderby" 
+		<el-select  v-model="shopRank.shop_orderby" 
 			placeholder="请选择排序规则" 
 			@change="changemallorderby" 
 			class="changeNum mt-10">
@@ -112,6 +114,7 @@
 	import {getMallClassifyList} from "@/api/platform"
 	import storeList from "@/components/platform/mallSet/storeList"
 	import shopLink from "@/components/platform/mallSet/shopLink"
+	import * as links from "@/links/index"
 	export default{
 		components:{shopLink,storeList},		
 		data(){
@@ -119,14 +122,13 @@
 				radio1: "",
 				options:[{value:3,label:3},{ value:6,label:6}],//店铺展示数量
 				radio2:"",
-				addshopLists:[],//类似addProductLists
+				addShopLists:[],//类似addProductLists
 				mallClassifyList:[],//商城分类
 				commodityOrdery:[//商品排序规则
 					{orderby:1,name:"最新"},
 					{orderby:2,name:"销量"},
 					{orderby:3,name:"人气"},
-					{orderby:4,name:"价格升序"},
-					{orderby:5,name:"价格降序"},				
+					{orderby:4,name:"评分"},		
 				],
 				onMess:{},//保存开关信息
 				dialogFormVisible:false,
@@ -134,6 +136,8 @@
 				disabled:true,//是否可以点击添加店铺按钮
 				isTitleShop:{name:"title"},//添加标题链接与添加店铺是一个弹框（为了让两者不矛盾）
 				existAddShop:[],//添加店铺的长度
+				isShow:false,//店铺是否已经添加过
+				shopLogoNull:links.IMG,
 			}
 		},
 		props:{
@@ -163,7 +167,21 @@
 			.then(({data})=>{				
 				this.mallClassifyList=data;
 				this.loading=false
-			});
+			});			
+			if(!this.shopRank.shop_ids){return}
+			//手动添加的列表（显示之前被保存过的列表）
+			let manualList=this.shopRank.shop_ids.split(',');
+			this.shopList.forEach((item)=>{
+				if(manualList.includes(item.shop_id)){
+					this.addShopLists.push({
+						click_id:item.shop_id,
+						click_image:item.shop_logo,
+						click_name:item.shop_name,
+						click_type:"shop"
+					});
+					this.existAddShop.push(item)
+				}					
+			});			
 		},
 		computed:{
 			mall_category_id:{//商品分类选择
@@ -217,18 +235,30 @@
 				if(this.existAddShop.length>this.value){//手动添加的数量比店铺展示数量多时(减掉数量多的)
 					let len=this.existAddShop.length-this.value;
 					this.existAddShop.splice(this.value,len);
-					this.addshopLists.splice(this.value,len);
+					this.addShopLists.splice(this.value,len);
 				};
 				if(this.value===0){return}//当数量为0时不去搜		
 				this.$emit("showShopNum",this.value,this.existAddShop);//商品展示数量					
+			},
+			addshopName(data){//操作栏显示选中的店铺
+				this.addShopLists.push(data);//添加商品后的展示图片
+				if(this.addProductLists.length===0){return}
+				//判断是否之前有添加此类商品
+				let judgeCom=this.addShopLists.map(item=>item.click_id);
+				if(judgeCom.includes(data.click_id)&&this.isTitleShop.name!=="title"){
+					this.$message({message:"店铺已经添加过",showClose: true,});
+					this.isShow=true
+					return
+				};	
 			},
 			isAuto(){//手动自己添加
 				
 			},
 			changemallClassify(){//店铺业务范围，即商城分类一级
-				
+				this.shopRank.mall_category_id=this.mall_category_id;//商城分类ID搜索列表	
+				this.$emit("storeClassifyMethods",this.existAddShop);//商品ID通过shopRank已经传过去了
 			},
-			changemallorderby(){//商品排序规则
+			changemallorderby(){//店铺排序规则TODO
 				
 			},
 			shop_hidden(){//关闭标题链接弹窗
@@ -245,25 +275,35 @@
 				};
 				this.onMess=Object.assign({},this.onMess,classifyMess)		
 			},
-			addProductList(data){//添加商品弹框的确定按钮事件
-				if(this.addshopLists.length!==0){//判断是否之前有添加此类商品
-					let judgeCom=this.addshopLists.map(item=>item.click_id);
-					if(judgeCom.includes(data.click_id)){
-						this.$message({message:"商品已经添加过",showClose: true,});
+			addshopName(data){//添加商品弹框的确定按钮事件
+				if(this.addShopLists.length!==0){//判断是否之前有添加此类商品
+					let judgeCom=this.addShopLists.map(item=>item.click_id);
+					if(judgeCom.includes(data.click_id)&&this.isTitleShop.name!=="title"){
+						this.$message({message:"店铺已经添加过",showClose: true,});
 						this.isShow=true
 						return
 					};				
 				}
-				this.addshopLists.push(data);//添加商品后的展示图片
+				this.addShopLists.push(data);//添加商品后的展示图片
 			},
-			onlyProduct(){
-				
+			onlyShop(data){//手动添加选择店铺并显示
+				if(this.isShow&&this.isTitleShop.name!=="title"){
+					this.isShow=false;
+					return
+				};
+				let changeData=JSON.parse(JSON.stringify(data).replace("id","shop_id"));//把id变为shop_id
+				this.shopList.splice(this.shopList.length-1,1);//删除后面的商品（中间显示）			
+				this.shopList.splice(0,0,changeData);//在前面增加商品（中间显示）	
+				this.existAddShop.push(changeData);//保存添加商品信息，为商品数量改变而保存之前的操作
+				let shop_ids_Arr=this.existAddShop.map(item=>item.shop_id);//手动添加的商品ID
+				let change_shop_ids=shop_ids_Arr.join(",");					
+				this.shopRank.shop_ids=change_shop_ids;//商品ID组合(手动添加组合改变加进来)	
 			},
 			product_hidden(data){//添加商品弹框关闭
 				
 			},
 			addshop(){//点击添加店铺按钮
-				if(this.addshopLists.length===this.value){//手动添加数量等于商品展示数量
+				if(this.addShopLists.length===this.value){//手动添加数量等于商品展示数量
 					this.disabled=true;
 					this.$message({message:"已达到商品展示数量",showClose:true})
 					return

@@ -78,6 +78,7 @@ export default{
 				click_id:"",
 				click_image:"",
 			},
+			onlyShop:{},//单个店铺
 		}
 	},
 	mixins:[page],
@@ -124,12 +125,14 @@ export default{
 			this.$refs.storeModel.closeSearch()
 		},
 		checkedIndex(index){//选择店铺
+			let list=this.list.data[index]
 			this.shopMessage={//选中的店铺信息（后台所需要）
 				click_type:"shop",
-				click_name:this.list.data[index].shop_name,
-				click_id:this.list.data[index].shop_id,
-				click_image:this.list.data[index].shop_logo,
+				click_name:list.shop_name,
+				click_id:list.shop_id,
+				click_image:list.shop_logo,
 			};
+			this.onlyShop=list;//整个店铺信息传过去（用于手动添加商品）
 		},
 		cancleShop(){//取消
 			this.isSearchEmpty=false;
@@ -138,7 +141,13 @@ export default{
 		sureShop(){//确定
 			this.isSearchEmpty=false;
 			this.$emit("shop_hidden");
-			this.$emit("shopName", this.shopMessage);
+			if(this.isTitleShop.name==="title"){//点击添加标题链接(两个弹框一致所以做出区别)
+				this.$emit("shopName", this.shopMessage);
+			}else{//点击添加店铺时的商品
+				this.$emit("addshopName", this.shopMessage);//操作栏显示选中的店铺
+				this.$emit("onlyShop",this.onlyShop);//显示栏显示
+			}
+			
 		}
 	}
 }

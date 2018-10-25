@@ -72,7 +72,10 @@
 		<div v-if="mallPlate.component_key==='dplb1'">
 			<h2 class="mt-20 pb-20 f20 color-3">店铺列表</h2>
 			<shopList :shopRank="mallPlate.data"
-				@showShopNum="showShopNum"></shopList>
+				@showShopNum="showShopNum"
+				:shopList="mallPlate.shop_list" 
+				@storeClassifyMethods="storeClassifyMethods">
+			</shopList>
 		</div>
 	</div>
 </template>
@@ -197,8 +200,12 @@
 				this.shopNumChild=data;//店铺需要展示的数量
 			},
 			classifyMethods(existAddProduct){//商品分类排序			
-				this.$set(this.searchMess.search,'mall_category_id',this.mallPlate.data.mall_category_id);				
+				this.$set(this.searchShopMess.search,'mall_category_id',this.mallPlate.data.mall_category_id);				
 				this._productList(this.searchMess,existAddProduct);//调接口
+			},
+			storeClassifyMethods(existAddShop){//店铺业务范围TODO
+				this.$set(this.searchShopMess.search,'business_range',this.mallPlate.data.mall_category_id);	
+				this._shopList(this.searchShopMess,existAddShop);//调接口
 			},
 			mallorderby(existAddProduct){//商品排序规则
 				this.orderdy();
@@ -226,33 +233,26 @@
 			_shopList(data,existAddShop){
 				getStoreList(data)
 				.then(({data})=>{
-					if(data.data.length<this.shopNumChild){//上架商品数量小于要展示的商品数量
-						this.$message({message:`商城店铺数量仅有${data.data.length}个`,showClose: true,});
-						this.mallPlate.data.shop_num=data.data.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
-					};
-					this.mallPlate.list=data.data;//展示商品（中间区域）
-					if(!existAddShop){return}
-					if(existAddShop.length===0){return}
-					//添加店铺时（并且商品展示数量改变）
-					let startDelte=this.mallPlate.list.length-existAddShop.length;
-					this.mallPlate.list.splice(startDelte,existAddShop.length);//splice是包含当前位置	(减去已经存在的商品)
-					existAddShop.forEach(item=>{this.mallPlate.list.unshift(item)});//添加上已经存在的商品（商品列表中）
+					this._commonList(data.data,this.shopNumChild,"店铺","shop_list",existAddShop);//共用方法	
 				})
+			},
+			_commonList(mallPlateData,num,name,list,existAdd){//添加店铺与商品在一起
+				if(mallPlateData.length<num){//上架商品数量小于要展示的商品数量
+					this.$message({message:`商城${name}数量仅有${mallPlateData.length}个`,showClose: true,});
+					this.mallPlate.data.shop_num=mallPlateData.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
+				};					
+				this.mallPlate[list]=mallPlateData;//展示商品（中间区域）
+				if(!existAdd){return}
+				if(existAdd.length===0){return}
+				//添加店铺时（并且商品展示数量改变）
+				let startDelte=this.mallPlate[list].length-existAdd.length;
+				this.mallPlate[list].splice(startDelte,existAdd.length);//splice是包含当前位置(减去已经存在的商品)
+				existAdd.forEach(item=>{this.mallPlate[list].unshift(item)});//添加上已经存在的商品（商品列表中）
 			},
 			_productList(data,existAddProduct) {//商城列表搜索API
 				getProductList(data)
 				.then(({data}) => {
-					if(data.data.length<this.needNum){//上架商品数量小于要展示的商品数量
-						this.$message({message:`商城商品数量仅有${data.data.length}个`,showClose: true,});
-						this.mallPlate.data.product_num=data.data.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
-					};
-					this.mallPlate.list=data.data;//展示商品（中间区域）
-					if(!existAddProduct){return	}	
-					if(existAddProduct.length===0){return}
-					//添加商品时（并且商品展示数量改变）
-					let startDelte=this.mallPlate.list.length-existAddProduct.length;
-					this.mallPlate.list.splice(startDelte,existAddProduct.length);//splice是包含当前位置	(减去已经存在的商品)
-					existAddProduct.forEach(item=>{this.mallPlate.list.unshift(item)});//添加上已经存在的商品（商品列表中）														
+					this._commonList(data.data,this.needNum,"商品","list",existAddProduct);//共用方法	
 				})
 			},
 		}
