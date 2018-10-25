@@ -93,7 +93,7 @@ const actions={
 				router.replace("/mallZxh/controlCenter/platDataCenter");
 				break;
 			case 2:
-				router.replace("/agent/orderTable");
+				router.replace("/agent/agentMoney");
 				break;
 			case 4:
 				router.replace("/server/sellercenter/servicerCenter");
