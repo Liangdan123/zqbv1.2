@@ -24,6 +24,9 @@ export default {
 			this._doSearch();
 		},
 		searchMethod() { //搜索方法
+			if(this.isSearchEmpty===false){//shopLink中的商品需要用
+				this.isSearchEmpty=true;
+			};
 			if(this.searchCondition.page == 1) {
 				//页面在第一页搜索手动调接口获取数据列表
 				this._doSearch()

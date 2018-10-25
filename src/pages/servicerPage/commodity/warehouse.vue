@@ -265,19 +265,18 @@
 		},
 		computed:{
 			storeClassify(){//分类
-				let classify=[];	
-				if(this.mallClassifyList.length!==0){
-					this.mallClassifyList.forEach(item=>{
-						if(item.sub){
-							item.sub.map(itemSub=>{
-								classify.push({
-									mall_category_name:itemSub.mall_category_name,
-									id:itemSub.id
-								})
+				let classify=[];
+				if(this.mallClassifyList.length===0){return}		
+				this.mallClassifyList.forEach(item=>{
+					if(item.sub){
+						item.sub.map(itemSub=>{
+							classify.push({
+								mall_category_name:itemSub.mall_category_name,
+								id:itemSub.id
 							})
-						}
-					})
-				};
+						})
+					}
+				});		
 				return classify
 			},
 		},

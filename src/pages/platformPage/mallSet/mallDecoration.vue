@@ -218,14 +218,19 @@
 					<div v-if="item.shop_list.length!==0">
 						<div class="dplb1_plate"  v-for="shop in item.shop_list">
 							<div class="dplb1_top clearfix">								
-								<img :src="shop.shop_logo" class="dplb1_top-left float-l"/>
+								<img :src="shop.shop_logo||imgUrl" class="dplb1_top-left float-l"/>
 								<div class="dplb1_top-right float-l">
-									<h2 >店铺名称</h2>
+									<h2 >{{shop.shop_name}}</h2>
 									<div class="dplb1_top-mess">
-										<span>商品200</span>
-										<span>收藏200</span>
-										<span>服务9.5分</span>
+										<span>商品{{shop.statistics_shop.product_num}}</span>
+										<span>收藏{{shop.statistics_shop.collection_num}}</span>
+										<span>服务{{shop.statistics_shop.score}}分</span>
 									</div>
+								</div>
+							</div>
+							<div class="clearfix dplb1_bottom-con">
+								<div  v-for="picture in shop.products">
+									<img :src="picture.images[0].image_url" class="dplb1_bottom "/>
 								</div>
 							</div>
 						</div>
@@ -280,6 +285,7 @@
 				errorIndex:0,//验证错误的顺序（有两种相同样式时有用）
 				mallSetMiddle:true,
 				autoPlateLoad:true,
+				imgUrl:links.IMG,
 			}
 		},
 		created(){		

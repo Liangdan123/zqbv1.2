@@ -223,7 +223,6 @@
               post_data.business_range = post_data.business_range.join(",");
             } else if (post_data.type == 4) {      	
               post_data.business_range = post_data.business_range1.toString();
-              console.log(" post_data.business_range:", post_data.business_range)
             }else if(post_data.business_range){
       	      		delete post_data.business_range
             }   

@@ -19,12 +19,21 @@
 					<slot></slot>
 					<div class="condition" v-if="isDate">
 						<span class="f12 color-3">{{applyCreate}}:</span>
-						<el-date-picker v-model="time" type="daterange" placeholder="选择日期范围" :editable="false" @change="change" size="small">
+						<el-date-picker v-model="time" 
+							type="daterange" 
+							placeholder="选择日期范围" 
+							:editable="false" 
+							@change="change" 
+							size="small">
 						</el-date-picker>
 					</div>
 					<div class="search-select">
-						<el-button class="store-button1" @click="Search">{{selectTitle}}</el-button>
-						<el-button class="store-button2" @click="Empty">清空条件</el-button>
+						<el-button class="store-button1" @click="Search">
+							{{selectTitle}}
+						</el-button>
+						<el-button class="store-button2" @click="Empty">
+							清空条件
+						</el-button>
 					</div>
 				</div>
 			</transition>

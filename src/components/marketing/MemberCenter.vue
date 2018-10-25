@@ -7,8 +7,10 @@
         <el-tabs v-model="activeName">
           <div class="buttons clearfix mb-20">
             <search :search.sync="searchCondition.search"
-            	@searchMethod="searchMethod" @emptyMthod='emptyMthod'  
-            	ref="isShow" selectTitle='筛选会员' 
+            	@searchMethod="searchMethod" 
+            	@emptyMthod='emptyMthod'  
+            	ref="isShow" 
+            	selectTitle='筛选会员' 
             	hintMess="输入相关信息进行搜索">
               <template>
                 <div class="condition clearfix mb-10">
@@ -71,9 +73,9 @@
     },
     methods: {
       emptyMthod(){
-        delete this.searchCondition.search.level//删除等级条件
-				this.searchMethod()
-			},
+       		delete this.searchCondition.search.level//删除等级条件
+			this.searchMethod()
+		},
       _doSearch() {
         getMemberList(this.searchCondition)
           .then(({
