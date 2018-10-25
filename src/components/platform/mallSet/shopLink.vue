@@ -18,9 +18,9 @@
 			<label class="display-b store_label" 
 				v-for="(item,index) in list.data" 
 				:key="index" 
-				@click="checkedIndex(index)">
-				
-				<input type="radio" name="one" :checked="isChecked[index]"/>
+				@click="checkedIndex(index)">	
+				<input type="radio" name="one" 
+					:checked="isTitleShop.name==='title'?isTitleChecked[index]:isShopChecked"/>
 				<em></em>
 				<img :src="item.shop_logo||shopLogoNull"/>
 				<span>{{item.shop_name}}</span>
@@ -88,17 +88,25 @@ export default{
 				return {}
 			}
 		},
+		isTitleShop:{//添加标题链接与添加店铺是一个弹框（为了让两者不矛盾）
+			default:function(){
+				return {name:"title"}
+			}
+		}
 	},
 	computed:{
-		isChecked(){//input标签的选中事件
+		isTitleChecked(){//当时添加标题时checked事件用这个
 			return	this.list.data.map(item=>{
-				if(item.id===this.productChecked.id){
+				if(item.shop_id===this.productChecked.id){
 					return true
 				}else{
 					return false
 				}
 			})
-		}
+		},
+		isShopChecked(){//当时添加店铺时checked事件用这个
+			return false
+		},
 	},
 	methods:{
 		_doSearch(){//获取店铺列表

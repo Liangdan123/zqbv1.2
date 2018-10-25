@@ -71,7 +71,8 @@
 		<!--..................店铺列表....................-->
 		<div v-if="mallPlate.component_key==='dplb1'">
 			<h2 class="mt-20 pb-20 f20 color-3">店铺列表</h2>
-			<shopList :shopRank="mallPlate.data"></shopList>
+			<shopList :shopRank="mallPlate.data"
+				@showShopNum="showShopNum"></shopList>
 		</div>
 	</div>
 </template>
@@ -82,7 +83,7 @@
 	import txtNav  from "@/components/platform/mallset/txtNav"
 	import multiModule  from "@/components/platform/mallset/multiModule"
 	import shopList from "@/components/platform/mallset/shopList"
-	import {getProductList} from "@/api/platform"
+	import {getProductList,getStoreList} from "@/api/platform"
 	export default{
 		data(){
 			return{	
@@ -90,8 +91,20 @@
 				options:[{value: '选项1',label: 4},{value: '选项2',label: 8}],					         							
 				value:"",
 				length:4,
-				searchMess:{search:{},orderby:{},page: 1,per_page: 20},//商品列表搜索信息
+				searchMess:{//商品列表搜索信息
+					search:{},
+					orderby:{},
+					page: 1,
+					per_page: 20
+				},
+				searchShopMess:{//店铺列表搜索信息
+					search:{},
+					orderby:{},
+					page: 1,
+					per_page: 20
+				},
 				needNum:0,
+				shopNumChild:0,
 			}
 		},
 		props:{
@@ -132,16 +145,18 @@
 			}
 		},
 		created(){
-			if(this.mallPlate.data!==null){
-				if(this.mallPlate.data.banners){//如果有轮播图时			
-					this.banner=this.mallPlate.data.banners
-				};
-				this.$set(this.searchMess,"per_page",this.mallPlate.data.product_num);
-				if(this.mallPlate.data.mall_category_id!==0){
-					this.$set(this.searchMess,"search",{mall_category_id:this.mallPlate.data.mall_category_id});
-				}		
-				this.orderdy();
-			};			
+			if(!this.mallPlate.data){return};	
+			if(this.mallPlate.data.banners){//如果有轮播图时			
+				this.banner=this.mallPlate.data.banners
+			};
+			this.$set(this.searchMess,"per_page",this.mallPlate.data.product_num);
+			if(this.mallPlate.data.mall_category_id!==0){
+				this.$set(this.searchMess,"search",{
+					mall_category_id:this.mallPlate.data.mall_category_id
+				});
+			};	
+			this.orderdy();
+					
 		},
 		components:{BannerEditor,imgNav,multiModule,txtNav,shopList},
 		methods:{
@@ -169,20 +184,25 @@
 			},
 			manual(num,existAddProduct){//手动选择
 				this.$set(this.searchMess,'per_page',num);
-				this.productList(this.searchMess,existAddProduct);//掉接口
+				this._productList(this.searchMess,existAddProduct);//掉接口
 			},
 			showProNum(data,existAddProduct){//商品展示数量
 				this.$set(this.searchMess,'per_page',data);				
-				this.productList(this.searchMess,existAddProduct);//调接口								
+				this._productList(this.searchMess,existAddProduct);//调接口								
 				this.needNum=data;//商品需要展示的数量
+			},
+			showShopNum(data,existAddShop){//店铺展示数量
+				this.$set(this.searchShopMess,'per_page',data);	
+				this._shopList(this.searchShopMess,existAddShop);//调接口	
+				this.shopNumChild=data;//店铺需要展示的数量
 			},
 			classifyMethods(existAddProduct){//商品分类排序			
 				this.$set(this.searchMess.search,'mall_category_id',this.mallPlate.data.mall_category_id);				
-				this.productList(this.searchMess,existAddProduct);//调接口
+				this._productList(this.searchMess,existAddProduct);//调接口
 			},
 			mallorderby(existAddProduct){//商品排序规则
 				this.orderdy();
-				this.productList(this.searchMess,existAddProduct);//掉接口
+				this._productList(this.searchMess,existAddProduct);//掉接口
 			},
 			orderdy(){
 				switch(true){
@@ -203,7 +223,23 @@
 						break
 				};
 			},
-			productList(data,existAddProduct) {//商城列表搜索API
+			_shopList(data,existAddShop){
+				getStoreList(data)
+				.then(({data})=>{
+					if(data.data.length<this.shopNumChild){//上架商品数量小于要展示的商品数量
+						this.$message({message:`商城店铺数量仅有${data.data.length}个`,showClose: true,});
+						this.mallPlate.data.shop_num=data.data.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
+					};
+					this.mallPlate.list=data.data;//展示商品（中间区域）
+					if(!existAddShop){return}
+					if(existAddShop.length===0){return}
+					//添加店铺时（并且商品展示数量改变）
+					let startDelte=this.mallPlate.list.length-existAddShop.length;
+					this.mallPlate.list.splice(startDelte,existAddShop.length);//splice是包含当前位置	(减去已经存在的商品)
+					existAddShop.forEach(item=>{this.mallPlate.list.unshift(item)});//添加上已经存在的商品（商品列表中）
+				})
+			},
+			_productList(data,existAddProduct) {//商城列表搜索API
 				getProductList(data)
 				.then(({data}) => {
 					if(data.data.length<this.needNum){//上架商品数量小于要展示的商品数量
@@ -211,13 +247,12 @@
 						this.mallPlate.data.product_num=data.data.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
 					};
 					this.mallPlate.list=data.data;//展示商品（中间区域）
-					if(existAddProduct!==undefined){						
-						if(existAddProduct.length!==0){//添加商品时（并且商品展示数量改变）
-							let startDelte=this.mallPlate.list.length-existAddProduct.length;
-							this.mallPlate.list.splice(startDelte,existAddProduct.length);//splice是包含当前位置	(减去已经存在的商品)
-							existAddProduct.forEach(item=>{this.mallPlate.list.unshift(item)});//添加上已经存在的商品（商品列表中）					
-						}						
-					}
+					if(!existAddProduct){return	}	
+					if(existAddProduct.length===0){return}
+					//添加商品时（并且商品展示数量改变）
+					let startDelte=this.mallPlate.list.length-existAddProduct.length;
+					this.mallPlate.list.splice(startDelte,existAddProduct.length);//splice是包含当前位置	(减去已经存在的商品)
+					existAddProduct.forEach(item=>{this.mallPlate.list.unshift(item)});//添加上已经存在的商品（商品列表中）														
 				})
 			},
 		}

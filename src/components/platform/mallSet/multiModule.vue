@@ -218,12 +218,34 @@
 		computed:{
 			options(){//根据不同的单双列显示不同的商品数量				
 				if(["商品单列","商品列表"].includes(this.title)){
-					return [{value:1,label:1}, { value:2,label:2}, {value:3,label:3},{value:4,label:4},{value:5,label:5}, 
-					{value:6,label:6}, {value:7,label:7}, {value:8,label:8},{value:9,label:9},{value:10,label:10}]
+					return [
+						{value:1,label:1}, 
+						{value:2,label:2},
+						{value:3,label:3},
+						{value:4,label:4},
+						{value:5,label:5},
+						{value:6,label:6}, 
+						{value:7,label:7}, 
+						{value:8,label:8},
+						{value:9,label:9},
+						{value:10,label:10}
+					]
 				}else if(this.title==='商品双列'){
-					return [{value:2,label:2}, { value:4,label:4}, {value:6,label:6},{value:8,label:8},{value:10,label:10}]
+					return [
+							{value:2,label:2},
+							{value:4,label:4},
+							{value:6,label:6},
+							{value:8,label:8},
+							{value:10,label:10}
+						]
 				}else if(this.title==='商品三列'){
-					return [{value:3,label:3}, { value:6,label:6}, {value:9,label:9},{value:12,label:12},{value:15,label:15}]
+					return [
+						{value:3,label:3},
+						{ value:6,label:6}, 
+						{value:9,label:9},
+						{value:12,label:12},
+						{value:15,label:15}
+					]
 				}
 			},
 			value:{//商品展示数量选择
