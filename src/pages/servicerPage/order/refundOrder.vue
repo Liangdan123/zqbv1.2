@@ -28,6 +28,7 @@
 						@showOrder="showOrder" 
 						:orderLists="orderLists" 
 						v-loading="loading"
+						@againList='searchMethods'
 						@searchMthod="searchMethods"   
 						ref="one">
 					</refundeBought>
@@ -36,6 +37,7 @@
 					<refundeBought :orderData="orderData" 
 						:orderMess="orderMess" 
 						@showOrder="showOrder"
+						@againList='searchMethods'
 						@searchMthod="searchMethods"
 						v-loading="loading"  
 						ref="two" :orderLists="orderLists">

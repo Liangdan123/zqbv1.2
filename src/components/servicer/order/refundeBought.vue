@@ -1,7 +1,7 @@
 <template>
   <div class="refundBought">
     <!--...................拒绝退款弹框...........-->
-    <el-dialog title="温馨提示" :visible.sync="dialogDisagree" :close-on-click-modal="false">
+    <el-dialog title="温馨提示" :visible.sync="dialogDisagree" :close-on-click-modal="false" size='tiny'>
       <span class="color-3 f14 display-b">你是否确定拒绝本次退款申请？</span>
       <span class="color-7F f14 display-b">确定拒绝后，订单会恢复成原来状态继续进行交易</span>
       <div class="clearfix mt-10">
@@ -40,7 +40,7 @@
             <li class="item-2" :class="i===(item.order_products.length-1)?'':'border-b'">
               <div class="v_center">
                 {{child.product_name}}<br>
-                <span v-for="i in  child.spec_name.split(';')">
+                <span v-for="i in  child.spec_name.split(';')" class='color-7F'>
                   {{i}}
                 </span>
               </div>
@@ -163,6 +163,7 @@
         //调用同意退款接口
         refundAgree(refund_order_id)
           .then(({data}) => {
+            this.$message.success('操作成功')
             this.$emit("againList")
           })
       },
