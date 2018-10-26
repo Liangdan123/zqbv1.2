@@ -1,18 +1,18 @@
 <template>
 	<div class="saleCommodity">
-		<!--...................左右按钮..............-->
-		<svg width="30" height="30" class="nextArrow" @click="nextProduct">
-			<use xlink:href="#right" v-if="dialogVisible&&index!=list.data.length-1" />
-		</svg>
-		<svg width="30" height="30" class="prevArrow" @click="prevProduct">
-			<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
-		</svg>
 		<!--.................查看商品详情弹框....................-->
 		<el-dialog :visible.sync="dialogVisible" 
 			:close-on-click-modal="false" 
 			custom-class="checkBox" 
 			:show-close="false">
-			
+			<!--...................左右按钮..............-->
+			<svg width="30" height="30" class="nextArrow" @click="nextProduct">
+				<use xlink:href="#right" v-if="dialogVisible&&index!=list.data.length-1" />
+			</svg>
+			<svg width="30" height="30" class="prevArrow" @click="prevProduct">
+				<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
+			</svg>
+			<!--...................删除按钮..............-->
 			<svg width="26" height="26" 
 				class="closebox" 
 				@click="dialogVisible = false">
@@ -196,11 +196,14 @@
 	import page from "@/utils/page"
 	import onOffCheck from "@/utils/onOffCheck"
 	import {getMallClassifyList,getProductList,checkProduct} from "@/api/platform"
+	import productMess from "@/components/servicer/sellerCenter/productMess"
+	import checkProducts from "@/components/platform/storeManage/checkProducts"
 	export default{
 		components:{
-			"checkProducts":()=>import("@/components/platform/storeManage/checkProducts"),
-			"productMess":()=>import("@/components/servicer/sellerCenter/productMess"),
-			"assess":()=>import("@/components/servicer/commodity/assess")
+//			"checkProducts":()=>import("@/components/platform/storeManage/checkProducts"),
+//			"productMess":()=>import("@/components/servicer/sellerCenter/productMess"),
+			"assess":()=>import("@/components/servicer/commodity/assess"),
+			checkProducts,productMess
 		},
 		data(){
 			return{

@@ -19,16 +19,19 @@ export default {
 			this.searchMethod();
 			this.editProductPage=false;
 		},
-		_checkPro(product_id,isEdit) {	//查看商品API方法
+		_checkPro(product_id,isEdit) {//查看商品API方法
 			this.checkIrreList.product_id=product_id			
 			checkProduct(product_id)
 			.then(({data}) => {	
+				console.log("isEdit888:",isEdit)
 				if(!isEdit){//isEdit(区分是详情弹框还是编辑页面)
 					if(this.dialogVisible == false){//详情弹框
 						this.dialogVisible = true;				
 					};
+					console.log(111111)
 					this._checkIrrehint(this.checkIrreList);//调用违规提醒列表API方法
 				}else if(isEdit){
+					console.log(22222)
 					this.editProductPage=true;//如果是点击编辑那么就会显示编辑页面
 					if(this.dialogVisible == true){//详情弹框
 						this.dialogVisible = false;				

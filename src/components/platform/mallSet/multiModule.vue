@@ -144,7 +144,7 @@
 	export default {
 		data() {
 			return {
-				radio1: "",
+				radio1:"",
 				dialogFormVisible:false,
 				productChecked:{id:""},
 				classifyType:"单选",
@@ -289,7 +289,7 @@
 			isOnOff(){//模块标题开关
 				let arr=["title","title_click_type","title_click_id","title_click_name"];
 				if(this.radio1==="on"){				
-					arr.map(item=>this.shopRank[item]=[item]);
+					arr.map(item=>this.shopRank[item]=this.onMess[item]);
 				}else if(this.radio1==="off"){
 					arr.map(item=>this.shopRank[item]=null);
 				}
@@ -361,11 +361,10 @@
 				if(this.radio2==="1"){//自动添加
 					this.shopRank.product_ids=null;
 				}else if(this.radio2==="2"){//手动添加
-					if(this.existAddProduct.length!==0){
+					if(this.existAddProduct.length===0){return}
 						let product_ids_arr=this.existAddProduct.map(item=>item.product_id);
 						this.shopRank.product_ids=product_ids_arr.join(",");
-						this.$emit("manual",this.value,this.existAddProduct)
-					}
+						this.$emit("manual",this.value,this.existAddProduct)					
 				}
 			},
 			addProduct(){//添加商品（弹框弹出）
@@ -388,7 +387,7 @@
 				}
 				this.addProductLists.push(data);//添加商品后的展示图片
 			},
-			onlyProduct(data){//模块标题(手动添加选择商品)
+			onlyProduct(data){//手动添加选择商品
 				if(this.isShow){
 					this.isShow=false;
 					return
