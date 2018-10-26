@@ -17,7 +17,7 @@
 						 	v-if='scope.row.already_refund!=0&&!isRefund' >
 						 	【退款】
 						 </span>
-            {{scope.row.product_name}}
+            {{scope.row.product_name}}{{scope.row.already_refund==1?'(退款处理中不能操作)':''}}
           </div>
           <div class="spec_name" width='200'>
             <span v-for="item in scope.row.spec_name.split(';')" 
