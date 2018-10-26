@@ -213,6 +213,9 @@
 				}
 			},
 		},
+		updated(){
+			this.shopRank.title_switch=this.radio1;//模块标题开关
+		},
 		methods:{
 			isOnOff(){//模块标题	
 				let arr=["title","title_click_type","title_click_id","title_click_name"];
@@ -252,14 +255,22 @@
 				};	
 			},
 			isAuto(){//手动自己添加
-				
+				this.shopRank.select_shop_type=parseInt(this.radio2);
+				if(this.radio2==="1"){//自动添加
+					this.shopRank.product_ids=null;
+				}else if(this.radio2==="2"){//手动添加
+					if(this.existAddShop.length===0){return}
+					let shop_ids_arr=this.existAddShop.map(item=>item.shop_id);
+					this.shopRank.shop_ids=shop_ids_arr.join(",");
+					this.$emit("shopManual",this.value,this.existAddShop)					
+				}
 			},
 			changemallClassify(){//店铺业务范围，即商城分类一级
 				this.shopRank.mall_category_id=this.mall_category_id;//商城分类ID搜索列表	
 				this.$emit("storeClassifyMethods",this.existAddShop);//商品ID通过shopRank已经传过去了
 			},
-			changemallorderby(){//店铺排序规则TODO
-				
+			changemallorderby(){//店铺排序规则
+				this.$emit("shopMallorderby",this.existAddShop)
 			},
 			shop_hidden(){//关闭标题链接弹窗
 				this.dialogFormVisible=false
@@ -291,11 +302,11 @@
 					this.isShow=false;
 					return
 				};
-				let changeData=JSON.parse(JSON.stringify(data).replace("id","shop_id"));//把id变为shop_id
+				let changeData=JSON.parse(JSON.stringify(data));				
 				this.shopList.splice(this.shopList.length-1,1);//删除后面的商品（中间显示）			
 				this.shopList.splice(0,0,changeData);//在前面增加商品（中间显示）	
 				this.existAddShop.push(changeData);//保存添加商品信息，为商品数量改变而保存之前的操作
-				let shop_ids_Arr=this.existAddShop.map(item=>item.shop_id);//手动添加的商品ID
+				let shop_ids_Arr=this.existAddShop.map(item=>item.shop_id);//手动添加的商品ID				
 				let change_shop_ids=shop_ids_Arr.join(",");					
 				this.shopRank.shop_ids=change_shop_ids;//商品ID组合(手动添加组合改变加进来)	
 			},

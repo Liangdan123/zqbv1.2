@@ -68,7 +68,7 @@
 				</div>	
 				<!--..................商品列表....................-->
 				<div v-if="item.component_key==='splb1'" 
-					class="cursor pos-r bg-f mt-10 splb4" 
+					class="cursor pos-r bg-f mt-10 splb1" 
 					@click="isShowPlate(index)"
 					:class="index_plate===index?'border_b':errorPlate.splb1&&index===errorIndex?'border-red':''">	
 					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
@@ -278,6 +278,7 @@
 				errorPlate:{
 					hbys1:false,
 					tpdh:false,
+					splb1:false,
 					splb2:false,
 					hbys2:false,					
 					dplb1:false
@@ -395,6 +396,14 @@
 								}
 							}																
 							break;
+						case "dplb1":
+							console.log("item.data.title_switch：",item.data.title_switch)
+							if(item.data.title_switch==='on'){
+								if(!item.data.title){								
+									this.errorTips("dplb1","请输入模块标题",index);
+									return
+								}	
+							};
 
 					};
 				};
@@ -633,15 +642,15 @@
 	.hbys2{
 		padding-top: 15px;
 	}
-	.splb4{
+	.splb1{
 		min-height: 180px;
 		padding-top: 15px;
 	}
-	.splb4 .item{
+	.splb1 .item{
 		border: 1px solid #E6E6E6;
 		height: 134px;
 	}
-	.splb4 .item-left{
+	.splb1 .item-left{
 		width: 176px;
 		margin-top: 25px;
 		padding-left: 15px;

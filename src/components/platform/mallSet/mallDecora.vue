@@ -74,7 +74,9 @@
 			<shopList :shopRank="mallPlate.data"
 				@showShopNum="showShopNum"
 				:shopList="mallPlate.shop_list" 
-				@storeClassifyMethods="storeClassifyMethods">
+				@storeClassifyMethods="storeClassifyMethods"
+				@shopMallorderby="shopMallorderby"
+				@shopManual="shopManual">
 			</shopList>
 		</div>
 	</div>
@@ -136,8 +138,8 @@
 		},
 		computed:{
 			isChecked(){//如果有值时(图片导航，component_key==='tpdh')
-				if(this.mallPlate.data!==null&&this.mallPlate.component_key==='tpdh'){//如果有轮播图时
-					if(this.mallPlate.data.num!==undefined){//有数据传过来时
+				if(this.mallPlate.data&&this.mallPlate.component_key==='tpdh'){//如果有轮播图时
+					if(this.mallPlate.data.num){//有数据传过来时
 						if(this.mallPlate.data.num===4){
 							this.value='选项1'
 						}else if(this.mallPlate.data.num===8){						
@@ -151,18 +153,22 @@
 			if(!this.mallPlate.data){return};	
 			if(this.mallPlate.data.banners){//如果有轮播图时			
 				this.banner=this.mallPlate.data.banners
-			};
-			this.$set(this.searchMess,"per_page",this.mallPlate.data.product_num);
-			if(this.mallPlate.data.mall_category_id!==0){
-				this.$set(this.searchMess,"search",{
-					mall_category_id:this.mallPlate.data.mall_category_id
-				});
-			};	
-			this.orderdy();
-					
+			};			
+			this._storeShopOrdery(this.searchMess,"product_num","product_orderby","prodcut")//商品排序规则
+			this._storeShopOrdery(this.searchShopMess,"shop_num","shop_orderby","shop")//店铺排序规则
 		},
 		components:{BannerEditor,imgNav,multiModule,txtNav,shopList},
 		methods:{
+			_storeShopOrdery(searchCondition,shopProductNum,shopProductorderby,shopProduct){//商品或店铺排序规则	
+				this.$set(searchCondition,"per_page",this.mallPlate.data[shopProductNum]);			
+				if(this.mallPlate.data.mall_category_id!==0){
+					let search= shopProduct==="prodcut"?"mall_category_id":"business_range";//商品和店铺列表搜索属性名不一致
+					this.$set(searchCondition,"search",{
+						[search]:this.mallPlate.data.mall_category_id
+					});
+				};					
+				this._orderdy(this.mallPlate.data[shopProductorderby]);//商品排序规则	
+			},
 			passBanner(data){//轮播海报一
 				this.mallPlate.data=data;															
 			},
@@ -185,9 +191,13 @@
 				}
 				this.$emit("changeNum",this.value,this.index)
 			},
-			manual(num,existAddProduct){//手动选择
+			manual(num,existAddProduct){//手动选择(商品)
 				this.$set(this.searchMess,'per_page',num);
 				this._productList(this.searchMess,existAddProduct);//掉接口
+			},
+			shopManual(num,existAddShop){//手动选择(店铺)
+				this.$set(this.searchShopMess,'per_page',num);
+				this._shopList(this.searchShopMess,existAddShop);//掉接口
 			},
 			showProNum(data,existAddProduct){//商品展示数量
 				this.$set(this.searchMess,'per_page',data);				
@@ -200,46 +210,54 @@
 				this.shopNumChild=data;//店铺需要展示的数量
 			},
 			classifyMethods(existAddProduct){//商品分类排序			
-				this.$set(this.searchShopMess.search,'mall_category_id',this.mallPlate.data.mall_category_id);				
+				this.$set(this.searchMess.search,'mall_category_id',this.mallPlate.data.mall_category_id);				
 				this._productList(this.searchMess,existAddProduct);//调接口
 			},
-			storeClassifyMethods(existAddShop){//店铺业务范围TODO
+			storeClassifyMethods(existAddShop){//店铺业务范围
 				this.$set(this.searchShopMess.search,'business_range',this.mallPlate.data.mall_category_id);	
 				this._shopList(this.searchShopMess,existAddShop);//调接口
 			},
 			mallorderby(existAddProduct){//商品排序规则
-				this.orderdy();
+				this._orderdy(this.mallPlate.data.product_orderby);				
 				this._productList(this.searchMess,existAddProduct);//掉接口
 			},
-			orderdy(){
-				switch(true){
-					case this.mallPlate.data.product_orderby===1:
+			shopMallorderby(existAddShop){//店铺排序规则
+				this._orderdy(this.mallPlate.data.shop_orderby);
+				this._shopList(this.searchShopMess,existAddShop);//掉接口
+			},
+			_orderdy(data){//商品店铺排序规则在一起
+				switch(data){//子集通过值直接传过来
+					case 1:
 						this.$set(this.searchMess,"orderby",{onoff_time:'desc'});
+						this.$set(this.searchShopMess,"orderby",{created_at:'desc'});
 						break
-					case this.mallPlate.data.product_orderby===2:
+					case 2:
 						this.$set(this.searchMess,"orderby",{sell_num:'desc'});
+						this.$set(this.searchShopMess,"orderby",{product_num:'desc'});
 						break
-					case this.mallPlate.data.product_orderby===3:
+					case 3:
 						this.$set(this.searchMess,"orderby",{browse_num:'desc'});
+						this.$set(this.searchShopMess,"orderby",{collection_num:'desc'});
 						break
-					case this.mallPlate.data.product_orderby===4:
+					case 4:
 						this.$set(this.searchMess,"orderby",{product_price:'asc'});
+						this.$set(this.searchShopMess,"orderby",{score:'desc'});
 						break
-					case this.mallPlate.data.product_orderby===5:
-						this.$set(this.searchMess,"orderby",{product_price:'desc'});
+					case 5:
+						this.$set(this.searchMess,"orderby",{score:'desc'});
 						break
 				};
 			},
 			_shopList(data,existAddShop){
 				getStoreList(data)
 				.then(({data})=>{
-					this._commonList(data.data,this.shopNumChild,"店铺","shop_list",existAddShop);//共用方法	
+					this._commonList(data.data,this.shopNumChild,"店铺","shop_list",existAddShop,"shop_num");//共用方法	
 				})
 			},
-			_commonList(mallPlateData,num,name,list,existAdd){//添加店铺与商品在一起
+			_commonList(mallPlateData,num,name,list,existAdd,shopProductNum){//添加店铺与商品在一起
 				if(mallPlateData.length<num){//上架商品数量小于要展示的商品数量
 					this.$message({message:`商城${name}数量仅有${mallPlateData.length}个`,showClose: true,});
-					this.mallPlate.data.shop_num=mallPlateData.length;//传给父集的商品展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
+					this.mallPlate.data[shopProductNum]=mallPlateData.length;//传给父集的商品店铺展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
 				};					
 				this.mallPlate[list]=mallPlateData;//展示商品（中间区域）
 				if(!existAdd){return}
@@ -252,7 +270,7 @@
 			_productList(data,existAddProduct) {//商城列表搜索API
 				getProductList(data)
 				.then(({data}) => {
-					this._commonList(data.data,this.needNum,"商品","list",existAddProduct);//共用方法	
+					this._commonList(data.data,this.needNum,"商品","list",existAddProduct,"product_num");//共用方法	
 				})
 			},
 		}
