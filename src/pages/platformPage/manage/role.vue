@@ -78,23 +78,19 @@
       };
     },
     mixins: [page],
-    components: {
-      Navbar
-    },
+    components: { Navbar},       
     created() {
-      this.tabForShow = this.$route.query.tab || '1';
+			this.tabForShow = this.$route.query.tab || '1';
       if(this.tabForShow==1){
-        this.$set(this.searchCondition,"search",{is_company: 1})
+      	this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:0})
       }else{
-        this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:1})
+      	 this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:1})
       }
     },
     methods: {
       open(id) {
         //查询链接内容\
-        getRoleCPS(id).then(({
-          data
-        }) => {
+        getRoleCPS(id).then(({data}) => {                 
           this.urlArr = [{
             "type": "角色发展链接",
             'url': data.role_cps_url
@@ -123,26 +119,22 @@
           }
         })
       },
-      tabSwitch({
-        name
-      }) {
+      tabSwitch({name}) {             
         // tab面板切换
         this.searchCondition.page = 1;
         this.searchCondition.search = {};
         if(this.tabForShow==1){
-        this.$set(this.searchCondition,"search",{is_company: 1})
-      }else{
-        this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:1})
-      }
+      		this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:0})
+	      }else{
+	        this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:1})
+	      }
         this.searchMethod();
       },
       _doSearch() {
         // 搜索入驻申请列表
         this.tableDataLoading = true;
         getRoleList(this.searchCondition)
-          .then(({
-            data
-          }) => {
+          .then(({data}) => {                    
             this.tableDataLoading = false;
             this.list = data.data;
             this.total = data.total;

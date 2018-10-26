@@ -419,7 +419,8 @@
           </table>
           <h3 class="mb-10 ">3.会员来源与合伙人</h3>
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
-            <span class="warn">x%</span>的钱按比例分给（代理商、合伙人）。
+            <span class="warn">{{parseInt(list5Coyp[1].rate)+parseInt(list5Coyp[2].rate)}}%</span>
+          		  的钱按比例分给（代理商、合伙人）           
             <span class="warn">然后再按表1进行分配。</span>
           </p>
           <table class="u-table border" cellspacing="0">
@@ -444,7 +445,8 @@
           </table>
           <h3 class="mb-10 ">4.会员来源于服务商且服务商有合伙人</h3>
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
-            <span class="warn">x%</span>的钱按比例分配给（代理商、合伙人、服务商），
+            <span class="warn">{{parseInt(list5Coyp[3].rate)+parseInt(list5Coyp[4].rate)+parseInt(list5Coyp[5].rate)}}%</span>
+            	的钱按比例分配给（代理商、合伙人、服务商），
             <span class="warn">然后再按表1进行分配。</span>
           </p>
           <table class="u-table border" cellspacing="0">
@@ -582,7 +584,13 @@
         list2Coyp: [],
         list3Coyp: [],
         list4Coyp: [],
-        list5Coyp: [],
+        list5Coyp: [
+        	{rate:""},
+        	{rate:""},
+        	{rate:""},
+        	{rate:""},
+        	{rate:""},
+        ],
         list6Coyp: [],
         list2: [{
             "yx_from": 1,
