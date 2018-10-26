@@ -219,7 +219,7 @@
         <el-tab-pane label="订单分佣" name="3">
           <h3>一.非会员消费</h3>
           <div class="clearfix color-7F mt-10">
-            判断服务商来源
+            	判断服务商来源
             <el-button class='store-button1 float-r' @click="edit(3)">
               <i class="iconfont icon-baocun f12"></i>
               <span v-if="status!=3">修改比例</span>
@@ -419,8 +419,8 @@
           </table>
           <h3 class="mb-10 ">3.会员来源与合伙人</h3>
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
-            <span class="warn">{{parseInt(list5Coyp[1].rate)+parseInt(list5Coyp[2].rate)}}%</span>
-          		  的钱按比例分给（代理商、合伙人）           
+           <span class="warn">{{parseInt(list5Coyp[1].rate)+parseInt(list5Coyp[2].rate)}}%</span>
+          		  的钱按比例分给（代理商、合伙人）        
             <span class="warn">然后再按表1进行分配。</span>
           </p>
           <table class="u-table border" cellspacing="0">
@@ -445,7 +445,8 @@
           </table>
           <h3 class="mb-10 ">4.会员来源于服务商且服务商有合伙人</h3>
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
-            <span class="warn">{{parseInt(list5Coyp[3].rate)+parseInt(list5Coyp[4].rate)+parseInt(list5Coyp[5].rate)}}%</span>
+          
+           <span class="warn">{{parseInt(list5Coyp[3].rate)+parseInt(list5Coyp[4].rate)+parseInt(list5Coyp[5].rate)}}%</span>
             	的钱按比例分配给（代理商、合伙人、服务商），
             <span class="warn">然后再按表1进行分配。</span>
           </p>
@@ -480,7 +481,9 @@
           </table>
           <h3 class="mb-10 ">5.会员来源于服务商且没有合伙人</h3>
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
-            <span class="warn">x%</span>的钱按比例分配给（代理商、服务商），
+          <!--  <span class="warn">x%</span>的钱按比例分配给（代理商、服务商），-->
+          	<span class="warn">{{parseInt(list5Coyp[6].rate)+parseInt(list5Coyp[7].rate)}}%</span>
+          	的钱按比例分配给（代理商、服务商），
             <span class="warn">然后再按表1进行分配。</span>
           </p>
           <table class="u-table border" cellspacing="0">
@@ -580,16 +583,34 @@
             "rate": null
           }
         ],
-        list1Coyp: [],
-        list2Coyp: [],
-        list3Coyp: [],
-        list4Coyp: [],
+        list1Coyp: [{rate:""},{rate:""}],
+        list2Coyp: [
+        	{rate:""},
+        	{rate:""},
+        	{rate:""}
+        ],
+        list3Coyp: [
+        	{rate:""},
+        	{rate:""},
+        	{rate:""},
+        	{rate:""}
+        ],
+        list4Coyp: [
+        	{rate:""},
+        	{rate:""},
+        	{rate:""},
+        	{rate:""},
+        	{rate:""}
+        ],
         list5Coyp: [
         	{rate:""},
         	{rate:""},
         	{rate:""},
         	{rate:""},
         	{rate:""},
+        	{rate:""},
+        	{rate:""},
+        	{rate:""}
         ],
         list6Coyp: [],
         list2: [{
