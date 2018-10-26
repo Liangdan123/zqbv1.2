@@ -80,6 +80,9 @@ const mutations={
 		state.area=area
 	},
 }
+
+
+
 const actions={
 	//登陆成功
 	doLogin({ commit,dispatch},user){	
@@ -90,17 +93,19 @@ const actions={
 		});
 		switch(user.type){
 			case 1://登录的是平台跳转
-				router.replace("/mallZxh/controlCenter/platDataCenter");
+//				router.replace("/mallZxh/controlCenter/platDataCenter");
 				break;
 			case 2:
 				router.replace("/agent/agentMoney");
 				break;
-			case 4:
-				router.replace("/server/sellercenter/servicerCenter");
-				break;
+
 			case 3:
 				router.replace("/partner/partnerMoney");
-			break;
+				break;
+			case 4:
+				
+				router.replace("/server/sellercenter/servicerCenter");
+				break;
 		}
 		
 	},

@@ -1,18 +1,19 @@
 <template>
 	<div class="history">
-		<!--...................左右按钮..............-->
-		<svg width="30" height="30" class="nextArrow" @click="nextProduct">
-			<use xlink:href="#right" v-if="dialogVisible&&index!=list.data.length-1" />
-		</svg>
-		<svg width="30" height="30" class="prevArrow" @click="prevProduct">
-			<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
-		</svg>
+
 		<!--.................查看商品详情弹框....................-->
 		<el-dialog :visible.sync="dialogVisible" 
 			:close-on-click-modal="false" 
 			custom-class="checkBox" 
 			:show-close="false">
-			
+			<!--...................左右按钮..............-->
+			<svg width="30" height="30" class="nextArrow" @click="nextProduct">
+				<use xlink:href="#right" v-if="dialogVisible&&index!=list.data.length-1" />
+			</svg>
+			<svg width="30" height="30" class="prevArrow" @click="prevProduct">
+				<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
+			</svg>
+			<!--...................删除按钮..............-->
 			<svg width="26" height="26" 
 				class="closebox" 
 				@click="dialogVisible = false">

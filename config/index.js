@@ -11,20 +11,16 @@ module.exports = {
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
     proxyTable: {
-    	'/admin/mock':{
-    			target:'https://dsn.apizza.net/mock/09337008e21972378ff5ddde32eaac4d/',
-    			changeOrigin:true
-    	},
 		 '/admin': {
-            target: 'http://zqb.71baomu.com',
+            target:'https://zqb.71baomu.com',
             changeOrigin: true
        },
 	    '/uploads':{
-            target: 'http://zqb.71baomu.com',
+            target:'https://zqb.71baomu.com',
             changeOrigin: true
 	       },
        '/images':{     		        		
-					target: 'http://zqb.71baomu.com',
+					target: 'https://zqb.71baomu.com',
 					changeOrigin: true
 			}
     },
