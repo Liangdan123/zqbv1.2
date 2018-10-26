@@ -18,9 +18,9 @@
 			<label class="display-b store_label" 
 				v-for="(item,index) in list.data" 
 				:key="index" 
-				@click="checkedIndex(index)">
-				
-				<input type="radio" name="one" :checked="isChecked[index]"/>
+				@click="checkedIndex(index)">	
+				<input type="radio" name="one" 
+					:checked="isTitleShop.name==='title'?isTitleChecked[index]:isShopChecked"/>
 				<em></em>
 				<img :src="item.shop_logo||shopLogoNull"/>
 				<span>{{item.shop_name}}</span>
@@ -78,6 +78,7 @@ export default{
 				click_id:"",
 				click_image:"",
 			},
+			onlyShop:{},//单个店铺
 		}
 	},
 	mixins:[page],
@@ -88,17 +89,25 @@ export default{
 				return {}
 			}
 		},
+		isTitleShop:{//添加标题链接与添加店铺是一个弹框（为了让两者不矛盾）
+			default:function(){
+				return {name:"title"}
+			}
+		}
 	},
 	computed:{
-		isChecked(){//input标签的选中事件
+		isTitleChecked(){//当时添加标题时checked事件用这个
 			return	this.list.data.map(item=>{
-				if(item.id===this.productChecked.id){
+				if(item.shop_id===this.productChecked.id){
 					return true
 				}else{
 					return false
 				}
 			})
-		}
+		},
+		isShopChecked(){//当时添加店铺时checked事件用这个
+			return false
+		},
 	},
 	methods:{
 		_doSearch(){//获取店铺列表
@@ -116,12 +125,14 @@ export default{
 			this.$refs.storeModel.closeSearch()
 		},
 		checkedIndex(index){//选择店铺
+			let list=this.list.data[index]
 			this.shopMessage={//选中的店铺信息（后台所需要）
 				click_type:"shop",
-				click_name:this.list.data[index].shop_name,
-				click_id:this.list.data[index].shop_id,
-				click_image:this.list.data[index].shop_logo,
+				click_name:list.shop_name,
+				click_id:list.shop_id,
+				click_image:list.shop_logo,
 			};
+			this.onlyShop=list;//整个店铺信息传过去（用于手动添加商品）
 		},
 		cancleShop(){//取消
 			this.isSearchEmpty=false;
@@ -130,7 +141,13 @@ export default{
 		sureShop(){//确定
 			this.isSearchEmpty=false;
 			this.$emit("shop_hidden");
-			this.$emit("shopName", this.shopMessage);
+			if(this.isTitleShop.name==="title"){//点击添加标题链接(两个弹框一致所以做出区别)
+				this.$emit("shopName", this.shopMessage);
+			}else{//点击添加店铺时的商品
+				this.$emit("addshopName", this.shopMessage);//操作栏显示选中的店铺
+				this.$emit("onlyShop",this.onlyShop);//显示栏显示
+			}
+			
 		}
 	}
 }

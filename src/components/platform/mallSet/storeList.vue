@@ -9,7 +9,7 @@
 				<div class="condition">
 					<span class="f12 color-3">商品价格:</span>
 					<input type="number" v-model.number="searchMess.minPrice" /> 
-					到 
+						到 
 					<input type="number" v-model.number="searchMess.maxPrice" />
 				</div>
 				<div class="classify">
@@ -257,14 +257,15 @@
 			sureShop(){//确定
 				this.isSearchEmpty=false;
 				this.$emit("shop_hidden", false);
+				let productCnt
 				if(this.choiceRole==="store"){//我的店铺
-					var productCnt = {
+					productCnt = {
 						banner_click_type: "product",
 						banner_click_name: this.produce_name,
 						banner_click_id: this.banner_click_id
 					};
 				}else if(this.choiceRole==="mall"){//商城
-					var productCnt = {
+					productCnt = {
 						click_type:"product",
 						click_name:this.produce_name,
 						click_id:this.banner_click_id,
@@ -272,8 +273,8 @@
 					};
 				}
 				if(this.produce_name) {
-					this.$emit("productName", productCnt);
-					this.$emit("onlyProduct",this.onlyProduct)
+					this.$emit("productName", productCnt);//操作栏显示选中的商品
+					this.$emit("onlyProduct",this.onlyProduct)//显示栏显示按钮
 				}
 			},
 			cancleShop(){
