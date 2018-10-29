@@ -2,22 +2,28 @@
 	<div class="refundOrder commodity" @click="closeSearch">
 		<Navbar v-if="this.typeChoice===4"></Navbar>
     	<platformNavbar v-if="this.typeChoice===1"></platformNavbar>
-		<!--............弹框左右按钮............-->
-		<div v-if="activeName!=='first'">
-			<svg width="30" height="30" class="next" @click="nextProduct">
-				<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
-			</svg>
-			<svg width="30" height="30" class="prev" @click="prevProduct">
-				<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
-			</svg>
-		</div>
+
 		<!--..............查看退款详情..................-->
-		<el-dialog :visible.sync="dialogVisible" :close-on-click-modal="false" :show-close="false" class="order">
-			<svg width="26" height="26" class="closebox cursor" @click="dialogVisible = false">
-					<use xlink:href="#close" />
+		<el-dialog :visible.sync="dialogVisible" 
+			:close-on-click-modal="false" 
+			:show-close="false" class="order">
+			<!--............弹框左右按钮............-->
+			<div v-if="activeName!=='first'">
+				<svg width="30" height="30" class="next" @click="nextProduct">
+					<use xlink:href="#right" v-if="dialogVisible&&index!=orderLists.length-1" />
 				</svg>
+				<svg width="30" height="30" class="prev" @click="prevProduct">
+					<use xlink:href="#left" v-if="dialogVisible&&index!=0" />
+				</svg>
+			</div>
+			<svg width="26" height="26" class="closebox cursor" 
+				@click="dialogVisible=false">
+					<use xlink:href="#close" />
+			</svg>
 			<!--..............查看退款详情内容（弹框）..................-->
-			<orderRefund :checkOrder="onlyOrderMess" @DisAgreeAPI="DisAgreeAPI" :refundInfo="refundInfo">
+			<orderRefund :checkOrder="onlyOrderMess" 
+				@DisAgreeAPI="DisAgreeAPI" 
+				:refundInfo="refundInfo">
 			</orderRefund>
 		</el-dialog>
 		<div class="g-content">
@@ -38,7 +44,8 @@
 						@showOrder="showOrder"
 						@searchMthod="searchMethods"
 						v-loading="loading"  
-						ref="two" :orderLists="orderLists">
+						ref="two" 
+						:orderLists="orderLists">
 					</refundeBought>
 				</el-tab-pane>
 				<el-tab-pane label="已退款" name="3">
@@ -171,7 +178,7 @@
 				this.orderList(this.orderMess);
 			},
 			//查看退款详情
-			showOrder(data) {
+			showOrder(data){
 				this.index = data; //data是列表下标
 				this.dialogVisible = true;
 				this.seeOrder(data); //调用获取退款订单详情
@@ -192,7 +199,7 @@
 			seeOrder(index) {
 				let refund_order_id = this.orderLists[index].refund_order_id;
 				refundGet(refund_order_id)
-					.then(({data}) => {											
+					.then(({data}) => {								
 						this.onlyOrderMess = data; //退款订单详情
 					})
 			},

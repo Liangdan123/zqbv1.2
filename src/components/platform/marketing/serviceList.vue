@@ -9,7 +9,9 @@
 			<search :componentList="['input']"
 				:search.sync="searchCondition.search"
 				@searchMethod="searchInput"				
-				class="float-r"></search>
+				class="float-r"
+				 inputSearch='order_search' >
+			</search>
 		</div>
 		
 		<el-table style="width: 100%"

@@ -2,9 +2,15 @@
 	<div class="orderDetailed" @click="closeSearch">		
 		<search :search.sync="searchCondition.search" 
 			@searchMethod="searchMethod" 
-			@emptyMthod='searchMethod' ref="isShow" selectTitle='筛选列表'
-          hintMess="输入相关信息进行搜索" class='mb-20' inputSearch='keyword' v-if="isSearch">
-        </search>
+			@emptyMthod='searchMethod' 
+			ref="isShow" 
+			selectTitle='筛选列表'
+      hintMess="输入相关信息进行搜索" 
+      class='mb-20' 
+      inputSearch='keyword' 
+      v-if="isSearch">
+      
+     </search>
 		<el-table
 			:data="list.data" 
 			v-loading="loading"

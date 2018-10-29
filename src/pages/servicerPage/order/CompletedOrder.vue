@@ -78,7 +78,7 @@ export default {
 	          search: {
 	            type: 4,
 	          },
-	          per_page: 1,
+	          per_page: 20,
 	        },
 	        orderData: {}, //订单全部数据（包括页码）
 	        orderLists: [{
@@ -116,11 +116,12 @@ export default {
 	        //调用列表接口
 	        this.orderList(this.orderMess);
 	    },
-	      //确定或取消发货时关闭弹窗
+	    //确定或取消发货时关闭弹窗，退款时关闭弹窗
 	    closeBox(data) {
-	        if(data){
-	          this.searchMethods(); //发货后重新拉取列表
-	        }
+//	        if(data){
+//	          this.searchMethods(); //发货后重新拉取列表
+//	        }
+			this.searchMethods(); //开始服务、退款后重新拉取列表 
 	        this.dialogVisible = false
 	    },
 	    Invoice(id){

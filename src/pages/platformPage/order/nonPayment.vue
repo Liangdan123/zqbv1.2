@@ -67,7 +67,7 @@
 	          search: {
 	            type: 1,
 	          },
-	          per_page: 1,
+	          per_page: 20,
 	        },
 	        orderData: {}, //订单全部数据（包括页码）
 	        orderLists: [{
