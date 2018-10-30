@@ -2,8 +2,12 @@
   <div class="refundBought">
     <!--...................拒绝退款弹框...........-->
     <el-dialog title="温馨提示" :visible.sync="dialogDisagree" :close-on-click-modal="false">
-      <span class="color-3 f14 display-b">你是否确定拒绝本次退款申请？</span>
-      <span class="color-7F f14 display-b">确定拒绝后，订单会恢复成原来状态继续进行交易</span>
+      <span class="color-3 f14 display-b">
+      	你是否确定拒绝本次退款申请？
+      </span>
+      <span class="color-7F f14 display-b">
+      	确定拒绝后，订单会恢复成原来状态继续进行交易
+      </span>
       <div class="clearfix mt-10">
         <el-button class="store-button2 float-r" @click="lastCancel">取消</el-button>
         <el-button class="store-button1 float-r mr-10" @click="lastSure">确定</el-button>
@@ -76,8 +80,12 @@
             <li>
               <div class="v_center btn">
                 <div class="clearfix mb-10" v-if="item.refund_status===1">
-                  <el-button class="store-button1 float-l" @click="agree(item)">同意</el-button>
-                  <el-button class="store-button2 float-l" @click="disAgress(item)">拒绝</el-button>
+                  <el-button class="store-button1 float-l" @click="agree(item)">
+                  	同意
+                  </el-button>
+                  <el-button class="store-button2 float-l" @click="disAgress(item)">
+                  	拒绝
+                  </el-button>
                 </div>
                 <span class=" color-b cursor" @click="checkOrder(index)">查看退款详情</span>
               </div>
@@ -163,7 +171,7 @@
         //调用同意退款接口
         refundAgree(refund_order_id)
           .then(({data}) => {
-            this.$emit("againList")
+             this.$emit("searchMthod")
           })
       },
       //拒绝退款

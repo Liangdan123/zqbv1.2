@@ -63,11 +63,18 @@
       <!--.................退款原因.................-->
       <div class="plate mt-40">
         <p class="color-3 f16 mb-20">退款商品</p>
-        <productTable :productMess="checkOrder.products" :isRefund="true"></productTable>
-      </div>
+        <productTable 
+        	:productMess="checkOrder.products" 
+        	:isRefund="true">        	        	       	
+        </productTable>
+      </div>	    
       <div class="clearfix mt-20" v-if="checkOrder.refund_status===1">
-        <el-button class="store-button2 float-r ml-10" @click="disAgress">拒绝</el-button>
-        <el-button class="store-button1 float-r" @click="agree">同意</el-button>
+        <el-button class="store-button2 float-r ml-10" @click="disAgress">
+        	拒绝
+        </el-button>
+        <el-button class="store-button1 float-r" @click="agree">
+        	同意
+        </el-button>
       </div>
     </div>
   </div>
@@ -97,7 +104,7 @@
 	    },
   	},
     data() {
-      return {};
+      return { };     
     },
     props: {
       //退款订单信息
@@ -112,17 +119,14 @@
         default: function () {}
       }
     },
-    components: {
-      productTable
-    },
+    components: {productTable},   
     methods: {
       //同意退款
       agree() {
         let refund_order_id = this.checkOrder.refund_order_id;
         //调用同意退款接口(接口未好)
-        refundAgree(refund_order_id).then(({
-          data
-        }) => {
+        refundAgree(refund_order_id)
+        .then(({data}) => {       
 					this.$message.success('操作成功')
           this.$emit("DisAgreeAPI");
         });
@@ -131,9 +135,8 @@
       disAgress() {
         let refund_order_id = this.checkOrder.refund_order_id;
         //调用拒绝退款接口(接口未好)
-        refundDisagree(refund_order_id).then(({
-          data
-        }) => {
+        refundDisagree(refund_order_id)
+        .then(({data }) => {     
 					this.$message.success('操作成功')
           this.$emit("DisAgreeAPI");
         });
@@ -250,5 +253,7 @@
     padding-left: 0;
     width: 72px;
   }
-
+  .orderRefund .refundMoney.el-input {
+  	width: 440px;
+  }
 </style>

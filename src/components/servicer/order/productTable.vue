@@ -2,9 +2,9 @@
   <el-table :data="type==='退款'?productRefundList:productMess" 
   	style="width: 100%" 
   	@selection-change="handleSelectionChange"
-  	ref="multipleTable">  	
-    <el-table-column type="selection" width="55" 
-    	v-if="(type=='订单服务'&&status==2)||type==='退款'">   	
+  	ref="multipleTable">  		
+   	<el-table-column type="selection" width="55" 
+    	v-if="(type=='订单服务'&&status==2)||(type=='退款')">   	
     </el-table-column>
     <el-table-column label="商品" width='420'>
       <template slot-scope="scope">
@@ -15,14 +15,14 @@
           <div class="product_name">
 						 <span class='red' 
 						 	v-if='scope.row.already_refund!=0&&!isRefund' >
-						 	【退款】
+						 	【退款】{}
 						 </span>
             {{scope.row.product_name}}
           </div>
           <div class="spec_name" width='200'>
             <span v-for="item in scope.row.spec_name.split(';')" 
             	class="color-7F">
-              {{item}}
+              {{item}}  
             </span>
           </div>
         </div>

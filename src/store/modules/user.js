@@ -81,7 +81,33 @@ const mutations={
 	},
 }
 
-
+let platJumpPage=function(pageArray){
+		let navbarArray=pageArray.split(",");
+		let jumpPage=Math.min.apply(null,navbarArray);
+		switch(jumpPage){//登录先跳进权限取值最小的的页面
+			case 1:
+				router.replace("/mallZxh/controlCenter/platDataCenter");
+				break;
+			case 2:
+				router.replace("/mallZxh/storeManage");
+				break;
+			case 3:
+				router.replace("/mallZxh/platformOrder/serverAllOrder");
+				break;
+			case 4:
+				router.replace("/mallZxh/marketingInfo");
+				break;
+			case 5:
+				router.replace("/mallZxh/mallSetInfo");
+				break;
+			case 6:
+				router.replace("/mallZxh/fund/extractCash");
+				break;
+			case 7:
+				router.replace("/mallZxh/manage/join");
+				break;
+		}
+}
 
 const actions={
 	//登陆成功
@@ -91,9 +117,11 @@ const actions={
 		.then(({data})=>{
 			commit(AREA,data);
 		});
+		
 		switch(user.type){
 			case 1://登录的是平台跳转
-				router.replace("/mallZxh/controlCenter/platDataCenter");
+				platJumpPage(user.permission);
+//				router.replace("/mallZxh/controlCenter/platDataCenter");
 				break;
 			case 2:
 				router.replace("/agent/agentMoney");

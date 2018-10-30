@@ -51,8 +51,7 @@ export default{
 	    	this.index=data;//data是列表下标
 			this.dialogVisible=true;
 			//判断需要传到子集的字符串是什么	
-			this.type="订单详情"
-			
+			this.type="订单详情"			
 			this.seeOrder(data);
 		},
 		//查看订单API(订单详情)
@@ -65,7 +64,7 @@ export default{
 				this.shipping_info=data.shipping_info
 			})	
 		},
-		//订单服务(订单详情)
+		//订单服务(订单详情，退款)
 		showSetOrder(data,title){
 			title?this.type="退款":this.type="订单服务";//判断需要传到子集的字符串是什么
 			this.index=data;//data是列表下标

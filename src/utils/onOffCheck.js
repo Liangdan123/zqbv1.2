@@ -53,16 +53,16 @@ export default {
 		onlyOffPro(product_id){//表格、弹框的下架（单一）
 			this._onOffdelete(product_id,"off")
 		},
-		onlyOnPro(product_id){//表格、弹框的上架架（单一）
+		onlyOnPro(product_id){//表格、弹框的上架（单一）
 			this._onOffdelete(product_id,"on")
 		},
-		onlyDeletePro(product_id){//单一删除
+		onlyDeletePro(product_id){//表格、弹框单一删除
 			this._onOffdelete(product_id,"delete")
 		},
 		_onOffdelete(product_id,data){//上下架删除
-			let onOff=data==="on"?"on":"off";
+			let onOff= data==="on"?"on":"off";
 			let offOnDelte	
-			data==="delete"?offOnDelte={products:product_id}:offOnDelte={products:product_id,status:onOff};
+			data==="delete"?offOnDelte={products:[{product_id}]}:offOnDelte={products:[{product_id}],status:onOff};
 			data==="on"?this._onProduct(offOnDelte):data==="off"?this._offBatch(offOnDelte):this._deletePro(offOnDelte);
 		},
 		handleSelection(val){//选中列表

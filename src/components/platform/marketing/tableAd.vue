@@ -6,8 +6,8 @@
 			class="content">
 			<serviceList 
 				:ad_ids="distributeList"
-				:closeMood="closeMood"
-				></serviceList>
+				:closeMood="closeMood">
+			</serviceList>
 		</el-dialog>
 		<div class="clearfix mb-10">
 			<div class="button float-l">

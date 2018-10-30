@@ -7,31 +7,38 @@
 			</div>
 			<el-menu :default-active='$route.path' :router="true" mode="horizontal">
 				<el-menu-item index="/mallZxh/controlCenter/platDataCenter" 
-					:class="{isActive:active=='controlCenter'}">
+					:class="{isActive:active=='controlCenter'}"
+					v-if="permission.includes('1')||(isManager==1)">
 					<i></i>监控中心
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/storeManage" 
-					:class="{isActive:active=='storeManage'||active=='storeMessage'}">
+					:class="{isActive:active=='storeManage'||active=='storeMessage'}"
+					v-if="permission.includes('2')||(isManager==1)">
 					<i></i>店铺管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/platformOrder/serverAllOrder" 
-					:class="{isActive:active=='platformOrder'}">
+					:class="{isActive:active=='platformOrder'}"
+					v-if="permission.includes('3')||(isManager==1)">
 					<i></i>订单管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/marketingInfo" 
-					:class="{isActive:active=='marketingInfo'}">
+					:class="{isActive:active=='marketingInfo'}"
+					v-if="permission.includes('4')||(isManager==1)">
 					<i></i>营销管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/mallSetInfo" 
-					:class="{isActive:active=='mallSetInfo'}">
+					:class="{isActive:active=='mallSetInfo'}"
+					v-if="permission.includes('5')||(isManager==1)">
 					<i></i>商城设置
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/fund/extractCash" 
-					:class="{isActive:active=='fund'}">
+					:class="{isActive:active=='fund'}"
+					v-if="permission.includes('6')||(isManager==1)">
 					<i></i>资金管理
 				</el-menu-item>
 				<el-menu-item index="/mallZxh/manage/join" 
-					:class="{isActive:active=='manage'}">
+					:class="{isActive:active=='manage'}"
+					v-if="permission.includes('7')||(isManager==1)">
 					<i></i>平台管理
 				</el-menu-item>
 			</el-menu>
@@ -65,7 +72,16 @@
 
 <script>
  import navbar from "@/utils/navbar"
-  export default {
+ export default {	
+ 	data(){
+ 		let isAdmin=this.$store.state.user.user.is_admin;
+ 		let pageArray=this.$store.state.user.user.permission;
+ 		let navbarArray=pageArray.split(",");	
+ 		return{
+ 			permission:navbarArray,
+ 			isManager:isAdmin,
+ 		}	
+ 	},
     mixins: [navbar],
     computed: {
      	change_my_store() {

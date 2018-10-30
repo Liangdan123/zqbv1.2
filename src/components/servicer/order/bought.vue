@@ -186,7 +186,7 @@
       checkOrder(data) {
         this.$emit("showOrder",data);
       },
-      //开始服务
+      //退款(开始服务)
       setPro(data,title) {        
       	this.$emit("showSetOrder",data,title);
       },

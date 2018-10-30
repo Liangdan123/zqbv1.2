@@ -156,7 +156,7 @@
     <div class="plate">
       <p class="color-3 f16 font-b mb-20">商品信息</p>
       <div v-show="false">{{productRefund}}</div>
-      <productTable 
+     	<productTable 
       	:productMess="checkOrder.order_products"
       	:productRefundList="productRefundList"
       	:type='type' 
@@ -331,7 +331,7 @@
     	},
     },
     methods: {
-    	_refundPartlists(){//退款列表
+    	_refundPartlists(){//退款列表   		
 			 	refundPartlists(this.split_order_id)
 					.then(({data})=>{
 						this.productRefundList=data.products
@@ -347,8 +347,9 @@
       //开始服务和退款
       handleSelectionChange(val) {
         this.order_products = val;
-        if(val.length!==0){
-        	let refundArray=val.map((item)=>item.refund_spec_fee_yuan);	
+       	if(this.type!=="退款"){return};//不是退款弹窗就退出(开始服务与退款在一起)
+        if(val.length!==0){     	
+        	let refundArray=val.map((item)=>item.total_spec_fee_yuan);
 					this.refund=refundArray.reduce(this._getRefundTotal);
 					this.copyRefund=JSON.parse(JSON.stringify(this.refund))
         }else{
@@ -362,7 +363,8 @@
       	if(this.refund>this.copyRefund){
       		this.isRefund=false;
       		this.PromptMess("退款金额不能大于支付金额","warning");
-      	}
+      	};
+      	this.isRefund=true;
       },
       cancelRefund(){//取消退款按钮
       	this.refund=0;//退款金额初始化
@@ -390,13 +392,14 @@
       		products:productsArray,
 					refund_money:this.refund*100
       	};
-      	this._APIRefundPart(refundInfo)
+      	console.log("refundInfo：",refundInfo)
+      	this._APIRefundPart(refundInfo);
       },
       _APIRefundPart(message){//提交部分退款申请API
       	applyRefundPart(message)
       	.then(({data})=>{
       		this.$emit("closeBox", false);
-      		this._refundPartlists();//退款列表   		
+//    		this._refundPartlists();//退款列表   		
       	})
       },
       PromptMess(data, type) {

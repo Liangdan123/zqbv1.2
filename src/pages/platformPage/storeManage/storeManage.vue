@@ -25,7 +25,7 @@
 				v-loading="loading">
 				<el-table-column prop="shop_logo" width="70">
 					<template slot-scope="props">
-						<img :src="props.row.shop_logo" width="50" height="50">
+						<img :src="props.row.shop_logo||imgUrl" width="50" height="50">
 					</template>
 				</el-table-column>
 				<el-table-column prop="shop_name" label="店铺名称"></el-table-column>
@@ -58,6 +58,7 @@
 </template>
 
 <script>
+	import * as links from "@/links/index"
 	import {getStoreList} from "@/api/platform"
 	import page from "@/utils/page"
 	import router from "@/router"
@@ -76,6 +77,7 @@
 				loading:true,
 				emptyText:"暂无数据",
 				searchArray:['business_range'],
+				imgUrl:links.IMG,
 			}
 		},
 		mixins:[page],

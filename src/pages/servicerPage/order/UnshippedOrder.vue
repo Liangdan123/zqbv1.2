@@ -22,7 +22,7 @@
 		    	@click="setPro">
 		    	<i class="iconfont icon-kaishifuwu f12"></i> 开始服务		    				    	
 		    </el-button>
-		      <!--.................主体内容....................-->
+		    <!--.................主体内容....................-->
 		    <orderDetail :checkOrder="onlyOrderMess" 
 		    	:pay_info="pay_info" 
 		    	:shipping_info="shipping_info" 
@@ -70,7 +70,7 @@
 	          search: {
 	            type: 2,
 	          },
-	          per_page: 1,
+	          per_page: 20,
 	        },
 	        orderData: {}, //订单全部数据（包括页码）
 	        orderLists: [{
@@ -106,14 +106,15 @@
         //调用列表接口
         this.orderList(this.orderMess);
       },
-      //确定或取消发货时关闭弹窗
-      closeBox(data) {
-        if(data){
-          this.searchMethods(); //发货后重新拉取列表
-        }
+      //确定或取消开始服务，退款时关闭弹窗
+      closeBox(data){
+//      if(data){
+//        this.searchMethods(); //开始服务后重新拉取列表
+//      }
+        this.searchMethods(); //开始服务、退款后重新拉取列表 
         this.dialogVisible = false
       },
-      //点击商品发货
+      //点击开始服务
       setPro() {
         this.type = "订单服务"
       },

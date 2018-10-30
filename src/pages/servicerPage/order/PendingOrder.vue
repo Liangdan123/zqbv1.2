@@ -70,7 +70,7 @@
 	          search: {
 	            type: 3,
 	          },
-	          per_page: 1,
+	          per_page: 20,
 	        },
 	        orderData: {}, //订单全部数据（包括页码）
 	        orderLists: [{
@@ -113,9 +113,10 @@
       },
       //确定或取消发货时关闭弹窗
       closeBox(data) {
-        if(data){
-          this.searchMethods(); //发货后重新拉取列表
-        }
+//      if(data){
+//        this.searchMethods(); //发货后重新拉取列表
+//      }
+		this.searchMethods(); //开始服务、退款后重新拉取列表 
         this.dialogVisible = false
       },
       //点击商品发货

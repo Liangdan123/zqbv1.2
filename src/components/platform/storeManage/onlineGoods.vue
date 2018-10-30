@@ -29,16 +29,27 @@
 			<div class="commodityDetail">
 				<div class="clearfix btn">
 					<p class="title">商品信息</p>
-					<el-button class="store-button2 ml-10" @click="modelOnlyDeletePro">
+					<el-button class="store-button2 ml-10" @click="onlyDeletePro(checkProductID)">
 						<i class="iconfont icon-shanchu f12"></i>
 						<span>删除</span>
 					</el-button>
-					<el-button class="store-button2" @click="modelOnlyOffPro">
+					<el-button class="store-button2" @click="onlyOffPro(checkProductID)">
 						<svg width="12" height="13">
 							<use xlink:href="#xiajia" />
 						</svg>
 						<span>下架商品</span>
 					</el-button>
+					
+					<!--<el-button class="store-button2 ml-10" @click="modelOnlyDeletePro">
+						<i class="iconfont icon-shanchu f12"></i>
+						<span>删除</span>
+					</el-button>-->
+					<!--<el-button class="store-button2" @click="modelOnlyOffPro">
+						<svg width="12" height="13">
+							<use xlink:href="#xiajia" />
+						</svg>
+						<span>下架商品</span>
+					</el-button>-->
 					<el-button class="store-button2 goOut" @click="modelIrreHint">
 						<i class="iconfont icon-Rectangle f12"></i>
 						<span>违规提醒</span>
