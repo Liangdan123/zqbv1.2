@@ -120,8 +120,11 @@ const actions={
 		
 		switch(user.type){
 			case 1://登录的是平台跳转
-				platJumpPage(user.permission);
-//				router.replace("/mallZxh/controlCenter/platDataCenter");
+				if(user.is_admin===1){
+					router.replace("/mallZxh/controlCenter/platDataCenter");
+				}else if(user.is_admin===0){
+					platJumpPage(user.permission);
+				};			
 				break;
 			case 2:
 				router.replace("/agent/agentMoney");

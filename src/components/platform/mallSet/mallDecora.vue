@@ -3,7 +3,12 @@
 		<!--..................轮播海报一....................-->
 		<div v-if="mallPlate.component_key==='hbys1'">
 			<h2 class="mt-20 pb-20 f20 color-3 border-e9-b">轮播海报</h2>
-			<BannerEditor :banner="banner" choicePlate="mall" @passBanner="passBanner"></BannerEditor>
+			<BannerEditor 
+				:banner="banner" 
+				choicePlate="mall" 
+				@passBanner="passBanner">
+				
+			</BannerEditor>
 			
 		</div>
 		<!--..................图片导航....................-->
@@ -11,12 +16,21 @@
 			<h2 class="mt-20 pb-20 f20 color-3">图片导航</h2>
 			<div class="border-e9-b pb-20">
 				<h3 class="f14 color-3 font-n">导航数量</h3>
-				<el-select  v-model="value" placeholder="请选择" @change="changeNum" class="changeNum mt-10">
-					<el-option  v-for="item in options" :key="item.value" :label="item.label" :value="item.value">                     
+				<el-select  v-model="value" 
+					placeholder="请选择" 
+					@change="changeNum" 
+					class="changeNum mt-10">
+					<el-option  v-for="item in options" 
+						:key="item.value" 
+						:label="item.label" 
+						:value="item.value">                     
 					</el-option>
 				</el-select>
 			</div>
-			<imgNav :banner="banner" :length="length" @passimgNav="passimgNav" @addNav="addNav">
+			<imgNav :banner="banner" 
+				:length="length" 
+				@passimgNav="passimgNav" 
+				@addNav="addNav">
 				
 			</imgNav>
 			<div v-show="false">{{isChecked}}</div>
@@ -57,14 +71,15 @@
 			  	
 			</multiModule>
 		</div>
-		<!--..................轮播海报....................-->
+		<!--..................轮播海报二....................-->
 		<div v-if="mallPlate.component_key==='hbys2'">
 			<h2 class="mt-20 pb-20 f20 color-3">轮播海报</h2>
 			<BannerEditor :banner="banner" 
 				:allBanner="mallPlate.data" 
 				choicePlate="mall" 
 				@passBanner="passBanner" 
-				title="hbys2">	
+				title="hbys2"
+				:isForm="false">	
 				
 			</BannerEditor>
 		</div>
