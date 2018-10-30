@@ -63,17 +63,14 @@
 						<storeList  @productName="classifyCnt"
 							@shop_hidden="shop_hidden"
 							:productChecked="productChecked" 
-							:choiceRole="choiceRole">
-								
-							 
+							:choiceRole="choiceRole">															 
 						</storeList>
 					</el-tab-pane>
     				<el-tab-pane label="商品分类" name="second" >
     					<productClassify   @categorys="categorys" 
     						:type="classifyType" 
     						:Classify="choicePlate==='mall'?mallClassify:storeClassify"
-    						:choiceRole="choiceRole">
-    						
+    						:choiceRole="choiceRole">   						
 								<div class="btn clearfix pt-20 pb-20 border-t">
 									<el-button class="store-button2 float-r" @click="cancel">
 										取消
@@ -190,7 +187,9 @@
 				.then(({data})=>{
 					this.classifyList=data;
 				})
-			}
+			};
+			//添加海报按钮显示不显示(有时一个页面会调两个或者多个这个组件)
+			this.banner.length>4?this.disabled=false:this.disabled=true
 		},
 		mixins:[shareMth,storeClassify],
 			
@@ -213,7 +212,9 @@
 				};
 			},
 			isOnOff(){//海报标题
-				this.allBanner=Object.assign(this.allBanner,{title_switch:this.BannerRadio})//判断商城装修时海报样式二的标题开关
+				this.allBanner=Object.assign(this.allBanner,{//判断商城装修时海报样式二的标题开关
+					title_switch:this.BannerRadio
+				})
 			},
 			//商品分类传过来的数据
 			categorys(val){
@@ -264,10 +265,25 @@
 				};	
 				let bannerIndex=this.banner.length;//添加海报顺序
 				if(this.choicePlate==="store"){//我的店铺时
-					this.banner.push({id: "", shop_id:"", banner_url:"",banner_click_type: "",banner_click_id: "", banner_click_name:"",sort:bannerIndex});
+					this.banner.push({						
+							id: "", 
+							shop_id:"",
+							banner_url:"",
+							banner_click_type:"",
+							banner_click_id: "", 
+							banner_click_name:"",
+							sort:bannerIndex
+					});
 				};
 				if(this.choicePlate==="mall"){//商城
-					this.banner.push({image_url:"",name:"",click_type:'',click_id:'',click_name:'',sort:bannerIndex})
+					this.banner.push({
+						image_url:"",
+						name:"",
+						click_type:'',
+						click_id:'',
+						click_name:'',
+						sort:bannerIndex
+					})
 				};
 			},
 			classifyCnt(data){//点击弹框的确定按钮（商品链接）
@@ -306,43 +322,48 @@
 				this.bannerIndex=index;
 				if(this.choicePlate==="store"){//我的店铺
 					this.initStoreClassify("storeClassify");//初始化数据，数据不选中
-					if(this.storeClassify.length!= 0&&this.banner.length != 0){//我的店铺					
-						if(this.banner[index].banner_click_type==="shop_category"){//商品分类中是否选中
-							this.classifyName={ banner_click_name:item.banner_click_name,banner_click_id:item.banner_click_id};								   		    												
-							this.isChecked(this.classifyName,'storeClassify')//传到子集时判断是否事先被选中
-						};					
+					if(this.storeClassify.length== 0||this.banner.length== 0){return}//我的店铺	
+					if(this.banner[index].banner_click_type==="shop_category"){//商品分类中是否选中
+						this.classifyName={
+							banner_click_name:item.banner_click_name,
+							banner_click_id:item.banner_click_id
+						};
+						this.isChecked(this.classifyName,'storeClassify')//传到子集时判断是否事先被选中
 					};	
+					
 				}else if(this.choicePlate==="mall"){//商城
 					this.initStoreClassify("mallClassify");//初始化数据
-					if(this.mallClassify.length!= 0&&this.banner.length != 0){
-						if(this.banner[index].click_type==="mall_category"){//商品分类中是否选中
-							this.classifyName={ click_name:item.click_name,click_id:item.click_id};								   		    												
-							this.isChecked(this.classifyName,'mallClassify')//传到子集时判断是否事先被选中
-						};	
-					};
+					if(this.mallClassify.length== 0||this.banner.length== 0){return};
+					if(this.banner[index].click_type==="mall_category"){//商品分类中是否选中
+						this.classifyName={ 
+							click_name:item.click_name,
+							click_id:item.click_id
+						};
+						this.isChecked(this.classifyName,'mallClassify')//传到子集时判断是否事先被选中
+					};	
 				}							
 				this.$set(this.productChecked,"id",{});//开始点击弹框时让他都不选择
-				if(this.banner.length != 0){
-					if(this.choicePlate==="store"){//我的店铺
-						if(this.banner[index].banner_click_type==="product"){//商品链接中是否选中
-							this.$set(this.productChecked,"id",this.banner[index].banner_click_id);
-						}
-					}else if(this.choicePlate==="mall"){//商城
-						if(this.banner[index].click_type==="product"){//商品链接中是否选中
-							this.$set(this.productChecked,"id",this.banner[index].click_id);
-						};
-						if(this.banner[index].click_type==="form"){//有表单信息时
-							this.formData=Object.assign({},this.formData,item);	
-							this.click_style=item.click_style;//弹框时固定住样式值，以好知道是哪个图片有值							
-						}else{//没有表单信息时
-							this.formData=Object.assign({},this.formData,{
-								click_type: "form",
-			                    click_style: 1,
-			                    click_image_url: "",   
-							})
-						}
+				if(this.banner.length == 0){return}
+				if(this.choicePlate==="store"){//我的店铺
+					if(this.banner[index].banner_click_type==="product"){//商品链接中是否选中
+						this.$set(this.productChecked,"id",this.banner[index].banner_click_id);
+					}
+				}else if(this.choicePlate==="mall"){//商城
+					if(this.banner[index].click_type==="product"){//商品链接中是否选中
+						this.$set(this.productChecked,"id",this.banner[index].click_id);
+					};
+					if(this.banner[index].click_type==="form"){//有表单信息时
+						this.formData=Object.assign({},this.formData,item);	
+						this.click_style=item.click_style;//弹框时固定住样式值，以好知道是哪个图片有值							
+					}else{//没有表单信息时
+						this.formData=Object.assign({},this.formData,{
+							click_type: "form",
+		                    click_style: 1,
+		                    click_image_url: "",   
+						})
 					}
 				}
+				
 			},
 			shop_hidden(data){
 				this.dialogFormVisible=data;

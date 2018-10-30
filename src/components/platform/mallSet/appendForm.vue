@@ -9,10 +9,11 @@
 			</div>
 			<div class="adForm-right">
 				<div v-if="formData.click_style==1"
-					 class="adForm-right_one">
-					<imageUpload :imageUrl="formImage[1]"
-								imageType="mall"
-								@getImageUrl="oneUploadImg">
+					class="adForm-right_one">
+					<imageUpload 
+						:imageUrl="formImage[1]"
+						imageType="mall"
+						@getImageUrl="oneUploadImg">
 					</imageUpload>
 					<p class="f12 color-7F">图片尺寸宽度建议750px，格式支持png,jpg</p>
 					<el-form label-width="100px" 							 
@@ -172,7 +173,6 @@
 		.adForm-left {
 			height: 100%;
 			float: left;
-
 			.el-radio-group {
 				padding: 20px 93px 0 25px;
 				.el-radio {
@@ -193,6 +193,18 @@
 				.imageUpload{
 					width: 375px;
 					height: 146px;
+					overflow-y:scroll;
+					input,.background{
+						position: fixed;
+					    top: 136px;
+					    left: 320px;
+						width: 357px;
+						height: 148px;
+					}
+					img{
+						min-height: 100%;
+						height: auto;
+					}
 				}
 				p{
 					line-height: 30px;
@@ -206,16 +218,29 @@
 			}
 			.adForm-right_two{
 				position: relative;
-				width: 375px;
-				height: 530px;
+				/*width: 375px;
+				height: 530px;				*/
 				.imageUpload{
-					position: absolute;
+					/*position: absolute;
 					top: 0;
-					left: 0;
-					width: 100%;
-					height: 490px;
+					left: 0;*/
+					/*width: 100%;
+					height: 490px;*/
+					width: 375px;
+					height: 530px;		
+					overflow-y:scroll;
+					input,.background{
+						position: fixed;
+					    top: 136px;
+					    left: 320px;
+						width: 375px;
+    					height: 530px;
+					}
 					.imageUpload_con{
-						margin-top: -130px;
+						margin-top: -80px;
+						p{
+							bottom: auto;
+						}
 					}
 				}
 				.el-form{
