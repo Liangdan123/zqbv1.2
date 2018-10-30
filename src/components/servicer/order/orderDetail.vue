@@ -77,8 +77,7 @@
         <div class="progress_sec float-l mr_fu_12" v-if="!([5,6].includes(checkOrder.status))">
           <p class="circleLine ml-20">
             <span class="circle" :class="checkOrder.status===1?'bg-9e':'bg-b'"></span>
-            <b class="line" :class="!([1,2].includes(checkOrder.status))?'bg-b':'bg-9e'">
-            	
+            <b class="line" :class="!([1,2].includes(checkOrder.status))?'bg-b':'bg-9e'">  	
             </b>
           </p>
           <div class="progress_txt mr_fu_12">

@@ -108,7 +108,7 @@
                     <div class="statistics-module">
                         <i class="iconfont icon-member"></i>
                         	代理商共计
-                        <span>{{mallDataStatistics.total_dls_num}}元</span>
+                        <span>{{mallDataStatistics.total_dls_num}}位</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
