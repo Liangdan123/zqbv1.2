@@ -8,7 +8,10 @@
                     <div class="statisticsItem">
                         <p class="itemTitle">订单累计累计收入</p>
                         <p class="money-total">{{mallMoneyStatistics.total_give_order_yuan||0 | money}}</p>
-                        <p class="money-history">今日订单收入 <span>{{mallMoneyStatistics.today_give_order_yuan||0 | money}}</span></p>
+                        <p class="money-history">
+                        	今日订单收入 
+                        	<span>{{mallMoneyStatistics.today_give_order_yuan||0 | money}}</span>
+                        </p>
                         <svg
                             class="item-label"
                             width="48"
@@ -21,7 +24,10 @@
                     <div class="statisticsItem">
                         <p class="itemTitle">会员发展累计收入</p>
                         <p class="money-total">{{mallMoneyStatistics.total_give_member_yuan||0 | money}}</p>
-                        <p class="money-history">今日会员发展收入 <span>{{mallMoneyStatistics.today_give_member_yuan||0 | money}}</span></p>
+                        <p class="money-history">
+                        	今日会员发展收入 
+                        	<span>{{mallMoneyStatistics.today_give_member_yuan||0 | money}}</span>
+                        </p>
                         <svg width="48" height="48" class="item-label">
                             <use xlink:href="#member"  />
                         </svg>
@@ -31,7 +37,10 @@
                     <div class="statisticsItem">
                         <p class="itemTitle">角色发展累计收入</p>
                         <p class="money-total">{{mallMoneyStatistics.total_give_join_yuan||0 | money}}</p>
-                        <p class="money-history">今日角色发展收入 <span>{{mallMoneyStatistics.today_give_join_yuan||0 | money}}</span></p>
+                        <p class="money-history">
+                        	今日角色发展收入 
+                        	<span>{{mallMoneyStatistics.today_give_join_yuan||0 | money}}</span>
+                        </p>
                         <svg
                             class="item-label"
                             width="48"
@@ -50,8 +59,7 @@
 			    </el-tab-pane>
 			</el-tabs>
 			<fundTable
-				:activeName="activeName">
-				
+				:activeName="activeName">				
 			</fundTable>
 		</div>
 	</div>

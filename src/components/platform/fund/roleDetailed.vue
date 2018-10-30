@@ -1,8 +1,15 @@
 <template>
 	<div class="roleDetailed" >		
 		<!-- <div v-show="false">{{condition}}</div> -->
-		   <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选列表'
-          hintMess="输入相关信息进行搜索" class='mb-20' inputSearch='keyword' v-if="isSearch">
+		   <search :search.sync="searchCondition.search" 
+		   	@searchMethod="searchMethod" 
+		   	@emptyMthod='searchMethod' 
+		   	ref="isShow" 
+		   	selectTitle='筛选列表'
+          	hintMess="输入相关信息进行搜索" 
+          	class='mb-20' 
+          	inputSearch='keyword' 
+          	v-if="isSearch">
         </search>
 		<el-table
 			:data="list.data" 
@@ -40,9 +47,10 @@
 			</el-table-column>
 		</el-table>
 		<div class="clearfix mt-20">
-				<el-pagination :total="list.total"  v-if='list.total>searchCondition.per_page'
-				:current-page.sync="searchCondition.page" 
-				:page-size="searchCondition.per_page" 
+				<el-pagination :total="list.total"  
+				v-if='list.total>list.per_page'
+				:current-page.sync="list.page" 
+				:page-size="list.per_page" 
 				layout="total, prev, pager, next" 
 				@current-change="handleCurrentChange" 
 				class="float-r">

@@ -6,9 +6,11 @@
 			class="withdraw" 
 			title="提现记录"
 			@close="closeModel">
-	    	<widthDrawTable 
-	    		:list='list.data' 
+<!--			:list='list.data' -->
+	    	<widthDrawTable 	    		
 	    		:Visible="model"
+	    		:typeKey="4"
+	    		:user_id="user_id"
 	    		@backDetail="backDetail"
 	    		@checkDetail="checkDetail"
 	    		@sureFund="sureFund">
@@ -26,7 +28,9 @@
 							{{total.total_sell_order_yuan||0|money}}
 						</p>
 					</div>
-					<svg width="48" height="48" class="float-r"><use xlink:href="#money"/></svg>													
+					<svg width="48" height="48" class="float-r">
+						<use xlink:href="#money"/>
+					</svg>													
 				</div>
 				<div>
 					<p class="color-7F f14 mt-10">
@@ -117,7 +121,7 @@
 </template>
 
 <script>
-	import {getFundTotalGive,getFundList} from "@/api/platform"
+	import {getFundTotalGive} from "@/api/platform"
 	import {getAccountInfo} from "@/api/servicer"
 	export default{
 		filters:{
@@ -149,7 +153,7 @@
 				fundBalance:{
 					"balance": 0,
 					"balance_yuan":0,
-				"tixian_rate": 0
+					"tixian_rate": 0
 				},
 				loadTotal:false,
 				cashRecordModel:false,
@@ -166,7 +170,7 @@
 				this.total=data
 			});
 			this.user_id=this.$store.state.user.user.zhixu_id;
-			getAccountInfo( this.user_id)//获取账户信息
+			getAccountInfo(this.user_id)//获取账户信息
 			.then(({data})=>{
 				this.fundBalance=data
 			})
@@ -192,13 +196,16 @@
 				this._list();
 			},
 			_list(){
-				let user_id={user_id:this.user_id}
-				getFundList(user_id)//获取提现记录列表
-				.then(({data})=>{
-					this.list=data;
-					this.model=true;
-					this.cashRecordModel=true
-				})
+				let user_id={
+					user_id:this.user_id,
+					search:{
+						type:4
+					},
+					page: 1,
+    				per_page:20
+				};
+				this.cashRecordModel=true
+				this.model=true;
 			},
 			tabSwitch(){//表格切换
 				

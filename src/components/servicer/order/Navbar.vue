@@ -8,7 +8,7 @@
 				未服务订单
 			</el-menu-item>
 			<el-menu-item index="PendingOrder" :class="{active:selected=='PendingOrder'}">
-				已服务订单
+				服务中订单
 			</el-menu-item>
 			<el-menu-item index="CompletedOrder" :class="{active:selected=='CompletedOrder'}">
 				已完成订单

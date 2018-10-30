@@ -118,7 +118,7 @@ export default{
 			})
 		},
 		emptyMthod(){//搜索条件的清空
-			delete this.searchCondition.search.created_time//删除等级条件
+			delete this.searchCondition.search.create_time//删除等级条件
 			this.searchMethod()
 		},
 		closeModel(){

@@ -171,12 +171,8 @@
         //调用同意退款接口
         refundAgree(refund_order_id)
           .then(({data}) => {
-<<<<<<< HEAD
-             this.$emit("searchMthod")
-=======
+            this.$emit("searchMthod")
             this.$message.success('操作成功')
-            this.$emit("againList")
->>>>>>> master
           })
       },
       //拒绝退款
