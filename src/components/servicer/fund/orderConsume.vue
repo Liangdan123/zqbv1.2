@@ -9,6 +9,7 @@
 				@searchMethod="searchInput" 
 				@emptyMthod="emptyMthod" 
 				ref="closecondition" 
+				timeType="created_at"
 				class="float-r">
 			</search>
 		</div>
@@ -81,6 +82,7 @@
 						:page-size="list.per_page" 
 						layout="total, prev, pager, next" 
 						@current-change="handleCurrentChange" 
+						v-if="list.total>list.per_page"
 						class="float-r">
 					</el-pagination>
 				</div>

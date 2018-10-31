@@ -75,6 +75,7 @@
 				:current-page.sync="list.current_page" 
 				:page-size="list.per_page" 
 				layout="total, prev, pager, next" 
+				v-if="list.total>list.per_page"
 				@current-change="handleCurrentChange" 
 				class="float-r">
 			</el-pagination>

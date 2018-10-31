@@ -63,16 +63,16 @@
           <el-tab-pane label="充值列表" name="second">
           </el-tab-pane>
         </el-tabs>
-        <memberManage :activeName="activeName"></memberManage>
+        <memberManage :activeName="activeName">
+        	
+        </memberManage>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-  import {
-    getMemberNum
-  } from "@/api/platform"
+  import { getMemberNum} from "@/api/platform"
   import memberManage from "@/components/platform/marketing/memberManage"
   export default {
     components: {

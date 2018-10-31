@@ -76,7 +76,7 @@ export default {
 	        orderMess: {
 	          page: 1,
 	          search: {
-	            type: 4,
+	            type:3,
 	          },
 	          per_page: 20,
 	        },

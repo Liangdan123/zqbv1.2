@@ -59,6 +59,7 @@
 				:page-size="list.per_page" 
 				layout="total, prev, pager, next" 
 				@current-change="handleCurrentChange" 
+				v-if="list.total>list.per_page"
 				class="float-r">
 			</el-pagination>
 		</div>

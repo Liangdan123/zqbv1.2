@@ -1,6 +1,6 @@
 <template>
   <div class="mt-10">
-    <div class="order-list-wrap" v-if="Visible">
+    <div class="order-list-wrap" v-if="Visible" v-loading="loading">
       <el-table class="mt-10 fundList" :data="list.data" style="width: 100%">
         <el-table-column label="提现金额">
           <template slot-scope="scope">
@@ -16,37 +16,49 @@
         </el-table-column>
         <el-table-column label="提现状态">
           <template slot-scope="scope">
-            <span :class="{'font-waring':scope.row.status==3}">{{ scope.row.status | withdrawalStatus}}</span>
+            <span :class="{'font-waring':scope.row.status==3}">
+            	{{ scope.row.status | withdrawalStatus}}
+            </span>
           </template>
         </el-table-column>
         <el-table-column prop="address" label="操作" width="120">
           <template slot-scope="scope">
-            <el-button v-if="scope.row.status==2" @click="withdrawalConfirm(scope.row.tixian_id)" class="store-button1"
+            <el-button v-if="scope.row.status==2" 
+            	@click="withdrawalConfirm(scope.row.tixian_id)" 
+            	class="store-button1"
               type="primary">
-              确认收款</el-button>
-            <p class="u-btn" @click="withdrawalDetailShow(scope.row.tixian_id)"> 查看详情 </p>
+              	确认收款
+            </el-button>
+            <p class="u-btn" @click="withdrawalDetailShow(scope.row.tixian_id)">
+            	查看详情
+            </p>
           </template>
         </el-table-column>
       </el-table>
       <div class="clearfix mt-20">
-        <el-pagination :total="list.total" v-if='list.total>searchCondition.per_page' :current-page.sync="searchCondition.page"
-          :page-size="searchCondition.per_page" layout="total, prev, pager, next" @current-change="handleCurrentChange"
+        <el-pagination 
+        	:total="list.total" 
+        	v-if='list.total>searchCondition.per_page' 
+        	:current-page.sync="searchCondition.page"
+          :page-size="searchCondition.per_page" 
+          layout="total, prev, pager, next" 
+          @current-change="handleCurrentChange"
           class="float-r">
         </el-pagination>
       </div>
     </div>
-    <WithdrawDetail v-if="!Visible" :tixian_id="tixian_id" @backDetail="backDetail" @sureFund="sureFund" isbtn="true"></WithdrawDetail>
+    <WithdrawDetail v-if="!Visible" 
+    	:tixian_id="tixian_id" 
+    	@backDetail="backDetail" 
+    	@sureFund="sureFund" isbtn="true">
+    </WithdrawDetail>
   </div>
 </template>
 
 <script>
   import page from "@/utils/page"
-  import {
-    sureReceivables
-  } from "@/api/servicer"
-  import {
-    getFundList
-  } from "@/api/platform"
+  import {sureReceivables} from "@/api/servicer"     
+  import {getFundList} from "@/api/platform"     
   export default {
     name: "MoneyWithdrawaklDetail",
     components: {
@@ -91,7 +103,7 @@
         return status_text[status]()
       },
     },
-    props: ["user_id", "typeKey"],
+    props: ["user_id","typeKey"],
     data() {
       return {
         withdrawalClickId: '',
@@ -101,13 +113,14 @@
           data: []
         },
         searchCondition: { //搜索条件
-          user_id: "",
+          user_id: this.user_id,
           search: {
-            type: "",
+            type: this.typeKey,
           },
           page: 1,
           per_page: 20,
         },
+        loading:true,
       }
     },
     watch: {
@@ -122,24 +135,16 @@
         this.searchMethod();
       }
     },
-    created() {
-      this.$set(this.searchCondition, "user_id", this.user_id);
-      this.$set(this.searchCondition, "search", {
-        type: this.typeKey
-      });
-    },
     mixins: [page],
     methods: {
-      _doSearch() { //搜索角色列表信息
+      _doSearch() { //搜索角色列表信息      	
         getFundList(this.searchCondition)
-          .then(({
-            data
-          }) => {
+          .then(({data}) => {    
+          	this.loading=false;
             this.list = data;
           })
       },
       init() {
-        console.log(11111);
         this.searchMethod();
         this.Visible = true;
       },

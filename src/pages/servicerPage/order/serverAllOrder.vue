@@ -129,9 +129,10 @@
       },
       //确定或取消发货时关闭弹窗
       closeBox(data) {
-        if(data){
-          this.searchMethods(); //发货后重新拉取列表
-        }
+//      if(data){
+//        this.searchMethods(); //发货后重新拉取列表
+//      }
+        this.searchMethods(); //发货后重新拉取列表
         this.dialogVisible = false
       },
       //点击商品发货

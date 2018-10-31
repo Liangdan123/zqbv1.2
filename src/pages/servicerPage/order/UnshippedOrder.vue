@@ -68,7 +68,7 @@
 	        orderMess: {
 	          page: 1,
 	          search: {
-	            type: 2,
+	            type:1,
 	          },
 	          per_page: 20,
 	        },
