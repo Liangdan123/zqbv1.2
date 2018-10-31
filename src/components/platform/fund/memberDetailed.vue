@@ -7,7 +7,8 @@
 			selectTitle='筛选列表'
 		    hintMess="输入相关信息进行搜索" 
 		    class='mb-20' 
-		    inputSearch='keyword' 
+		    inputSearch='keyword'
+		    timeType="created_at"
 		    v-if="isSearch">
       
      	</search>
