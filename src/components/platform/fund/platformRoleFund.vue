@@ -45,6 +45,16 @@
 				</template>
 			</el-table-column>
 		</el-table>
+		<div class="clearfix mt-20">
+			<el-pagination :total="list.total" 
+				:current-page.sync="list.current_page" 
+				:page-size="list.per_page" 
+				layout="total, prev, pager, next" 
+				v-if="list.total>list.per_page"
+				@current-change="handleCurrentChange" 
+				class="float-r">
+			</el-pagination>
+		</div>
 	</div>
 </template>
 

@@ -6,22 +6,30 @@
 			selectTitle="筛选会员"
 			hintMess="输入相关信息进行搜索"
 			:search.sync="searchCondition.search"
+			:timeType="activeName=='first'?'created_at':'pay_time'"
 			class="mb-10">	
 			<template>
 				<div class="condition clearfix mb-10">
-	      	<span class="float-l grade">会员等级：</span>
-	        <el-radio-group v-model="searchCondition.search.level" class="float-l">
-	        	<el-radio label="1" class="display-b" v-if="isRole">普通用户</el-radio>                      
-	        	<el-radio label="2" class="display-b">普通会员</el-radio>
-	        	<el-radio label="3" class="display-b">黄金会员</el-radio>
-	        	<el-radio label="4" class="display-b">钻石会员</el-radio>
-	        </el-radio-group>
-        </div>
+			      	<span class="float-l grade">会员等级：</span>
+			        <el-radio-group 
+			        	v-model="searchCondition.search.level" 
+			        	class="float-l">
+			        	<el-radio label="1" class="display-b" v-if="isRole">
+			        		普通用户
+			        	</el-radio>                      
+			        	<el-radio label="2" class="display-b">普通会员</el-radio>
+			        	<el-radio label="3" class="display-b">黄金会员</el-radio>
+			        	<el-radio label="4" class="display-b">钻石会员</el-radio>
+			        </el-radio-group>
+		        </div>
 			</template>
 			
 		</search>
 		<div v-loading="memberLoading">
-			<el-table :data="list.data" v-loading="memberLoading"  @sort-change="sortChange" :empty-text="emptyText">
+			<el-table :data="list.data" 
+				v-loading="memberLoading"  
+				@sort-change="sortChange" 
+				:empty-text="emptyText">
 				<el-table-column  label="会员等级" >
 					<template slot-scope="scope">
 						{{scope.row.level|levelString}}
@@ -29,20 +37,37 @@
 				</el-table-column>
 				<el-table-column prop="nick_name" label="会员昵称">
 				</el-table-column>
-				<el-table-column prop="phone"  label="手机号" v-if="activeName==='first'">
+				<el-table-column prop="phone"  
+					label="手机号" 
+					v-if="activeName==='first'">
 				</el-table-column>
-				<el-table-column prop="pay_fee_yuan"  label="充值金额" sortable="custom" v-else>
+				<el-table-column prop="pay_fee_yuan"  
+					label="充值金额" 
+					sortable="custom" 
+					v-else>
 				</el-table-column>				
-				<el-table-column  label="归属角色" v-if="isRole &&activeName==='first'" :key="activeName">
+				<el-table-column  label="归属角色" 
+					v-if="isRole &&activeName==='first'" 
+					:key="activeName">
 					<template slot-scope="scope">
 						{{scope.row.cps_type|roleString}}
 					</template>
 				</el-table-column>				
-				<el-table-column prop="pay_time"  label="充值时间" sortable="custom" v-if="activeName==='second'">
+				<el-table-column 
+					prop="pay_time"  
+					label="充值时间" 
+					sortable="custom" 
+					v-if="activeName==='second'">
 				</el-table-column>				
-				<el-table-column prop="created_at"  label="创建时间" sortable="custom" v-if="activeName==='first'">
+				<el-table-column prop="created_at"  
+					label="创建时间" 
+					sortable="custom" 
+					v-if="activeName==='first'">
 				</el-table-column>
-				<el-table-column prop="latest_login_time"  label="最后登录时间" v-else>
+				<el-table-column 
+					prop="latest_login_time"  
+					label="最后登录时间" 
+					v-else>
 				</el-table-column>
 			</el-table>
 		</div>
@@ -52,6 +77,7 @@
 				:page-size="list.per_page"
 				layout="total, prev, pager, next"
 				@current-change="handleCurrentChange"
+				v-if="list.total>list.per_page"
 				class="pagination">
 				
 			</el-pagination>
@@ -105,10 +131,10 @@
 		},
 		filters:{
 			levelString(val){//会员等级
-				return val===1?"普通用户":val===2?"普通会员":val===3?"黄金会员":val===4?"钻石会员":""
+				return val==1?"普通用户":val==2?"普通会员":val==3?"黄金会员":val==4?"钻石会员":""
 			},
 			roleString(val){//归属角色
-				return val===1?"平台":val===2?"代理商":val===3?"合伙人":val===4?"服务商":""
+				return val==1?"平台":val==2?"代理商":val==3?"合伙人":val==4?"服务商":""
 			}
 		},
 		methods:{

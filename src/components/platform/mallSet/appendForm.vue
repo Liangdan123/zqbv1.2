@@ -199,7 +199,7 @@
 					    top: 136px;
 					    left: 320px;
 						width: 357px;
-						height: 148px;
+						height: 146px;
 					}
 					img{
 						min-height: 100%;
@@ -217,15 +217,7 @@
 				}
 			}
 			.adForm-right_two{
-				position: relative;
-				/*width: 375px;
-				height: 530px;				*/
 				.imageUpload{
-					/*position: absolute;
-					top: 0;
-					left: 0;*/
-					/*width: 100%;
-					height: 490px;*/
 					width: 375px;
 					height: 530px;		
 					overflow-y:scroll;
@@ -233,8 +225,12 @@
 						position: fixed;
 					    top: 136px;
 					    left: 320px;
-						width: 375px;
+						width: 360px;
     					height: 530px;
+					}
+					img{
+						min-height: 100%;
+						height: auto;
 					}
 					.imageUpload_con{
 						margin-top: -80px;

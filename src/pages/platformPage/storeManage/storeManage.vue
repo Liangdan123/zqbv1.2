@@ -36,7 +36,10 @@
 				<el-table-column prop="statistics_shop.product_num" label="在售商品(件)"></el-table-column>
 				<el-table-column  label="操作">
 					<template slot-scope="scope">
-						<el-button type="text" size="small" class="btn-delete" @click="storeDetail(scope.row.shop_id)">
+						<el-button type="text" 
+							size="small" 
+							class="btn-delete" 
+							@click="storeDetail(scope.row.shop_id)">
 							店铺详情
 						</el-button>
 					</template>
@@ -49,6 +52,7 @@
 					:page-size="list.per_page"
 					layout="total, prev, pager, next"
 					@current-change="handleCurrentChange"
+					v-if="list.total>list.per_page"
 					class="pagination float-r">
 					
 				</el-pagination>

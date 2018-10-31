@@ -1,7 +1,11 @@
 <template>
 	<div class="storeLink_nav clearfix">
 		<div class="search-input float-r" v-if="componentList.includes('input')">
-			<input type="text" v-model="order_search" :placeholder="hintMess" @keyup.enter="inputName"/>
+			<input 
+				type="text" 
+				v-model="order_search" 
+				:placeholder="hintMess" 
+				@keyup.enter="inputName"/>
 			<el-button class="store-button1" @click="inputName">
 				<svg width="16" height="16">
 					<use xlink:href="#seacher" />
@@ -14,7 +18,9 @@
 				<img src="../../assets/image/arrow-down.png" class="icon-arrow">
 			</div>
 			<transition name="el-zoom-in-top">
-				<div :class="['filter-switch pos-a',switchPosition=='right'?'switch-right':'switch-left']" v-if="switchShow" @click.stop="">
+				<div :class="['filter-switch pos-a',switchPosition=='right'?'switch-right':'switch-left']" 
+					v-if="switchShow" 
+					@click.stop="">
 					<p class="color-3">筛选条件</p>
 					<slot></slot>
 					<div class="condition" v-if="isDate">
@@ -90,16 +96,30 @@
 				default: function() {
 					return "输入订单相关信息进行搜索"
 				}
+			},
+			timeType:{
+				type: String,
+				default: function() {
+					return "create_time"
+				}
 			}
 		},
 		data() {
 			return {
 				time: [],
-				created_time: {
+				create_time: {
 					min: "",
 					max: "",
 				},
 				apply_time: {
+					min: "",
+					max: "",
+				},
+				pay_time: {
+					min: "",
+					max: "",
+				},
+				created_at:{
 					min: "",
 					max: "",
 				},
@@ -109,9 +129,9 @@
 		},
 		watch: {
 		    search(val,aaa){
-					let keys=Object.keys(val)//监听搜索条件变化
-					keys.includes('created_time')||(this.time=[]);//监听重置时间
-					keys.includes(this.inputSearch)||(this.order_search="");
+				let keys=Object.keys(val)//监听搜索条件变化
+				keys.includes('create_time')||(this.time=[]);//监听重置时间
+				keys.includes(this.inputSearch)||(this.order_search="");
 		    }
 	   	},
 		methods: {
@@ -131,20 +151,20 @@
 						let min = format(this.time[0]);
 						let max = format(this.time[1]);
 						if(this.applyCreate==="创建时间"){
-							this._timeType(1,"created_time",min,max)
+							this._timeType(1,this.timeType,min,max)
 						}else if(this.applyCreate==="申请时间"){
 							this._timeType(1,"apply_time",min,max)
 						}
 					};
 					if(this.time.length !== 0 && this.time[0]&& this.time[1]){
-						if(this.applyCreate==="创建时间"){
-							this._timeType(2,"created_time")
+						if(this.applyCreate==="创建时间"){							
+							this._timeType(2,this.timeType)
 						}else if(this.applyCreate==="申请时间"){
 							this._timeType(2,"apply_time")
 						}
 					}else{
 						if(this.applyCreate==="创建时间"){
-							this._timeType(3,"created_time")
+							this._timeType(3,this.timeType)
 						}else if(this.applyCreate==="申请时间"){
 							this._timeType(3,"apply_time")
 						}
@@ -168,7 +188,7 @@
 					case 3:
 						delete this.search[type]
 						break;
-				}
+				};
 			},			
 			change() {//清除时间时Time值会变成undefined；
 				if(!this.time) {
@@ -179,7 +199,7 @@
 				this.time = [];
 				this.order_search = '';
 				if(this.applyCreate==="创建时间"){
-					delete this.search.created_time;
+					delete this.search[this.timeType];
 				}else if(this.applyCreate==="申请时间"){
 					delete this.search.apply_time;
 				}
