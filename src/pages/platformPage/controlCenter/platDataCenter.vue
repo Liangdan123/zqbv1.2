@@ -4,8 +4,12 @@
             <el-col :span="6">
                 <div class="statisticsItem">
                     <p class="itemTitle">总销售额</p>
-                    <p class="money-total">{{mallDataStatistics.total_sell_money_yuan||0 | money('￥')}}</p>
-                    <p class="money-history">今日销售额 <span>{{mallDataStatistics.today_sell_money_yuan||0 | money('￥')}}</span></p>
+                    <p class="money-total">
+                    	{{mallDataStatistics.total_sell_money_yuan||0 | money('￥')}}
+                    </p>
+                    <p class="money-history">今日销售额 
+                    	<span>{{mallDataStatistics.today_sell_money_yuan||0 | money('￥')}}</span>
+                    </p>
                     <svg
                         class="item-label"
                         width="48"
@@ -18,7 +22,9 @@
                 <div class="statisticsItem">
                     <p class="itemTitle">支付订单数</p>
                     <p class="money-total">{{mallDataStatistics.total_pay_order_num }}</p>
-                    <p class="money-history">今日订单数 <span>{{mallDataStatistics.today_pay_order_num}}</span></p>
+                    <p class="money-history">
+                    	今日订单数 <span>{{mallDataStatistics.today_pay_order_num}}</span>
+                    </p>
                     <svg
                         class="item-label"
                         width="48"
@@ -31,7 +37,9 @@
                 <div class="statisticsItem">
                     <p class="itemTitle">访问量</p>
                     <p class="money-total">{{mallDataStatistics.total_pv_num }}</p>
-                    <p class="money-history">今日访客量 <span>{{mallDataStatistics.today_pv_num }}</span></p>
+                    <p class="money-history">
+                    	今日访客量 <span>{{mallDataStatistics.today_pv_num }}</span>
+                    </p>
                     <svg
                         class="item-label"
                         width="48"
@@ -44,7 +52,9 @@
                 <div class="statisticsItem">
                     <p class="itemTitle">访客量</p>
                     <p class="money-total">{{mallDataStatistics.total_uv_num }}</p>
-                    <p class="money-history">今日访客数 <span>{{mallDataStatistics.today_uv_num }}</span></p>
+                    <p class="money-history">
+                    	今日访客数 <span>{{mallDataStatistics.today_uv_num }}</span>
+                    </p>
                     <svg width="48" height="48" class="item-label">
                         <use xlink:href="#member"  />
                     </svg>
@@ -201,6 +211,7 @@
 				let condition_search={start_date,end_date};
 				getStatisticsByDate(condition_search)//获取商城统计数据
 					.then(({data:{data}})=>{
+						console.log(111111111111)
                         this.statisticsData = data;
                     })
 			}
