@@ -211,7 +211,6 @@
 				let condition_search={start_date,end_date};
 				getStatisticsByDate(condition_search)//获取商城统计数据
 					.then(({data:{data}})=>{
-						console.log(111111111111)
                         this.statisticsData = data;
                     })
 			}

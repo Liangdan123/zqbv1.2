@@ -166,23 +166,20 @@
                         fill_length = 12;
                         start_date_fill =1;
                         break;
-                };
-                
+                };               
                 const endOfMonth = start_date.clone().endOf('month').format('DD');
                 start_date = start_date.format('YYYY-MM-DD');
                 end_date = end_date.format('YYYY-MM-DD');  
-                let label = type=='year'?'月':'日';
-               
+                let label = type=='year'?'月':'日';             
                 let mod = false;
                 if(type === 'month' || type === 'isoWeek') {
                 	mod = endOfMonth;
                 };
-                console.log('mod',mod);
-                this._emitDate(start_date,end_date); //影响接口问题                                               
+                this._emitDate(start_date,end_date); //父集调接口                                               
                 return this._arrayFill(start_date_fill, fill_length,label,mod);
             },
             _arrayFill(start, len,label,mod) {
-                // 生成连续元素数组			
+                // 生成连续元素数组(月份记得断开，mod)		
                return this.$_.range(start,start+len).map(x=>((mod !== false ?( x <= mod ? String(x) : String(x % mod)) : String(x))+label))
             },
             _emitDate(...range){
@@ -190,7 +187,6 @@
                 this.$emit('timeRange',range)
             }
         }
-
     }
 </script>
 
