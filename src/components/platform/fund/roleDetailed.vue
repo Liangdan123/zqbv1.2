@@ -21,7 +21,7 @@
 			
 			<el-table-column prop="join_type" label="角色发展">
 				<template slot-scope="scope">
-					{{scope.row.cps_type|identity}}
+					{{scope.row.join_type|identity}}
 				</template>
 			</el-table-column>
 					<el-table-column prop="join_is_company" label="性质" v-if='isCompany'>

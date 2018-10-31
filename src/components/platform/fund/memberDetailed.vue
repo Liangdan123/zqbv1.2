@@ -5,12 +5,12 @@
 			@emptyMthod='searchMethod' 
 			ref="isShow" 
 			selectTitle='筛选列表'
-      hintMess="输入相关信息进行搜索" 
-      class='mb-20' 
-      inputSearch='keyword' 
-      v-if="isSearch">
+		    hintMess="输入相关信息进行搜索" 
+		    class='mb-20' 
+		    inputSearch='keyword' 
+		    v-if="isSearch">
       
-     </search>
+     	</search>
 		<el-table
 			:data="list.data" 
 			v-loading="loading"
@@ -26,7 +26,14 @@
 			
 			<el-table-column prop="cps_contact_name" label="发展商" v-if="isContact">
 			</el-table-column>
-			<el-table-column prop="cps_is_company" label="性质" v-if='isCompany'>
+			
+			<el-table-column prop="cps_type" label="角色" v-if='isRole'>
+				<template slot-scope="scope">
+					{{scope.row.cps_type|identity}}
+				</template>
+			</el-table-column>
+			
+			<el-table-column prop="fws_is_company" label="性质" v-if='isCompany'>
 				<template slot-scope="scope">
 					{{scope.row.fws_is_company==0?'个人':'企业'}}
 				</template>
@@ -108,6 +115,11 @@
 				}
 			},
 			isPhone:{
+				default:function(){
+					return false
+				},
+			},
+			isRole:{
 				default:function(){
 					return false
 				},

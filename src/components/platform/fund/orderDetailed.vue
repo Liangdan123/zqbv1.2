@@ -23,7 +23,7 @@
 			</el-table-column>
 			<el-table-column prop="order_fee_yuan" label="订单金额">
 				<template slot-scope="scope">
-					{{scope.row.give_order_yuan||0|money}}
+					{{scope.row.order_fee_yuan||0|money}}
 				</template>
 			</el-table-column>
 			<el-table-column prop="created_at" label="创建时间">
