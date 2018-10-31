@@ -435,7 +435,7 @@
         //开始服务接口 
         setProduct(setProMess)
           .then(({ data }) => {        
-            this.$message.success("发货成功")
+            this.$message.success("开始服务")
             this.$emit("closeBox", true)
           }).catch(() => {
             this.$emit("closeBox", false);

@@ -32,7 +32,9 @@
 							<span class="assess_plate_top-name">{{item.comment_score|assess}}</span>						
 						</div>
 						<div class="float-r" v-if="item.is_back===0">
-							<el-button class="store-button2" @click="backCustom(item.comment_id)">回复客户</el-button>
+							<el-button class="store-button2" @click="backCustom(item.comment_id)">
+								回复客户
+							</el-button>
 						</div>
 						
 					</div>				
@@ -48,6 +50,7 @@
 					:page-size="list.per_page"
 					layout="total, prev, pager, next"
 					@current-change="handleCurrentChange"
+					v-if="list.total>list.per_page"
 					class="pagination float-r">
 					
 				</el-pagination>
