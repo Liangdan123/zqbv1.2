@@ -86,7 +86,7 @@
 										取消
 									</el-button>
 									<el-button class="store-button1 float-r mr-10" @click="sureclassify">
-										确定 888888888888
+										确定 
 									</el-button>
 								</div>
 						</productClassify>
@@ -408,6 +408,7 @@
 					let title
 					if(this.BannerRadio==="on"){//标题开关显示
 						title=this.bannerTitle
+						
 					}else if(this.BannerRadio==="off"){
 						title=null
 					};

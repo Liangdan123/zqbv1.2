@@ -103,8 +103,7 @@
 							this.classfyId.splice(i, 1)
 						}
 					};
-				}
-				console.log(1111111111)
+				};
 				this.$emit("categorys", this.classfyId)
 			}
 		}

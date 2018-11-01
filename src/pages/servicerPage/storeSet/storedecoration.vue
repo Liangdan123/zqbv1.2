@@ -221,8 +221,7 @@
 					}
 				}
 			},
-			saveItemsEdit(){//保存
-				
+			saveItemsEdit(){//保存				
 				Object.assign(this.BombExist, this.bannerMess, this.basicMess);
 				let len = Object.keys(this.BombExist).length;
 				console.log("this.BombExist:",this.BombExist)
