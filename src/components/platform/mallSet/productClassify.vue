@@ -5,19 +5,32 @@
 			<div v-if="Classify.length!=0?true:false">
 				<div v-show="type=='单选'">
 					<div v-if="choiceRole==='store'">
-						<label class="display-b store_label" v-for="(item,index) in Classify" :key="index">		        	
-				            <input type="radio" name="one" @click="RadioIndex(index)" :checked="item.checked" 
-				              :disabled="(item.level==1&&item.is_final==0)?true:false"  class="display-n"/>
+						<label class="display-b store_label" 
+							v-for="(item,index) in Classify" 
+							:key="index">		        	
+				            <input type="radio" name="one" 
+				            	@click="RadioIndex(index)" 
+				            	:checked="item.checked" 
+				              	:disabled="(item.level==1&&item.is_final==0)?true:false"  
+				              	class="display-n"/>
 				              
 				            <em v-if="item.level==2||(item.level==1&&item.is_final==1)?true:false"
-				              :class="item.level===2? 'ml-20' : ''"></em>
-			           		 {{item.shop_category_name}}
+				              :class="item.level===2? 'ml-20' : ''">
+				            </em>
+			           		{{item.mall_category_name}}
 			        	</label>
 					</div>
+					
 					<div v-if="choiceRole==='mall'">
-						<label class="display-b store_label" v-for="(item,index) in Classify" :key="index">		        	
-				            <input type="radio" name="one" @click="RadioIndex(index)" :checked="item.checked" 
-				              :disabled="(item.level==1&&item.is_final==0)?true:false"  class="display-n"/>
+						<label class="display-b store_label" 
+							v-for="(item,index) in Classify" 
+							:key="index">		        	
+				            <input type="radio" 
+				            	name="one"
+				            	@click="RadioIndex(index)" 
+				            	:checked="item.checked" 
+				              	:disabled="(item.level==1&&item.is_final==0)?true:false"  
+				              	class="display-n"/>
 				              
 				            <em v-if="item.level==2||(item.level==1&&item.is_final==1)?true:false"
 				              :class="item.level===2? 'ml-20' : ''"></em>
@@ -26,10 +39,19 @@
 					</div>
 				</div>
 				
-				<div class="text-l" :class="{checkClassify:checkStyle}" v-show="type=='多选'">					
-					<label class="display-b store_label" v-for="(item,index) in Classify" :key="index">			        	
-			          <input type="checkbox" name="two" @change="CheckIndex(item,index)" v-model="item.checked"
-			           :disabled="(item.level==1&&item.is_final==0)?true:false"  class="display-n">			            
+				<div class="text-l" 
+					:class="{checkClassify:checkStyle}" 
+					v-show="type=='多选'">					
+					<label class="display-b store_label" 
+						v-for="(item,index) in Classify" 
+						:key="index">			        	
+			          <input type="checkbox" 
+			          	name="two" 
+			          	@change="CheckIndex(item,index)"
+			          	v-model="item.checked"
+			           :disabled="(item.level==1&&item.is_final==0)?true:false"  
+			           class="display-n">
+			           
 			          <em v-if="item.level==2||(item.level==1&&item.is_final==1)?true:false"
 			            :class="item.level===2? 'ml-20' : ''"></em>
 			          {{item.shop_category_name}}
@@ -52,10 +74,17 @@
 		props: ["type", "checkStyle", "Classify", "classfyId","choiceRole"],
 		methods: {
 			RadioIndex(index) {
+				let classify
 				if(this.choiceRole==="store"){
-					var classify = {banner_click_name: this.Classify[index].shop_category_name,banner_click_id: this.Classify[index].id};					
+					classify = {
+						banner_click_name: this.Classify[index].mall_category_name,
+						banner_click_id: this.Classify[index].id
+					};
 				}else if(this.choiceRole==="mall"){
-					var classify = {click_name: this.Classify[index].mall_category_name,click_id: this.Classify[index].id};	
+					classify = {
+						click_name: this.Classify[index].mall_category_name,
+						click_id: this.Classify[index].id
+					};
 				};				
 				this.$emit("categorys", classify)
 			},
@@ -75,6 +104,7 @@
 						}
 					};
 				}
+				console.log(1111111111)
 				this.$emit("categorys", this.classfyId)
 			}
 		}

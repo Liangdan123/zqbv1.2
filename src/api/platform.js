@@ -16,8 +16,6 @@ export const existMallClassified =(data)=>axios.post("product/save_mall_category
 
 export const getMallClassifyList =()=>axios.get("product/mall_category_lists")//获取商城分类列表
 
-export const getClassifyList=(shop_id)=>axios.get("product/shop_category_lists",{params:{shop_id}})//获取店铺分类列表
-
 export const getProductList=(shopMess)=>axios.post("product/lists",shopMess)//获取商品列表
 
 export const getCouponConfig=()=>axios.get("coupon/get_config")//营销管理中获取优惠券配置

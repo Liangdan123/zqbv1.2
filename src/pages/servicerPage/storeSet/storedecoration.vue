@@ -44,7 +44,10 @@
 					<div v-for="(item,index) in intro" class="arrival_list bg-f">
 						<div class="clearfix" v-if="item.images.length">
 							<div class=" float-l" width="228" height="232">
-								<img :src="item.images[0].image_url" class="float-l" width="228" height="232" />
+								<img :src="item.images[0].image_url" 
+									class="float-l" 
+									width="228" 
+									height="232"/>
 							</div>
 							<div class=" float-r" v-if="item.images.length>=3">
 								<img :src="item.images[1].image_url" class="display-b pic_two" />
@@ -138,7 +141,7 @@
 		beforeRouteLeave(to, from, next) {
 			let shopMess_string_now = JSON.stringify(this.shopMess);
 			let banner_string_now = JSON.stringify(this.banner);
-			if((shopMess_string_now !== this.copyShopMess || banner_string_now !== this.copyBanner)&&this.isExist===false) {
+			if((shopMess_string_now!==this.copyShopMess||banner_string_now !== this.copyBanner)&&this.isExist===false) {
 				// 提示是否保存数据
 				Object.assign(this.BombExist, this.bannerMess, this.basicMess);
 				this.shopLogo();
@@ -179,8 +182,8 @@
 			})
 			//获取轮播海报数据
 			getStoreBanner(shop_id)
-				.then(({data}) => {									
-					this.banner = data;					
+				.then(({data}) => {	
+					this.banner = data;	
 					this.copyBanner = JSON.stringify(this.banner);//拷贝一份用于取消编辑
 				})
 			var newArrival = {
@@ -219,6 +222,7 @@
 				}
 			},
 			saveItemsEdit(){//保存
+				
 				Object.assign(this.BombExist, this.bannerMess, this.basicMess);
 				let len = Object.keys(this.BombExist).length;
 				console.log("this.BombExist:",this.BombExist)
