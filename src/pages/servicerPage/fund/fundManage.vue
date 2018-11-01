@@ -140,7 +140,7 @@
         },
         components:{
         	"widthDrawTable":()=>import("@/components/moneyManage/widthDrawTable"),
-					"orderConsume":()=>import("@/components/servicer/fund/orderConsume"),
+			"orderConsume":()=>import("@/components/servicer/fund/orderConsume"),
         	"platformOrderFund":()=>import("@/components/platform/fund/platformOrderFund"),
         	"memberDetailed":()=>import("@/components/platform/fund/memberDetailed")
         },

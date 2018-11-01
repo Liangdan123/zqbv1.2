@@ -1,13 +1,13 @@
 <template>
 	<div class="roleDetailed" >		
-		<!-- <div v-show="false">{{condition}}</div> -->
-		   <search :search.sync="searchCondition.search" 
+		<search :search.sync="searchCondition.search" 
 		   	@searchMethod="searchMethod" 
 		   	@emptyMthod='searchMethod' 
 		   	ref="isShow" 
 		   	selectTitle='筛选列表'
           	hintMess="输入相关信息进行搜索" 
-          	class='mb-20' 
+          	class='mb-20'
+          	timeType="created_at"
           	inputSearch='keyword' 
           	v-if="isSearch">
         </search>

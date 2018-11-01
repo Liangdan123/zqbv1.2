@@ -1,7 +1,10 @@
 <template>
   <div>
     <!-- 提现记录弹窗 -->
-    <el-dialog :visible.sync="visible" :close-on-click-modal="false" class="withdraw" title="提现记录" @close="closeModel" >
+    <el-dialog :visible.sync="visible" 
+    	:close-on-click-modal="false" 
+    	class="withdraw" title="提现记录"
+    	 @close="closeModel">
       <widthDrawTable :user_id="user_id" typeKey="2" ref='tixian'>
       </widthDrawTable>
     </el-dialog>
@@ -18,9 +21,26 @@
       <!-- 会员管理表格 数据父组件提供 -->
       <div class="buttons clearfix mb-20">
         <template v-loading="loading">
-          <orderDetailed :user_id="user_id" typeKey="2" v-if="activeName==1" :isSearch='true' :isCompany='true'></orderDetailed>
-          <memberDetailed :user_id="user_id" typeKey="2" v-if="activeName==2" :isSearch='true' :isCompany='true'></memberDetailed>
-          <roleDetailed :user_id="user_id" v-if="activeName==3" :isSearch='true' :isCompany='true'></roleDetailed>
+          <orderDetailed :user_id="user_id" 
+          	typeKey="2" 
+          	v-if="activeName==1" 
+          	:isSearch='true' 
+          	:isCompany='true'>
+          	
+          </orderDetailed>
+          <memberDetailed :user_id="user_id" 
+          	typeKey="2" 
+          	v-if="activeName==2" 
+          	:isSearch='true' 
+          	:isCompany='true'
+          	iscreateTime="true">
+          	
+          </memberDetailed>
+          <roleDetailed :user_id="user_id" 
+          	v-if="activeName==3" 
+          	:isSearch='true' 
+          	:isCompany='true'>
+          </roleDetailed>
         </template>
       </div>
     </div>
@@ -34,9 +54,7 @@
   import memberDetailed from "@/components/platform/fund/memberDetailed"
   import WithdrawalApply from "@/components/moneyManage/WithdrawalApply"
   import widthDrawTable from "@/components/moneyManage/widthDrawTable"
-  import {
-    orderCommission
-  } from "@/api/platform"
+  import {orderCommission} from "@/api/platform"     
   export default {
     data() {
       return {

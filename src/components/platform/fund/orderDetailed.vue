@@ -2,12 +2,14 @@
 	<div class="orderDetailed" >		
 		<search :search.sync="searchCondition.search" 
 			@searchMethod="searchMethod" 
-			@emptyMthod='searchMethod' ref="isShow" 
+			@emptyMthod='searchMethod' 
+			ref="isShow" 
 			selectTitle='筛选列表'
           	hintMess="输入相关信息进行搜索"         
           	inputSearch='keyword' 
+          	timeType="created_at"
           	v-if="isSearch"
-           class='mb-20' >
+           	class='mb-20' >
         </search>
 		<el-table
 			:data="list.data" 

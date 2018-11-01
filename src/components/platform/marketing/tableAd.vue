@@ -118,13 +118,13 @@
 		methods:{
 			_doSearch(){//获取广告列表
 				this.$set(this.searchCondition.search,"type",Number(this.activeName));
-				if(this.isDistribution){
+				if(this.isDistribution){//平台
 					getAdList(this.searchCondition)
 					.then(({data})=>{
 						this.list=data;
 						this.loading=false;
 					})
-				}else if(!this.isDistribution){
+				}else if(!this.isDistribution){//服务商
 					this.$set(this.searchCondition,"user_id",this.$store.state.user.user.zhixu_id);
 					getServerAdList(this.searchCondition)
 					.then(({data})=>{
@@ -140,9 +140,15 @@
 			},
 			handleSelection(val){//选中列表
 				let arr=[];
-				for(let item of val) {
-					arr.push({ad_id: item.ad_id});
-				};
+				if(this.isDistribution){//平台
+					for(let item of val) {
+						arr.push({ad_id: item.ad_id});
+					};
+				}else{//服务商
+					for(let item of val) {
+						arr.push({distribute_id: item.distribute_id});
+					};
+				}
 				this.$set(this.deleteList,"data",arr);
 				this.distributeList=JSON.parse(JSON.stringify(arr));
 			},
@@ -167,8 +173,7 @@
 						.then(({data}) => {	
 							this._status(data)
 						})	
-					}else if(!this.isDistribution){
-						console.log("data:",data)						
+					}else if(!this.isDistribution){					
 						deleteServerAdList(data)//批量删除服务商分配广告数据
 						.then(({data}) => {	
 							this._status(data)
@@ -202,11 +207,15 @@
 				this.searchMethod();
 			},
 			delt(index){//每行中的删除
-				let only_ad=this.list.data[index].ad_id
-				this.$set(this.onlyDelete.data,0,{ad_id:only_ad});
+				let only_ad			
 				if(!this.isDistribution){//服务商
+					only_ad=this.list.data[index].distribute_id;	
 					this.$set(this.onlyDelete,"user_id",this.$store.state.user.user.zhixu_id);
-				}
+					this.$set(this.onlyDelete.data,0,{distribute_id:only_ad});
+				}else{//平台
+					only_ad=this.list.data[index].ad_id;	
+					this.$set(this.onlyDelete.data,0,{ad_id:only_ad});
+				};
 				this._deleteMethods(this.onlyDelete)
 			},
 			distribute(){//分配广告按钮

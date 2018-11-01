@@ -21,7 +21,12 @@
         	@searchMethod="searchMethod" 
         	:inputType="['is_company']">
         </searchRole>
-        <search :search.sync="searchCondition.search" @searchMethod="searchMethod" @emptyMthod='searchMethod' ref="isShow" selectTitle='筛选条件'
+        <search :search.sync="searchCondition.search" 
+        	@searchMethod="searchMethod" 
+        	@emptyMthod='searchMethod' 
+        	ref="isShow" 
+        	selectTitle='筛选条件'
+        	timeType="created_at"
           hintMess="输入相关信息进行搜索">
         </search>
       </div>

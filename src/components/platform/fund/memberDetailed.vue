@@ -8,7 +8,7 @@
 		    hintMess="输入相关信息进行搜索" 
 		    class='mb-20' 
 		    inputSearch='keyword'
-		    timeType="created_at"
+		    :timeType="iscreateTime?'create_time':'created_at'"
 		    v-if="isSearch">
       
      	</search>
@@ -121,6 +121,11 @@
 				},
 			},
 			isRole:{
+				default:function(){
+					return false
+				},
+			},
+			iscreateTime:{
 				default:function(){
 					return false
 				},

@@ -107,7 +107,6 @@ import partnerWithdrawalApply from '@/pages/partner/moneyManage/WithdrawalApply'
 
 Vue.use(Router);
 const router = new Router({ 
-
 	routes: [{
 				path: '/',
 				component: login,
