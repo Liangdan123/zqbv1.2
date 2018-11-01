@@ -116,8 +116,7 @@ const actions={
 		getArea()/*地区接口*/
 		.then(({data})=>{
 			commit(AREA,data);
-		});
-		
+		});	
 		switch(user.type){
 			case 1://登录的是平台跳转
 				if(user.is_admin===1){
