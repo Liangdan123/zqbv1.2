@@ -48,7 +48,7 @@
 			<div class="link">
 				<span v-if="choicePlate==='store'">
 					{{item.banner_click_type=="product"?"商品链接"+" -":
-					(item.banner_click_type=="shop_category"?"商品分类"+" -":"")}}
+					(item.banner_click_type=="mall_category"?"商品分类"+" -":"")}}
 					{{item.banner_click_name}}
 				</span>
 				<span v-if="choicePlate==='mall'">
@@ -206,9 +206,7 @@
 		mixins:[shareMth,storeClassify],			
 		computed:{
 			upBanner(){
-				console.log("44444444444444444:",JSON.parse(JSON.stringify(this.banner)));
-				let exist=JSON.parse(JSON.stringify(this.banner))
-				return exist
+				return JSON.parse(JSON.stringify(this.banner))
 			}
 		},
 		updated(){
@@ -231,7 +229,6 @@
 			},
 			//商品分类传过来的数据
 			categorys(val){
-				console.log("val:",val)
 				this.classifyName=val;				
 			},			
 			sureclassify() {//保存按钮
@@ -239,7 +236,7 @@
 				let classify
 				if(this.choicePlate==="store"){//我的店铺
 					classify = {
-						banner_click_type: "shop_category",
+						banner_click_type: "mall_category",
 						banner_click_name: this.classifyName.banner_click_name,
 						banner_click_id:this.classifyName.banner_click_id
 					};
@@ -250,8 +247,7 @@
 						click_name: this.classifyName.click_name,
 						click_id:this.classifyName.click_id
 					};
-				}
-				console.log("classifyCnt888888888：",classify)
+				};
 				if (this.classifyName) {
 					this.classifyCnt(classify)
 				}
@@ -336,10 +332,10 @@
 			showBomb(item,index){//打开弹窗		
 				this.dialogFormVisible = true;
 				this.bannerIndex=index;
-				if(this.choicePlate==="store"){//我的店铺														
+				if(this.choicePlate==="store"){//我的店铺					
 					this.initStoreClassify("mallClassify");//初始化数据，数据不选中(只有商城分类，没有店铺分类)
-					if(this.mallClassify.length== 0||this.banner.length== 0){return}//我的店铺	
-					if(this.banner[index].banner_click_type==="shop_category"){//商品分类中是否选中
+					if(this.mallClassify.length== 0||this.banner.length== 0){return}//我的店铺(只有商城分类，没有店铺分类)
+					if(this.banner[index].banner_click_type==="mall_category"){//商品分类中是否选中
 						this.classifyName={
 							banner_click_name:item.banner_click_name,
 							banner_click_id:item.banner_click_id
@@ -377,8 +373,7 @@
 		                    click_image_url: "",   
 						})
 					}
-				}
-				
+				}				
 			},
 			shop_hidden(data){
 				this.dialogFormVisible=data;
@@ -401,6 +396,7 @@
 //				};
 //				//去除数组里的空对象
 //				this.deleteArrayObject(this.upBanner);
+
 				//上传给后台的数据				
 				if(!this.title){
 					this.bannerEditor={banners:this.upBanner};	
