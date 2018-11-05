@@ -63,12 +63,15 @@
   export default {
     name: "UnshippedOrder",
     data() {
-    	let type=this.$store.state.user.user.type			
+		console.log(this.$store.state.user.user.type)
+		
+    	let type=this.$store.state.user.user.type
+		let whichRole=type==4?1:2
 	    return {
 	        orderMess: {
 	          page: 1,
 	          search: {
-	            type:1,
+	            type:whichRole,
 	          },
 	          per_page: 20,
 	        },

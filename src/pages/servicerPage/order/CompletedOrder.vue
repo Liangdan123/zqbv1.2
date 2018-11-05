@@ -71,12 +71,13 @@
 export default {
     name: "CompletedOrder",
     data() {
-    	let type=this.$store.state.user.user.type	
+    	let type=this.$store.state.user.user.type;
+		let whichRole=type==4?3:4
 	    return {
 	        orderMess: {
 	          page: 1,
 	          search: {
-	            type:3,
+	            type:whichRole,
 	          },
 	          per_page: 20,
 	        },
