@@ -22,12 +22,16 @@
 				<div v-for="item in list.data" class="assess_plate">
 					<div class="assess_plate_top clearfix">
 						<div class="float-l">
-							<img :src="item.avatar_url" class="assess_plate_top-head"/>
+							<img :src="item.avatar_url||shopLogoNull" class="assess_plate_top-head"/>
 							<span class="assess_plate_top-name">{{item.nick_name}}</span>
 							<time class="assess_plate_top-time">{{item.created_at}}</time>
 							<div class="assess_plate_top-Stars">
-								<span class="iconfont icon-xingxing" v-for="item in item.comment_score"></span>
-								<span class="iconfont icon-wuxing" v-for="item in (5-item.comment_score)"></span>
+								<span class="iconfont icon-xingxing" v-for="item in +item.comment_score">
+									
+								</span>
+								<span class="iconfont icon-wuxing" v-for="item in (5-item.comment_score)">
+									
+								</span>
 							</div>						
 							<span class="assess_plate_top-name">{{item.comment_score|assess}}</span>						
 						</div>
@@ -62,6 +66,7 @@
 <script>
 	import page from "@/utils/page"
 	import {getAssessList,backAssess} from "@/api/servicer"
+	import * as links from "@/links/index"
 	export default{
 		data(){
 			return{
@@ -75,6 +80,7 @@
 				txtBox:"",
 				comment_id:0,
 				loading:true,
+				shopLogoNull:links.IMG,
 			}
 		},
 		filters:{
