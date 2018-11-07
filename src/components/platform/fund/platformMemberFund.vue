@@ -33,9 +33,9 @@
 			</el-table-column>
 			<el-table-column prop="xcx_phone" label="手机号">
 			</el-table-column>			
-			<el-table-column prop="order_fee_yuan" label="会员金额">
+			<el-table-column prop="member_fee_yuan" label="会员金额">
 				<template slot-scope="scope">
-					{{scope.row.order_fee_yuan||0|money}}
+					{{scope.row.member_fee_yuan||0|money}}
 				</template>
 			</el-table-column>
 			<el-table-column prop="created_at" label="创建时间">
