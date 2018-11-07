@@ -259,9 +259,13 @@
 					per_page: 5
 				};
 				this._shopDynamicsAPI(setDynamic);//店铺动态
-//				this.clearDynamicTime=setInterval(()=>{this._shopDynamicsAPI(setDynamic)},10000);																		
+//				this.clearDynamicTime=setInterval(
+//					()=>{this._shopDynamicsAPI(setDynamic)},10000
+//				);
 				this._DynamicsNumAPI({shop_id})//待处理事件						
-//				this.clearNumTime=setInterval(()=>{this._DynamicsNumAPI({shop_id})},10000);
+//				this.clearNumTime=setInterval(
+//					()=>{this._DynamicsNumAPI({shop_id})},
+//					10000);
 			},
 			_shopId(){
 				getUserMess()//获取服务商店铺
@@ -294,16 +298,15 @@
 			loginOut(){//退出按钮
 				this.$store.dispatch('doLogout');
 			},
-			timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口			
-				if(!this.shopLength||this.shopLength==0){return}
-				let shop_id=this.shopId;
+			async timeRangeChange([start_date,end_date]=[]){//时间改变时重新掉接口			
+				const {data}=await getUserMess();
+				if(data.length==0){return};
+				let shop_id=data[0].shop_id;
 				let condition_search={
 					shop_id,start_date,end_date
 				};
-				getStoreData(condition_search)
-				    .then(({data:{data}})=>{
-                        this.statisticsData = data;
-                    })
+				const storeDate=await getStoreData(condition_search)
+				this.statisticsData=storeDate.data.data				
 			},
 		}
 	}

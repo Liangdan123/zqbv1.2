@@ -132,7 +132,7 @@
                     <div class="statistics-module">
                         <i class="iconfont icon-fuwushang"></i>
                         	服务商共计
-                        <span>{{mallDataStatistics.total_fws_num}}元</span>
+                        <span>{{mallDataStatistics.total_fws_num}}家</span>
                     </div>
                 </el-col>
             </el-row>

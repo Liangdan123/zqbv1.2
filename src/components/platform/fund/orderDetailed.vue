@@ -21,7 +21,7 @@
 					{{scope.row.fws_is_company==0?'个人':'企业'}}
 				</template>
 			</el-table-column>
-			<el-table-column prop="split_no" label="订单号">
+			<el-table-column prop="split_no" label="订单号" width="250">
 			</el-table-column>
 			<el-table-column prop="order_fee_yuan" label="订单金额">
 				<template slot-scope="scope">
