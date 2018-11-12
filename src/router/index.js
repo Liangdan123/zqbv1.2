@@ -497,7 +497,9 @@ const router = new Router({
 })
 
 let _platJumpPage=function(pageArray){
+//	console.log("pageArray:",pageArray)
 		let navbarArray=pageArray.split(",");	
+		
 		let jumpPage=Math.min.apply(null,navbarArray);
 		switch(jumpPage){//登录先跳进权限取值最小的的页面
 			case 1:
@@ -523,6 +525,8 @@ let _platJumpPage=function(pageArray){
 				break;
 		}
 };
+
+
 let _parseJump=function(next,from,to){
 		let parsed = parse(decodeURIComponent(from.query.redirect), true);
 		if(parsed.pathname===to.path){//路径相等时直接跳
@@ -535,17 +539,16 @@ let _parseJump=function(next,from,to){
 		}
 }
 
-
-
 router.beforeEach((to, from, next)=>{
-	if(store.state.user.login){//已经登录
+	if(store.state.user.login){//已经登录		
 		if(to.path==="/"){//跳首页
 			if(from.path===to.path){//输入网址跳进来(并且已经登录过)
 				switch(store.state.user.user.type){
-					case 1:						
-						if(store.state.user.user.is_admin==1){
+					case 1:		
+						console.log("store.state.user.user.is_admin：",store.state.user.user.is_admin)
+						if(store.state.user.user.is_admin==1||!store.state.user.user.is_admin){
 							next({ path: '/mallZxh/controlCenter/platDataCenter'})
-						}else{
+						}else{			
 							_platJumpPage(store.state.user.user.permission);//不是主账号平台首次登录的页面
 						}
 						break;
@@ -563,6 +566,7 @@ router.beforeEach((to, from, next)=>{
 				next(false)
 			}
 		}else{//如果有查询参数那就需要带上查询参数，并且调至从退出登录页面(跳主体页面)
+			
 			let toPath=to.path.split("/")[1];
 			//平台
 			if(store.state.user.user.type === 1){
