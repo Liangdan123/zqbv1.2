@@ -59,10 +59,14 @@
               .then(({data}) => {                             
                 this.doLogin(data);
               })
-              .catch(({ response: {data}}) => {                         
+              .catch(({ response: {data}}) => {
                 //与后台交互时出现的错误信息
-                this.warn = true;
+                if(data.errcode==40025){
+                 this.$message.error('该账号需要注册后登陆');
+                 router.push('register')
+                }
                 this.msg = data.errorcmt;
+                this.warn = true;
               });
             break;
         }
