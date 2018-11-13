@@ -87,9 +87,7 @@
     created() {
       //调用获取会员统计数据API
       getMemberNum()
-        .then(({
-          data
-        }) => {
+        .then(({ data}) => {       
           this.money = data;
         })
     },
