@@ -11,6 +11,7 @@
             	@emptyMthod='emptyMthod'  
             	ref="isShow" 
             	selectTitle='筛选会员' 
+            	timeType="created_at"
             	hintMess="输入相关信息进行搜索">
               <template>
                 <div class="condition clearfix mb-10">

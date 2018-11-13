@@ -1,13 +1,13 @@
 <template>
 	<div class="roleDetailed" >		
-		<!-- <div v-show="false">{{condition}}</div> -->
-		   <search :search.sync="searchCondition.search" 
+		<search :search.sync="searchCondition.search" 
 		   	@searchMethod="searchMethod" 
 		   	@emptyMthod='searchMethod' 
 		   	ref="isShow" 
 		   	selectTitle='筛选列表'
           	hintMess="输入相关信息进行搜索" 
-          	class='mb-20' 
+          	class='mb-20'
+          	timeType="created_at"
           	inputSearch='keyword' 
           	v-if="isSearch">
         </search>
@@ -21,7 +21,7 @@
 			
 			<el-table-column prop="join_type" label="角色发展">
 				<template slot-scope="scope">
-					{{scope.row.cps_type|identity}}
+					{{scope.row.join_type|identity}}
 				</template>
 			</el-table-column>
 					<el-table-column prop="join_is_company" label="性质" v-if='isCompany'>

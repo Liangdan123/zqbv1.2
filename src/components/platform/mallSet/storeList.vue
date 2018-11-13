@@ -92,7 +92,7 @@
 	import search from "@/components/func/search"
 	import commodityMethod from '@/utils/commodity'
 	import storeClassify from '@/utils/storeClassify'
-	import {getMallClassifyList,getClassifyList} from "@/api/platform"
+	import {getMallClassifyList} from "@/api/platform"
 	export default {
 		data() {
 			return {
@@ -155,12 +155,6 @@
 				getMallClassifyList()//商城分类列表
 				.then(({data})=>{
 					this.mallClassifyList=data;					
-				})
-			}
-			if(status === 2){
-				getClassifyList(shop_id)//商家分类列表
-				.then(({data})=>{
-					this.classifyList=data;
 				})
 			}
 		},

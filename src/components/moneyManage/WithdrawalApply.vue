@@ -30,11 +30,16 @@
 					<div class="detail-content">完成提现</div>
 				</li>
 			</ul>
-			<el-form class="form-content" label-width="90px" :model="withdrawalApplyData" :rules="validatorRule" ref="ruleForm">
+			<el-form class="form-content" 
+				label-width="90px" 
+				:model="withdrawalApplyData" 
+				:rules="validatorRule" ref="ruleForm">
 				<el-form-item label="提现金额：" prop="apply_money">
 					<el-input class="radius" v-model.number="withdrawalApplyData.apply_money">
 					</el-input>
-					<p>最大可提现金额:{{accountMoneyInfo.balance_yuan||0 | money}}元，提现手续费比例{{this.accountMoneyInfo.tixian_rate}}%</p>
+					<p>最大可提现金额:{{accountMoneyInfo.balance_yuan||0 | money}}元，
+						提现手续费比例{{this.accountMoneyInfo.tixian_rate}}%
+					</p>
 				</el-form-item>
 				<el-form-item label="提现方式：" prop="tixian_type" class="tixian_type">
 					<el-radio-group v-model="withdrawalApplyData.tixian_type">
@@ -43,60 +48,93 @@
 						<el-radio :label="3">银行卡账户</el-radio>
 					</el-radio-group>
 				</el-form-item>
-
-				<el-form-item label="姓名：" prop="tixian_name" v-if="withdrawalApplyData.tixian_type===1||withdrawalApplyData.tixian_type===2" :rules="{
+						
+				<el-form-item label="姓名：" 
+					prop="tixian_name" 
+					v-if="[1,2].includes(withdrawalApplyData.tixian_type)" :rules="{
                 		required:true,message: '姓名不能为空', trigger: 'blur'
                 	}">
-					<el-input class="radius" placeholder="请填写真实姓名" v-model="withdrawalApplyData.tixian_name">
+					<el-input class="radius" 
+						placeholder="请填写真实姓名" 
+						v-model="withdrawalApplyData.tixian_name">
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="开户姓名：" prop="tixian_name" v-if="withdrawalApplyData.tixian_type===3" :rules="{
+				<el-form-item label="开户姓名："
+					 prop="tixian_name" 
+					 v-if="withdrawalApplyData.tixian_type===3" :rules="{
                 		required:true, message: '开户姓名不能为空', trigger: 'blur'
                 	}">
-					<el-input class="radius" placeholder="请填写真实姓名" v-model="withdrawalApplyData.tixian_name">
+					<el-input class="radius" 
+						placeholder="请填写真实姓名" 
+						v-model="withdrawalApplyData.tixian_name">
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="开户银行" prop="tixian_bank" :rules="{required:true, message: '请输入开户银行', trigger:'blur'}"             		
+				<el-form-item label="开户银行" 
+					prop="tixian_bank" 
+					:rules="{required:true, message: '请输入开户银行', trigger:'blur'}"             		
                 	 v-if="withdrawalApplyData.tixian_type===3">
-					<el-input class="radius" placeholder="例如:“中国银行”" v-model="withdrawalApplyData.tixian_bank">
+					<el-input class="radius" 
+						placeholder="例如:“中国银行”" 
+						v-model="withdrawalApplyData.tixian_bank">
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="银行卡号" prop="tixian_account" :rules="{required:true, message:'请输入银行卡号',trigger:'blur' }" 
+				<el-form-item label="银行卡号" 
+					prop="tixian_account" 
+					:rules="{required:true, message:'请输入银行卡号',trigger:'blur' }" 
 					v-if="withdrawalApplyData.tixian_type===3" >
-					<el-input class="radius" placeholder="请填写卡号18位数" v-model="withdrawalApplyData.tixian_account">
+					<el-input class="radius" 
+						placeholder="请填写卡号18位数" 
+						v-model="withdrawalApplyData.tixian_account">
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="账户：" prop="tixian_account" v-if="withdrawalApplyData.tixian_type===1" :rules="{
+				<el-form-item label="账户：" 
+					prop="tixian_account" 
+					v-if="withdrawalApplyData.tixian_type===1" :rules="{
                 		required:true,message: '账户不能为空', trigger: 'blur'
                 	}">
-					<el-input class="radius" placeholder="请填写支付宝账户" v-model="withdrawalApplyData.tixian_account">
+					<el-input class="radius" 
+						placeholder="请填写支付宝账户" 
+						v-model="withdrawalApplyData.tixian_account">
 					</el-input>
 				</el-form-item>
 
-				<el-form-item label="微信号：" prop="tixian_account" v-if="withdrawalApplyData.tixian_type===2" :rules="{
+				<el-form-item label="微信号：" 
+					prop="tixian_account" 
+					v-if="withdrawalApplyData.tixian_type===2" :rules="{
                 		required:true,message: '账户不能为空', trigger: 'blur'
                 	}">
-					<el-input class="radius" v-model="withdrawalApplyData.tixian_account" placeholder="请填写转账微信号">
+					<el-input class="radius" 
+						v-model="withdrawalApplyData.tixian_account" 
+						placeholder="请填写转账微信号">
 					</el-input>
 				</el-form-item>
 
 				<el-form-item label="身份验证：" prop="verify_code">
 					<el-col :span="12">
-						<el-input class="radius" placeholder="短信验证码" v-model="withdrawalApplyData.verify_code">
+						<el-input class="radius" 
+							placeholder="短信验证码" 
+							v-model="withdrawalApplyData.verify_code">
 						</el-input>
 					</el-col>
 					<el-col :span="11">
-						<el-button type="primary" class="btn-code radius" :disabled="verifyCodeSending" @click="verifyCodeGet">
+						<el-button type="primary" 
+							class="btn-code radius" 
+							:disabled="verifyCodeSending" 
+							@click="verifyCodeGet">
 							{{verifyTip}}
 						</el-button>
 					</el-col>
 				</el-form-item>
 				<el-form-item>
-					<el-button :loading="submitDisable" :disabled="submitDisable" class="radius submit" type="primary" @click="submitForm('ruleForm')">
+					<el-button :loading="submitDisable" 
+					:disabled="submitDisable" 
+					class="radius submit" 
+					type="primary" 
+					@click="submitForm('ruleForm')">
 						提交申请
 					</el-button>
 				</el-form-item>
@@ -120,19 +158,21 @@
 		data() {
 			// 自定义提现金额校验信息
 			let checkApplyMoney = (rule, value, callback) => {
+				console.log("value",value)
 				if(!value) {
 					return callback(new Error('提现金额不能为空'));
 				}
 				if(!Number.isInteger(value)) {
 					callback(new Error('请输入数字值'));
 				} else {
-					if(value * 100 < 100000) {
-						callback(new Error('最低提现金额1000元'));
-					} else if(value * 100 > this.accountMoneyInfo.balance) {
+					if(value < this.accountMoneyInfo.min_tixian_yuan) {
+						callback(new Error(`最低提现金额${this.accountMoneyInfo.min_tixian_yuan}元`));
+					} else if(value > this.accountMoneyInfo.balance) {
 						callback(new Error('提现金额大于账户可提现余额'));
 					} else {
 						callback()
 					}
+					
 				}
 			};
 			return {

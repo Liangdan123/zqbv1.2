@@ -15,7 +15,7 @@
           <div class="product_name">
 						 <span class='red' 
 						 	v-if='scope.row.already_refund!=0&&!isRefund' >
-						 	【退款】{}
+						 	【退款】
 						 </span>
             {{scope.row.product_name}}{{scope.row.already_refund==1?'(退款处理中不能操作)':''}}
           </div>

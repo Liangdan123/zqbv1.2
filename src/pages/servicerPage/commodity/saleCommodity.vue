@@ -424,6 +424,7 @@
 
 				}
 				.el-dialog__body{
+
 					.btn{
 						p.title{
 							float: left;
@@ -448,4 +449,10 @@
 			}
 		}
 	}
+</style>
+<style scope>
+	.el-dialog--small.checkBox{
+		min-height:380px;
+	}
+	
 </style>

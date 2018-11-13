@@ -446,7 +446,8 @@
           <h3 class="mb-10 ">4.会员来源于服务商且服务商有合伙人</h3>
           <p class="clearfix f14 mt-10">则在表1之前先抽取比例
           
-           <span class="warn">{{parseInt(list5Coyp[3].rate)+parseInt(list5Coyp[4].rate)+parseInt(list5Coyp[5].rate)}}%</span>
+           <span class="warn">
+           	{{parseInt(list5Coyp[3].rate)+parseInt(list5Coyp[4].rate)+parseInt(list5Coyp[5].rate)}}%</span>
             	的钱按比例分配给（代理商、合伙人、服务商），
             <span class="warn">然后再按表1进行分配。</span>
           </p>

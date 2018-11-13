@@ -221,7 +221,7 @@
         	取消
       </el-button>
     	<el-button 	class='float-r store-button1' @click="partRefund">                       
-        	退款
+        	退款 
       </el-button>
     </div>
   </div>
@@ -374,10 +374,6 @@
       	this.clearChoice=false;
       },
       partRefund(){//退款按钮（部分退款）
-      	if(this.refund===0){
-      		this.PromptMess("请选择退款商品","warning");
-      		return
-      	};
       	if(this.isRefund===false){
       		this.PromptMess("退款金额不能大于支付金额","warning");
       		return
@@ -386,12 +382,15 @@
       	let productsArray=this.order_products.map((item)=>
       		({order_product_id:item.order_product_id})
       	);//退款商品数组
+      	if(productsArray.length===0){
+      		this.PromptMess("请选择退款商品","warning");
+      		return
+      	};
       	let refundInfo={
       		split_order_id:this.split_order_id,
       		products:productsArray,
 					refund_money:this.refund*100
       	};
-      	console.log("refundInfo：",refundInfo)
       	this._APIRefundPart(refundInfo);
       },
       _APIRefundPart(message){//提交部分退款申请API
@@ -435,7 +434,7 @@
         //开始服务接口 
         setProduct(setProMess)
           .then(({ data }) => {        
-            this.$message.success("发货成功")
+            this.$message.success("开始服务")
             this.$emit("closeBox", true)
           }).catch(() => {
             this.$emit("closeBox", false);

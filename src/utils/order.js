@@ -68,7 +68,7 @@ export default{
 		showSetOrder(data,title){
 			title?this.type="退款":this.type="订单服务";//判断需要传到子集的字符串是什么
 			this.index=data;//data是列表下标
-			this.dialogVisible=true;		
+			this.dialogVisible=true;
 			this.seeOrder(data);
 		}
 	}

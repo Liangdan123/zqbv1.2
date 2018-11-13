@@ -7,8 +7,7 @@
       <div v-show="type=='单选'">
         <label class="display-b store_label" 
         	v-for="(item,index) in Classify" 
-        	:key="index">   
-        	
+        	:key="index">          	
             <input type="radio" name="one" 
             	@click="RadioIndex(index)" 
             	:checked="item.checked" 

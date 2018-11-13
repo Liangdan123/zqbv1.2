@@ -62,6 +62,7 @@
 						:page-size="list.per_page"
 						layout="total, prev, pager, next"
 						@current-change="handleCurrentChange"
+						v-if="list.total>list.per_page"
 						class="pagination float-r">
 						
 					</el-pagination>
@@ -73,7 +74,8 @@
   			<productMess 
   				@closeEditor="closeEditor" 
   				@seePro="seePro" 
-  				:ediorMess="onlyProductMess"></productMess>    								 				
+  				:ediorMess="onlyProductMess">
+  			</productMess>    								 				
   		</div>
   		<!--................违规提醒弹框............-->
   		<el-dialog title="违规提醒" 
@@ -106,10 +108,11 @@
 	 	},
 		mixins:[page],
 	 	data(){
+	 		let shop_id=this.$store.state.servicer.shop_id;
 	 		return{
 	 			is_read:"1",
 	 			searchCondition:{//搜索条件
-	 				shop_id:"",
+	 				shop_id:shop_id,
 					search:{
 						is_read:1,
 					},
@@ -137,14 +140,8 @@
 		},
 	 	methods:{
 		 	_initialSearch(){//初始化条件
-	 			let shop_id=this.$store.state.servicer.shop_id;
 				let is_read=Number(this.is_read);
-				this.searchCondition={//搜索条件
-					shop_id,
-					search:{is_read},					
-					page: 1,
-					per_page: 20,
-				};
+				this.$set(this.searchCondition,"search",{is_read})
 		 	},
 	 		_doSearch(){//数据API
 	 			getIrregularities(this.searchCondition)

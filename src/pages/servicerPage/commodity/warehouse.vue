@@ -240,8 +240,8 @@
 				loading:true,
 				checkIrreList:{//违规提醒API信息
 					product_id: 0,//默认值
-				    page: 1,
-				    per_page: 10
+				    page:1,
+				    per_page:10
 				},
 				editProductPage:false,//编辑页面显示不显示
 				onlyProductMess:{},//商品详情信息
@@ -468,4 +468,10 @@
 			}
 		}
 	}
+</style>
+<style scope>
+	.el-dialog--small.checkBox{
+		min-height:380px;
+	}
+	
 </style>

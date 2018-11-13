@@ -63,12 +63,13 @@
   export default {  		
     name: "PendingOrder",
     data() {
-    	let type=this.$store.state.user.user.type	
+    	let type=this.$store.state.user.user.type
+		let whichRole=type==4?2:3	
 	    return {
 	        orderMess: {
 	          page: 1,
 	          search: {
-	            type: 2,
+	            type:whichRole,
 	          },
 	          per_page: 20,
 	        },

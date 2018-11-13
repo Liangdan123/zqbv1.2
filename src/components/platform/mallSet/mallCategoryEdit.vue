@@ -1,23 +1,38 @@
 <template>
-	<el-table :data="ClassifyList" style="width: 100%" empty-text="尚未添加分类" class="table_edit" :row-class-name="className" 
+	<el-table :data="ClassifyList" 
+		style="width: 100%" 
+		empty-text="尚未添加分类" class="table_edit" 
+		:row-class-name="className" 
 		@selection-change="handleSelectionChange">
-		<el-table-column type="selection" width="36"> </el-table-column>
+		<el-table-column type="selection" width="36">
+			
+		</el-table-column>
 		<el-table-column type="expand" width="23">
 			<template slot-scope="props">
 				<!--.......................下拉数据...................-->
-				<div v-for="(value,index) in props.row.sub" class="expanded-box" :class="{active:value.isActive}">
+				<div v-for="(value,index) in props.row.sub" 
+					class="expanded-box" 
+					:class="{active:value.isActive}">
 					<div class="expanded">
-						<el-checkbox v-model="value.created" @change="SelectionChildChange(props.row,value,props.$index)"></el-checkbox>
+						<el-checkbox v-model="value.created" 
+							@change="SelectionChildChange(props.row,value,props.$index)">
+						</el-checkbox>
 					</div>
 					<div class="expanded">
 						<svg width="24" height="24">
 							<use xlink:href="#Rectangle" />
 						</svg>
-						<el-input v-model.trim='value.mall_category_name' class="input-child-name" :class="{warn:value.isWarn}" @change="verify(value)" 
+						<el-input v-model.trim='value.mall_category_name' 
+							class="input-child-name" 
+							:class="{warn:value.isWarn}" 
+							@change="verify(value)" 
 							placeholder="请输入分类名称">							
 						</el-input>
-						<imageUpload :imageUrl="value.image_url" :imageType="'mall'" :index="index"
-							 @getImageUrl="upImg($event,props.$index)" :class="{warn:value.isWarn}">							
+						<imageUpload :imageUrl="value.image_url" 
+							:imageType="'mall'" 
+							:index="index"
+							 @getImageUrl="upImg($event,props.$index)" 
+							 :class="{warn:value.isWarn}">							
 							
 						</imageUpload>
 						<div class="txt" :class="{warn:value.isWarn}">
@@ -36,7 +51,10 @@
 						</el-button>
 					</div>					
 					<div class="expanded">
-						<el-button @click="deleteRow(index, props.row.sub)" type="text" size="small" class="btn-delete">
+						<el-button 
+							@click="deleteRow(index, props.row.sub)" 
+							type="text" size="small" 
+							class="btn-delete">
 							删除
 						</el-button>
 					</div>
@@ -45,7 +63,8 @@
 					<svg width="24" height="24">
 						<use xlink:href="#Rectangle" />
 					</svg>
-					<el-button class="store-button2 add-child" @click="addChild(props.row)">
+					<el-button class="store-button2 add-child" 
+						@click="addChild(props.row)">
 						<i class="iconfont icon-tianjia f12"></i>
 						<span>添加子分类 </span>
 					</el-button>
@@ -54,8 +73,12 @@
 		</el-table-column>
 		<el-table-column label="分类名称" width="540">
 			<template slot-scope="props">
-				<el-input v-model.trim="props.row.mall_category_name" class="input-name" :class="{warn:props.row.isWarn}" 
-					@blur="verify(props.row)" placeholder="请输入分类名称"></el-input>
+				<el-input v-model.trim="props.row.mall_category_name" 
+					class="input-name" 
+					:class="{warn:props.row.isWarn}" 
+					@blur="verify(props.row)" 
+					placeholder="请输入分类名称">
+				</el-input>
 			</template>
 		</el-table-column>
 		<el-table-column prop="created_at" label="创建时间" width="203">
@@ -78,9 +101,13 @@
 		</el-table-column>
 		<el-table-column label="操作" width="116">
 			<template slot-scope="scope">
-				<el-button @click="deleteRow(scope.$index, ClassifyList)" type="text" size="small" class="btn-delete">
+				<!--<el-button 
+					@click="deleteRow(scope.$index, ClassifyList)" 
+					type="text" 
+					size="small" 
+					class="btn-delete">
 					删除
-				</el-button>
+				</el-button>-->
 			</template>
 		</el-table-column>
 	</el-table>

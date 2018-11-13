@@ -7,7 +7,7 @@ export const accountInfo=(data)=>axios.post("user/login",data)//后台用户登�
 
 export const getPhoneAllMess=(phone,verify_code,new_password)=>axios.post("user/pwd_reset_phone",{phone,verify_code,new_password})
 
-export const getRegisterCode=(type,data)=>axios.post("notify/regiser_verify_code",{type,data})
+export const getRegisterCode=(data)=>axios.post("notify/reset_verify_code",data)
 
 export const loginOut=()=>axios.post("user/logout") //用户退出登录接口
 

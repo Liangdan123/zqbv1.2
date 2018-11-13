@@ -132,7 +132,7 @@
                     <div class="statistics-module">
                         <i class="iconfont icon-fuwushang"></i>
                         	服务商共计
-                        <span>{{mallDataStatistics.total_fws_num}}元</span>
+                        <span>{{mallDataStatistics.total_fws_num}}家</span>
                     </div>
                 </el-col>
             </el-row>
@@ -211,7 +211,6 @@
 				let condition_search={start_date,end_date};
 				getStatisticsByDate(condition_search)//获取商城统计数据
 					.then(({data:{data}})=>{
-						console.log(111111111111)
                         this.statisticsData = data;
                     })
 			}

@@ -123,6 +123,7 @@
 			//查询参数处理		
 			if (JSON.stringify(this.$route.query) !== "{}") {
 				this.activeName = "2";
+				this.$set(this.orderMess,"search",{type:1})
 			};
 			this.searchMethods();
 		},
