@@ -110,7 +110,6 @@
 				banner:[],				
 				options:[{value: '选项1',label: 4},{value: '选项2',label: 8}],					         							
 				value:"",
-				length:4,
 				searchMess:{//商品列表搜索信息
 					search:{},
 					orderby:{},
@@ -162,6 +161,15 @@
 						}
 					}				
 				}
+			},
+			length(){//图片导航数量的值
+				if(this.value==='选项1'){
+					return 4
+				}else if(this.value==='选项2'){
+					return 8	
+				}else{
+					return 0
+				}
 			}
 		},
 		created(){
@@ -199,11 +207,6 @@
 				this.mallPlate.data=Object.assign({},data);	
 			},
 			changeNum(){//图片导航的图片数量改变	
-				if(this.value==='选项1'){
-					this.length=4;	
-				}else if(this.value==='选项2'){
-					this.length=8;		
-				}
 				this.$emit("changeNum",this.value,this.index)
 			},
 			manual(num,existAddProduct){//手动选择(商品)

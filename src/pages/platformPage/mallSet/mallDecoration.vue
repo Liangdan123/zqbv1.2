@@ -124,7 +124,9 @@
 							<img :src="single.images[0].image_url"  
 								width="165" height="165" 
 								class="mt-15 display-b"/>
-							<div class="color-3 f14 mt-10 product_name_two">{{single.product_name}}</div>
+							<div class="color-3 f14 mt-10 product_name_two">
+								{{single.product_name}}
+							</div>
 							<div class="clearfix mt-10 line-21">
 								<p class="float-l f16 color-red clearfix">
 									<b>￥</b>

@@ -1,5 +1,5 @@
 <template>
-	<div class="platDataCenter"  @click="isDropdown=false">		
+	<div class="platDataCenter" @click="isDropdown=false">		
 		<el-row :gutter="20">
             <el-col :span="6">
                 <div class="statisticsItem">
@@ -19,7 +19,8 @@
                 </div>
             </el-col>
             <el-col :span="6">
-                <div class="statisticsItem">
+                <div class="statisticsItem cursor" 
+                	@click="orderNum">
                     <p class="itemTitle">支付订单数</p>
                     <p class="money-total">{{mallDataStatistics.total_pay_order_num }}</p>
                     <p class="money-history">
@@ -101,35 +102,40 @@
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"  
+                    	@click="memberJump">
                         <i class="iconfont icon-huiyuan"></i>
                         	会员共计
                         <span>{{mallDataStatistics.total_member_num}}人</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="storeToatal">
                         <i class="iconfont icon-dianpuxinxi"></i>
                         	店铺共计
                         <span>{{mallDataStatistics.total_shop_num}}家</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="agentTotal">
                         <i class="iconfont icon-member"></i>
                         	代理商共计
                         <span>{{mallDataStatistics.total_dls_num}}家</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="partnerTotal">
                         <i class="iconfont icon-hehuoren f18"></i>
                         	合伙人共计
                         <span>{{mallDataStatistics.total_hhr_num}}家</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="ServicerTotal">
                         <i class="iconfont icon-fuwushang"></i>
                         	服务商共计
                         <span>{{mallDataStatistics.total_fws_num}}家</span>
@@ -213,6 +219,28 @@
 					.then(({data:{data}})=>{
                         this.statisticsData = data;
                     })
+			},
+			memberJump(){
+				this.$router.push({name:'memberCenter'})
+			},
+			storeToatal(){
+				this.$router.push({name:'storeManage'})
+			},
+			agentTotal(){
+				this._jumpNumber('2')
+			},
+			partnerTotal(){
+				this._jumpNumber('3')
+			},
+			ServicerTotal(){
+				this._jumpNumber('4')
+			},
+			_jumpNumber(num){
+				this.$router.push({name:'join',query:{jump:num}})
+			},
+			orderNum(){
+				console.log(555555)
+				this.$router.push({name:'serverAllOrder'})
 			}
 		}
 	}
