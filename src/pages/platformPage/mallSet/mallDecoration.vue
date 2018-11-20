@@ -10,7 +10,11 @@
 					:class="index_plate===index?'border_b':errorPlate.hbys1 && index===errorIndex?'border-red':''" >
 					<!--..................当有数据时执行这里....................-->
 					<div v-if="item.data">	
-						<el-carousel arrow="never" :interval="4000" height="210px" width="375px"> 		
+						<el-carousel 
+							arrow="never" 
+							:interval="4000" 
+							height="210px" 
+							width="375px"> 		
 							<el-carousel-item v-for="(imgNum,i) in item.data.banners" 
 								:key="i" 
 								style="display: block!important;">
@@ -588,10 +592,9 @@
 	}
 	.product_name_two{
 		width: 105px;
-		min-height: 37px;
-		display: -webkit-box;
-	    -webkit-line-clamp: 2;
-	    -webkit-box-orient: vertical;
+		min-height: 37px; 	
+	   	line-height: 20px;
+	   	height: 40px;
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	}
