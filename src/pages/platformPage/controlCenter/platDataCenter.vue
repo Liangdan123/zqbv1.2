@@ -236,10 +236,9 @@
 				this._jumpNumber('4')
 			},
 			_jumpNumber(num){
-				this.$router.push({name:'join',query:{jump:num}})
+				this.$router.push({name:'role',query:{jump:num}})
 			},
 			orderNum(){
-				console.log(555555)
 				this.$router.push({name:'serverAllOrder'})
 			}
 		}

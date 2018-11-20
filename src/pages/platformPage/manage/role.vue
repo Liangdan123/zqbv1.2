@@ -108,12 +108,15 @@
     mixins: [page],
     components: { Navbar},       
     created() {
-			this.tabForShow = this.$route.query.tab || '1';
+			this.tabForShow = this.$route.query.tab ||this.$route.query.jump|| '1';
       if(this.tabForShow==1){
       	this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:0})
       }else{
       	 this.$set(this.searchCondition,"search",{is_company: 1,is_blacklist:1})
-      }
+      };   
+      if(this.$route.query.jump){
+      	this.searchCondition.search.type=this.$route.query.jump
+      };     
     },
     methods: {
       open(id,name) {
