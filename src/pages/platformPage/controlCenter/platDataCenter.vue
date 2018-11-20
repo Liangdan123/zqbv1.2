@@ -122,7 +122,7 @@
                     	@click="agentTotal">
                         <i class="iconfont icon-member"></i>
                         	代理商共计
-                        <span>{{mallDataStatistics.total_dls_num}}家</span>
+                        <span>{{mallDataStatistics.total_dls_num}}位</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
@@ -130,7 +130,7 @@
                     	@click="partnerTotal">
                         <i class="iconfont icon-hehuoren f18"></i>
                         	合伙人共计
-                        <span>{{mallDataStatistics.total_hhr_num}}家</span>
+                        <span>{{mallDataStatistics.total_hhr_num}}位</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
@@ -138,7 +138,7 @@
                     	@click="ServicerTotal">
                         <i class="iconfont icon-fuwushang"></i>
                         	服务商共计
-                        <span>{{mallDataStatistics.total_fws_num}}家</span>
+                        <span>{{mallDataStatistics.total_fws_num}}位</span>
                     </div>
                 </el-col>
             </el-row>
