@@ -332,6 +332,7 @@ const router = new Router({
 						children:[
 							{
 								path: 'serverAllOrder',
+								name:"serverAllOrder",
 								component: serverAllOrder,	
 							},
 							{
@@ -443,7 +444,7 @@ const router = new Router({
 						component: blank,
 						children: [
 							{
-								path: 'serverAllOrder',
+								path: 'serverAllOrder',						
 								component: serverAllOrder,	
 							},
 							{

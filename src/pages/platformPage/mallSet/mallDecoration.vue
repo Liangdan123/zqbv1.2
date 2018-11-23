@@ -10,7 +10,11 @@
 					:class="index_plate===index?'border_b':errorPlate.hbys1 && index===errorIndex?'border-red':''" >
 					<!--..................当有数据时执行这里....................-->
 					<div v-if="item.data">	
-						<el-carousel arrow="never" :interval="4000" height="210px" width="375px"> 		
+						<el-carousel 
+							arrow="never" 
+							:interval="4000" 
+							height="210px" 
+							width="375px"> 		
 							<el-carousel-item v-for="(imgNum,i) in item.data.banners" 
 								:key="i" 
 								style="display: block!important;">
@@ -66,6 +70,54 @@
 						@controlImg="controlImg">						
 					</mallDecora>
 				</div>	
+				
+				
+				<!--..................商品三列....................-->
+				<div  v-if="item.component_key==='splb3'&&shopNum!==0" 
+					class="cursor pos-r mt-10 splb3" @click="isShowPlate(index)"
+					:class="index===index_plate?'border_b': errorPlate.splb3 && index===errorIndex?'border-red':''"	>
+					<h2 class="f16 color-3 text-c font-n line" v-if="item.data.title_switch==='on'">
+						<i class="verticalLine"></i>{{item.data.title===null?"模块标题":item.data.title}}											
+					</h2>
+					<!--...................当商品搜索出来有数据时或者是商品已发布时....................-->
+					<div v-if="item.list.length!==0" class="clearfix">
+						<div v-for="single in item.list" class="mb-20 item float-l pl-15">
+							<img :src="single.images[0].image_url"  width="105" height="105" class="mt-15 display-b"/>
+							<div class="color-3 f14 mt-10 product_name_two">{{single.product_name}}</div>
+							<div class="clearfix mt-10 line-21">
+								<p class="float-l f16 color-red clearfix">
+									<b>￥</b>
+									<b v-if="single.product_price_yuan.min==single.product_price_yuan.max">														
+										{{single.product_price_yuan.min}}
+									</b>
+									<b v-else>
+										{{single.product_price_yuan.min}}-{{single.product_price_yuan.max}}
+									</b>
+								</p>
+							</div>
+						</div>	
+					</div>
+					<!--...................没有搜索出来数据....................-->
+					<div v-if="item.list.length===0" class="clearfix">
+						<div v-for="item in threeRow" class="float-l pl-15">
+							<b class="mt-15 display-b" 
+								style="height: 105px; width: 105px; background-color: #E5F5FF;">
+							</b>
+							<div class="color-3 f14 mt-10 product_name_three">产品名称</div>
+							<div class="clearfix mt-10 line-21">
+								<p class="float-l f16 color-red clearfix"><b>￥</b><b >888</b></p>													
+							</div>
+						</div>
+					</div>	
+					<!--....................右边.................-->
+					<mallDecora v-if="index===index_plate" 
+						:mallPlate='item' 
+						:shopNum="shopNum">
+						
+					</mallDecora>
+				</div>
+				
+				
 				<!--..................商品列表....................-->
 				<div v-if="item.component_key==='splb1'" 
 					class="cursor pos-r bg-f mt-10 splb1" 
@@ -124,7 +176,9 @@
 							<img :src="single.images[0].image_url"  
 								width="165" height="165" 
 								class="mt-15 display-b"/>
-							<div class="color-3 f14 mt-10 product_name_two">{{single.product_name}}</div>
+							<div class="color-3 f14 mt-10 product_name_two">
+								{{single.product_name}}
+							</div>
 							<div class="clearfix mt-10 line-21">
 								<p class="float-l f16 color-red clearfix">
 									<b>￥</b>
@@ -280,6 +334,7 @@
 					tpdh:false,
 					splb1:false,
 					splb2:false,
+					splb3:false,
 					hbys2:false,					
 					dplb1:false
 				},
@@ -376,6 +431,14 @@
 								}								
 							};
 							break;
+						case 'splb3':
+							if(item.data.title_switch==='on'){
+								if(!item.data.title){
+									this.errorTips("splb3","请输入模块标题",index);
+									return
+								};								
+							};
+							break;	
 						case 'hbys2':
 							if(item.data.title_switch==='on'){
 								if(!item.data.title){								
@@ -529,10 +592,9 @@
 	}
 	.product_name_two{
 		width: 105px;
-		min-height: 37px;
-		display: -webkit-box;
-	    -webkit-line-clamp: 2;
-	    -webkit-box-orient: vertical;
+		min-height: 37px; 	
+	   	line-height: 20px;
+	   	height: 40px;
 	    overflow: hidden;
 	    text-overflow: ellipsis;
 	}
@@ -589,6 +651,15 @@
 	.splb2 .item{
 		width: 165px;
 		min-height: 268px;
+	}
+	.splb3{
+		padding-top: 15px;
+		padding-bottom: 15px;
+		background-color: #fff;
+	}
+	.splb3 .item{
+		width: 105px;
+		min-height: 210px;
 	}
 	.line-21{
 		line-height: 21px;

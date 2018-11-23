@@ -20,18 +20,18 @@
     	placeholder="角色选择" 
     	size="small" 
     	@change="select"  
-    	v-if="inputType.includes('type')">
+    	v-if="inputType.includes('type')"> 
     	
       <el-option 
       	v-for="item in options2" 
       	:key="item.value" 
       	:label="item.label" 
       	:value="item.value">
-      </el-option>
+      </el-option>      
       
     </el-select>
     
-   <el-select v-model="business_range" 
+   	<el-select v-model="business_range" 
     	placeholder="业务范围选择" 
     	size="small" 
     	@change="select" 
@@ -122,7 +122,10 @@
           value: val.id,
           label: val.mall_category_name,
         })
-      }     
+      };
+      if(!this.inputType.includes('type'))return;
+   	 	if(!this.search.type)return
+   	 	this.type=this.search.type  	 
     },
     methods: {
       select() {

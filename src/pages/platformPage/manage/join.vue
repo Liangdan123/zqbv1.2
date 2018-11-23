@@ -20,7 +20,7 @@
       </el-tabs>
       <!--.....................搜索框........................-->
       <div class="buttons clearfix mb-20">
-        <searchRole :search.sync="searchCondition.search"  
+       <searchRole :search.sync="searchCondition.search"  
         	@searchMethod="searchMethod">
         	
         </searchRole>
@@ -86,7 +86,8 @@
           page: 1,
           search: {
             status:"1",
-            is_company:1
+            is_company:1,
+            type:"",
           },
           per_page: 20
         },
@@ -98,7 +99,10 @@
       Navbar
     },
     created() {
-      this.tabForShow=this.$route.query.tab||'1';
+      this.tabForShow=this.$route.query.tab||this.$route.query.jump||'1';
+      if(this.$route.query.jump){
+      	this.searchCondition.search.type=this.$route.query.jump
+      }
       this.searchCondition.search.status=this.tabForShow;
     },
     methods: {
