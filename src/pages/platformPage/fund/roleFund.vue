@@ -7,7 +7,8 @@
 			    </el-tab-pane>
 			</el-tabs>
 			<memberTable :activeName="activeName"
-				:memberShow="false"></memberTable>
+				:memberShow="false">
+			</memberTable>
 		</div>		
 	</div>
 </template>

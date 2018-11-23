@@ -6,7 +6,11 @@
 				<el-radio label="on">开</el-radio>
 				<el-radio label="off">关</el-radio>
 			</el-radio-group>
-			<el-input type="text" v-model="bannerTitle" v-if="BannerRadio==='on'" placeholder="请输入模块标题(必填)" class="login-input2 mt-10">
+			<el-input type="text" 
+				v-model="bannerTitle" 
+				v-if="BannerRadio==='on'" 
+				placeholder="请输入模块标题(必填)" 
+				class="login-input2 mt-10">
 				
 			</el-input>
 		</div>
@@ -31,15 +35,20 @@
 					</div>
 				</div>
 			</div>
-			<imageUpload :imageUrl="choicePlate==='mall'?item.image_url:item.banner_url"  
-			:imageType="choicePlate==='mall'?'mall':'shop'" :index="index" @getImageUrl="updataBanner">
+			<imageUpload 
+				:imageUrl="choicePlate==='mall'?item.image_url:item.banner_url"  
+				:imageType="choicePlate==='mall'?'mall':'shop'" 
+				:index="index" 
+				@getImageUrl="updataBanner">
 			</imageUpload>
-			<p class="f12 color-6 sug">图片尺寸建议{{choicePlate==='mall'?'750×420px':'750×640px'}}，格式支持png、jpg</p>				
+			<p class="f12 color-6 sug">
+				图片尺寸建议{{choicePlate==='mall'?'750×420px':'750×640px'}}，格式支持png、jpg
+			</p>				
 			<p class="jump">跳转链接</p>
 			<div class="link">
 				<span v-if="choicePlate==='store'">
 					{{item.banner_click_type=="product"?"商品链接"+" -":
-					(item.banner_click_type=="shop_category"?"商品分类"+" -":"")}}
+					(item.banner_click_type=="mall_category"?"商品分类"+" -":"")}}
 					{{item.banner_click_name}}
 				</span>
 				<span v-if="choicePlate==='mall'">
@@ -66,17 +75,18 @@
 							:choiceRole="choiceRole">															 
 						</storeList>
 					</el-tab-pane>
+<!--					:Classify="choicePlate==='mall'?mallClassify:storeClassify"-->
     				<el-tab-pane label="商品分类" name="second" >
     					<productClassify   @categorys="categorys" 
     						:type="classifyType" 
-    						:Classify="choicePlate==='mall'?mallClassify:storeClassify"
+    						:Classify="mallClassify"
     						:choiceRole="choiceRole">   						
 								<div class="btn clearfix pt-20 pb-20 border-t">
 									<el-button class="store-button2 float-r" @click="cancel">
 										取消
 									</el-button>
 									<el-button class="store-button1 float-r mr-10" @click="sureclassify">
-										确定
+										确定 
 									</el-button>
 								</div>
 						</productClassify>
@@ -108,19 +118,20 @@
 	import productClassify from "@/components/platform/mallSet/productClassify"
 	import appendForm from "@/components/platform/mallSet/appendForm"
 	import shareMth from '@/utils/shareMth'
-	import {getMallClassifyList,getClassifyList} from "@/api/platform"
+	import {getMallClassifyList} from "@/api/platform"
 	import storeClassify from "@/utils/storeClassify"
 	import {deletes} from "@/api/script"
 	export default{
 		components:{storeList,productClassify,appendForm},	
 		data(){
+			let businessRange=this.$store.state.user.user.business_range;
 			return {
 				imageType:"shop",
 				dialogFormVisible:false,
 				activeName:"first",
 				bannerIndex:"",
 				disabled:true,
-				bannerEditor:"",
+				bannerEditor:{},
 				classifyName:{},
 				classifyType:"单选",
 				productChecked:{id:""},
@@ -135,6 +146,7 @@
 				},
 				click_style:0,//表单样式		
 				choiceRole:"mall",
+				business_range:businessRange,//服务商经营范围
 			}
 		},
 		props:{
@@ -165,7 +177,7 @@
 			}
 		},
 		created(){
-			if(this.choicePlate==="mall"){//商城和服务商店铺所需数据不同，以此区分
+			if(this.choicePlate==="mall"){//商城和服务商店铺所需数据不同，以此区分（商品链接）
 				this.choiceRole="mall"
 			}else if(this.choicePlate==="store"){
 				this.choiceRole="store"
@@ -182,17 +194,16 @@
 					this.mallClassifyList=data;					
 				})
 			}
-			if(status === 2){
-				getClassifyList(shop_id)//商家分类列表
+			if(status === 4){//服务商
+				getMallClassifyList(shop_id)//商家分类列表
 				.then(({data})=>{
-					this.classifyList=data;
+					this.mallClassifyList=data.filter(item=>item.id==this.business_range);
 				})
 			};
 			//添加海报按钮显示不显示(有时一个页面会调两个或者多个这个组件)
 			this.banner.length>4?this.disabled=false:this.disabled=true
 		},
-		mixins:[shareMth,storeClassify],
-			
+		mixins:[shareMth,storeClassify],			
 		computed:{
 			upBanner(){
 				return JSON.parse(JSON.stringify(this.banner))
@@ -222,22 +233,23 @@
 			},			
 			sureclassify() {//保存按钮
 				this.dialogFormVisible=false;
+				let classify
 				if(this.choicePlate==="store"){//我的店铺
-					var classifyCnt = {
-						banner_click_type: "shop_category",
+					classify = {
+						banner_click_type: "mall_category",
 						banner_click_name: this.classifyName.banner_click_name,
 						banner_click_id:this.classifyName.banner_click_id
 					};
 				};
 				if(this.choicePlate==="mall"){//商城时
-					var classifyCnt = {
+					classify = {
 						click_type: "mall_category",
 						click_name: this.classifyName.click_name,
 						click_id:this.classifyName.click_id
 					};
-				}
-				if (this.classifyName != "") {
-					this.classifyCnt(classifyCnt)
+				};
+				if (this.classifyName) {
+					this.classifyCnt(classify)
 				}
 			},
 			cancel(){
@@ -289,7 +301,7 @@
 			classifyCnt(data){//点击弹框的确定按钮（商品链接）
 				if(data.click_image){delete data.click_image};//删掉不需要的click_image
 				let plateMess= Object.assign({},this.banner[this.bannerIndex],data);
-				this.$set(this.banner,this.bannerIndex,plateMess)
+				this.$set(this.banner,this.bannerIndex,plateMess);
 			},
 			indexUp(index){
 				this.itemIndexUp(index,this.banner);
@@ -309,7 +321,7 @@
 				}
 			},
 			isChecked(data,type){//传到子集时判断是否事先被选中	
-				for(let val of this[type]){
+				for(let val of this.mallClassify){//只有商城分类，没有店铺分类
 					if(type==="storeClassify"){
 						if(val.id===data.banner_click_id){val.checked=true;}																
 					}else if(type==='mallClassify'){
@@ -320,17 +332,16 @@
 			showBomb(item,index){//打开弹窗		
 				this.dialogFormVisible = true;
 				this.bannerIndex=index;
-				if(this.choicePlate==="store"){//我的店铺
-					this.initStoreClassify("storeClassify");//初始化数据，数据不选中
-					if(this.storeClassify.length== 0||this.banner.length== 0){return}//我的店铺	
-					if(this.banner[index].banner_click_type==="shop_category"){//商品分类中是否选中
+				if(this.choicePlate==="store"){//我的店铺					
+					this.initStoreClassify("mallClassify");//初始化数据，数据不选中(只有商城分类，没有店铺分类)
+					if(this.mallClassify.length== 0||this.banner.length== 0){return}//我的店铺(只有商城分类，没有店铺分类)
+					if(this.banner[index].banner_click_type==="mall_category"){//商品分类中是否选中
 						this.classifyName={
 							banner_click_name:item.banner_click_name,
 							banner_click_id:item.banner_click_id
 						};
 						this.isChecked(this.classifyName,'storeClassify')//传到子集时判断是否事先被选中
-					};	
-					
+					};						
 				}else if(this.choicePlate==="mall"){//商城
 					this.initStoreClassify("mallClassify");//初始化数据
 					if(this.mallClassify.length== 0||this.banner.length== 0){return};
@@ -362,46 +373,48 @@
 		                    click_image_url: "",   
 						})
 					}
-				}
-				
+				}				
 			},
 			shop_hidden(data){
 				this.dialogFormVisible=data;
 			},
-			upBannerData(){
-				var id=this.$store.getters.getShop_id;
-				var len=this.upBanner.length
-				for(let i=0,max=len;i<max;i++){		
-					if(this.choicePlate==="store"){//我的店铺时
-						var banner=["shop_id","sort","banner_click_name",]
-						//调用批量删除对象属性的方法
-						deletes(banner,this.upBanner[i])
-						var banner_click=this.upBanner[i].banner_click_type
-						if(banner_click===null||banner_click===undefined){
-							delete this.upBanner[i].banner_click_type
-						}
-					}
-					//去除对象里空字符串
-					this.deleteEmptyString(this.upBanner[i]);
-				};
-				//去除数组里的空对象
-				this.deleteArrayObject(this.upBanner);
-				//上传给后台的数据
+			upBannerData(){		
+//				var id=this.$store.getters.getShop_id;
+//				var len=this.upBanner.length
+//				for(let i=0,max=len;i<max;i++){		
+//					if(this.choicePlate==="store"){//我的店铺时
+//						var banner=["shop_id","sort","banner_click_name",]
+//						//调用批量删除对象属性的方法
+//						deletes(banner,this.upBanner[i])
+//						var banner_click=this.upBanner[i].banner_click_type
+//						if(banner_click){
+//							delete this.upBanner[i].banner_click_type
+//						}
+//					}
+//					//去除对象里空字符串
+//					this.deleteEmptyString(this.upBanner[i]);
+//				};
+//				//去除数组里的空对象
+//				this.deleteArrayObject(this.upBanner);
+
+				//上传给后台的数据				
 				if(!this.title){
 					this.bannerEditor={banners:this.upBanner};	
 				}else if(this.title){
+					let title
 					if(this.BannerRadio==="on"){//标题开关显示
-						var title=this.bannerTitle
+						title=this.bannerTitle
+						
 					}else if(this.BannerRadio==="off"){
-						var title=null
-					}		
+						title=null
+					};
 					this.bannerEditor={
 						banners:this.upBanner,
 						title_switch:this.allBanner.title_switch,
 						title:title
 					}
-				}
-				
+				};
+							
 			},
 		}
 	}

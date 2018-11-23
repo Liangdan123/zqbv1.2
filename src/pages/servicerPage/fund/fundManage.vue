@@ -6,7 +6,6 @@
 			class="withdraw" 
 			title="提现记录"
 			@close="closeModel">
-<!--			:list='list.data' -->
 	    	<widthDrawTable 	    		
 	    		:Visible="model"
 	    		:typeKey="4"
@@ -105,14 +104,21 @@
 			   	<orderConsume v-if="activeName==1" :user_id="user_id">
 			   		
 			   	</orderConsume>
-			   	<platformOrderFund :user_id="user_id" :isArea="false" 
-			   		typeKey="4" :isNature="true"
+			   	<platformOrderFund :user_id="user_id" 
+			   		:isArea="false" 
+			   		typeKey="4" 
+			   		:isNature="true"
 			   		v-if="activeName==2"> 
 			   					   		
 			   	</platformOrderFund>
-			    <memberDetailed :user_id="user_id" :isPhone="true"
-			    	 v-if="activeName==3" :memberLevel="true" :typeKey="4"
-			    	:isSearch='true' :isContact="false" :isCpsType="false">
+			    <memberDetailed :user_id="user_id" 
+			    	:isPhone="false"
+			    	v-if="activeName==3" 
+			    	:memberLevel="false" 
+			    	:typeKey="4"
+			    	:isSearch='true' 
+			    	:isContact="true" 
+			    	:isCpsType="false">
 					    	
 			    </memberDetailed>
 		    </div>

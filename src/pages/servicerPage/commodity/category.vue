@@ -1,6 +1,5 @@
 <template>
-	<div class="category">
-		
+	<div class="category">		
 		<el-dialog :visible.sync="categoryDialog" 
 			:title="dialogTitle" 
 			size="tiny"
@@ -49,10 +48,13 @@
 							<span class="f12 color-3">商品价格:</span>
 							<el-input type="number" 
 								class="number" 
-								v-model.number="searchCondition.search.product_price_yuan.min"></el-input> 
-							到 <el-input type="number"  
+								v-model.number="searchCondition.search.product_price_yuan.min">
+							</el-input> 
+								到 
+							<el-input type="number"  
 								class="number" 
-								v-model.number="searchCondition.search.product_price_yuan.max"></el-input>
+								v-model.number="searchCondition.search.product_price_yuan.max">
+							</el-input>
 						</div>
 
 						<div class="classify">
@@ -69,7 +71,9 @@
 						</div>
 						<div class="classify">
 							<span class="f12 color-3">商品状态:</span>
-							<el-select v-model="searchCondition.search.status" filterable placeholder="请选择">
+							<el-select v-model="searchCondition.search.status" 
+								filterable 
+								placeholder="请选择">
 								<el-option v-for="(item,index) in statusList" 
 									:key="index" :value="item.status" 
 									:label="item.value"> 
@@ -184,7 +188,9 @@
 			"productClassify":()=>import("@/components/servicer/commodity/productClassify")
 		},	
 		data(){
+			let businessRange=this.$store.state.user.user.business_range;
 			return{
+				business_range:businessRange,//服务商经营范围
 				list:{data:[]},//表格全部数据
 	 			searchCondition:{//搜索条件
 					search:{
@@ -226,8 +232,8 @@
 		},
 		created(){
 			getMallClassifyList()//商城分类列表
-			.then(({data})=>{				
-				this.mallClassifyList=data;
+			.then(({data})=>{	
+				this.mallClassifyList=data.filter(item=>item.id==this.business_range);
 			});
 		},
 		mixins:[page,storeClassify],

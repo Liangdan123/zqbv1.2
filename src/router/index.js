@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
+import parse from 'url-parse'
 import login from '@/pages/login'
 import signIn from '@/pages/loginPage/signIn'
 import reset from '@/pages/loginPage/mobileReset'
 import register from '@/pages/loginPage/register'
 import blank from '@/components/func/blank' //空白页面
-
+import store from '@/store'
 //平台导航
 import mallZxh from '@/pages/platformPage/mallZxh'
 
@@ -107,7 +108,6 @@ import partnerWithdrawalApply from '@/pages/partner/moneyManage/WithdrawalApply'
 
 Vue.use(Router);
 const router = new Router({ 
-
 	routes: [{
 				path: '/',
 				component: login,
@@ -332,6 +332,7 @@ const router = new Router({
 						children:[
 							{
 								path: 'serverAllOrder',
+								name:"serverAllOrder",
 								component: serverAllOrder,	
 							},
 							{
@@ -443,7 +444,7 @@ const router = new Router({
 						component: blank,
 						children: [
 							{
-								path: 'serverAllOrder',
+								path: 'serverAllOrder',						
 								component: serverAllOrder,	
 							},
 							{
@@ -496,6 +497,139 @@ const router = new Router({
 		] 
 })
 
+let _platJumpPage=function(pageArray){
+//	console.log("pageArray:",pageArray)
+		let navbarArray=pageArray.split(",");	
+		
+		let jumpPage=Math.min.apply(null,navbarArray);
+		switch(jumpPage){//登录先跳进权限取值最小的的页面
+			case 1:
+				router.replace("/mallZxh/controlCenter/platDataCenter");
+				break;
+			case 2:
+				router.replace("/mallZxh/storeManage");
+				break;
+			case 3:
+				router.replace("/mallZxh/platformOrder/serverAllOrder");
+				break;
+			case 4:
+				router.replace("/mallZxh/marketingInfo");
+				break;
+			case 5:
+				router.replace("/mallZxh/mallSetInfo");
+				break;
+			case 6:
+				router.replace("/mallZxh/fund/extractCash");
+				break;
+			case 7:
+				router.replace("/mallZxh/manage/join");
+				break;
+		}
+};
+
+
+let _parseJump=function(next,from,to){
+		let parsed = parse(decodeURIComponent(from.query.redirect), true);
+		if(parsed.pathname===to.path){//路径相等时直接跳
+			next(true);
+		}else{//发生401页面的路径与登录成功页面跳的不一致时
+			next({
+				path:parsed.pathname,
+				query:parsed.query
+			})
+		}
+}
+
+router.beforeEach((to, from, next)=>{
+	if(store.state.user.login){//已经登录		
+		if(to.path==="/"){//跳首页
+			if(from.path===to.path){//输入网址跳进来(并且已经登录过)
+				switch(store.state.user.user.type){
+					case 1:		
+						console.log("store.state.user.user.is_admin：",store.state.user.user.is_admin)
+						if(store.state.user.user.is_admin==1||!store.state.user.user.is_admin){
+							next({ path: '/mallZxh/controlCenter/platDataCenter'})
+						}else{			
+							_platJumpPage(store.state.user.user.permission);//不是主账号平台首次登录的页面
+						}
+						break;
+					case 2:
+						next({ path: '/agent/agentMoney'})
+						break;
+					case 3:
+						next({ path: '/partner/partnerMoney'})
+						break;
+					case 4:
+						next({ path: '/server/sellercenter/servicerCenter'})
+						break;
+				}
+			}else{//缩减路径跳进来
+				next(false)
+			}
+		}else{//如果有查询参数那就需要带上查询参数，并且调至从退出登录页面(跳主体页面)
+			
+			let toPath=to.path.split("/")[1];
+			//平台
+			if(store.state.user.user.type === 1){
+				if(toPath==="mallZxh"){//只能跳至有mallZxh的页面					
+					if(from.query.redirect){//从401未登录页面出来，或者是手动修改链接	
+						_parseJump(next,from,to)
+					}else{
+						if(to.path==="/mallZxh/storeMessage"){//到商城的店铺信息没有shop_id的话会报错
+							if(to.fullPath.includes("shop_id")){
+								next(true)
+							}else{
+								next(false)
+							}																
+						}else{
+							next(true);
+						}
+					}
+				}else{
+					next(false)
+				}
+			}else if(store.state.user.user.type === 2){//代理商
+				if(toPath==="agent"){
+					if(from.query.redirect){//从401未登录页面出来，或者是手动修改链接
+						_parseJump(next,from,to)
+					}else{
+						next(true);	
+					}
+				}else{
+					next(false)
+				}
+			}else if(store.state.user.user.type === 3){//合伙人
+				if(toPath==="partner"){
+					if(from.query.redirect){//从401未登录页面出来，或者是手动修改链接
+						_parseJump(next,from,to)
+					}else{
+						next(true);	
+					}
+				}else{
+					next(false)
+				}
+			}else if(store.state.user.user.type === 4){//服务商
+				if(toPath==="server"){
+					if(from.query.redirect){//从401未登录页面出来，或者是手动修改链接
+						_parseJump(next,from,to)
+					}else{
+						next(true);	
+					}
+				}else{
+					next(false)
+				}
+			}
+		}		
+	}else{//未登录
+		let arrLoginFalse=["","register"]
+		let loginFalse=to.path.split("/")[1];
+		if(arrLoginFalse.includes(loginFalse)){
+			next(true)
+		}else{
+			next({ path: '/'})//回到登录页面让他登录
+		}
+	};
+})
 
 
 export default router;

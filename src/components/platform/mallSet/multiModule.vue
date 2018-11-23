@@ -267,7 +267,7 @@
 		},
 		methods:{
 			changemallClassify(){//商品分类搜索
-				this.shopRank.mall_category_id=this.mall_category_id;//商城分类ID搜索列表	
+				this.shopRank.mall_category_id=this.mall_category_id;//商城分类ID搜索列表
 				this.$emit("classifyMethods",this.existAddProduct);//商品ID通过shopRank已经传过去了
 			},
 			changemallorderby(){//商品排序
@@ -279,9 +279,7 @@
 					this.existAddProduct.splice(this.value,len);
 					this.addProductLists.splice(this.value,len);
 				};
-				if(this.value!==0){//当数量为0时不去搜
-					this.$emit("showProNum",this.value,this.existAddProduct);//商品展示数量		
-				}			
+				this.$emit("showProNum",this.value,this.existAddProduct);//商品展示数量	
 			},
 			changeTitle(){//保存标题开关的改变
 				this.onMess.title=JSON.parse(JSON.stringify(this.shopRank.title));

@@ -2,16 +2,25 @@
   <div class="platform commodity">
     <div class="g-content">
       <div class="header">详情信息																								
-        <el-button class="store-button2 edit mb-10 float-r" @click="edit" 
+        <el-button class="store-button2 edit mb-10 float-r" 
+        	@click="edit" 
         	v-if="(![1,2].includes(tab))&&path=='join'&&!isEdit&&list.audit_status===0">
           <i class="iconfont icon-Rectangle f12"></i>
           <span class="font-b">编辑信息</span>
         </el-button>
       </div>
-      <joinMsgDetail :list="list" :isEdit='isEdit'></joinMsgDetail>
-      <el-form :model="form" label-width="100px" class="mt-20 clearfix join" :rules="rules" ref="ruleForm" v-if="isEdit">
+      <joinMsgDetail :list="list" :isEdit='isEdit'>
+      	
+      </joinMsgDetail>
+      <el-form :model="form" label-width="100px" 
+      	class="mt-20 clearfix join" 
+      	:rules="rules" ref="ruleForm" 
+      	v-if="isEdit">
         <el-form-item label="姓名：" prop="contact_name">
-          <el-input v-model="form.contact_name" size="small" placeholder="请输入姓名"></el-input>
+          <el-input v-model="form.contact_name" 
+          	size="small" 
+          	placeholder="请输入姓名">
+          </el-input>
         </el-form-item>
         <el-form-item label="性别：" prop="sex">
           <el-radio-group v-model.number="form.sex">
@@ -20,13 +29,23 @@
           </el-radio-group>
         </el-form-item>
         <el-form-item label="身份证号：" prop="identity_num">
-          <el-input v-model="form.identity_num" size="small" :maxlength='18' :minlength='18' placeholder="请输入身份证号码18位"></el-input>
+          <el-input v-model="form.identity_num" 
+          	size="small" 
+          	:maxlength='18' 
+          	:minlength='18' 
+          	placeholder="请输入身份证号码18位">
+          </el-input>
         </el-form-item>
         <el-form-item label="QQ号：" v-if="list.is_company==1" prop="wx_qq">
-          <el-input v-model="form.wx_qq" size="small" placeholder="请输入qq号"></el-input>
+          <el-input v-model="form.wx_qq" size="small" placeholder="请输入qq号">
+          	
+          </el-input>
         </el-form-item>
         <el-form-item label="邮箱：" prop="contact_email">
-          <el-input v-model="form.contact_email" size="small" placeholder="请输入邮箱"></el-input>
+          <el-input v-model="form.contact_email" 
+          	size="small" 
+          	placeholder="请输入邮箱">
+          </el-input>
         </el-form-item>
         <el-form-item label="地址(选填)：">
           <el-input v-model="form.address" size="small" placeholder="请输入详细地址"></el-input>
@@ -41,12 +60,20 @@
           	@getImageUrl="licenseView">
           </imageUpload>
         </el-form-item>
-        <el-form-item label="法人身份证（正面）：" prop="identity_front_url" class="identity ml-10">
-          <imageUpload :imageUrl="form.identity_front_url" :imageType="imageType" @getImageUrl="frontalView">
+        <el-form-item label="法人身份证（正面）：" 
+        	prop="identity_front_url" 
+        	class="identity ml-10">
+          <imageUpload :imageUrl="form.identity_front_url" 
+          	:imageType="imageType" 
+          	@getImageUrl="frontalView">
           </imageUpload>
         </el-form-item>
-        <el-form-item label="法人身份证（反面）：" prop="identity_back_url" class="identity ml-10">
-          <imageUpload :imageUrl="form.identity_back_url" :imageType="imageType" @getImageUrl="reverseView">
+        <el-form-item label="法人身份证（反面）：" 
+        	prop="identity_back_url" 
+        	class="identity ml-10">
+          <imageUpload :imageUrl="form.identity_back_url" 
+          	:imageType="imageType" 
+          	@getImageUrl="reverseView">
           </imageUpload>
         </el-form-item>
         <div class="clearfix"></div>
@@ -58,11 +85,22 @@
       <div class="clearfixs floot">
         <router-link :to="{path:path,query:{'tab':tab}}">
           <!-- 返回join的哪个tab -->
-          <el-button class='float-r ml-20' :class="[(tab==1||tab==2)&&path=='join'? 'store-button2 ':'store-button1']">{{(tab==1||tab==2)?"取消":"返回"}}</el-button>
+          <el-button class='float-r ml-20' 
+          	:class="[(tab==1||tab==2)&&path=='join'? 'store-button2 ':'store-button1']">
+          	{{(tab==1||tab==2)?"取消":"返回"}}
+          </el-button>
         </router-link>
         <!-- 通过申请的按钮 -->
-        <el-button class='store-button1 float-r ml-20' v-if="tab==1&&path=='join'&&!isEdit" @click='sure'>确定</el-button>
-        <el-button class='store-button1 float-r ml-20' v-if="isEdit" @click="save">保存</el-button>
+        <el-button class='store-button1 float-r ml-20' 
+        	v-if="tab==1&&path=='join'&&!isEdit" 
+        	@click='sure'>
+        	确定
+        </el-button>
+        <el-button class='store-button1 float-r ml-20' 
+        	v-if="isEdit" 
+        	@click="save">
+        	保存444
+        </el-button>
       </div>
     </div>
   </div>
@@ -155,27 +193,31 @@
       this.path = this.$route.query.path;
       this.tab = this.$route.query.tab || null;
       //根据id查记录
-      if(this.path=='join'){
-  getApplication(this.join_id).then(({data})=>{
-          this.list=data;
-      })
-      }else{
-   getRole(this.join_id).then(({data})=>{
-          this.list=data;
-      })
-      }
-    
-   
+    	this._getMessageAPI(this.path)
     },
     methods: {
+    	_getMessageAPI(path){
+	    	if(path=='join'){
+	  			getApplication(this.join_id)
+	  			.then(({data})=>{
+	          this.list=data;
+	      	})
+	     }else{
+				   getRole(this.join_id)
+				   .then(({data})=>{
+				          this.list=data;
+				      })
+	      }
+    	},
       save() {
         this.$refs['ruleForm'].validate((valid) => {
           if (valid) {
             updateApplication(this.form).then(({data})=>{
              if(data.join_id){
-               this.$message.success('信息修改成功')
-               this.isEdit = false;              
-             }
+             	 	this._getMessageAPI(this.path)
+	              this.$message.success('信息修改成功')
+	              this.isEdit = false; 	             
+             	}
             })
           } else {
             return false;

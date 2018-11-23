@@ -20,8 +20,10 @@
 				</el-button>
 			</div>
 			<div class="edit-content" v-loading="loading">
-				<mallCategorySave v-if="!isEdited" :ClassifyList="mallClassifyList"></mallCategorySave>
-				<mallCategoryEdit v-else="isEdited" :ClassifyList="mallClassifyList"  @emptyDelt="emptyDelt">					
+				<mallCategorySave v-if="!isEdited" :ClassifyList="mallClassifyList">
+					
+				</mallCategorySave>
+				<mallCategoryEdit v-else="isEdited" :ClassifyList="mallClassifyList" @emptyDelt="emptyDelt">					
 				</mallCategoryEdit>
 			</div>
 		</div>
@@ -123,7 +125,7 @@
 						return;
 					}
 					List[i].mall_category_name = this.mallClassifyList[i].mall_category_name;
-					if(this.mallClassifyList[i].id != undefined) {
+					if(this.mallClassifyList[i].id) {
 						List[i].id = this.mallClassifyList[i].id;
 					}
 					if(this.mallClassifyList[i].is_final == 0) {
@@ -143,7 +145,7 @@
 								return;
 							};
 							arr2[j].image_url=arr[j].image_url;
-							if(arr[j].id != undefined) {arr2[j].id = arr[j].id;}														
+							if(arr[j].id ) {arr2[j].id = arr[j].id;}														
 						}
 					}
 				};
@@ -167,7 +169,7 @@
 						}
 						this.mallClassifyList = data;
 						if(isSave===true){
-							this.$message({showClose: true,message: '保存成功!',type: 'success'});	
+							this.$message({showClose: true,message:'保存成功!',type:'success'});	
 						};																																
 						this.isEdited = false;
 					})

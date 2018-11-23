@@ -110,7 +110,6 @@
 				banner:[],				
 				options:[{value: '选项1',label: 4},{value: '选项2',label: 8}],					         							
 				value:"",
-				length:4,
 				searchMess:{//商品列表搜索信息
 					search:{},
 					orderby:{},
@@ -162,6 +161,15 @@
 						}
 					}				
 				}
+			},
+			length(){//图片导航数量的值
+				if(this.value==='选项1'){
+					return 4
+				}else if(this.value==='选项2'){
+					return 8	
+				}else{
+					return 0
+				}
 			}
 		},
 		created(){
@@ -199,11 +207,6 @@
 				this.mallPlate.data=Object.assign({},data);	
 			},
 			changeNum(){//图片导航的图片数量改变	
-				if(this.value==='选项1'){
-					this.length=4;	
-				}else if(this.value==='选项2'){
-					this.length=8;		
-				}
 				this.$emit("changeNum",this.value,this.index)
 			},
 			manual(num,existAddProduct){//手动选择(商品)
@@ -215,7 +218,7 @@
 				this._shopList(this.searchShopMess,existAddShop);//掉接口
 			},
 			showProNum(data,existAddProduct){//商品展示数量
-				this.$set(this.searchMess,'per_page',data);				
+				this.$set(this.searchMess,'per_page',data);								
 				this._productList(this.searchMess,existAddProduct);//调接口								
 				this.needNum=data;//商品需要展示的数量
 			},
@@ -270,22 +273,31 @@
 				})
 			},
 			_commonList(mallPlateData,num,name,list,existAdd,shopProductNum){//添加店铺与商品在一起
-				if(mallPlateData.length<num){//上架商品数量小于要展示的商品数量
+				//上架商品数量小于要展示的商品数量
+				if(mallPlateData.length<=num){
 					this.$message({message:`商城${name}数量仅有${mallPlateData.length}个`,showClose: true,});
-					this.mallPlate.data[shopProductNum]=mallPlateData.length;//传给父集的商品店铺展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
+					//传给父集的商品店铺展示数量（当商城商品数量没有商品所需要展示的数量那么多时）
+					this.mallPlate.data[shopProductNum]=mallPlateData.length;
 				};					
 				this.mallPlate[list]=mallPlateData;//展示商品（中间区域）
 				if(!existAdd){return}
 				if(existAdd.length===0){return}
 				//添加店铺时（并且商品展示数量改变）
 				let startDelte=this.mallPlate[list].length-existAdd.length;
-				this.mallPlate[list].splice(startDelte,existAdd.length);//splice是包含当前位置(减去已经存在的商品)
-				existAdd.forEach(item=>{this.mallPlate[list].unshift(item)});//添加上已经存在的商品（商品列表中）
+				//splice是包含当前位置(减去已经存在的商品)
+				this.mallPlate[list].splice(startDelte,existAdd.length);
+				//添加上已经存在的商品（商品列表中）
+				existAdd.forEach(item=>{this.mallPlate[list].unshift(item)});
 			},
 			_productList(data,existAddProduct) {//商城列表搜索API
 				getProductList(data)
 				.then(({data}) => {
-					this._commonList(data.data,this.needNum,"商品","list",existAddProduct,"product_num");//共用方法	
+					this._commonList(data.data,
+						this.needNum,
+						"商品",
+						"list",
+						existAddProduct,
+						"product_num");//共用方法						
 				})
 			},
 		}

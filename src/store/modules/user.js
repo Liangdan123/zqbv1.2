@@ -10,12 +10,17 @@ const state={
 	user:{
 		zhixu_id:"",
 		company_id:"",
+		company_name:"",
+		nick_name:"",
 		phone:"",
 		email:"",
-		login_name:"",
 		type:"",
 		mall_id:"",
-		type:"",
+		mall_name:"",
+		is_admin:"",
+		permission:"",
+		is_pay:"",
+		business_range:"",
 	},
 	loginUrl:{
 		background:"",
@@ -116,8 +121,7 @@ const actions={
 		getArea()/*地区接口*/
 		.then(({data})=>{
 			commit(AREA,data);
-		});
-		
+		});	
 		switch(user.type){
 			case 1://登录的是平台跳转
 				if(user.is_admin===1){

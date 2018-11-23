@@ -1,11 +1,15 @@
 <template>
-	<div class="platDataCenter"  @click="isDropdown=false">		
+	<div class="platDataCenter" @click="isDropdown=false">		
 		<el-row :gutter="20">
             <el-col :span="6">
                 <div class="statisticsItem">
                     <p class="itemTitle">总销售额</p>
-                    <p class="money-total">{{mallDataStatistics.total_sell_money_yuan||0 | money('￥')}}</p>
-                    <p class="money-history">今日销售额 <span>{{mallDataStatistics.today_sell_money_yuan||0 | money('￥')}}</span></p>
+                    <p class="money-total">
+                    	{{mallDataStatistics.total_sell_money_yuan||0 | money('￥')}}
+                    </p>
+                    <p class="money-history">今日销售额 
+                    	<span>{{mallDataStatistics.today_sell_money_yuan||0 | money('￥')}}</span>
+                    </p>
                     <svg
                         class="item-label"
                         width="48"
@@ -15,10 +19,13 @@
                 </div>
             </el-col>
             <el-col :span="6">
-                <div class="statisticsItem">
+                <div class="statisticsItem cursor" 
+                	@click="orderNum">
                     <p class="itemTitle">支付订单数</p>
                     <p class="money-total">{{mallDataStatistics.total_pay_order_num }}</p>
-                    <p class="money-history">今日订单数 <span>{{mallDataStatistics.today_pay_order_num}}</span></p>
+                    <p class="money-history">
+                    	今日订单数 <span>{{mallDataStatistics.today_pay_order_num}}</span>
+                    </p>
                     <svg
                         class="item-label"
                         width="48"
@@ -31,7 +38,9 @@
                 <div class="statisticsItem">
                     <p class="itemTitle">访问量</p>
                     <p class="money-total">{{mallDataStatistics.total_pv_num }}</p>
-                    <p class="money-history">今日访客量 <span>{{mallDataStatistics.today_pv_num }}</span></p>
+                    <p class="money-history">
+                    	今日访问量 <span>{{mallDataStatistics.today_pv_num }}</span>
+                    </p>
                     <svg
                         class="item-label"
                         width="48"
@@ -44,7 +53,9 @@
                 <div class="statisticsItem">
                     <p class="itemTitle">访客量</p>
                     <p class="money-total">{{mallDataStatistics.total_uv_num }}</p>
-                    <p class="money-history">今日访客数 <span>{{mallDataStatistics.today_uv_num }}</span></p>
+                    <p class="money-history">
+                    	今日访客数 <span>{{mallDataStatistics.today_uv_num }}</span>
+                    </p>
                     <svg width="48" height="48" class="item-label">
                         <use xlink:href="#member"  />
                     </svg>
@@ -87,42 +98,47 @@
                     <div class="statistics-module">
                         <i class="iconfont icon-product"></i>
                        		商品共计
-                        <span>{{mallDataStatistics.total_product_num}}家</span>
+                        <span>{{mallDataStatistics.total_product_num}}个</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"  
+                    	@click="memberJump">
                         <i class="iconfont icon-huiyuan"></i>
                         	会员共计
-                        <span>{{mallDataStatistics.total_member_num}}件</span>
+                        <span>{{mallDataStatistics.total_member_num}}人</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="storeToatal">
                         <i class="iconfont icon-dianpuxinxi"></i>
                         	店铺共计
-                        <span>{{mallDataStatistics.total_shop_num}}位</span>
+                        <span>{{mallDataStatistics.total_shop_num}}家</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="agentTotal">
                         <i class="iconfont icon-member"></i>
                         	代理商共计
                         <span>{{mallDataStatistics.total_dls_num}}位</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="partnerTotal">
                         <i class="iconfont icon-hehuoren f18"></i>
                         	合伙人共计
                         <span>{{mallDataStatistics.total_hhr_num}}位</span>
                     </div>
                 </el-col>
                 <el-col :span="4">
-                    <div class="statistics-module">
+                    <div class="statistics-module cursor"
+                    	@click="ServicerTotal">
                         <i class="iconfont icon-fuwushang"></i>
                         	服务商共计
-                        <span>{{mallDataStatistics.total_fws_num}}元</span>
+                        <span>{{mallDataStatistics.total_fws_num}}位</span>
                     </div>
                 </el-col>
             </el-row>
@@ -203,6 +219,27 @@
 					.then(({data:{data}})=>{
                         this.statisticsData = data;
                     })
+			},
+			memberJump(){
+				this.$router.push({name:'memberCenter'})
+			},
+			storeToatal(){
+				this.$router.push({name:'storeManage'})
+			},
+			agentTotal(){
+				this._jumpNumber('2')
+			},
+			partnerTotal(){
+				this._jumpNumber('3')
+			},
+			ServicerTotal(){
+				this._jumpNumber('4')
+			},
+			_jumpNumber(num){
+				this.$router.push({name:'role',query:{jump:num}})
+			},
+			orderNum(){
+				this.$router.push({name:'serverAllOrder'})
 			}
 		}
 	}

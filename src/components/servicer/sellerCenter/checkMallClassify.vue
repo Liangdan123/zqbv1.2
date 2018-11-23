@@ -21,14 +21,16 @@
 	import storeClassify from "@/utils/storeClassify"
 	export default{
 		data(){
+			let businessRange=this.$store.state.user.user.business_range;
 			return{
-				mallClassifyList:[]
+				mallClassifyList:[],
+				business_range:businessRange,//服务商经营范围
 			}
 		},
 		created(){
 			getMallClassifyList()//商城分类列表
 			.then(({data})=>{
-				this.mallClassifyList=data;					
+				this.mallClassifyList=data.filter(item=>item.id==this.business_range);;					
 			})
 		},
 		mixins:[storeClassify],

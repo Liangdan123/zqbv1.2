@@ -50,18 +50,32 @@
 				v-if="+searchCondition.search.is_company===1">
 				
 			</el-table-column>
-			
-			<el-table-column prop="member_yuan" label="会员总额">
+	
+			<!--............会员发展收入表格..............-->
+			<el-table-column prop="member_yuan" label="会员费总额" v-if="memberShow">
 				<template slot-scope="scope">
 					{{scope.row.member_yuan||0|money}}
 				</template>
 			</el-table-column>
 			
-			<el-table-column prop="give_order_yuan" label="佣金总额">
+			<el-table-column prop="give_member_yuan" label="会员费佣金总额" v-if="memberShow">
 				<template slot-scope="scope">
-					{{scope.row.give_order_yuan||0|money}}
+					{{scope.row.give_member_yuan||0|money}}
 				</template>
 			</el-table-column>
+			<!--............角色发展收入表格..............-->	
+			<el-table-column prop="join_yuan" label="加盟费总额" v-if="!memberShow">
+				<template slot-scope="scope">
+					{{scope.row.join_yuan||0|money}}
+				</template>
+			</el-table-column>
+			
+			<el-table-column prop="give_join_yuan" label="加盟费佣金总额" v-if="!memberShow">
+				<template slot-scope="scope">
+					{{scope.row.give_join_yuan||0|money}}
+				</template>
+			</el-table-column>
+				
 			<el-table-column label="操作">
 				<template slot-scope="scope">
 					<el-button type="text" size="small" @click="checkDetail(scope.$index)">
@@ -175,9 +189,9 @@
 				this.detailedFailVisible=true;//订单明细弹框
 				this.user_id=this.list.data[index].user_id;
 				if(this.memberShow){//会员发展收入与角色发展收入做出区分
-					this.name=this.list.data[index].contact_name+"的会员发展收入明细"	
+					this.name=this.list.data[index].contact_name+"公司的会员发展收入明细"	
 				}else if(!this.memberShow){
-					this.name=this.list.data[index].contact_name+"的角色发展收入明细"	
+					this.name=this.list.data[index].contact_name+"公司的角色发展收入明细"	
 				}
 				
 			},
