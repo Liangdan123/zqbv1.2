@@ -135,3 +135,8 @@ export const getMessage=(message_id)=>axios.get("platform/get_message",{param:{m
 export const keepCategoryMess=(keepMess)=>axios.put("product/update",keepMess)//编辑商品
 
 export const createProduct =(data)=>axios.post("product/create",data)//发布商品
+
+export const closeShop =(shop_id)=>axios.put("shop/close",{shop_id})//发布商品
+
+
+export const openShop =(shop_id)=>axios.put("shop/open",{shop_id})//发布商品

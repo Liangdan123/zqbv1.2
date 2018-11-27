@@ -151,6 +151,41 @@
         </em>
       </div>
     </div>
+       <!--.................卖家信息模块.................-->
+    <div class="plate  mb-40">
+      <p class="color-3 f16 font-b mb-20">卖家信息</p>
+      <div class="small_plate">
+        <span class="color-7F f14 display-in">店铺名称：</span>
+        <em class="color-3 f14 display em">
+          {{checkOrder.seller_info&&checkOrder.seller_info.shop_name}}
+        </em>
+      </div>
+      <div class="small_plate">
+        <span class="color-7F f14 display-in">店&emsp;&emsp;长：</span>
+        <em class="color-3 f14 display em">
+          {{checkOrder.seller_info&&checkOrder.seller_info.shopkeeper_name}}
+        </em>
+      </div>
+       <div class="small_plate">
+        <span class="color-7F f14 display-in">联系方式：</span>
+        <em class="color-3 f14 display em">
+          {{checkOrder.seller_info&&checkOrder.seller_info.shopkeeper_phone}}
+        </em>
+      </div>
+       <div class="small_plate">
+        <span class="color-7F f14 display-in">营业时间：</span>
+        <em class="color-3 f14 display em">
+          {{checkOrder.seller_info&&checkOrder.seller_info.shop_start}}-{{checkOrder.seller_info&&checkOrder.seller_info.shop_end}}
+        </em>
+      </div>
+         <div class="small_plate">
+        <span class="color-7F f14 display-in">门店地址：</span>
+        <em class="color-3 f14 display em">
+            {{checkOrder.seller_info&&checkOrder.seller_info.province}}&#12288;{{checkOrder.seller_info&&checkOrder.seller_info.city}}&#12288;{{checkOrder.seller_info&&checkOrder.seller_info.area}}
+          &#12288;{{checkOrder.seller_info&&checkOrder.seller_info.address}}
+        </em>
+      </div>
+    </div>
     <!--.................商品信息模块（订单详情，发货）.................-->
     <div class="plate">
       <p class="color-3 f16 font-b mb-20">商品信息</p>
@@ -294,7 +329,8 @@
       checkOrder: {
         type: Object,
         default: function () {
-          return {}
+          return {
+          }
         }
       },
       //判断是订单服务还是订单详情弹框

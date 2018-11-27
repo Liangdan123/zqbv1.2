@@ -26,4 +26,10 @@ export const refundGet=(refund_order_id)=>axios.get("refund/get",{params:{refund
 export const applyRefundPart=(data)=>axios.post("refund/part_create",data)//提交部分退款申请
 
 
+export const tousuInfo=(split_order_id)=>axios.get("order/get_tousu",{params:{split_order_id}})//提交部分退款申请
+
+export const operateTousu=(split_order_id)=>axios.put("order/operate_tousu",{split_order_id})//提交部分退款申请
+
+
+
 

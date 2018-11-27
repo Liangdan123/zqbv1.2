@@ -31,16 +31,27 @@
 				<el-table-column prop="shop_name" label="店铺名称"></el-table-column>
 				<el-table-column prop="shopkeeper_name" label="店长"></el-table-column>
 				<el-table-column prop="shopkeeper_phone" label="联系方式"></el-table-column>
-				<el-table-column prop="created_at" label="开店时间"></el-table-column>
-				<el-table-column prop="statistics_shop.score" label="店铺评分"></el-table-column>
+				<el-table-column prop="created_at" label="开店时间" width='160'></el-table-column>
+				<el-table-column prop="statistics_shop.score" label="店铺评分" ></el-table-column>
+					<el-table-column  label="店铺状态">
+						<span slot-scope="scope">
+							{{scope.row.close_status==0?'正常营业':'已关闭'}}
+						</span>
+					</el-table-column>
 				<el-table-column prop="statistics_shop.product_num" label="在售商品(件)"></el-table-column>
-				<el-table-column  label="操作">
+				<el-table-column  label="操作" width='150'>
 					<template slot-scope="scope">
 						<el-button type="text" 
 							size="small" 
 							class="btn-delete" 
 							@click="storeDetail(scope.row.shop_id)">
 							店铺详情
+						</el-button>
+						<el-button type="text" 
+							size="small" 
+							class="btn-delete" 
+							@click="setShop(scope.row.shop_id,scope.row.close_status)">
+							{{scope.row.close_status==0?'关闭店铺':'开启店铺'}}
 						</el-button>
 					</template>
 				</el-table-column>
@@ -63,7 +74,7 @@
 
 <script>
 	import * as links from "@/links/index"
-	import {getStoreList} from "@/api/platform"
+	import {getStoreList,closeShop,openShop} from "@/api/platform"
 	import page from "@/utils/page"
 	import router from "@/router"
 	export default{		
@@ -117,6 +128,19 @@
 				this.emptyText="未搜索到相关匹配信息";
 				this.searchMethod();
 			},
+			setShop(id,status){
+				if(status==0){
+					closeShop(id).then(({data})=>{
+						this.$message.success('关闭店铺成功')
+						this.searchMethod();
+					})
+				}else{
+					openShop(id).then(({data})=>{
+						this.$message.success('开启店铺成功')
+						this.searchMethod();
+					})
+				}
+			}
 		}
 	}
 </script>

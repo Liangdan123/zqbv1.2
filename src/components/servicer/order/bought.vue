@@ -1,5 +1,12 @@
 <template>
   <div class="">
+    <el-dialog title="投诉留言" :visible.sync="visible" size='tiny'>
+      <div>{{tousu.content}}</div>
+      <div slot="footer" class="dialog-footer" v-if='tousu.status==1'>
+        <el-button @click="visible = false">取消</el-button>
+        <el-button type="primary" @click="doneTousu">已处理</el-button>
+      </div>
+    </el-dialog>
     <ul class="table_title">
       <li>商品</li>
       <li>单价</li>
@@ -13,15 +20,15 @@
         <div class="boughtHead clearfix">
           <div class="float-l" v-if="isShopName">{{item.shop_name}}</div>
           <div class="float-r">
-          	 订单号：
+            订单号：
             <span class="orderNumber">
-            	{{item.order_no}}
-            </span> 
-            	创建时间：
+              {{item.order_no}}
+            </span>
+            创建时间：
             <span>{{item.created_at}}</span>
           </div>
         </div>
-        <div class="clearfix pos-r">
+        <div class="clearfix pos-r" :class="{tousu:item.is_tousu==1&&([2,3].includes(item.status))}">
           <ul class="clearfix top " v-for="(child,i) in item.order_products">
             <li class="item-1" :class="i===(item.order_products.length-1)?'':'border-b'">
               <div class="v_center">
@@ -31,7 +38,7 @@
             <li class="item-2" :class="i===(item.order_products.length-1)?'':'border-b'">
               <div class="v_center">
                 <span class='red' v-if='child.already_refund!=0'>
-                	【退款】
+                  【退款】
                 </span>
                 {{child.product_name}}<br>
                 <span v-for="i in child.spec_name.split(';')">
@@ -59,30 +66,29 @@
             </li>
             <li>
               <div class="v_center text-c">
-                	{{item.pay_info.pay_fee_yuan||0|money}}<br>
-                	<span class="color-7F">
-                		(优惠券:{{item.pay_info.total_coupon_yuan||0|money}})
-                	</span>
+                {{item.pay_info.pay_fee_yuan||0|money}}<br>
+                <span class="color-7F">
+                  (优惠券:{{item.pay_info.total_coupon_yuan||0|money}})
+                </span>
               </div>
             </li>
             <li>
               <div class="v_center">
-                <el-button class="store-button3 " v-if="item.status===2" 
-                	@click="setPro(index)">
-                	开始服务 
+                <el-button class="store-button3 " v-if="item.status===2" @click="setPro(index)">
+                  开始服务
                 </el-button>
                 <div class="color-b cursor text-c" @click="checkOrder(index)">
-                	查看订单
+                  查看订单
                 </div>
-                <div class="color-b cursor text-c" 
-                	v-if="item.all_refund===0&&item.finish_status===0&&([2,3,4].includes(item.status))"
-                	@click="setPro(index,'退款')">
-                	退款
+                <div class="color-b cursor text-c" v-if="item.is_tousu>0&&([2,3].includes(item.status))" @click="check(item.split_order_id)">
+                  查看投诉
                 </div>
-                <div class="color-b cursor text-c" 
-                	@click="Invoice(item.split_order_id)" 
-                	v-if='item.status==4&&item.is_invoice==1'>
-                	发票申请
+                <div class="color-b cursor text-c" v-if="item.all_refund===0&&item.finish_status===0&&([2,3,4].includes(item.status))"
+                  @click="setPro(index,'退款')">
+                  退款
+                </div>
+                <div class="color-b cursor text-c" @click="Invoice(item.split_order_id)" v-if='item.status==4&&item.is_invoice==1'>
+                  发票申请
                 </div>
               </div>
             </li>
@@ -91,62 +97,59 @@
       </div>
     </div>
     <!--.................没有订单的时候..............-->
-    <div v-if="orderLists.length?false:true" 
-    	class="color-3 f14 text-c non_order">
-     	未发现相关的订单
+    <div v-if="orderLists.length?false:true" class="color-3 f14 text-c non_order">
+      未发现相关的订单
     </div>
-    <el-pagination 
-    	:total="orderData.total" 
-    	:current-page.sync="orderMess.page" 
-    	:page-size="orderMess.per_page" 
-    	v-if='orderData.total>orderMess.per_page'
-      class="mt-20" 
-      @current-change="handleCurrent" 
-      layout="total, prev, pager, next">
+    <el-pagination :total="orderData.total" :current-page.sync="orderMess.page" :page-size="orderMess.per_page" v-if='orderData.total>orderMess.per_page'
+      class="mt-20" @current-change="handleCurrent" layout="total, prev, pager, next">
     </el-pagination>
   </div>
 </template>
 
 <script>
-  import {  complete } from "@/api/order"   
+  import {
+    complete,operateTousu,tousuInfo
+  } from "@/api/order"
   export default {
-  	filters:{
-  		tradeStatus(num){
-				let status={
-					1:function(){
-						return "未付款"
-					},
-					2:function(){
-						return "未服务"
-					},
-					3:function(){
-						return "服务中"
-					},
-					4:function(){
-						return "交易完成"
-					},
-					5:function(){
-						return "交易已取消"
-					},
-					6:function(){
-						return "交易已关闭"
-					},
-					"default":function(){
-						return "交易已删除"
-					}
-				}
-  			return (status[num]||status["default"])()
-  		},
-		 	money(value){
+    filters: {
+      tradeStatus(num) {
+        let status = {
+          1: function () {
+            return "未付款"
+          },
+          2: function () {
+            return "未服务"
+          },
+          3: function () {
+            return "服务中"
+          },
+          4: function () {
+            return "交易完成"
+          },
+          5: function () {
+            return "交易已取消"
+          },
+          6: function () {
+            return "交易已关闭"
+          },
+          "default": function () {
+            return "交易已删除"
+          }
+        }
+        return (status[num] || status["default"])()
+      },
+      money(value) {
         // 金额转换成数字和整数部分
         value = Number(value).toFixed(2).split('.');
-        let value_int = value[0].toLocaleString();//转换成金额形式
+        let value_int = value[0].toLocaleString(); //转换成金额形式
         return `￥ ${value_int}.${value[1]}`;
-	    },
-  	},
+      },
+    },
     data() {
       return {
         split_order_id: "",
+        visible:false,
+        tousu:{}
       }
     },
     props: {
@@ -178,17 +181,34 @@
       }
     },
     methods: {
+      doneTousu(){
+        this.visible=false;
+        operateTousu(this.tousu.id).then(({data})=>{
+          this.$message.success("处理成功");
+          this.$emit("handleCurrent", this.orderMess.page)
+        })
+      },
+      check(id){
+        tousuInfo(id).then(({data})=>{
+          this.tousu={
+            id:id,
+            content:data.tousu_content,
+            status:data.is_tousu
+          }
+         this.visible=true;
+        })
+      },
       //分页传过来的事件
       handleCurrent(val) {
         this.$emit("handleCurrent", val)
       },
       //查看订单
       checkOrder(data) {
-        this.$emit("showOrder",data);
+        this.$emit("showOrder", data);
       },
       //退款(开始服务)
-      setPro(data,title) {        
-      	this.$emit("showSetOrder",data,title);
+      setPro(data, title) {
+        this.$emit("showSetOrder", data, title);
       },
       Invoice(id) {
         this.$emit("Invoice", id)
@@ -200,7 +220,7 @@
 
 
 <style scoped="scoped" lang="scss">
- .table_title {
+  .table_title {
     width: 1200px;
     height: 40px;
     background: #eef1f6;
@@ -229,6 +249,7 @@
   .bought {
     box-shadow: 0px -1px 0px 0px #e9eef2, -1px 0px 0px 0px #e9eef2, 1px 0px 0px 0px #e9eef2;
     border-bottom: 1px solid #E9EEF2;
+
     .boughtHead {
       height: 32px;
       background: #EEF6FD;
@@ -238,8 +259,29 @@
       padding-left: 20px;
       padding-right: 20px;
       text-align: right;
+
       .orderNumber {
         margin-right: 40px;
+      }
+    }
+
+    .tousu {
+      .v_center {
+        color: #B4282D;
+
+        .store-button3 {
+          background: #B4282D;
+        }
+
+        .color-b {
+          color: #B4282D;
+        }
+      }
+
+      .item-2 {
+        span {
+          color: #7f7f7f;
+        }
       }
     }
 
