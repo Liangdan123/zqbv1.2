@@ -22,7 +22,6 @@
 			:imageType="imageType" 
 			@getImageUrl="getPath" 
 			v-if="imgShow">
-			
 		</imgUpload>
 		<div 
 			v-for="item in empty" 
