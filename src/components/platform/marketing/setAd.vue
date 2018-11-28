@@ -19,10 +19,10 @@
           <el-time-select placeholder="结束时间" v-model="formInline.endTime" :picker-options="{minTime: formInline.startTime}">
           </el-time-select>
         </el-form-item>
-          <el-form-item label="海报播放间隔(秒)：">
+        <el-form-item label="海报播放间隔(秒)：">
           <el-select v-model="formInline.region" placeholder="请选择间隔时间">
-            <el-option label="区域一" value="shanghai"></el-option>
-            <el-option label="区域二" value="beijing"></el-option>
+            <el-option v-for="count  in 10" :key="count" :label="count+'秒'" :value="count">
+            </el-option>
           </el-select>
         </el-form-item>
       </el-form>
@@ -32,7 +32,7 @@
         <span class="iconfont icon-shanchu"></span>
         <span>批量删除</span>
       </el-button>
-      <el-button class="store-button2   float-r" @click="addAd">
+      <el-button class="store-button2   float-r" @click="addAd" v-if='list.total<20'>
         <span class="iconfont icon-tianjia"></span>
         <span>添加广告</span>
       </el-button>
@@ -52,13 +52,6 @@
         </template>
       </el-table-column>
     </el-table>
-
-    <div class="clearfix mt-20">
-      <el-pagination :total="list.total" :current-page.sync="list.current_page" :page-size="list.per_page" layout="total, prev, pager, next"
-        @current-change="handleCurrentChange" v-if="list.total>list.per_page" class="pagination">
-      </el-pagination>
-    </div>
-
   </div>
 </template>
 
@@ -163,14 +156,14 @@
       }
     }
   }
+
 </style>
 
-<style lang="scss" >
+<style lang="scss">
   .setAd {
     .el-dialog--small {
-     width:730px;
+      width: 730px;
     }
   }
 
 </style>
-
