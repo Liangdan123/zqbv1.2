@@ -38,6 +38,16 @@ export const getAdList=(data)=>axios.post("ad_data/lists",data)//获取广告数
 
 export const deleteAdList=(data)=>axios.delete("ad_data/delete_batch",{data})//批量删除广告数据
 
+export const getAdGroupList=(data)=>axios.post("ad_group/lists",data)//获取广告组列表
+
+export const getAdInfo=(group_id)=>axios.get("ad_group/get",{params:{group_id}})//获取广告组列表
+
+export const addAdGroup=(data)=>axios.post("ad_group/add",data)//添加广告组
+
+export const updateAdGroup=(data)=>axios.post("ad_group/update",data)//编辑广告组
+
+export const delAdGroupList=(data)=>axios.delete("ad_group/delete_batch",data)//批量删除广告组
+
 export const getRoleList=(data)=>axios.post("platform/role_lists",data)//获取角色列表（例如：服务商）
 
 export const getRole=(user_id)=>axios.get("platform/get_role",{params:{user_id}})//获取角色信息

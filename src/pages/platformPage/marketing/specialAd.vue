@@ -2,18 +2,15 @@
 	<div class="specialAd">
 		<div class="g-content">
 			<el-tabs v-model="activeName">
-			    <el-tab-pane label="广告一" name="1">
+			    <el-tab-pane label="广告设置" name="1">
+						<setAd ></setAd>
 			    </el-tab-pane>
-			    <el-tab-pane label="广告二" name="2">		    	
+			    <el-tab-pane label="添加广告" name="2">		    	
 			    </el-tab-pane>
-			    <el-tab-pane label="广告三" name="3">
-			    </el-tab-pane>
-			    <el-tab-pane label="广告四" name="4">		    	
-			    </el-tab-pane>
-			    <el-tab-pane label="广告五" name="5">		    	
+			    <el-tab-pane label="广告数据" name="3">
+							<tableAd :activeName="activeName"></tableAd>
 			    </el-tab-pane>
 			</el-tabs>
-			<tableAd :activeName="activeName"></tableAd>
 		</div>
 		
 	</div>
@@ -22,7 +19,8 @@
 <script>
 	export default{
 		components:{
-			"tableAd":()=>import('@/components/platform/marketing/tableAd')
+			"tableAd":()=>import('@/components/platform/marketing/tableAd'),
+			"setAd":()=>import('@/components/platform/marketing/setAd'),
 		},
 		data(){
 			return{

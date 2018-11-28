@@ -33,7 +33,7 @@
 					<moreImg :moreImg="pulishForm.images">
 					</moreImg>
 					<p class="f12 text-l color-7F">
-						请添加3-5张商品主图，建议尺寸为750×750PX，宝贝主图大小不能超过3MB
+						请添加1-5张商品主图，建议尺寸为750×750PX，宝贝主图大小不能超过3MB
 					</p>
 				</el-form-item>
 				<h2 class="title_one">商品详情页</h2>
@@ -125,7 +125,7 @@
 					images: [{
 						type: 'array',
 						required: true,
-						message: "至少上传三张商品主图！",
+						message: "至少上传一张商品主图！",
 						trigger: 'submit'
 					}],
 					product_detail_arr: [{
@@ -285,8 +285,8 @@
 								return
 							}
 						};
-						if (this.pulishForm.images.length < 3) {
-							this._imgReturn("商品主图至少三张", "warning")
+						if (this.pulishForm.images.length < 1) {
+							this._imgReturn("商品主图至少一张", "warning")
 							return
 						};
 						for (let item of this.pulishForm.product_detail_arr) {

@@ -25,10 +25,10 @@
       </router-link>
       <router-link :to="{name:'demand'}" class="item-list item-4 fl">
         <div>
-          <i class="iconfont icon-guanggaozhongxin"></i>
+          <i class="iconfont icon-xuqiuliebiao"></i>
           <span>需求列表</span>
         </div>
-        <p><i class="iconfont icon-guanggaozhongxin"></i></p>
+        <p><i class="iconfont icon-xuqiuliebiao"></i></p>
       </router-link>
     </div>
     <router-view></router-view>
