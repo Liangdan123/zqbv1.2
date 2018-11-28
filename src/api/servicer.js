@@ -8,6 +8,8 @@ export const getServerAdList=(data)=>axios.post("ad_data/distribute_lists",data)
 
 export const deleteServerAdList=(data)=>axios.delete("ad_data/delete_distribute_batch",{data})//批量删除服务商分配广告数据
 
+export const getfwsAdInfo=(distribute_id)=>axios.get("ad_data/fws_get",{params:{distribute_id}})//获取广告数据信息
+
 export const getUserMess=()=>axios.get("user/get_shop")//获取服务商店铺
 
 export const editStoreMess=(editMess)=>axios.put("shop/update",editMess)//编辑我的店铺

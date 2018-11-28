@@ -15,7 +15,9 @@
 					
 				<search :componentList="['input']"
 					:search.sync="searchCondition.search"
-					@searchMethod="searchInput"				
+					@searchMethod="searchInput"	
+					inputSearch='shop_name'	
+					hintMess="输入相关信息进行搜索"		
 					class="float-r"></search>
 			</div>
 			<!--.........................表格..................-->

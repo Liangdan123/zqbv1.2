@@ -8,7 +8,7 @@
 			    <el-tab-pane label="添加广告" name="2">		    	
 			    </el-tab-pane>
 			    <el-tab-pane label="广告数据" name="3">
-							<tableAd :activeName="activeName"></tableAd>
+							<tableAd ></tableAd>
 			    </el-tab-pane>
 			</el-tabs>
 		</div>
@@ -24,7 +24,7 @@
 		},
 		data(){
 			return{
-				activeName:"1",
+				activeName:"3",
 			}
 		},
 	}

@@ -4,6 +4,9 @@
       <serviceList :ad_ids="distributeList" :closeMood="closeMood">
       </serviceList>
     </el-dialog>
+    <el-dialog title="查看详情" :visible.sync="detailShow"   :close-on-click-modal="false" class="content">
+        
+    </el-dialog>
     <div class="clearfix mb-10">
       <div class="button float-l">
         <el-button class="store-button2" v-if="isDistribution" @click="distribute">
@@ -18,22 +21,30 @@
       <search :componentList="['input']" @searchMethod="searchAd" :search.sync="searchCondition.search">
       </search>
     </div>
-
     <el-table :data="list.data" style="width: 100%" @selection-change="handleSelection" v-loading="loading" :empty-text="emptyText">
       <el-table-column type="selection" width="55">
       </el-table-column>
-      <el-table-column prop="contact_name" label="姓名">
+      <el-table-column prop="group_name" label="组名字" width='100'>
       </el-table-column>
-      <el-table-column prop="contact_phone" label="手机号">
+      <el-table-column prop="group_location_name" label="广告位置" width='200'>
       </el-table-column>
-      <el-table-column prop="wx_qq" label="QQ">
+      <el-table-column prop="ad_no" label="广告ID" width='100'>
       </el-table-column>
-      <el-table-column prop="created_at" label="创建时间">
+      <el-table-column prop="image_url" label="广告海报" width='120'>
+        <img :src="scope.row.image_url" alt="" slot-scope="scope" class='adimg'>
+      </el-table-column>
+      <el-table-column prop="contact_name" label="姓名" width='60'>
+      </el-table-column>
+      <el-table-column prop="contact_phone" label="手机号" width='115'>
+      </el-table-column>
+      <el-table-column prop="wx_qq" label="QQ" width='100'>
+      </el-table-column>
+      <el-table-column prop="created_at" label="创建时间" width='170'>
       </el-table-column>
       <el-table-column label="操作">
         <template slot-scope="scope">
-          <el-button type="text" size="small" @click.stop="delt(scope.$index)">
-            删除
+          <el-button type="text" size="small" @click.stop="check(scope.$index)">
+            查看详情
           </el-button>
         </template>
       </el-table-column>
@@ -42,7 +53,6 @@
     <div class="clearfix mt-20">
       <el-pagination :total="list.total" :current-page.sync="list.current_page" :page-size="list.per_page" layout="total, prev, pager, next"
         @current-change="handleCurrentChange" v-if="list.total>list.per_page" class="pagination">
-
       </el-pagination>
     </div>
 
@@ -53,11 +63,11 @@
   import page from "@/utils/page"
   import {
     getAdList,
-    deleteAdList
+    deleteAdList,
   } from "@/api/platform"
   import {
     getServerAdList,
-    deleteServerAdList
+    deleteServerAdList,
   } from "@/api/servicer"
   export default {
     components: {
@@ -70,10 +80,11 @@
           page: 1,
           per_page: 20,
         },
-        loading: true,
+        loading: false,
         list: {
           data: []
         },
+        detailShow:false,
         emptyText: "暂无数据",
         time: "", //用于清空样式
         deleteList: {
@@ -88,11 +99,6 @@
     },
     mixins: [page],
     props: {
-      activeName: {
-        default: function () {
-          return 1
-        }
-      },
       isDistribution: {
         type: Boolean,
         default: function () {
@@ -113,7 +119,6 @@
     },
     methods: {
       _doSearch() { //获取广告列表
-        this.$set(this.searchCondition.search, "type", Number(this.activeName));
         if (this.isDistribution) { //平台
           getAdList(this.searchCondition)
             .then(({
@@ -132,7 +137,10 @@
               this.loading = false;
             })
         }
-
+      },
+      check(index){
+        this.activeIndex=index;
+        this.detailShow=true;
       },
       searchAd() { //输入相关信息搜索
         this.emptyText = "未搜索到相关匹配信息";
@@ -143,7 +151,7 @@
         if (this.isDistribution) { //平台
           for (let item of val) {
             arr.push({
-              ad_id: item.ad_id
+              ad_data_id: item.ad_data_id
             });
           };
         } else { //服务商
@@ -218,22 +226,6 @@
         };
         this.searchMethod();
       },
-      delt(index) { //每行中的删除
-        let only_ad
-        if (!this.isDistribution) { //服务商
-          only_ad = this.list.data[index].distribute_id;
-          this.$set(this.onlyDelete, "user_id", this.$store.state.user.user.zhixu_id);
-          this.$set(this.onlyDelete.data, 0, {
-            distribute_id: only_ad
-          });
-        } else { //平台
-          only_ad = this.list.data[index].ad_id;
-          this.$set(this.onlyDelete.data, 0, {
-            ad_id: only_ad
-          });
-        };
-        this._deleteMethods(this.onlyDelete)
-      },
       distribute() { //分配广告按钮
         if (this.deleteList.data.length == 0) {
           this.$message({
@@ -262,6 +254,15 @@
         }
       }
     }
+  }
+
+</style>
+<style scoped>
+  .adimg {
+    width: 70px;
+    height: 50px;
+    border-radius: 2px;
+    padding:10px 0;
   }
 
 </style>

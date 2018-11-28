@@ -40,11 +40,9 @@ export const deleteAdList=(data)=>axios.delete("ad_data/delete_batch",{data})//�
 
 export const getAdGroupList=(data)=>axios.post("ad_group/lists",data)//获取广告组列表
 
-export const getAdInfo=(group_id)=>axios.get("ad_group/get",{params:{group_id}})//获取广告组列表
-
 export const addAdGroup=(data)=>axios.post("ad_group/add",data)//添加广告组
 
-export const updateAdGroup=(data)=>axios.post("ad_group/update",data)//编辑广告组
+export const updateAdGroup=(data)=>axios.put("ad_group/update",data)//编辑广告组
 
 export const delAdGroupList=(data)=>axios.delete("ad_group/delete_batch",data)//批量删除广告组
 
@@ -57,6 +55,8 @@ export const getAppllyList=(data)=>axios.post("platform/application_lists",data)
 export const applyRole=(data)=>axios.post("platform/add_application",data)//角色申请
 
 export const distributeAd=(data)=>axios.post("ad_data/distribute_batch",data)//批量分配广告数据
+
+export const getAdInfo=(ad_data_id)=>axios.get("ad_data/get",{params:{ad_data_id}})//获取广告数据信息
 
 export const getStoreList=(data)=>axios.post("shop/lists",data)//获取店铺列表
 

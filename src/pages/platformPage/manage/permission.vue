@@ -54,8 +54,8 @@
           </el-button>
         </el-table-column>
       </el-table>
-      <el-pagination  v-if="total>searchCondition.per_page"  @current-change="handleCurrentChange" 	:current-page.sync="searchCondition.page"
-        :page-size="searchCondition.per_page"  layout="total, prev, pager, next" :total="total"> </el-pagination>
+      <el-pagination v-if="total>searchCondition.per_page" @current-change="handleCurrentChange" :current-page.sync="searchCondition.page"
+        :page-size="searchCondition.per_page" layout="total, prev, pager, next" :total="total"> </el-pagination>
     </div>
   </div>
 </template>
@@ -63,7 +63,12 @@
 <script>
   import Navbar from "@/components/platform/manage/Navbar";
   import page from '@/utils/page'
-import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/platform'
+  import {
+    platformLists,
+    addPlatform,
+    savePermission,
+    deletePlatform
+  } from '@/api/platform'
   export default {
     data() {
       return {
@@ -117,11 +122,11 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
           .then(({
             data
           }) => {
-            if(data.data.length==0&&data.total>0){
+            if (data.data.length == 0 && data.total > 0) {
               this.handleCurrentChange(data.last_page)
             }
-           this.list = data.data;
-           this.total = data.total;
+            this.list = data.data;
+            this.total = data.total;
           })
       },
       moreRemove() {
@@ -135,9 +140,13 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
           lockScroll: false
         }).then(() => {
           //删除接口用返回值替换list
-        let arr = {data:[]};
+          let arr = {
+            data: []
+          };
           for (let val of this.selectArr) {
-            arr.data.push({user_id:val.user_id})
+            arr.data.push({
+              user_id: val.user_id
+            })
           }
           deletePlatform(arr).then(({
             data
@@ -167,7 +176,7 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
           arr = JSON.parse(JSON.stringify(this.permission));
         } else {
           for (let val of list.permission) {
-            arr.push(this.permission[val-1])
+            arr.push(this.permission[val - 1])
           }
         }
         this.form = {
@@ -179,9 +188,6 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
       },
       add() {
         this.dialogIndex = 0;
-        if (this.page != this.lastPage) {
-          this.handleCurrentChange(this.lastPage)
-        }
         this.form = {
           contact_name: '',
           phone: '',
@@ -193,32 +199,31 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
         }
       },
       submitForm(formName) {
-        this.Visible = false;
-        let item = JSON.parse(JSON.stringify(this.form))
-        item.permission = item.permission.map((val) => {
-          return this.permission.indexOf(val)+1
-        })
         this.$refs[formName].validate((valid) => {
           if (!valid) {
             return false;
           }
+          let item = JSON.parse(JSON.stringify(this.form))
+          item.permission = item.permission.map((val) => {
+            return this.permission.indexOf(val) + 1
+          })
           if (this.dialogIndex == 0) {
             addPlatform(item).then(({
               data
             }) => {
-              data.permission=data.permission.split(",");
-              this.list.push(data)
+              this.searchMethod()
               this.$message.success("添加成功");
               this.actionIndex = "";
+              this.Visible = false;
             })
           } else { //发送修改请求
             savePermission(item).then(({
               data
             }) => {
-              data.permission=data.permission.split(",");
-              this.list.splice(this.actionIndex, 1, data)
+              this._doSearch()
               this.$message.success("保存成功");
               this.actionIndex = "";
+              this.Visible = false;
             })
           }
         });
@@ -234,17 +239,21 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
     .el-dialog {
       width: 526px;
     }
+
     .el-dialog__body {
       .hr {
         padding-top: 30px;
         border-top: 2px solid #d8d8d8;
       }
+
       .el-checkbox+.el-checkbox {
         margin-left: 0;
         margin-right: 20px;
       }
+
       .el-checkbox {
         margin-right: 20px;
+
         .el-checkbox__inner {
           width: 16px;
           height: 16px;
@@ -252,20 +261,25 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
         }
       }
     }
+
     .remove {
       span {
         color: #B4282D;
       }
+
       &:hover {
         background: #B4282D;
         border-color: #B4282D;
+
         span {
           color: #FFFFFF;
         }
       }
+
       &:active {
         background: #821D20;
         border-color: #821D20;
+
         span {
           color: #FFFFFF;
         }
