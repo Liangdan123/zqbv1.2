@@ -21,7 +21,7 @@
 				:componentList="searchFilter"
 				:search.sync="searchCondition.search" 
 				@searchMethod="searchInput" 
-				@emptyMthod="emptyMthod" 
+				@emptyMthod="searchMethod" 
 				ref="closecondition" 
 				class="float-r">
 			</search>
@@ -176,9 +176,6 @@
 			},
 			searchInput(){//模糊搜索
 				this.emptyText = "未搜索到相关匹配信息";
-				this.searchMethod();
-			},
-			emptyMthod(){//清空
 				this.searchMethod();
 			},
 			closeSearch() { //关闭筛选条件

@@ -114,6 +114,8 @@ export const save_mall_rate=(data)=>axios.post("platform/save_mall_rate",data)//
 
 export const platformLists=(data)=>axios.post("platform/platform_lists",data)//-获取平台用户列表
 
+
+
 export const addPlatform=(data)=>axios.post("platform/add_platform",data)//-添加平台用户
 
 export const savePermission=(data)=>axios.put("platform/save_permission",data)//设置平台用户权限
@@ -140,3 +142,8 @@ export const closeShop =(shop_id)=>axios.put("shop/close",{shop_id})//发布商�
 
 
 export const openShop =(shop_id)=>axios.put("shop/open",{shop_id})//发布商品
+
+export const xuqiuList=(data)=>axios.post("xuqiu/lists",data)//-获取需求列表
+
+export const delXuqiu=(data)=>axios.delete("xuqiu/delete_batch",data)//-获取需求列表
+

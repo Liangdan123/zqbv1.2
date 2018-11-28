@@ -146,7 +146,7 @@
 					}
 					backAssess(data)//评价回复API
 					.then(({data})=>{
-						this.searchMethod();//回复成功重新拉取评价列表
+						this._doSearch();//回复成功重新拉取评价列表
 						this.backModel=false;
 						this.txtBox="";
 					})				

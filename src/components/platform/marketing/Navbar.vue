@@ -10,6 +10,9 @@
 			<el-menu-item index="specialAd" :class="{active:selected=='specialAd'}">
 				广告中心
 			</el-menu-item>
+				<el-menu-item index="demand" :class="{active:selected=='demand'}">
+				需求列表
+			</el-menu-item>
 		</el-menu>
 	</div>
 </template>

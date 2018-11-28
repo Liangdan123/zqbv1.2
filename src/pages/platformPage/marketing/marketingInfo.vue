@@ -23,7 +23,7 @@
         </div>
         <p><i class="iconfont icon-guanggaozhongxin"></i></p>
       </router-link>
-      <router-link :to="{name:'specialAd'}" class="item-list item-4 fl">
+      <router-link :to="{name:'demand'}" class="item-list item-4 fl">
         <div>
           <i class="iconfont icon-guanggaozhongxin"></i>
           <span>需求列表</span>

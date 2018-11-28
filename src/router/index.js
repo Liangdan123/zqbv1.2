@@ -38,6 +38,7 @@ import marketingInfo from "@/pages/platformPage/marketing/marketingInfo"
 import discountSet from "@/pages/platformPage/marketing/discountSet"
 import memberCenter from "@/pages/platformPage/marketing/memberCenter"
 import specialAd from "@/pages/platformPage/marketing/specialAd"
+import demand from "@/components/platform/marketing/demand"
 
 //平台中的店铺管理
 import storeManage from "@/pages/platformPage/storeManage/storeManage"
@@ -302,6 +303,10 @@ const router = new Router({
 							path: 'specialAd',
 							name: 'specialAd',
 							component: specialAd,
+						},{							
+							path: 'demand',
+							name: 'demand',
+							component: demand,
 						}]
 						
 					},{//店铺管理（平台）						
@@ -386,7 +391,7 @@ const router = new Router({
 							path: 'serverNiche',
 							name: 'serverNiche',
 							component: serverNiche,
-						}
+						},
 						],					
 					},{//店铺设置（服务商）
 						path: 'storeSetInfo',

@@ -151,7 +151,7 @@
         blacklist(data).then(({data})=>{
           if(data.status=='all_success'){
             this.$message.success("操作成功");
-            this.searchMethod();
+            this._doSearch();
           }else{
             this.$message.error(data.errorcmt)
           }

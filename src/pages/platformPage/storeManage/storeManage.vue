@@ -132,12 +132,12 @@
 				if(status==0){
 					closeShop(id).then(({data})=>{
 						this.$message.success('关闭店铺成功')
-						this.searchMethod();
+						this._doSearch();
 					})
 				}else{
 					openShop(id).then(({data})=>{
 						this.$message.success('开启店铺成功')
-						this.searchMethod();
+						this._doSearch();
 					})
 				}
 			}

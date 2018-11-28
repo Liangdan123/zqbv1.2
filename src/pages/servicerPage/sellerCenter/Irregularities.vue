@@ -176,7 +176,7 @@
 	 		seePro(){//保存成功所发生的事情
 				isRead(this.illegal_id)//保存成功就成为历史违规提醒
 			  	.then(({data})=>{
-			  		this.searchMethod();//重新掉列表接口
+			  		this._doSearch();//重新掉列表接口
 			  		this.editProductPage=false;
 			  	})	 			
 	 		},

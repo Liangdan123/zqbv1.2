@@ -112,13 +112,6 @@ import {platformLists,addPlatform,savePermission,deletePlatform} from '@/api/pla
       Navbar
     },
     methods: {
-      SelectionChange(arr, row) {
-        this.selectArr = arr;
-      },
-      cancel() {
-        this.$refs['ruleForm'].resetFields();
-        this.Visible = false;
-      },
       _doSearch() {
         platformLists(this.searchCondition)
           .then(({

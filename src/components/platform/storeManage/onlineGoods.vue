@@ -276,7 +276,7 @@
 				subIrrehint(hintMess)
 				.then(({data})=>{
 					this.irreHintModel=false;
-					this.searchMethod();
+					this._doSearch();
 					this.txtBox="";
 					this.$message({showClose: true, message: '提交成功', type: 'success'});                                
 				})
