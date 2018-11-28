@@ -56,7 +56,7 @@
 				<el-button class="store-button2 float-r px-30" @click="offPro">下架商品</el-button>
 			</div>
 			<div class="btn_pulish " v-if="buttonType==='发布商品'">
-				<el-button class="store-button1" @click="pulishExist">发布</el-button>
+				<el-button class="store-button1" @click="pulishExist" :disabled='disabled'>发布</el-button>
 			</div>
 		</div>
 	</div>
@@ -81,6 +81,7 @@
 		},
 		data() {
 			return {
+				disabled:false,
 				pulishForm:{
 					product_name: "",
 					params: [{
@@ -303,16 +304,24 @@
 				})
 			},
 			_edit(data) {
+				this.disabled=true;
 				keepCategoryMess(data) //编辑商品API
 					.then(({data}) => {											
 						this._imgReturn("保存成功", "success")
 						this.$emit("seePro")
-					})
+						this.disabled=false;
+					}).catch(()=>{
+					this.disabled=false;
+				})
 			},
 			_pulish(data){
+				this.disabled=true;
 				createProduct(data)//发布商品API
 				.then(({data}) => {	
 					this.$router.push({path:"/server/commodityInfo/saleCommodity",query:{name:"success"}})
+					this.disabled=false;
+				}).catch(()=>{
+					this.disabled=false;
 				})
 			},
 		}
