@@ -392,7 +392,7 @@
         }
       },
       _getRefundTotal(total,num){
-      	return total+num
+      	return (total*100+num*100)/100
       },
       refundChange(){//退款金额
       	if(this.refund>this.copyRefund){

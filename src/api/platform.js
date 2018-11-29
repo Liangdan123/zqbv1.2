@@ -46,6 +46,10 @@ export const updateAdGroup=(data)=>axios.put("ad_group/update",data)//编辑广�
 
 export const delAdGroupList=(data)=>axios.delete("ad_group/delete_batch",data)//批量删除广告组
 
+export const saveAd=(data)=>axios.post("ad/save",data)//保存轮播广告
+
+export const getAd=(group_id)=>axios.post("ad/lists",{group_id})//获取轮播广告
+
 export const getRoleList=(data)=>axios.post("platform/role_lists",data)//获取角色列表（例如：服务商）
 
 export const getRole=(user_id)=>axios.get("platform/get_role",{params:{user_id}})//获取角色信息

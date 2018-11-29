@@ -4,8 +4,19 @@
       <serviceList :ad_ids="distributeList" :closeMood="closeMood">
       </serviceList>
     </el-dialog>
-    <el-dialog title="查看详情" :visible.sync="detailShow"   :close-on-click-modal="false" class="content">
-        
+    <el-dialog title="查看详情" :visible.sync="detailShow" :close-on-click-modal="false" class="detail">
+      <el-form label-width="6em">
+        <el-form-item label="组名称："> {{detail.group_name}}</el-form-item>
+        <el-form-item label="广告位置：">{{detail.group_location_name}}</el-form-item>
+        <el-form-item label="广告ID：">{{detail.ad_no}}</el-form-item>
+        <el-form-item label="广告海报：">
+          <img :src="detail.image_url" :class="detail.group_location=='mobile_home_middle'?'mb_img':'pc_img'">
+        </el-form-item>
+        <el-form-item label="创建时间："> {{detail.created_at}} </el-form-item>
+        <el-form-item label="姓名："> {{detail.contact_name}} </el-form-item>
+        <el-form-item label="手机号："> {{detail.contact_phone}} </el-form-item>
+        <el-form-item label="QQ："> {{detail.wx_qq}} </el-form-item>
+      </el-form>
     </el-dialog>
     <div class="clearfix mb-10">
       <div class="button float-l">
@@ -18,7 +29,7 @@
           <span>批量删除</span>
         </el-button>
       </div>
-      <search :componentList="['input']" @searchMethod="searchAd" :search.sync="searchCondition.search">
+      <search :componentList="['input']" @searchMethod="searchAd" hintMess="输入相关信息进行搜索":search.sync="searchCondition.search">
       </search>
     </div>
     <el-table :data="list.data" style="width: 100%" @selection-change="handleSelection" v-loading="loading" :empty-text="emptyText">
@@ -42,11 +53,9 @@
       <el-table-column prop="created_at" label="创建时间" width='170'>
       </el-table-column>
       <el-table-column label="操作">
-        <template slot-scope="scope">
-          <el-button type="text" size="small" @click.stop="check(scope.$index)">
+          <el-button type="text" size="small" @click.stop="check(scope.row)" slot-scope="scope">
             查看详情
           </el-button>
-        </template>
       </el-table-column>
     </el-table>
 
@@ -71,7 +80,8 @@
   } from "@/api/servicer"
   export default {
     components: {
-      "serviceList": () => import('@/components/platform/marketing/serviceList')
+      "serviceList": () =>
+        import('@/components/platform/marketing/serviceList')
     },
     data() {
       return {
@@ -84,9 +94,10 @@
         list: {
           data: []
         },
-        detailShow:false,
+        detailShow: false,
         emptyText: "暂无数据",
         time: "", //用于清空样式
+        detail: {},
         deleteList: {
           data: []
         }, //批量删除
@@ -138,9 +149,9 @@
             })
         }
       },
-      check(index){
-        this.activeIndex=index;
-        this.detailShow=true;
+      check(data) {
+        this.detail = data;
+        this.detailShow = true;
       },
       searchAd() { //输入相关信息搜索
         this.emptyText = "未搜索到相关匹配信息";
@@ -199,7 +210,6 @@
                 this._status(data)
               })
           }
-
         }).catch(() => {
           if (event.srcElement.innerText == "取消") {
             return;
@@ -254,15 +264,41 @@
         }
       }
     }
+
+    .detail .el-dialog--small {
+      width: 1056px;
+
+      .el-form-item__label {
+        color: #9B9B9B;
+      }
+    }
   }
 
 </style>
-<style scoped>
+<style scoped lang="scss">
   .adimg {
     width: 70px;
     height: 50px;
     border-radius: 2px;
-    padding:10px 0;
+    padding: 10px 0;
+  }
+
+  .detail {
+    .el-form-item {
+      margin-bottom: 0;
+    }
+  }
+
+  .mb_img {
+    width: 375px;
+    height: 170px;
+    vertical-align: text-top;
+  }
+
+  .pc_img {
+    width: 610px;
+    height: 146px;
+    vertical-align: text-top;
   }
 
 </style>

@@ -11,7 +11,6 @@
 				v-if="BannerRadio==='on'" 
 				placeholder="请输入模块标题(必填)" 
 				class="login-input2 mt-10">
-				
 			</el-input>
 		</div>
 		<div class="banner-editor" v-for="(item,index) in banner" :key="index">
@@ -379,24 +378,6 @@
 				this.dialogFormVisible=data;
 			},
 			upBannerData(){		
-//				var id=this.$store.getters.getShop_id;
-//				var len=this.upBanner.length
-//				for(let i=0,max=len;i<max;i++){		
-//					if(this.choicePlate==="store"){//我的店铺时
-//						var banner=["shop_id","sort","banner_click_name",]
-//						//调用批量删除对象属性的方法
-//						deletes(banner,this.upBanner[i])
-//						var banner_click=this.upBanner[i].banner_click_type
-//						if(banner_click){
-//							delete this.upBanner[i].banner_click_type
-//						}
-//					}
-//					//去除对象里空字符串
-//					this.deleteEmptyString(this.upBanner[i]);
-//				};
-//				//去除数组里的空对象
-//				this.deleteArrayObject(this.upBanner);
-
 				//上传给后台的数据				
 				if(!this.title){
 					this.bannerEditor={banners:this.upBanner};	
@@ -404,7 +385,6 @@
 					let title
 					if(this.BannerRadio==="on"){//标题开关显示
 						title=this.bannerTitle
-						
 					}else if(this.BannerRadio==="off"){
 						title=null
 					};
