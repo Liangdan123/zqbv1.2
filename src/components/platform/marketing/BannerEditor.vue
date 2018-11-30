@@ -1,14 +1,5 @@
 <template>
   <div class="bannerEditore">
-    <div v-if="title==='hbys2'" class="border-e9-b pb-20">
-      <h3 class="color-3 f14 font-n mt-20">海报标题</h3>
-      <el-radio-group v-model="BannerRadio" class="mt-10" @change="isOnOff">
-        <el-radio label="on">开</el-radio>
-        <el-radio label="off">关</el-radio>
-      </el-radio-group>
-      <el-input type="text" v-model="bannerTitle" v-if="BannerRadio==='on'" placeholder="请输入模块标题(必填)" class="login-input2 mt-10">
-      </el-input>
-    </div>
     <div class="banner-editor" v-for="(item,index) in banner" :key="index">
       <div class="item-top clearfix">
         <span class="float-l color-3 f14">海报{{index+1}}</span>
@@ -32,18 +23,13 @@
       </div>
       <imageUpload :imageUrl="item.image_url" imageType="mall" :index="index" @getImageUrl="updataBanner">
       </imageUpload>
-      <!-- <p class="f12 color-6 sug">
-        图片尺寸建议750×420px，格式支持png、jpg
-      </p> -->
       <p class="jump">跳转链接</p>
       <div class="link">
         <span>
-          {{
-          item.click_type=="product"?"商品链接"+" -":
-          (item.click_type=="mall_category"?"商品分类"+" -":
-          item.click_type=="form"?"表单信息":"")
-          }}
-          {{item.click_type=="form"?"":item.click_name}}
+          {{item.click_type=="product"?`商品链接-${item.click_name}`:''}}
+          {{item.click_type=="mall_category"?`商品分类-${item.click_name}`:''}}
+          {{item.click_type=="form"?"表单信息":''}}
+          {{item.click_type=="url"?"外链地址":''}}
         </span>
         <button class="btn-link" @click="showBomb(item,index)">
           <svg height="18px" width="18px">
@@ -75,6 +61,17 @@
             <appendForm @shop_hidden="shop_hidden" @setFormMess="setFormMess" @resetData="resetData" :formData="formData" class='mt-20'
               :click_style="click_style" :index="bannerIndex">
             </appendForm>
+          </el-tab-pane>
+            <el-tab-pane label="其他链接" name="four" v-if="isPc&&isForm">
+             <div class='url_content'>
+                <el-input placeholder="请粘贴你要跳转的其他链接地址 如：https://www.baidu.com" v-model="url">
+                <template slot="prepend">其他链接地址：</template>
+              </el-input>
+             </div>
+              <div class="pagination-r clearfix text-r pb-20">
+                <el-button class="store-button2 float-r" @click="cancel">取消</el-button>
+                <el-button class="store-button1 float-r mr-10" @click="sureUrl">确定</el-button>
+              </div>
           </el-tab-pane>
         </el-tabs>
       </el-dialog>
@@ -108,12 +105,11 @@
     data() {
       let businessRange = this.$store.state.user.user.business_range;
       return {
-        imageType: "shop",
         dialogFormVisible: false,
         activeName: "first",
         bannerIndex: "",
         disabled: true,
-        bannerEditor: {},
+        url:'',
         classifyName: {},
         classifyType: "单选",
         productChecked: {
@@ -135,46 +131,26 @@
     },
     props: {
       banner: {
-        default: function () {
+        default: ()=>{
           return []
         },
       },
-      title: { //是否需要标题
-        default: function () {
-          return ""
-        }
+      isPc:{
+         default:false
       },
       isForm: {
-        default: function () {
-          return true
-        }
+        default:true
       }
     },
     created() {
-			let shop_id = this.$store.getters.getShop_id;
-      	this.BannerRadio=this.banner.title_switch||'off';//判断商城装修时海报样式二的标题开关
-      	this.bannerTitle=this.banner.title||'';
-      let status=this.$store.getters.getType;
-      if(status === 1){
-      	getMallClassifyList()//商城分类列表
-      	.then(({data})=>{
-      		this.mallClassifyList=data;					
-      	})
-      }
+      getMallClassifyList()//商城分类列表
+      .then(({data})=>{
+        this.mallClassifyList=data;					
+      })
       //添加海报按钮显示不显示(有时一个页面会调两个或者多个这个组件)
-      this.banner.length>4?this.disabled=false:this.disabled=true
+      this.disabled=this.banner.length<=4;
     },
-    // mixins: [shareMth, storeClassify],
-    computed: {
-      upBanner() {
-        return JSON.parse(JSON.stringify(this.banner))
-      }
-    },
-    updated() {
-      //传数据到父集，用于点击跳转链接时保存			
-      this.upBannerData();
-      this.$emit("passBanner", this.bannerEditor);
-    },
+    mixins: [shareMth, storeClassify],
     methods: {
       resetData() {
         this.formData = { //表单信息数据				                   
@@ -183,14 +159,13 @@
           click_image_url: "",
         };
       },
-      isOnOff() { //海报标题
-        this.banner = Object.assign(this.banner, { //判断商城装修时海报样式二的标题开关
-          title_switch: this.BannerRadio
-        })
-      },
       //商品分类传过来的数据
       categorys(val) {
         this.classifyName = val;
+      },
+      sureUrl(){
+         this.classifyCnt({click_url:this.url,click_type: "url"})
+        this.dialogFormVisible = false;
       },
       sureclassify() { //保存按钮
         this.dialogFormVisible = false;
@@ -221,14 +196,8 @@
         if (JSON.stringify(this.banner.length) == 4) {
           this.disabled = false;
         };
-        let bannerIndex = this.banner.length; //添加海报顺序
         this.banner.push({
           image_url: "",
-          name: "",
-          click_type: '',
-          click_id: '',
-          click_name: '',
-          sort: bannerIndex
         })
       },
       classifyCnt(data) { //点击弹框的确定按钮（商品链接）
@@ -271,7 +240,6 @@
       showBomb(item, index) { //打开弹窗		
         this.dialogFormVisible = true;
         this.bannerIndex = index;
-
         this.initStoreClassify("mallClassify"); //初始化数据
         if (this.mallClassify.length == 0 || this.banner.length == 0) {
           return
@@ -300,30 +268,12 @@
             click_image_url: "",
           })
         }
+        if(this.banner[index].click_type === "url"){
+          this.url=this.banner[index].click_url;
+        }
       },
       shop_hidden(data) {
         this.dialogFormVisible = data;
-      },
-      upBannerData() {
-        //上传给后台的数据				
-        if (!this.title) {
-          this.bannerEditor = {
-            banners: this.upBanner
-          };
-        } else if (this.title) {
-          let title
-          if (this.BannerRadio === "on") { //标题开关显示
-            title = this.bannerTitle
-          } else if (this.BannerRadio === "off") {
-            title = null
-          };
-          this.bannerEditor = {
-            banners: this.upBanner,
-            title_switch: this.banner.title_switch,
-            title: title
-          }
-        };
-
       },
     }
   }
@@ -331,6 +281,11 @@
 </script>
 
 <style scoped="scoped">
+  .url_content{
+    height:350px;
+    margin-top:50px ;
+    padding:20px;
+  }
   .bannerEditore {
     padding-bottom: 60px;
   }
@@ -367,7 +322,7 @@
     font-size: 12px;
     color: #333333;
     text-align: left;
-    margin-top: -2px;
+    margin-top: 10px;
   }
 
   div.link {

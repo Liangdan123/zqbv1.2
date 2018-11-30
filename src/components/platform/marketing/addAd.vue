@@ -8,22 +8,16 @@
     </div>
     <div class="mallDecor_middle" v-if='activeIndex!=null'>
       <p class='f14 mb-10'>{{adGroup[activeIndex].group_location_name}}</p>
-      <div class="Plate">
-        <h2 class="f16 color-3 text-c font-n line mb-10" v-if="temp.data.title_switch==='on'">
-          <i class="verticalLine"></i>{{!temp.data.title?"模块标题":temp.data.title}}
-        </h2>
-        <!--..................当有数据时执行这里....................-->
-        <div :class="'bg_banner'+locatArr.indexOf(adGroup[activeIndex].group_location)">
-          <el-carousel arrow="never" :interval="1000" height="100%" width="100%">
-            <el-carousel-item v-for="imgNum in temp.data" :key="imgNum.ad_id">
-              <img :src="imgNum.image_url" height="100%" width="100%" v-if='imgNum.image_url'>
-            </el-carousel-item>
-          </el-carousel>
-        </div>
-        <!--..................当没有数据时执行这里....................-->
+      <div :class="'bg_banner'+locatArr.indexOf(adGroup[activeIndex].group_location)" class="Plate">
+        <el-carousel arrow="never" :interval="adGroup[activeIndex].interval_second*1000" height="100%" width="100%" ref='cardPane'>
+          <el-carousel-item v-for="(imgNum,index) in temp.data" :key="imgNum.ad_id" >
+             <img :src="imgNum.image_url" height="100%" width="100%" v-if='imgNum.image_url'>
+          </el-carousel-item>
+        </el-carousel>
       </div>
     </div>
-    <decorationAd :Plate='temp.data' :styleType='locatArr.indexOf(adGroup[activeIndex].group_location)' :title='adGroup[activeIndex].group_name' v-if='activeIndex!=null'></decorationAd>
+    <decorationAd :Plate='temp.data' :styleType='locatArr.indexOf(adGroup[activeIndex].group_location)' :title='adGroup[activeIndex].group_name'
+      v-if='activeIndex!=null'></decorationAd>
     <!--.........................保存装修按钮......................-->
     <div class="fixed-frame">
       <div class="btn middle">
@@ -74,8 +68,11 @@
         data
       }) => {
         this.adGroup = data.data;
-			this.changeAd(data.data[0].group_id,0)
-			})
+        this.changeAd(data.data[0].group_id, 0)
+      })
+    },
+    mouted(){
+      this.$refs.cardPane.setActiveItem();
     },
     methods: {
       changeAd(id, index) {
@@ -105,44 +102,18 @@
         })
       },
       preserveDecore() { //保存装修	
-        for (let [index, item] of this.adData.entries()) { //保存装修错误验证
-          switch (item.component_key) {
-            case 'hbys1':
-              if (!item.data) { //当没有修改轮播图时
-                this.errorTips("hbys1", "请设置海报样式", index);
-                return
-              }
-              for (let bannerIndex of item.data.banners.values()) {
-                if (!bannerIndex.image_url) { //当忘记上传图片地址时
-                  this.errorTips("hbys1", "请上传海报图片", index);
-                  return
-                }
-              }
-              break
-            case 'hbys2':
-              if (item.data.title_switch === 'on') {
-                if (!item.data.title) {
-                  this.errorTips("hbys2", "请输入模块标题", index);
-                  return
-                }
-              };
-              if (item.data.banners.length === 0) {
-                this.errorTips("hbys2", "请添加海报", index);
-                return
-              }
-              if (item.data.banners.length !== 0) {
-                for (let bannerIndex of item.data.banners.values()) {
-                  if (!bannerIndex.image_url) { //当忘记上传图片地址时
-                    this.errorTips("hbys2", "请上传海报图片", index);
-                    return
-                  }
-                }
-              }
-              break;
-          };
+        if (this.temp.data.length==0) { //当没有修改轮播图时
+            this.$message.error('至少设置一张海报');
+          return
+        }
+        for (let key in this.temp.data) { //保存装修错误验证
+            if (!this.temp.data[key].image_url) { //当忘记上传图片地址时
+              this.$message.error(`请上传第${key-(-1)}海报图片`);
+              return
+            }
         };
         //保存装修接口
-        existAssembly(this.adData)
+        saveAd(this.temp)
           .then(({
             data
           }) => {
@@ -151,10 +122,10 @@
               type: 'success',
               showClose: 'true'
             });
+            this.adData=data;
+            this.adData.group_id = this.temp.group_id;
+             this.temp = JSON.parse(JSON.stringify(this.adData));
           })
-      },
-      errorTips(name, tips, index) { //错误提示(公共方法)
-        this.$message.error(tips);
       },
     }
   }
@@ -313,7 +284,9 @@
   .el-carousel {
     height: 100%;
   }
-
+  .el-carousel__item{
+    display: inline-block !important;
+  }
 </style>
 <style>
   .adDecoration .el-dialog--small {

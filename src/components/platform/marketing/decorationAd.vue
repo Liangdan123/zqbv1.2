@@ -1,27 +1,29 @@
 <template>
   <div class="mallDecora">
-    <!--..................轮播海报一....................-->
-    <div v-if="styleType==0&&styleType==2">
-      <h2 class="mt-20 pb-20 f20 color-3 border-e9-b">{{title}}</h2>
-      <BannerEditor :banner='Plate'  @passBanner="passBanner">
-      </BannerEditor>
-    </div>
-    <!--..................轮播海报二....................-->
-    <div v-else>
       <h2 class="mt-20 pb-20 f20 color-3">{{title}}</h2>
-      <BannerEditor  :banner='Plate' @passBanner="passBanner" title="hbys2"
-        :isForm="false">
+      <BannerEditor  :banner='Plate' @passBanner="passBanner"
+        :isForm="isForm" :isPc='isPc'>
       </BannerEditor>
-    </div>
   </div>
 </template>
 
 <script>
   import BannerEditor from "@/components/platform/marketing/BannerEditor"
   export default {
-    data() {
-      return {
-        banner: [],
+    computed: {
+      isForm(){
+        if(this.styleType==0||this.styleType==2){
+          return true
+        }else{
+          return false
+        }
+      },
+      isPc(){
+          if(this.styleType==0||this.styleType==1){
+          return false
+        }else{
+          return true
+        }
       }
     },
     props: {
