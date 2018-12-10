@@ -93,7 +93,10 @@
       		this.$refs.multipleTable.clearSelection();
       		this.$emit("InitRefundChoice")
     		}
-    	},
+      },
+      productMess(){
+        this.activeIndex=''
+      }
     },
     methods: {
       handleSelectionChange(val) {

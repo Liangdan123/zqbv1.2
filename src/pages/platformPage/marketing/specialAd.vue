@@ -25,7 +25,7 @@
     },
     data() {
       return {
-        activeName: "2",
+        activeName: "1",
       }
     },
   }

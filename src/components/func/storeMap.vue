@@ -16,7 +16,7 @@
 		},
 		props:["storeAddress"],
 		created(){
-			Tmap("QEJBZ-FBT3U-E6SV5-BWAEH-JBXCE-EMBE3")
+			Tmap("OXKBZ-75NWG-L5TQO-ILMN3-XADS2-JIFZ4")
 			.then(qq=>{
 				//地图开始时的位置（没有定位时）
 				this.storeMap=new qq.maps.Map(document.getElementById('mapContain'),{

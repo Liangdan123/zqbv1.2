@@ -358,6 +358,11 @@
         }
       }
     },
+    watch:{
+      checkOrder(){
+        this.progressShow=false;
+      }
+    },
     computed:{
     	productRefund(){
     		if(this.type==="退款"){

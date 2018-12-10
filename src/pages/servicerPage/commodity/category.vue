@@ -1,5 +1,5 @@
 <template>
-	<div class="category">		
+	<div class="category" @click='close'>		
 		<el-dialog :visible.sync="categoryDialog" 
 			:title="dialogTitle" 
 			size="tiny"
@@ -122,7 +122,7 @@
 						<div v-if='scope.row.mall_categorys.length>0'>
 							<p>{{scope.row.mall_categorys[0].mall_category_name}}</p>
 							<div v-if='scope.row.mall_categorys.length>1'>
-								<p class="toggle" @click="toggleShow(scope.$index)">
+								<p class="toggle" @click.stop="toggleShow(scope.$index)">
 									更多分类 
 									<img src="../../../assets/image/xiala.png" width="10" height="10">									 
 								</p>
@@ -238,6 +238,9 @@
 		},
 		mixins:[page,storeClassify],
 		methods:{
+			close(){
+				this.showIndex=''
+			},
 			_doSearch(){
 				let type=this.$store.getters.getType;
 				let shop_id=this.$store.getters.getShop_id
@@ -316,7 +319,7 @@
 				this.searchMethod();
 			},
 			toggleShow(index) {//下拉框看见与看不见
-				index === this.showIndex?this.showIndex = "":this.showIndex = index;
+				this.showIndex = index === this.showIndex?"":index;
 			},
 			deleteCategorys(index, arr) { //删除分类
 				if(this.mallClassify.length != 0) {
@@ -415,12 +418,14 @@
 					setProductsCategory(this.changeList)
 					.then(({data}) => {	
 						this.categoryDialog = false;
+						this.$message.success('设置成功')
 						this.searchMethod();			
 					})				
 				}else{//编辑、添加分类中的保存按钮						
 					setOnlyProductsCategory(this.changeProduct)
 					.then(({data}) => {	
 						this.categoryDialog = false;
+						this.$message.success('设置成功')
 						this.searchMethod();			
 					})
 				}

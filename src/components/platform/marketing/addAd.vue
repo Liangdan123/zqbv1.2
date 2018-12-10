@@ -220,13 +220,13 @@
 
   .bg_banner1 {
     width: 375px;
-    height: 210px;
     background-color: #E5F5FF;
+    height: 100px;
   }
 
   .bg_banner0 {
     width: 375px;
-    height: 100px;
+    height: 210px;
     background-color: #E5F5FF;
   }
 

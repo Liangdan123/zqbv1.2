@@ -12,15 +12,15 @@ module.exports = {
     assetsPublicPath: '/',
     proxyTable: {
 		 '/admin': {
-            target:'https://zqb.71baomu.com',
+            target:'https://zqb-demo.71baomu.com',
             changeOrigin: true
        },
 	    '/uploads':{
-            target:'https://zqb.71baomu.com',
+            target:'https://zqb-demo.71baomu.com',
             changeOrigin: true
 	       },
        '/images':{     		        		
-					target: 'https://zqb.71baomu.com',
+					target: 'https://zqb-demo.71baomu.com',
 					changeOrigin: true
 			}
     },

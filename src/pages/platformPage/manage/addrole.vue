@@ -16,20 +16,11 @@
         <el-form-item label="姓名：" prop="contact_name">
           <el-input v-model="form.contact_name" size="small" placeholder="请输入姓名"></el-input>
         </el-form-item>
-        <el-form-item label="性别：" prop="sex">
-          <el-radio-group v-model="form.sex">
-            <el-radio :label="1">男</el-radio>
-            <el-radio :label="2">女</el-radio>
-          </el-radio-group>
-        </el-form-item>
         <el-form-item label="身份证号：" prop="identity_num">
           <el-input v-model="form.identity_num" size="small" :maxlength='18' :minlength='18' placeholder="请输入身份证号码18位"></el-input>
         </el-form-item>
         <el-form-item label="手机号：" prop="phone">
           <el-input v-model="form.phone" size="small" :maxlength='11' :minlength='11' type="tel" placeholder="请输入手机号11位"></el-input>
-        </el-form-item>
-        <el-form-item label="QQ号：" v-if="is_company==1" prop="wx_qq">
-          <el-input v-model="form.wx_qq" size="small" placeholder="请输入qq号"></el-input>
         </el-form-item>
         <el-form-item label="所在地区：" prop="city">
           <city :areaSelect.sync="form.city" :placeholder="'请选择地区'" key="33"></city>
@@ -94,10 +85,8 @@
         is_company: 1,
         form: {
           contact_name: "",
-          sex: "",
           identity_num: '',
           phone: '',
-          wx_qq: '',
           city: [],
           contact_email: '',
           company_name: '',
@@ -113,12 +102,6 @@
             message: '请输入姓名',
             trigger: 'blur'
           }, ],
-          sex: [{
-            type: 'number',
-            required: true,
-            message: '请选择性别',
-            trigger: 'change'
-          }],
           identity_num: [{
               required: true,
               message: '请输入身份证号',
@@ -141,16 +124,6 @@
               trigger: 'blur'
             }
           ],
-          wx_qq: [{
-              required: true,
-              message: '请输入qq号',
-              trigger: 'blur'
-            },
-            {
-              pattern: /(^[1-9]([0-9]+)?(\.[0-9]{1,2})?$)|(^(0){1}$)|(^[0-9]\.[0-9]([0-9])?$)/,
-              message: '输入正确的QQ号',
-            }
-          ],
           city: [{
             type: 'array',
             required: true,
@@ -160,7 +133,7 @@
           contact_email: [{
             type: 'email',
             required: true,
-            message: '请输入邮箱',
+            message: '请输入正确的邮箱',
             trigger: 'blur'
           }],
           company_name: [{

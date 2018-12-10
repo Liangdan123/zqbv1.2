@@ -551,7 +551,7 @@
   export default {
     data() {
       return {
-        tabForShow: "3",
+        tabForShow: "1",
         status: 0, //0保存 1修改角色 2修改会员 3修改订单
         list1: [{
             "join_role": 2,
