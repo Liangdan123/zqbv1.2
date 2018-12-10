@@ -71,7 +71,7 @@
 				</div>
 
 				<div v-if="intro.length<0?true:false" class="no_arrival text-c">
-					<img src="../../../assets/image/Rectangle .png" />
+					<img src="../../../assets/image/Rectangle.png" />
 					<p>商品空空如也，敬请期待</p>
 				</div>
 				<div class="footer-min ">
@@ -84,7 +84,6 @@
 					<el-tabs v-model="realTime" type="card">
 						<el-tab-pane label="基本信息" name="first">
 							<decorate-basic :shopMess="shopMess" @passBasicMess="passBasicMess">
-
 							</decorate-basic>
 						</el-tab-pane>
 						<el-tab-pane label="轮播海报" name="second">

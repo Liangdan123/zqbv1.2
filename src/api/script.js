@@ -7,8 +7,7 @@ export function Tmap(key){
 		};		
 		var script=document.createElement("script");
 		script.type="text/javascript";
-		script.src="https://map.qq.com/api/js?v=2.exp&callback=init&key=QEJBZ-FBT3U-E6SV5-BWAEH-JBXCE-EMBE3"
-//		script.src="http://map.qq.com/api/js?v=2.exp&callback=init&key=QEJBZ-FBT3U-E6SV5-BWAEH-JBXCE-EMBE3"
+		script.src="https://map.qq.com/api/js?v=2.exp&callback=init&key="+key
 		script.onerror=reject;
 		document.head.appendChild(script)
 	})
