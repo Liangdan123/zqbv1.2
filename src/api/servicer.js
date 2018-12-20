@@ -51,3 +51,9 @@ export const setProductsCategory =(data)=>axios.post("product/save_product_mall_
 export const setOnlyProductsCategory =(data)=>axios.post("product/save_product_mall_category",data)//设置商品店铺分类(单个)
 
 export const shopWorkerLists=(data)=>axios.post("shop/worker_lists",data)//获取店铺子账号列表
+
+export const shopAddWorker=(data)=>axios.post("shop/add_worker",data)//获取店铺子账号列表
+
+export const shopUpdateWorker=(data)=>axios.put("shop/update_worker",data)//编辑店铺子账号
+
+export const shopDeleteWorkerBatch=(data)=>axios.delete("shop/delete_worker_batch",{data})//批量删除店铺子账号
