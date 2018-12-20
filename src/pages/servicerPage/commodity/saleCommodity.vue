@@ -145,7 +145,11 @@
 					width="120">
 					
 				</el-table-column>
-				<el-table-column prop="created_at" label="创建时间"  sortable="custom" width="212">
+				<el-table-column 
+					prop="created_at" 
+					label="创建时间"  
+					sortable="custom" 
+					width="212">
 					
 				</el-table-column>			
 				<el-table-column prop="status" label="商品状态"   width="182">
@@ -200,8 +204,6 @@
 	import checkProducts from "@/components/platform/storeManage/checkProducts"
 	export default{
 		components:{
-//			"checkProducts":()=>import("@/components/platform/storeManage/checkProducts"),
-//			"productMess":()=>import("@/components/servicer/sellerCenter/productMess"),
 			"assess":()=>import("@/components/servicer/commodity/assess"),
 			checkProducts,productMess
 		},

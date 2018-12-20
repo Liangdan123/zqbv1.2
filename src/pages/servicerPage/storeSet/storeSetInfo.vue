@@ -16,6 +16,13 @@
 				</div>
 				<p><i class="iconfont icon-dianpuzhuangxiu"></i></p>
 			</router-link>
+			<router-link :to="{name:'accountAdm'}" class="item-3 item-list fl">
+				<div>
+					<i class="iconfont icon-xingzhuang"></i>
+					<span>账号管理</span>
+				</div>
+				<p><i class="iconfont icon-xingzhuang"></i></p>
+			</router-link>
 		</div>
 		<router-view></router-view>
 	</div>

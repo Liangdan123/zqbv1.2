@@ -67,6 +67,7 @@ import storeSetInfo from "@/pages/servicerPage/storeSet/storeSetInfo"
 import storeMessShow from "@/pages/servicerPage/storeSet/storeMessShow"
 import editStoreMessage from "@/pages/servicerPage/storeSet/editStoreMessage"
 import storedecoration from "@/pages/servicerPage/storeSet/storedecoration"
+import accountAdm from "@/pages/servicerPage/storeSet/accountAdm"
 
 //服务商的商品管理
 import commodityInfo from "@/pages/servicerPage/commodity/commodityInfo"
@@ -410,6 +411,10 @@ const router = new Router({
 								path: 'storedecoration',
 								name: 'storedecoration',
 								component: storedecoration,
+							},{							
+								path: 'accountAdm',
+								name: 'accountAdm',
+								component: accountAdm,
 							}
 						]
 					},

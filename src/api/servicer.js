@@ -49,3 +49,5 @@ export const backAssess = (data)=>axios.post("product/comment_back",data);//评�
 export const setProductsCategory =(data)=>axios.post("product/save_product_mall_category_batch",data)//批量设置商品商城分类
 
 export const setOnlyProductsCategory =(data)=>axios.post("product/save_product_mall_category",data)//设置商品店铺分类(单个)
+
+export const shopWorkerLists=(data)=>axios.post("shop/worker_lists",data)//获取店铺子账号列表

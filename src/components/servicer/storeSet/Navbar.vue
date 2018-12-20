@@ -14,6 +14,11 @@
 				:class="{active:selected=='storedecoration'}">
 				店铺装修
 			</el-menu-item>
+			<el-menu-item 
+				index="accountAdm" 
+				:class="{active:selected=='accountAdm'}">
+				账号管理
+			</el-menu-item>
 		</el-menu>
 	</div>
 </template>

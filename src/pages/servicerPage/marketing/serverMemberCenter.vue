@@ -68,9 +68,7 @@
 </template>
 
 <script>
-  import {
-    getRoleData
-  } from "@/api/servicer"
+  import {getRoleData} from "@/api/servicer"
   export default {
     components: {
       "memberManage": () =>
