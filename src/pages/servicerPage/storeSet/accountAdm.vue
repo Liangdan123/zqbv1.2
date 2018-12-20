@@ -22,7 +22,7 @@
 				    	placeholder="请输入手机号码作为账号，登录时使用">
 				    	
 				    </el-input>
-				     <b class="kf">@53kf.com</b>
+				     <b class="kf">@hzzqb.com</b>
 				</el-form-item>
 				<el-form-item label="密码" prop="password" v-if="isName=='添加账号'">
 				    <el-input v-model="ruleForm.password" 
@@ -35,7 +35,9 @@
 					<el-button @click="cancel('ruleForm')" class="store-button2 float-r">
 				    	取消
 				    </el-button>
-					<el-button  @click="addEditAccount('ruleForm')" class="store-button1 float-r">
+					<el-button  @click="addEditAccount('ruleForm')" 
+						class="store-button1 float-r"
+						:loading="load">
 						{{btnName}}
 					</el-button>
 				</el-form-item>
@@ -145,13 +147,14 @@
 					phone:[{ required: true, message:'请输入账号', trigger: 'submit' }],
 					password:[
 						{ required: true, message: '请输入密码', trigger: 'submit' },
-						{ required: true,min: 6, max: 16, message: '请输入8-16位', trigger: 'submit' }
+						{ required: true,min: 8, max: 16, message: '请输入8-16位', trigger: 'submit' }
 					],
 				},
 				deleteItem:{
 					user_id:id,
 					data:[]
-				}
+				},
+				load:false,
 			}
 		},
 		mixins:[page],
@@ -191,11 +194,13 @@
 			addEditAccount(formName){//编辑添加子账号
 				this.$refs[formName].validate((valid) => {
 		          if (valid) {
+		          	this.load=true
 		            if(this.btnName=="添加"){
 		            	this.ruleForm.phone=+this.ruleForm.phone
 		            	shopAddWorker(this.ruleForm)
 		            	.then(({data})=>{
 		            		this.dialogVisible=false;
+		            		this.load=false
 		            		this._doSearch()
 		            	})
 		            }else if(this.btnName=="保存"){
@@ -203,9 +208,10 @@
 						shopUpdateWorker(this.editForm)
 						.then(({data})=>{
 		            		this.dialogVisible=false;
+		            		this.load=false
 		            		this._doSearch()
 		            	})
-		            }
+		            }		            
 		          } else {		            
 		            return false;
 		          }
